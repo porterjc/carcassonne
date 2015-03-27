@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ee3dd9a-924b-4e41-9782-5eb34947d4c9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameTest.java" afterPath="$PROJECT_DIR$/src/GameTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Carcassonne/Game.class" afterPath="$PROJECT_DIR$/out/production/Carcassonne/Game.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Carcassonne/GameTest.class" afterPath="$PROJECT_DIR$/out/production/Carcassonne/GameTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game.java" afterPath="$PROJECT_DIR$/src/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Carcassonne.iws" />
@@ -26,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.56">
-              <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.6612319">
+              <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#509#510#0" expanded="true" />
@@ -39,9 +40,8 @@
                 <element signature="e#606#607#0" expanded="true" />
                 <element signature="e#645#646#0" expanded="true" />
                 <element signature="e#685#686#0" expanded="true" />
-                <element signature="e#751#752#0" expanded="true" />
-                <element signature="e#781#782#0" expanded="true" />
-                <element signature="e#816#817#0" expanded="true" />
+                <element signature="e#854#855#0" expanded="true" />
+                <element signature="e#889#890#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,10 +57,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67753625">
+            <state vertical-scroll-proportion="-14.96">
               <caret line="27" column="21" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="30" />
               <folding />
             </state>
@@ -92,8 +92,8 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/src/GameBoard.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
-        <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/GameTest.java" />
+        <option value="$PROJECT_DIR$/src/Game.java" />
       </list>
     </option>
   </component>
@@ -501,7 +501,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427428714401</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="finished testIsGameOver">
+      <created>1427428885376</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1427428885376</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -545,7 +551,8 @@
     <MESSAGE value="Added testDrawBoard() and testIsGameOver(). testIsGameOver() is not completely written&#10;" />
     <MESSAGE value="added least amount of code to pass testDrawBoard (now renamed to DrawTile&#10;" />
     <MESSAGE value="Refactored testDrawTile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored testDrawTile" />
+    <MESSAGE value="finished testIsGameOver" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished testIsGameOver" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -606,10 +613,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.96">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.56">
-          <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.6612319">
+          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#509#510#0" expanded="true" />
@@ -618,18 +633,9 @@
             <element signature="e#606#607#0" expanded="true" />
             <element signature="e#645#646#0" expanded="true" />
             <element signature="e#685#686#0" expanded="true" />
-            <element signature="e#751#752#0" expanded="true" />
-            <element signature="e#781#782#0" expanded="true" />
-            <element signature="e#816#817#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67753625">
-          <caret line="27" column="21" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>

@@ -31,6 +31,9 @@ public class Game {
     }
 
     public boolean isGameOver() {
+        if(numberOfTilesLeft == 0){
+            gameOver=true;
+        }
         return gameOver;
     }
 
