@@ -28,7 +28,9 @@ public class GameTest {
     public void testIsGameOver(){
         Game board= new Game();
         assert board.isGameOver() == false: "game not over";
-        board.drawTile();
-
+        for(int i =0; i<72;i++){
+            board.drawTile();
+        }
+        assert board.isGameOver() == true: "game is over";
     }
 }
