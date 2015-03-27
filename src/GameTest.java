@@ -4,7 +4,7 @@ import org.junit.Test;
  * Created by johnsoaa on 3/25/2015.
  */
 public class GameTest {
-
+    public final int numberOfTiles =72;
     @Test
     public void testCreateGame(){
         Game board = new Game();
@@ -16,26 +16,30 @@ public class GameTest {
   }
     @Test
     public void testDrawTile(){
-        Game board = new Game();
-        assert board.getNumberOfTilesLeft() ==72 :" Tiles";
-        board.drawTile();
-        assert board.getNumberOfTilesLeft() ==71 :" Tiles";
-        board.drawTile();
-        board.drawTile();
-        assert board.getNumberOfTilesLeft() ==69 :" Tiles";
-        for(int i =0; i<69;i++){
-            board.drawTile();
+        Game game = new Game();
+        assert game.getNumberOfTilesLeft() == numberOfTiles :" Tiles";
+        game.drawTile();
+        assert game.getNumberOfTilesLeft() == numberOfTiles - 1:" Tiles";
+        game.drawTile();
+        game.drawTile();
+        assert game.getNumberOfTilesLeft() == numberOfTiles - 3 :" Tiles";
+    }
+    @Test
+    public void testEmptyTileList(){
+        Game game = new Game();
+        for(int i =0; i<numberOfTiles;i++){
+            game.drawTile();
         }
-        assert board.getNumberOfTilesLeft() ==0 :" Tiles";
-        assert board.drawTile() == false :"cannot draw tile from empty stack";
+        assert game.getNumberOfTilesLeft() == 0 :" Tiles";
+        assert game.drawTile() == false :"cannot draw tile from empty stack";
     }
     @Test
     public void testIsGameOver(){
-        Game board= new Game();
-        assert board.isGameOver() == false: "game not over";
-        for(int i =0; i<72;i++){
-            board.drawTile();
+        Game game= new Game();
+        assert game.isGameOver() == false: "game not over";
+        for(int i =0; i<numberOfTiles;i++){
+            game.drawTile();
         }
-        assert board.isGameOver() == true: "game is over";
+        assert game.isGameOver() == true: "game is over";
     }
 }
