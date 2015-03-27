@@ -7,11 +7,25 @@ import java.util.List;
  */
 public class Game {
 
-    public int score;
-    public List<Player> players;
+    private int score;
+    private List<Player> players;
+    private int numberOfTilesLeft;
 
+    /**
+     * TODO add real arguments to this constructor
+     */
     public Game(){
         players = new ArrayList<Player>();
-        score =0;
+        score = 0;
+        numberOfTilesLeft = 72;
+    }
+    public int getScore(){
+        return score;
+    }
+    public List<Player>  getPlayers(){
+        return players;
+    }
+    public int getNumberOfTilesLeft(){
+        return numberOfTilesLeft;
     }
 }
