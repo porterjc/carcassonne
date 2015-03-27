@@ -217,4 +217,4 @@ pip-log.txt
 
 
 #Intellij
-workspace.xml
+.idea/workspace.xml
