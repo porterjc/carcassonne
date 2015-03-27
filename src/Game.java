@@ -18,6 +18,7 @@ public class Game {
         players = new ArrayList<Player>();
         score = 0;
         numberOfTilesLeft = 72;
+        gameOver = false;
     }
     public int getScore(){
         return score;
