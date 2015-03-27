@@ -37,7 +37,8 @@ public class Game {
         return gameOver;
     }
 
-    public void drawTile() {
+    public boolean drawTile() {
         numberOfTilesLeft--;
+        return true;
     }
 }

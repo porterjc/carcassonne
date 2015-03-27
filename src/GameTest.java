@@ -23,6 +23,11 @@ public class GameTest {
         board.drawTile();
         board.drawTile();
         assert board.getNumberOfTilesLeft() ==69 :" Tiles";
+        for(int i =0; i<69;i++){
+            board.drawTile();
+        }
+        assert board.getNumberOfTilesLeft() ==0 :" Tiles";
+        assert board.drawTile() == false :"cannot draw tile from empty stack";
     }
     @Test
     public void testIsGameOver(){
