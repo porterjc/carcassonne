@@ -14,6 +14,23 @@ public class GameTest {
         assert board.getScore() == 0 : "Score: 0";
         assert board.getNumberOfTilesLeft() ==72 :" Tiles";
         assert board.getPlayers() != null : "List of players is not null";
-        assert board.isGameOver() == false: "game not over";
+
   }
+    @Test
+    public void testDrawBoard(){
+        Game board = new Game();
+        assert board.getNumberOfTilesLeft() ==72 :" Tiles";
+        board.drawBoard();
+        assert board.getNumberOfTilesLeft() ==71 :" Tiles";
+        board.drawBoard();
+        board.drawBoard();
+        assert board.getNumberOfTilesLeft() ==69 :" Tiles";
+    }
+    @Test
+    public void testIsGameOver(){
+        Game board= new Game();
+        assert board.isGameOver() == false: "game not over";
+        board.drawBoard();
+
+    }
 }
