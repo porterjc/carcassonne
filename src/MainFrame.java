@@ -19,6 +19,8 @@ public class MainFrame extends JFrame {
     }
 
     private void setupScreen(){
+        GridDisplay gd = new GridDisplay();
+        this.add(gd, BorderLayout.CENTER);
         QuitButton quitButton = new QuitButton();
         this.add(quitButton, BorderLayout.SOUTH);
     }
