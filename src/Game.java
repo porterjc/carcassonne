@@ -18,9 +18,15 @@ public class Game {
     public Game(){
         players = new ArrayList<Player>();
         tiles = new Stack<Tile>();
-
         gameOver = false;
     }
+
+    public Game(Stack<Tile> testStack) {
+        players = new ArrayList<Player>();
+        tiles = testStack;
+        gameOver = false;
+    }
+
     //TODO determine where to handle score
     public List<Player>  getPlayers(){
         return players;
@@ -44,4 +50,5 @@ public class Game {
         tiles.pop();
         return true;
     }
+
 }
