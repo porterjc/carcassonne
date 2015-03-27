@@ -5,6 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Carcassonne/Game.class" afterPath="$PROJECT_DIR$/out/production/Carcassonne/Game.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Carcassonne/GameTest.class" afterPath="$PROJECT_DIR$/out/production/Carcassonne/GameTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game.java" afterPath="$PROJECT_DIR$/src/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameTest.java" afterPath="$PROJECT_DIR$/src/GameTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Carcassonne.iws" />
@@ -27,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7844203">
-              <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
+            <state vertical-scroll-proportion="-16.64">
+              <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#509#510#0" expanded="true" />
@@ -42,8 +43,8 @@
                 <element signature="e#685#686#0" expanded="true" />
                 <element signature="e#720#721#0" expanded="true" />
                 <element signature="e#751#752#0" expanded="true" />
-                <element signature="e#782#783#0" expanded="true" />
-                <element signature="e#817#818#0" expanded="true" />
+                <element signature="e#781#782#0" expanded="true" />
+                <element signature="e#816#817#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,14 +60,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.64">
-              <caret line="19" column="29" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.30072463">
+              <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -96,8 +95,8 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/src/GameBoard.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
-        <option value="$PROJECT_DIR$/src/GameTest.java" />
         <option value="$PROJECT_DIR$/src/Game.java" />
+        <option value="$PROJECT_DIR$/src/GameTest.java" />
       </list>
     </option>
   </component>
@@ -201,7 +200,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.GameTest.testDrawBoard">
+  <component name="RunManager" selected="JUnit.GameTest.testDrawTile">
     <configuration default="false" name="GameBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="Carcassonne" />
@@ -244,14 +243,14 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="GameTest.testDrawBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="GameTest.testDrawTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="Carcassonne" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="GameTest" />
-      <option name="METHOD_NAME" value="testDrawBoard" />
+      <option name="METHOD_NAME" value="testDrawTile" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -416,11 +415,11 @@
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="JUnit.GameBoardTest" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.GameTest.testCreateGame" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.GameTest.testDrawBoard" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.GameTest.testDrawTile" />
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.GameTest.testDrawBoard" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.GameTest.testDrawTile" />
         <item index="1" class="java.lang.String" itemvalue="JUnit.GameTest.testCreateGame" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.GameBoardTest" />
       </list>
@@ -470,7 +469,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427428534906</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added least amount of code to pass testDrawBoard (now renamed to DrawTile&#10;">
+      <created>1427428671836</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1427428671836</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -512,7 +517,8 @@
     <MESSAGE value="added test for the isGameOver method of Game" />
     <MESSAGE value="added least amount of passing code to test the isGameOver() method" />
     <MESSAGE value="Added testDrawBoard() and testIsGameOver(). testIsGameOver() is not completely written&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added testDrawBoard() and testIsGameOver(). testIsGameOver() is not completely written&#10;" />
+    <MESSAGE value="added least amount of code to pass testDrawBoard (now renamed to DrawTile&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="added least amount of code to pass testDrawBoard (now renamed to DrawTile&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -573,20 +579,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.64">
-          <caret line="19" column="29" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7844203">
-          <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
+        <state vertical-scroll-proportion="-16.64">
+          <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#509#510#0" expanded="true" />
@@ -597,9 +593,17 @@
             <element signature="e#685#686#0" expanded="true" />
             <element signature="e#720#721#0" expanded="true" />
             <element signature="e#751#752#0" expanded="true" />
-            <element signature="e#782#783#0" expanded="true" />
-            <element signature="e#817#818#0" expanded="true" />
+            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#816#817#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30072463">
+          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>

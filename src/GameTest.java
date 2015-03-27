@@ -1,7 +1,5 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by johnsoaa on 3/25/2015.
  */
@@ -17,20 +15,20 @@ public class GameTest {
 
   }
     @Test
-    public void testDrawBoard(){
+    public void testDrawTile(){
         Game board = new Game();
         assert board.getNumberOfTilesLeft() ==72 :" Tiles";
-        board.drawBoard();
+        board.drawTile();
         assert board.getNumberOfTilesLeft() ==71 :" Tiles";
-        board.drawBoard();
-        board.drawBoard();
+        board.drawTile();
+        board.drawTile();
         assert board.getNumberOfTilesLeft() ==69 :" Tiles";
     }
     @Test
     public void testIsGameOver(){
         Game board= new Game();
         assert board.isGameOver() == false: "game not over";
-        board.drawBoard();
+        board.drawTile();
 
     }
 }
