@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     @Test
-    public void GameTest(){
-        GameBoard board = new GameBoard();
+    public void testCreateGame(){
+        Game board = new Game();
         assert board != null : "board not null";
         assert board.score == 0 : "Score: 0";
         assert board.players != null : "List of players is not null";

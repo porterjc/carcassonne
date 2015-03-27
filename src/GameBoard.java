@@ -3,7 +3,4 @@
  */
 public class GameBoard {
 
-
-    public int score;
-    public Object players;
 }
