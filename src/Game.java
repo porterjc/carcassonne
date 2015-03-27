@@ -17,6 +17,7 @@ public class Game {
     public Game(){
         players = new ArrayList<Player>();
         score = 0;
+        //TODO change the numberofTilesLeft to be a LIST of tiles
         numberOfTilesLeft = 72;
         gameOver = false;
     }
@@ -38,6 +39,11 @@ public class Game {
     }
 
     public boolean drawTile() {
+        //TODO change the number of tiles left variable to call tileList.size()
+        if(numberOfTilesLeft == 0)
+        {
+            return false;
+        }
         numberOfTilesLeft--;
         return true;
     }
