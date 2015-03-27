@@ -6,10 +6,8 @@ import java.util.Stack;
  * Created by johnsoaa on 3/25/2015.
  */
 public class Game {
-
-
+    // TODO add functional variable for turn
     private List<Player> players;
-    private final int numberOfTile =72;
     private boolean gameOver;
     private Stack<Tile> tiles;
     /**
@@ -21,6 +19,10 @@ public class Game {
         gameOver = false;
     }
 
+    /**
+     * TODO add parameters for passing a list of players
+     * @param testStack
+     */
     public Game(Stack<Tile> testStack) {
         players = new ArrayList<Player>();
         tiles = testStack;
@@ -28,6 +30,7 @@ public class Game {
     }
 
     //TODO determine where to handle score
+
     public List<Player>  getPlayers(){
         return players;
     }
@@ -42,6 +45,10 @@ public class Game {
         return gameOver;
     }
 
+    /**
+     * TODO 1. add functionality to pass an image url back to the UI
+     * @return
+     */
     public boolean drawTile() {
         if(tiles.size() == 0)
         {
@@ -50,5 +57,6 @@ public class Game {
         tiles.pop();
         return true;
     }
+
 
 }
