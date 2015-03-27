@@ -35,6 +35,6 @@ public class Game {
     }
 
     public void drawBoard() {
-
+        numberOfTilesLeft--;
     }
 }
