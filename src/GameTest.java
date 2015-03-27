@@ -1,7 +1,10 @@
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
+
 import java.util.Stack;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by johnsoaa on 3/25/2015.
@@ -11,6 +14,7 @@ public class GameTest {
     @Test
     public void testCreateGame(){
         Game board = new Game();
+
         assert board != null : "board not null";
         assert board.getNumberOfTilesLeft() == 0 :" Tiles";
         assert board.getPlayers() != null : "List of players is not null";
