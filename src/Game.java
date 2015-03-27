@@ -10,7 +10,7 @@ public class Game {
     private int score;
     private List<Player> players;
     private int numberOfTilesLeft;
-
+    private boolean gameOver;
     /**
      * TODO add real arguments to this constructor
      */
@@ -27,5 +27,9 @@ public class Game {
     }
     public int getNumberOfTilesLeft(){
         return numberOfTilesLeft;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 }

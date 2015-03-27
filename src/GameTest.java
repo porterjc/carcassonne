@@ -14,5 +14,6 @@ public class GameTest {
         assert board.getScore() == 0 : "Score: 0";
         assert board.getNumberOfTilesLeft() ==72 :" Tiles";
         assert board.getPlayers() != null : "List of players is not null";
+        assert board.isGameOver() == false: "game not over";
   }
 }
