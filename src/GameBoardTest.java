@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -5,4 +7,9 @@ import static org.junit.Assert.*;
  */
 public class GameBoardTest {
 
+    @Test
+    public void constructorTest(){
+        GameBoard board = new GameBoard();
+        assert board != null : "board not null";
+    }
 }
