@@ -7,10 +7,11 @@ public class Meeple {
 
 
     private Color mColor;
-    private Player player;
+    private Player meepleOwner;
 
     public Meeple(Player p, Color aqua) {
         mColor = aqua;
+        meepleOwner = p;
     }
 
     public Color getColor() {
@@ -18,6 +19,6 @@ public class Meeple {
     }
 
     public Player getPlayer() {
-        return player;
+        return meepleOwner;
     }
 }
