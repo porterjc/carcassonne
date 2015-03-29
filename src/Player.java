@@ -15,13 +15,13 @@ public class Player {
         pColor = color;
         playerScore = 0;
         meeples = new ArrayList<Meeple>();
-        meeples.add(new Meeple(color));
-        meeples.add(new Meeple(color));
-        meeples.add(new Meeple(color));
-        meeples.add(new Meeple(color));
-        meeples.add(new Meeple(color));
-        meeples.add(new Meeple(color));
-        meeples.add(new Meeple(color));
+        meeples.add(new Meeple(this, color));
+        meeples.add(new Meeple(this, color));
+        meeples.add(new Meeple(this, color));
+        meeples.add(new Meeple(this, color));
+        meeples.add(new Meeple(this, color));
+        meeples.add(new Meeple(this, color));
+        meeples.add(new Meeple(this, color));
     }
 
     public int getPlayerScore() {
