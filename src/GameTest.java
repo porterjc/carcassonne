@@ -11,25 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class GameTest {
     public final int numberOfTiles = 72;
 
-    @Test
-    public void testCreateGame() {
-        Game board = new Game();
-        assertEquals(true, board != null );
-        assertEquals(0, board.getNumberOfTilesLeft() );
-        assertEquals(true, board.getPlayers() != null );
-    }
-
-
-    @Test
-    public void testDrawTile() {
-        Game game = makeNewGame();
-        assert game.getNumberOfTilesLeft() == numberOfTiles : " Tiles";
-        game.drawTile();
-        assert game.getNumberOfTilesLeft() == numberOfTiles - 1 : " Tiles";
-        game.drawTile();
-        game.drawTile();
-        assert game.getNumberOfTilesLeft() == numberOfTiles - 3 : " Tiles";
-    }
 
     @NotNull
     private Game makeNewGame() {
@@ -41,22 +22,41 @@ public class GameTest {
     }
 
     @Test
+    public void testCreateGame() {
+        Game board = new Game();
+        assertEquals(true, board != null);
+        assertEquals(0, board.getNumberOfTilesLeft());
+        assertEquals(true, board.getPlayers() != null );
+    }
+
+    @Test
+    public void testDrawTile() {
+        Game game = makeNewGame();
+        assertEquals(numberOfTiles,game.getNumberOfTilesLeft());
+        game.drawTile();
+        assertEquals(numberOfTiles - 1, game.getNumberOfTilesLeft());
+        game.drawTile();
+        game.drawTile();
+        assertEquals(numberOfTiles - 3, game.getNumberOfTilesLeft());
+    }
+
+    @Test
     public void testEmptyTileList() {
         Game game = makeNewGame();
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
         }
-        assert game.getNumberOfTilesLeft() == 0 : " Tiles";
-        assert game.drawTile() == false : "cannot draw tile from empty stack";
+        assertEquals(0, game.getNumberOfTilesLeft());
+        assertEquals(false, game.drawTile() );
     }
 
     @Test
     public void testIsGameOver() {
         Game game = makeNewGame();
-        assert game.isGameOver() == false : "game not over";
+        assertEquals(false, game.isGameOver() );
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
         }
-        assert game.isGameOver() == true : "game is over";
+        assertEquals(true, game.isGameOver() );
     }
 }
