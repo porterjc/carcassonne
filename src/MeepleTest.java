@@ -10,21 +10,31 @@ import org.junit.Test;
 public class MeepleTest extends TestCase {
     private Player p;
     private Meeple m;
+
     @Before
-    public void setUp(){
-        p=new Player(Color.AQUA);
-        m= new Meeple(p, Color.AQUA);
+    public void setUp() {
+        p = new Player(Color.AQUA);
+        m = new Meeple(p, Color.AQUA);
     }
+
     @Test
-    public void testSetUp(){
+    public void testSetUp() {
         assertEquals(Color.AQUA, m.getColor());
         assertEquals(p, m.getPlayer());
 
     }
 
-    @After
-    public void cleanUp(){
+    @Test
+    public void testPlaceMeeble() {
+        assertEquals(null, m.getFeature());
+        m.place(GlobalVariables.Feature.GRASS);
+        assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
+    }
 
+    @After
+    public void cleanUp() {
+        p = null;
+        m = null;
 
     }
 }

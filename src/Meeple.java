@@ -8,6 +8,8 @@ public class Meeple {
 
     private Color mColor;
     private Player meepleOwner;
+    private GlobalVariables.Feature placedOn;
+
 
     public Meeple(Player p, Color aqua) {
         mColor = aqua;
@@ -20,5 +22,12 @@ public class Meeple {
 
     public Player getPlayer() {
         return meepleOwner;
+    }
+
+    public void place(GlobalVariables.Feature grass) {
+    }
+
+    public GlobalVariables.Feature getFeature() {
+        return placedOn;
     }
 }
