@@ -36,5 +36,6 @@ public class Player {
         return meeples;
     }
 
-
+    public void updateScore(int i) {
+    }
 }
