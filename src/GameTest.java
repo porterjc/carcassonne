@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class GameTest {
     public final int numberOfTiles = 72;
 
-
     @NotNull
     private Game makeNewGame() {
         Stack<Tile> testStack = new Stack<Tile>();

@@ -10,10 +10,11 @@ public class Game {
     private List<Player> players;
     private boolean gameOver;
     private Stack<Tile> tiles;
+
     /**
      * TODO add real arguments to this constructor
      */
-    public Game(){
+    public Game() {
         players = new ArrayList<Player>();
         tiles = new Stack<Tile>();
         gameOver = false;
@@ -21,6 +22,7 @@ public class Game {
 
     /**
      * TODO add parameters for passing a list of players
+     *
      * @param testStack
      */
     public Game(Stack<Tile> testStack) {
@@ -31,27 +33,28 @@ public class Game {
 
     //TODO determine where to handle score
 
-    public List<Player>  getPlayers(){
+    public List<Player> getPlayers() {
         return players;
     }
-    public int getNumberOfTilesLeft(){
+
+    public int getNumberOfTilesLeft() {
         return tiles.size();
     }
 
     public boolean isGameOver() {
-        if(tiles.size() == 0){
-            gameOver=true;
+        if (tiles.size() == 0) {
+            gameOver = true;
         }
         return gameOver;
     }
 
     /**
      * TODO 1. add functionality to pass an image url back to the UI
+     *
      * @return
      */
     public boolean drawTile() {
-        if(tiles.size() == 0)
-        {
+        if (tiles.size() == 0) {
             return false;
         }
         tiles.pop();
