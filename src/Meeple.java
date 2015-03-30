@@ -24,7 +24,8 @@ public class Meeple {
         return meepleOwner;
     }
 
-    public void place(GlobalVariables.Feature grass) {
+    public void place(GlobalVariables.Feature place) {
+        placedOn = place;
     }
 
     public GlobalVariables.Feature getFeature() {
