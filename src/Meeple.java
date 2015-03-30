@@ -31,4 +31,8 @@ public class Meeple {
     public GlobalVariables.Feature getFeature() {
         return placedOn;
     }
+
+    public void remove() {
+
+    }
 }

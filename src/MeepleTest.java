@@ -1,13 +1,14 @@
 import javafx.scene.paint.Color;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertEquals;
+
 /**
  * Created by johnsoaa on 3/29/2015.
  */
-public class MeepleTest extends TestCase {
+public class MeepleTest {
     private Player p;
     private Meeple m;
 
@@ -30,7 +31,14 @@ public class MeepleTest extends TestCase {
         m.place(GlobalVariables.Feature.GRASS);
         assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
     }
-
+    @Test
+    public void testRemoveMeeble(){
+        assertEquals(null, m.getFeature());
+        m.place(GlobalVariables.Feature.GRASS);
+        assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
+        m.remove();
+        assertEquals(null, m.getFeature());
+    }
     @After
     public void cleanUp() {
         p = null;
