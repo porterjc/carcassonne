@@ -1,31 +1,65 @@
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by johnsoaa on 3/25/2015.
  */
 public class Game {
-
-    private int score;
+    // TODO add functional variable for turn
     private List<Player> players;
-    private int numberOfTilesLeft;
+    private boolean gameOver;
+    private Stack<Tile> tiles;
 
     /**
      * TODO add real arguments to this constructor
      */
-    public Game(){
+    public Game() {
         players = new ArrayList<Player>();
-        score = 0;
-        numberOfTilesLeft = 72;
+        tiles = new Stack<Tile>();
+        gameOver = false;
     }
-    public int getScore(){
-        return score;
+
+    /**
+     * TODO add parameters for passing a list of players
+     *
+     * @param testStack
+     */
+    public Game(Stack<Tile> testStack) {
+        players = new ArrayList<Player>();
+        tiles = testStack;
+        gameOver = false;
     }
-    public List<Player>  getPlayers(){
+
+    //TODO determine where to handle score
+
+    public List<Player> getPlayers() {
         return players;
     }
-    public int getNumberOfTilesLeft(){
-        return numberOfTilesLeft;
+
+    public int getNumberOfTilesLeft() {
+        return tiles.size();
     }
+
+    public boolean isGameOver() {
+        if (tiles.size() == 0) {
+            gameOver = true;
+        }
+        return gameOver;
+    }
+
+    /**
+     * TODO 1. add functionality to pass an image url back to the UI
+     *
+     * @return
+     */
+    public boolean drawTile() {
+        if (tiles.size() == 0) {
+            return false;
+        }
+        tiles.pop();
+        return true;
+    }
+
+
 }
