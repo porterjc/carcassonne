@@ -215,5 +215,7 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
-workspace.xml
-misc.xml
+
+#Intellij
+.idea/workspace.xml
+.idea/misc.xml
