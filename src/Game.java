@@ -9,14 +9,14 @@ public class Game {
     // TODO add functional variable for turn
     private List<Player> players;
     private boolean gameOver;
-    private Stack<Tile> tiles;
+    private Stack<AbstractTile> tiles;
 
     /**
      * TODO add real arguments to this constructor
      */
     public Game() {
         players = new ArrayList<Player>();
-        tiles = new Stack<Tile>();
+        tiles = new Stack<AbstractTile>();
         gameOver = false;
     }
 
@@ -25,7 +25,7 @@ public class Game {
      *
      * @param testStack
      */
-    public Game(Stack<Tile> testStack) {
+    public Game(Stack<AbstractTile> testStack) {
         players = new ArrayList<Player>();
         tiles = testStack;
         gameOver = false;

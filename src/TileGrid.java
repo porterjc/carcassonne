@@ -6,18 +6,16 @@ import java.awt.*;
  */
 public class TileGrid extends JPanel {
 
-    // The layout manager for the tile grid
-    private GridLayout gridLayout;
     // The number of rows this grid currently has
     private int numRows;
     // The number of columns this grid currently has
     private int numCols;
 
+
     public TileGrid(){
         super();
         numRows = 3;
         numCols = 3;
-        gridLayout = new GridLayout(numRows, numCols);
-        this.setLayout(gridLayout);
+
     }
 }
