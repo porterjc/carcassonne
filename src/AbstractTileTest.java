@@ -20,6 +20,7 @@ public class AbstractTileTest {
     public void setUp() {
         openTile = new OpenTile();
         playableTile = new PlayableTile();
+        openTile.setLeft(playableTile);
     }
 
     @After
