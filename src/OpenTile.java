@@ -7,6 +7,7 @@ public class OpenTile extends AbstractTile {
 
     @Override
     public void draw(Graphics g) {
-        Rectangle rect = geDisplay();
+        g.setColor(Color.YELLOW);
+        g.fillRect(getxVal(), getyVal(), SIZE, SIZE);
     }
 }
