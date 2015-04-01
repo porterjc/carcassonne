@@ -30,6 +30,6 @@ public class AbstractTileTest {
 
     @Test
     protected void testCreateTile() {
-        assertEquals(null, openTile.getLeft());
+        assertEquals(playableTile, openTile.getLeft());
     }
 }
