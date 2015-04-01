@@ -15,7 +15,7 @@ public class TileGrid extends JPanel {
     private int offsetX;
     // This is the current smallest y value of the grid coordinates
     private int offsetY;
-
+    // A list of all tiles that need to be rendered on the page. For graphical purposes only
     private ArrayList<AbstractTile> tileList;
 
 
@@ -29,18 +29,16 @@ public class TileGrid extends JPanel {
         offsetY = -1;
         tileList = new ArrayList<AbstractTile>();
 
-        // For testing purposes only
-        for (int i = -1; i < 1; i++) {
-            for (int j = -1; j < 1; j++) {
-                AbstractTile tile = new OpenTile(i, j);
-                tileList.add(tile);
-            }
-        }
-
     }
 
+    public void addTile(AbstractTile newTile) {
+        tileList.add(newTile);
+    }
+
+    // Draws all of the tiles curretnly on the grid
     @Override
     public void paintComponent(Graphics g) {
+
         for (AbstractTile tile : tileList) {
             tile.draw(g, offsetX, offsetY);
         }
