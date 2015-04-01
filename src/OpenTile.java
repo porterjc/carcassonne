@@ -6,8 +6,8 @@ import java.awt.*;
 public class OpenTile extends AbstractTile {
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int offset) {
         g.setColor(Color.YELLOW);
-        g.fillRect(getxVal(), getyVal(), SIZE, SIZE);
+        g.fillRect((getxVal() - offset) * 300, (getyVal() - offset) * 300, SIZE, SIZE);
     }
 }

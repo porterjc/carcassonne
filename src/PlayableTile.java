@@ -5,7 +5,7 @@ import java.awt.*;
  */
 public class PlayableTile extends AbstractTile {
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int offset) {
 
     }
 }
