@@ -24,7 +24,7 @@ public abstract class AbstractTile {
      * TODO add string owner, color meepleColor, snum feature placedON, Places edge (direction)
      */
 
-    public abstract void draw();
+    public abstract void draw(Graphics g);
 
     // Gets the displayable rectangle
     public Rectangle geDisplay(){ return display; }
