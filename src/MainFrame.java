@@ -33,6 +33,7 @@ public class MainFrame extends JFrame {
     }
 
     private void setupScreen(){
+
         BorderLayout bl = new BorderLayout();
         mainpanel = new JPanel(bl);
         mainpanel.setBackground(new Color(39, 40, 49));
