@@ -3,10 +3,14 @@ import java.awt.*;
 /**
  * Created by johnsoaa on 3/27/2015.
  */
+
 public abstract class AbstractTile {
     public static final int SIZE = 300;
-    private static String oxwner;
+    private static final int TILE_PIXEL_SIZE = 300;
 
+    private AbstractTile left, right, top, bottom;
+
+    // Used for graphic purposes only
     private int xVal;
     private int yVal;
 
@@ -14,18 +18,6 @@ public abstract class AbstractTile {
         xVal = x;
         yVal = y;
     }
-    public static String getOxwner() {
-        return oxwner;
-    private static final int TILE_PIXEL_SIZE = 300;
-
-
-    private AbstractTile left, right, top, bottom;
-    private Rectangle display;
-
-    public AbstractTile(){
-        display = new Rectangle(0, 0, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
-    }
-
 
     //public String getEdges() {
       //  return edges;

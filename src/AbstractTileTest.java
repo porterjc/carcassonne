@@ -18,8 +18,8 @@ public class AbstractTileTest {
 
     @Before
     public void setUp() {
-        openTile = new OpenTile();
-        playableTile = new PlayableTile();
+        openTile = new OpenTile(0, 0);
+        playableTile = new PlayableTile(0, 0);
         openTile.setLeft(playableTile);
     }
 

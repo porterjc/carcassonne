@@ -74,8 +74,8 @@ public class MainFrame extends JFrame {
         tiledisplay.setBackground(Color.GREEN);
 
         DragFrame scroller = new DragFrame(tiledisplay);
-        JScrollPane.getViewport().addMouseMotionListener(scroller);
-        JScrollPane.getViewport().addMouseListener(scroller);
+       // JScrollPane.getViewport().addMouseMotionListener(scroller);
+        //JScrollPane.getViewport().addMouseListener(scroller);
 
         JPanel t2 = new JPanel();
         t2.setPreferredSize(new Dimension(400, 400));
