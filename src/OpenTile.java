@@ -10,8 +10,8 @@ public class OpenTile extends AbstractTile {
     }
 
     @Override
-    public void draw(Graphics g, int offset) {
+    public void draw(Graphics g, int offsetX, int offsetY) {
         g.setColor(Color.YELLOW);
-        g.fillRect((getxVal() - offset) * 300, (getyVal() - offset) * 300, SIZE, SIZE);
+        g.fillRect((getxVal() - offsetX) * 300, (getyVal() - offsetY) * 300, SIZE, SIZE);
     }
 }

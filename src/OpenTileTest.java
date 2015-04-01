@@ -15,7 +15,7 @@ public class OpenTileTest extends TestCase {
 
     @Before
     public void setUp() {
-        tile = new OpenTile();
+        tile = new OpenTile(0, 0);
     }
 
     @After
