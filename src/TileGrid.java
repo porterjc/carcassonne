@@ -22,6 +22,8 @@ public class TileGrid extends JPanel {
     public TileGrid() {
         super();
         this.setBackground(Color.blue);
+        this.setLayout(new GridLayout());
+        this.setPreferredSize(new Dimension(900, 900));
         numRows = 3;
         numCols = 3;
 
@@ -34,13 +36,20 @@ public class TileGrid extends JPanel {
     public void addTile(AbstractTile newTile) {
         tileList.add(newTile);
         if(newTile.getxVal() < offsetX)
-            offsetX = newTile.getxVal();
+            growLeft();
     }
+
+    private void growLeft() {
+        offsetX--;
+        this.setPreferredSize(new Dimension(this.getWidth() + AbstractTile.SIZE, this.getHeight()));
+    }
+
 
     // Draws all of the tiles curretnly on the grid
     @Override
     public void paintComponent(Graphics g) {
-
+        g.setColor(Color.blue);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
         for (AbstractTile tile : tileList) {
             tile.draw(g, offsetX, offsetY);
         }
