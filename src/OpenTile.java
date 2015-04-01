@@ -3,6 +3,8 @@
  */
 public class OpenTile extends AbstractTile {
 
+
+
     @Override
     public void draw() {
 
