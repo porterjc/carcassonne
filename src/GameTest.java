@@ -15,7 +15,7 @@ public class GameTest {
     private Game makeNewGame() {
         Stack<AbstractTile> testStack = new Stack<AbstractTile>();
         for (int i = 0; i < numberOfTiles; i++) {
-            testStack.push(new AbstractTile());
+           // testStack.push(new AbstractTile());
         }
         return new Game(testStack);
     }
