@@ -33,6 +33,8 @@ public class TileGrid extends JPanel {
 
     public void addTile(AbstractTile newTile) {
         tileList.add(newTile);
+        if(newTile.getxVal() < offsetX)
+            offsetX = newTile.getxVal();
     }
 
     // Draws all of the tiles curretnly on the grid
