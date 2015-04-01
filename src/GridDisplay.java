@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Created by porterjc on 3/27/2015.
  */
-public class GridDisplay extends DragFrame {
+public class GridDisplay {
 
     BufferedImage pic;
     public GridDisplay() {
@@ -18,10 +18,5 @@ public class GridDisplay extends DragFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(pic, 0, 0, null);
     }
 }

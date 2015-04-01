@@ -7,45 +7,30 @@ import java.awt.event.MouseMotionListener;
 /**
  * Created by porterjc on 3/27/2015.
  */
-public class DragFrame extends JComponent {
-    protected Point anchor;
+public class DragFrame extends MouseAdapter {
+    private final Point p = new Point();
+    private JPanel panel;
 
-    public DragFrame() {
-        addListeners();
+    public DragFrame(JPanel pan) {
+        this.panel = pan;
     }
 
-    public void addListeners() {
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                anchor = e.getPoint();
-            }
+        public void mouseDragged(MouseEvent e) {
+            JViewport vport = (JViewport)e.getSource();
+            Point curp = e.getPoint();
+            Point vewp = vport.getViewPosition();
+            vewp.translate(p.x-curp.x, p.y-curp.y);
+            panel.scrollRectToVisible(new Rectangle(vewp, vport.getSize()));
+            p.setLocation(curp);
+        }
 
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                int x = anchor.x;
-                int y = anchor.y;
+        public void mousePressed(MouseEvent e)
+        {
+            p.setLocation(e.getPoint());
+        }
 
-                Point parentLocation = getParent().getLocationOnScreen();
-                Point mouseLocation = e.getLocationOnScreen();
-                Point position = new Point (mouseLocation.x - parentLocation.x - x,
-                        mouseLocation.y - parentLocation.y - y);
-                setLocation(position);
-            }
-        });
-    }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (isOpaque()) {
-            g.setColor(getBackground());
-            g.fillRect(0,0,getWidth(),getHeight());
+        public void mouseReleased(MouseEvent e)
+        {
+            panel.repaint();
         }
     }
-
-    private void removeListeners() {
-        for (MouseMotionListener listener : this.getMouseMotionListeners()) {
-            removeMouseMotionListener(listener);
-        }
-    }
-}

@@ -72,13 +72,16 @@ public class MainFrame extends JFrame {
         tiledisplay.setSize(400, 400);
         tiledisplay.setBackground(Color.GREEN);
 
+        DragFrame scroller = new DragFrame(tiledisplay);
+        JScrollPane.getViewport().addMouseMotionListener(scroller);
+        JScrollPane.getViewport().addMouseListener(scroller);
+
         JPanel t2 = new JPanel();
         t2.setPreferredSize(new Dimension(400, 400));
         t2.setBackground(Color.MAGENTA);
         bottompanel.add(tiledisplay);
         bottompanel.add(t2);
-        //GridDisplay gd = new GridDisplay();
-        //this.add(gd, BorderLayout.CENTER);
+
         //QuitButton quitButton = new QuitButton();
        // mainpanel.add(bottompanel);
     }
