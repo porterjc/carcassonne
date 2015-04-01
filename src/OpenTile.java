@@ -5,6 +5,10 @@ import java.awt.*;
  */
 public class OpenTile extends AbstractTile {
 
+    public OpenTile(int x, int y) {
+        super(x, y);
+    }
+
     @Override
     public void draw(Graphics g, int offset) {
         g.setColor(Color.YELLOW);

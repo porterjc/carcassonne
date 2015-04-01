@@ -14,8 +14,13 @@ public class TileGrid extends JPanel {
 
     public TileGrid(){
         super();
+        this.setBackground(Color.blue);
         numRows = 3;
         numCols = 3;
+
+        for (int i = -1; i <= 1; i++) {
+
+        }
 
     }
 }

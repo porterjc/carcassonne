@@ -9,7 +9,7 @@ public class TileGridTest extends JFrame{
     public TileGridTest() {
         super();
 
-        this.setSize(800, 600);
+        this.setSize(900, 900);
         this.add(new TileGrid(), BorderLayout.CENTER);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
