@@ -10,6 +10,11 @@ public abstract class AbstractTile {
     public static String getOxwner() {
         return oxwner;
     }
+
+    public String getEdges() {
+        return edges;
+    }
+
     /**
      * TODO add string owner, color meepleColor, snum feature placedON, Places edge (direction)
      */
