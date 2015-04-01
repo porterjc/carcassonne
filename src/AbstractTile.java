@@ -3,7 +3,7 @@
  */
 public abstract class AbstractTile {
     private static String oxwner;
-
+    String edges;
     public AbstractTile(){
 
     }
@@ -12,6 +12,7 @@ public abstract class AbstractTile {
     }
 
     public String getEdges() {
+
         return edges;
     }
 
