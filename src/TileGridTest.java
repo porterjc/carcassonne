@@ -13,7 +13,9 @@ public class TileGridTest extends JFrame{
 
         this.setSize(900, 900);
         grid = new TileGrid();
-        this.add(grid, BorderLayout.CENTER);
+        JScrollPane pane = new JScrollPane(grid, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        pane.setSize(900, 900);
+        this.add(pane, BorderLayout.CENTER);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
@@ -26,6 +28,7 @@ public class TileGridTest extends JFrame{
     public void testRenderTiles() {
         grid.addTile(new OpenTile(0,0));
         grid.addTile(new OpenTile(-2, 0));
+        grid.addTile(new OpenTile(-3, 0));
     }
 
 }
