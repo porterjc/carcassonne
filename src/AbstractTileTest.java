@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by johnsoaa on 3/31/2015.
  */
-public class OpenTileTest {
+public class AbstractTileTest {
 
     OpenTile tile;
 

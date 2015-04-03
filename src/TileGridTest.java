@@ -29,6 +29,7 @@ public class TileGridTest extends JFrame{
         grid.addTile(new OpenTile(), 0, 0);
         grid.addTile(new OpenTile(), 3, 0);
         grid.addTile(new OpenTile(), 2, 4);
+        grid.addTile(new OpenTile(), -1, 0);
 
     }
 
