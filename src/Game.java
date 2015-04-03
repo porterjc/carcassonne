@@ -64,5 +64,9 @@ public class Game {
         return true;
     }
 
+    public PlayableTile getCurrentTile() {
+        return currentTile;
+    }
+
 
 }

@@ -31,20 +31,13 @@ public class TileLabel extends JLabel implements MouseListener{
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        //TODO: This is just for testing. Eventually, remove this text and replace with a picture
-        Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.tile.getFeatures();
-
-        String labeltext = "N: " + (features.get(GlobalVariables.Direction.NORTH) == null? null : features.get(GlobalVariables.Direction.NORTH)) + " ";
-        labeltext += "E; " + (features.get(GlobalVariables.Direction.EAST) == null? null : features.get(GlobalVariables.Direction.EAST)) + " ";
-        labeltext += "W; " + (features.get(GlobalVariables.Direction.WEST) == null? null : features.get(GlobalVariables.Direction.WEST)) + " ";
-        labeltext += "S; " + (features.get(GlobalVariables.Direction.SOUTH) == null? null : features.get(GlobalVariables.Direction.SOUTH)) + " ";
-
-        this.setText(labeltext);
+        resetView();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.getParent();
+        PlayableTile current = ((TileGrid) this.getParent()).game.getCurrentTile();
+
     }
 
     @Override
@@ -65,5 +58,17 @@ public class TileLabel extends JLabel implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    private void resetView() {
+        //TODO: This is just for testing. Eventually, remove this text and replace with a picture
+        Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.tile.getFeatures();
+
+        String labeltext = "N: " + (features.get(GlobalVariables.Direction.NORTH) == null? null : features.get(GlobalVariables.Direction.NORTH)) + " ";
+        labeltext += "E; " + (features.get(GlobalVariables.Direction.EAST) == null? null : features.get(GlobalVariables.Direction.EAST)) + " ";
+        labeltext += "W; " + (features.get(GlobalVariables.Direction.WEST) == null? null : features.get(GlobalVariables.Direction.WEST)) + " ";
+        labeltext += "S; " + (features.get(GlobalVariables.Direction.SOUTH) == null? null : features.get(GlobalVariables.Direction.SOUTH)) + " ";
+
+        this.setText(labeltext);
     }
 }
