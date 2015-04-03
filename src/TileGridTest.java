@@ -34,4 +34,8 @@ public class TileGridTest extends JFrame{
 
     }
 
+    public void testAddTiles() {
+
+    }
+
 }
