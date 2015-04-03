@@ -53,6 +53,10 @@ public class TileGrid extends JPanel {
         if(y > maxY) {
             growDown(y);
         }
+        else if (y < minY) {
+            growUp(y);
+            y = 0;
+        }
 
         this.add(new TileLabel(newTile, x, y));
 
@@ -80,6 +84,16 @@ public class TileGrid extends JPanel {
         panelHeight += (y - maxY) * TileLabel.TILE_PIXEL_SIZE;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
         maxY++;
+    }
+
+    private void growUp(int y) {
+        panelHeight += Math.abs(y) * TileLabel.TILE_PIXEL_SIZE;
+        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+
+        for(Component component : this.getComponents()) {
+            component.setBounds(component.getX(), component.getY() + TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE);
+
+        }
     }
 
 
