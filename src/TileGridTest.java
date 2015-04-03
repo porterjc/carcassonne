@@ -25,14 +25,15 @@ public class TileGridTest extends JFrame{
 
     public static void main(String[] args) {
         TileGridTest tester = new TileGridTest();
+        tester.testAddTiles();
     }
 
     public void testRenderTiles() {
-        grid.addTile(new OpenTile(), 0, 0);
-        grid.addTile(new OpenTile(), 3, 0);
-        grid.addTile(new OpenTile(), 2, 4);
-        grid.addTile(new OpenTile(), -1, 0);
-        grid.addTile(new OpenTile(), 0, -1);
+        grid.addTile(new OpenTile(), 0, 0, false);
+        grid.addTile(new OpenTile(), 3, 0, false);
+        grid.addTile(new OpenTile(), 2, 4, false);
+        grid.addTile(new OpenTile(), -1, 0, false);
+        grid.addTile(new OpenTile(), 0, -1, false);
 
     }
 
@@ -40,6 +41,8 @@ public class TileGridTest extends JFrame{
         Game newGame = new Game(testingTiles);
         grid.game = newGame;
         newGame.drawTile();
+        grid.addTile(newGame.getCurrentTile(), 1, 1, true);
+
     }
 
 }

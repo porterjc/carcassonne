@@ -77,6 +77,7 @@ public abstract class AbstractTile {
 
     public void setLeft(AbstractTile left) {
         this.left = left;
+        left.right = this;
     }
 
     public AbstractTile getRight() {
@@ -85,6 +86,7 @@ public abstract class AbstractTile {
 
     public void setRight(AbstractTile right) {
         this.right = right;
+        right.left = this;
     }
 
     public AbstractTile getTop() {
@@ -93,6 +95,7 @@ public abstract class AbstractTile {
 
     public void setTop(AbstractTile top) {
         this.top = top;
+        top.bottom = this;
     }
 
     public AbstractTile getBottom() {
@@ -101,9 +104,11 @@ public abstract class AbstractTile {
 
     public void setBottom(AbstractTile bottom) {
         this.bottom = bottom;
+        bottom.top = this;
     }
 
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
         return featuresMap;
     }
+
 }

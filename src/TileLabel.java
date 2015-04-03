@@ -30,9 +30,11 @@ public class TileLabel extends JLabel implements MouseListener{
         this.setBounds(x * TILE_PIXEL_SIZE, y * TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        addMouseListener(this);
 
         resetView();
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -40,6 +42,7 @@ public class TileLabel extends JLabel implements MouseListener{
         if(this.tile instanceof OpenTile && ((OpenTile)this.tile).canPlace(current)) {
             this.tile = current;
             resetView();
+            ((TileGrid) this.getParent()).game.drawTile();
         }
     }
 

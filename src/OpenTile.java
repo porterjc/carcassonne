@@ -44,14 +44,14 @@ public class OpenTile extends AbstractTile {
 
     public boolean checkSouth(PlayableTile tile) {
         Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
-        if (getTop() == null) return true;
+        if (getBottom() == null) return true;
         else
             return tileFeatures.get(GlobalVariables.Direction.SOUTH) == getBottom().getFeatures().get(GlobalVariables.Direction.NORTH);
     }
 
     public boolean checkWest(PlayableTile tile) {
         Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
-        if (getTop() == null) return true;
+        if (getLeft() == null) return true;
         else
             return tileFeatures.get(GlobalVariables.Direction.WEST) == getLeft().getFeatures().get(GlobalVariables.Direction.EAST);
 
@@ -59,9 +59,9 @@ public class OpenTile extends AbstractTile {
 
     public boolean checkEast(PlayableTile tile) {
         Map<GlobalVariables.Direction, GlobalVariables.Feature> tileeFeatures = tile.getFeatures();
-        if (getTop() == null) return true;
+        if (getRight() == null) return true;
         else
-            return tileeFeatures.get(GlobalVariables.Direction.EAST) == getTop().getFeatures().get(GlobalVariables.Direction.WEST);
+            return tileeFeatures.get(GlobalVariables.Direction.EAST) == getRight().getFeatures().get(GlobalVariables.Direction.WEST);
 
     }
 }

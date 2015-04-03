@@ -46,7 +46,7 @@ public class TileGrid extends JPanel {
 
     }
 
-    public void addTile(AbstractTile newTile, int x, int y) {
+    public void addTile(AbstractTile newTile, int x, int y, boolean addAround) {
         if(x > maxX) {
             growRight(x);
         }
@@ -64,6 +64,26 @@ public class TileGrid extends JPanel {
         }
 
         this.add(new TileLabel(newTile, x, y));
+
+        if(addAround) {
+            OpenTile top = new OpenTile();
+            addTile(top, x, y - 1, false);
+            newTile.setTop(top);
+
+            OpenTile bottom = new OpenTile();
+            addTile(bottom, x, y + 1, false);
+            newTile.setBottom(bottom);
+
+            OpenTile left = new OpenTile();
+            addTile(left, x - 1, y, false);
+            newTile.setLeft(left);
+
+            OpenTile right = new OpenTile();
+            addTile(right, x + 1, y, false);
+            newTile.setRight(right);
+
+            game.drawTile();
+        }
 
        // tileList.add(newTile);
         //if(newTile.getxVal() < offsetX)
