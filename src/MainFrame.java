@@ -85,7 +85,7 @@ public class MainFrame extends JFrame {
         scrollBoard.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
         boardDisplay.add(new TileGrid());
 
-
+        
 
         mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
