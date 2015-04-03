@@ -1,22 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by robinsat on 3/31/2015.
  */
 public class TileGrid extends JPanel {
 
-    // The number of rows this grid currently has
-    private int numRows;
-    // The number of columns this grid currently has
-    private int numCols;
-    // This is the current smallest x value of the grid coordinates
-    //private int offsetX;
-    // This is the current smallest y value of the grid coordinates
-    //private int offsetY;
-    // A list of all tiles that need to be rendered on the page. For graphical purposes only
-   // private ArrayList<AbstractTile> tileList;
+    // The minimum x value of the tiles on this grid
+    private int minX;
+    // The minimum y value of the tiles on this grid
+    private int minY;
+    // The maximum x value of the tiles on this grid
+    private int maxX;
+    // The maximum y value of the tiles on this grid
+    private int maxY;
 
     //Provides easy storage for the panel's preferred width
     private int panelWidth;
@@ -30,28 +27,33 @@ public class TileGrid extends JPanel {
         this.setLayout(new GridLayout());
         panelWidth = 900;
         panelHeight = 900;
-
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-        numRows = 3;
-        numCols = 3;
+
+        minX = 0;
+        minY = 0;
+        maxX = 2;
+        maxY = 2;
 
         // Tiles will be manually placed on this grid
         this.setLayout(null);
         addTile(new OpenTile(), 1, 1);
 
-       // tileList = new ArrayList<AbstractTile>();
 
     }
 
     public void addTile(AbstractTile newTile, int x, int y) {
-        if(x >= numCols) {
-            panelWidth += (x - numCols + 1) * TileLabel.TILE_PIXEL_SIZE;
-            this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+        if(x > maxX) {
+            growRight(x);
         }
-        if(y >= numRows) {
-            panelHeight += (y - numRows + 1) * TileLabel.TILE_PIXEL_SIZE;
-            this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+        else if (x < 0) {
+            growLeft(x);
+            x = 0;
         }
+
+        if(y > maxY) {
+            growDown(y);
+        }
+
         this.add(new TileLabel(newTile, x, y));
 
        // tileList.add(newTile);
@@ -59,9 +61,25 @@ public class TileGrid extends JPanel {
           //  growLeft();
     }
 
-    private void growLeft() {
-       // offsetX--;
-       // this.setPreferredSize(new Dimension(this.getWidth() + AbstractTile.SIZE, this.getHeight()));
+    private void growRight(int x) {
+        panelWidth += (x - maxX) * TileLabel.TILE_PIXEL_SIZE;
+        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+        maxX++;
+    }
+
+    private void growLeft(int x) {
+        panelWidth += Math.abs(x) * TileLabel.TILE_PIXEL_SIZE;
+        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+
+        for(Component component : this.getComponents()) {
+            component.setBounds(component.getX() + TileLabel.TILE_PIXEL_SIZE, component.getY(), TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE);
+        }
+    }
+
+    private void growDown(int y) {
+        panelHeight += (y - maxY) * TileLabel.TILE_PIXEL_SIZE;
+        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+        maxY++;
     }
 
 
