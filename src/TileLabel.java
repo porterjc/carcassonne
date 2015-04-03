@@ -37,7 +37,10 @@ public class TileLabel extends JLabel implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         PlayableTile current = ((TileGrid) this.getParent()).game.getCurrentTile();
-
+        if(this.tile instanceof OpenTile && ((OpenTile)this.tile).canPlace(current)) {
+            this.tile = current;
+            resetView();
+        }
     }
 
     @Override

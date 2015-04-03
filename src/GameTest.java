@@ -13,9 +13,9 @@ public class GameTest {
 
     @NotNull
     private Game makeNewGame() {
-        Stack<AbstractTile> testStack = new Stack<AbstractTile>();
+        Stack<PlayableTile> testStack = new Stack<PlayableTile>();
         for (int i = 0; i < numberOfTiles; i++) {
-            testStack.push(new OpenTile(0, 0));
+            testStack.push(new PlayableTile(0, 0));
         }
         return new Game(testStack);
     }
