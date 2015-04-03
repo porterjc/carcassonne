@@ -7,6 +7,7 @@ import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by porterjc on 3/26/2015.
@@ -72,8 +73,6 @@ public class MainFrame extends JFrame {
         bottompanel.setBorder(BorderFactory.createLoweredBevelBorder());
         mainpanel.add(bottomouter, BorderLayout.SOUTH);
         bottomouter.add(bottompanel, BorderLayout.CENTER);
-
-        //tiles.add(PlayableTile());
 
         tiledisplay = new JPanel();
         tiledisplay.setSize(400, 400);
