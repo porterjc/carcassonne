@@ -20,6 +20,10 @@ public class TileGrid extends JPanel {
     //Provides easy storage for the panel's preferred width
     private int panelHeight;
 
+    // The game that this grid is keeping track of.
+    // TODO: this should be private
+    public Game game;
+
 
     public TileGrid() {
         super();
@@ -37,7 +41,7 @@ public class TileGrid extends JPanel {
         // Tiles will be manually placed on this grid
         this.setLayout(null);
         //Add starting tile
-        addTile(new OpenTile(), 1, 1);
+        //addTile(new OpenTile(), 1, 1);
 
 
     }
