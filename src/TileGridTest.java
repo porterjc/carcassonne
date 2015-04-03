@@ -35,7 +35,8 @@ public class TileGridTest extends JFrame{
     }
 
     public void testAddTiles() {
-
+        Game newGame = new Game();
+        
     }
 
 }
