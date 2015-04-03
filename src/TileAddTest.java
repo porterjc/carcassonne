@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Created by porterjc on 4/3/2015.
  */
 public class TileAddTest {
-    private ArrayList<PlayableTile> tiles;
+    private Stack<PlayableTile> tiles;
 
     public TileAddTest() {
-        tiles = new ArrayList<PlayableTile>();
+        tiles = new Stack<PlayableTile>();
         addTiles();
     }
 
@@ -49,7 +50,7 @@ public class TileAddTest {
         tiles.add(new PlayableTile(0,0,feature4));
     }
 
-    public ArrayList<PlayableTile> getTestingTiles() {
+    public Stack<PlayableTile> getTestingTiles() {
         return this.tiles;
     }
 }

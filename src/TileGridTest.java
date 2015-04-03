@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by robinsat on 3/31/2015.
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 public class TileGridTest extends JFrame{
 
     TileGrid grid;
-    ArrayList<PlayableTile> testingTiles = (new TileAddTest()).getTestingTiles();
+    Stack<PlayableTile> testingTiles = (new TileAddTest()).getTestingTiles();
 
     public TileGridTest() {
         super();
@@ -34,6 +35,11 @@ public class TileGridTest extends JFrame{
         grid.addTile(new OpenTile(), 0, -1);
 
     }
-    
+
+    public void testAddTiles() {
+        Game newGame = new Game(testingTiles);
+        grid.game = newGame;
+        newGame.drawTile();
+    }
 
 }
