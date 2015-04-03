@@ -27,7 +27,7 @@ public abstract class AbstractTile {
      * TODO add string owner, color meepleColor, snum feature placedON, Places edge (direction)
      */
 
-    public abstract void draw(Graphics g, int offsetX, int offsetY);
+   // public abstract void draw(Graphics g, int offsetX, int offsetY);
 
     // Gets the x coordinate on the grid
     public int getxVal() { return xVal; }

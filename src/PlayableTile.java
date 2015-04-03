@@ -9,8 +9,8 @@ public class PlayableTile extends AbstractTile {
         super(x, y);
     }
 
-    @Override
+  /*  @Override
     public void draw(Graphics g, int offsetX, int offsetY) {
 
-    }
+    }*/
 }

@@ -11,7 +11,7 @@ public class TileLabel extends JLabel {
     private AbstractTile tile;
 
     // The size in pixels that these labels should be rendered
-    private static final int TILE_PIXEL_SIZE = 300;
+    public static final int TILE_PIXEL_SIZE = 300;
 
     // The coordinates of this tile
     private int x;
@@ -21,6 +21,8 @@ public class TileLabel extends JLabel {
     public TileLabel(int x, int y) {
         this.x = x;
         this.y = y;
+        this.setOpaque(true);
+        this.setBounds(x * TILE_PIXEL_SIZE, y * TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
