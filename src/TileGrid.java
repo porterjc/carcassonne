@@ -29,14 +29,14 @@ public class TileGrid extends JPanel {
 
         // Tiles will be manually placed on this grid
         this.setLayout(null);
-        addTile(new OpenTile(1, 1), 1, 1);
+        addTile(new OpenTile(), 1, 1);
 
        // tileList = new ArrayList<AbstractTile>();
 
     }
 
     public void addTile(AbstractTile newTile, int x, int y) {
-        TileLabel newLabel = new TileLabel(x, y);
+        TileLabel newLabel = new TileLabel(newTile, x, y);
         this.add(newLabel);
        // tileList.add(newTile);
         //if(newTile.getxVal() < offsetX)

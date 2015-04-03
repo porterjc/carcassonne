@@ -5,6 +5,10 @@ import java.awt.*;
  */
 public class OpenTile extends AbstractTile {
 
+    public OpenTile() {
+
+    }
+
     public OpenTile(int x, int y) {
         super(x, y);
     }

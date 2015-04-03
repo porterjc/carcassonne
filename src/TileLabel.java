@@ -18,9 +18,11 @@ public class TileLabel extends JLabel {
     private int y;
 
     //Constructor
-    public TileLabel(int x, int y) {
+    public TileLabel(AbstractTile tile, int x, int y) {
         this.x = x;
         this.y = y;
+        this.tile = tile;
+
         this.setOpaque(true);
         this.setBounds(x * TILE_PIXEL_SIZE, y * TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
         this.setBackground(Color.WHITE);

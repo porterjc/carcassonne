@@ -14,6 +14,10 @@ public abstract class AbstractTile {
     private int xVal;
     private int yVal;
 
+    public AbstractTile() {
+
+    }
+
     public AbstractTile(int x, int y){
         xVal = x;
         yVal = y;
