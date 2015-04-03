@@ -36,8 +36,11 @@ public class TileGrid extends JPanel {
     }
 
     public void addTile(AbstractTile newTile, int x, int y) {
-        TileLabel newLabel = new TileLabel(newTile, x, y);
-        this.add(newLabel);
+        if(x >= numCols) {
+            this.setPreferredSize(new Dimension(this.getWidth() + TileLabel.TILE_PIXEL_SIZE, this.getHeight()));
+        }
+        this.add(new TileLabel(newTile, x, y));
+
        // tileList.add(newTile);
         //if(newTile.getxVal() < offsetX)
           //  growLeft();
