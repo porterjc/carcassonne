@@ -2,9 +2,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by porterjc on 3/26/2015.
@@ -16,6 +18,10 @@ public class MainFrame extends JFrame {
     private JPanel scoretable;
     private JPanel tilesLeftPanel;
     private JPanel tiledisplay;
+    private JPanel boardDisplay;
+    private JScrollPane scrollBoard;
+    private BufferedImage pic;
+    private ArrayList<PlayableTile> tiles;
 
     private final int SCREEN_WIDTH = 800;
     private final int SCREEN_HEIGHT = 600;
@@ -67,15 +73,26 @@ public class MainFrame extends JFrame {
         mainpanel.add(bottomouter, BorderLayout.SOUTH);
         bottomouter.add(bottompanel, BorderLayout.CENTER);
 
-
+        //tiles.add(PlayableTile());
 
         tiledisplay = new JPanel();
         tiledisplay.setSize(400, 400);
         tiledisplay.setBackground(Color.GREEN);
 
-        DragFrame scroller = new DragFrame(tiledisplay);
-       // JScrollPane.getViewport().addMouseMotionListener(scroller);
-        //JScrollPane.getViewport().addMouseListener(scroller);
+        boardDisplay = new JPanel();
+        boardDisplay.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
+
+        scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollBoard.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
+        boardDisplay.add(new TileGrid());
+
+
+
+        mainpanel.add(scrollBoard, BorderLayout.CENTER);
+
+        DragFrame scroller = new DragFrame(boardDisplay);
+        scrollBoard.getViewport().addMouseMotionListener(scroller);
+        scrollBoard.getViewport().addMouseListener(scroller);
 
         JPanel t2 = new JPanel();
         t2.setPreferredSize(new Dimension(400, 400));
