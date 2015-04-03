@@ -7,7 +7,7 @@ import java.util.Map;
 public class OpenTile extends AbstractTile {
 
     public OpenTile() {
-
+        super();
     }
 
     public OpenTile(int x, int y) {

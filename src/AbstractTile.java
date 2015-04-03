@@ -19,12 +19,13 @@ public abstract class AbstractTile {
     private int yVal;
 
     public AbstractTile() {
-
+        featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
     }
 
     public AbstractTile(int x, int y) {
         xVal = x;
         yVal = y;
+        featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
     }
 
     public AbstractTile(int x, int y, AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
@@ -34,6 +35,7 @@ public abstract class AbstractTile {
         setRight(r);
         setTop(t);
         setBottom(b);
+        featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
     }
 
     public AbstractTile(int x, int y, AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b) {
@@ -43,6 +45,7 @@ public abstract class AbstractTile {
         setRight(r);
         setTop(t);
         setBottom(b);
+        featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
     }
 
     public AbstractTile(int i, int i1, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
