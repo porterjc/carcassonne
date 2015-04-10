@@ -1,7 +1,5 @@
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
@@ -22,9 +20,20 @@ public class TileFactory {
      */
     public static Collection<PlayableTile> loadDeck(boolean includeStart) {
         Stack<PlayableTile> deck = new Stack<PlayableTile>();
+        if(includeStart) {
+            deck.add(getStartTile());
+        }
 
         Collections.shuffle(deck);
         return deck;
+    }
+
+    /**
+     * By default, do not include the starting tile in the deck
+     * @return a randomly sorted collection of tiles
+     */
+    public static Collection<PlayableTile> loadDeck() {
+        return loadDeck(false);
     }
 
     /**
@@ -40,15 +49,56 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
-            System.out.println("Success!");
             return new PlayableTile(image, features);
         } catch (IOException e) {
-            System.out.println("Failure");
             e.printStackTrace();
         }
 
         return new PlayableTile();
     }
-    
+
+    //TODO: do this once the images are fixed
+    /**
+     * Creates the starting river tile
+     * @return the starting river tile
+     */
+    public static PlayableTile getRiverStart() {
+        try {
+            Image image = ImageIO.read(new File("images/start.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            return new PlayableTile(image, features);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new PlayableTile();
+    }
+
+    /**
+     * Creates the starting river tile
+     * @return the starting river tile
+     */
+    public static PlayableTile getRiverEnd() {
+        try {
+            Image image = ImageIO.read(new File("images/rlast.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            return new PlayableTile(image, features);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new PlayableTile();
+    }
+
 
 }
