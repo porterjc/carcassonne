@@ -52,6 +52,10 @@ public abstract class AbstractTile {
         featuresMap = features;
     }
 
+    public AbstractTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
+        featuresMap = features;
+    }
+
 
     /**
      * TODO add string owner, color meepleColor, snum feature placedON, Places edge (direction)
@@ -110,5 +114,7 @@ public abstract class AbstractTile {
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
         return featuresMap;
     }
+
+    public abstract Image getImage();
 
 }

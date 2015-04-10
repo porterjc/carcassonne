@@ -25,6 +25,7 @@ public class TileGridTest extends JFrame{
 
     public static void main(String[] args) {
         TileGridTest tester = new TileGridTest();
+        //tester.testRenderTiles();
         tester.testAddTiles();
     }
 
@@ -41,7 +42,7 @@ public class TileGridTest extends JFrame{
         Game newGame = new Game(testingTiles);
         grid.game = newGame;
         newGame.drawTile();
-        grid.addTile(newGame.getCurrentTile(), 1, 1, true);
+        grid.addTile(TileFactory.getStartTile(), 1, 1, true);
 
     }
 

@@ -6,6 +6,12 @@ import java.util.HashMap;
  */
 public class PlayableTile extends AbstractTile {
 
+    private Image image;
+
+    public PlayableTile() {
+        super();
+    }
+
     public PlayableTile(int x, int y) {
         super(x, y);
     }
@@ -16,6 +22,19 @@ public class PlayableTile extends AbstractTile {
 
     public PlayableTile(int i, int i1, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(i, i1, features);
+    }
+
+    public PlayableTile(Image image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
+        super(features);
+        this.image = image;
+    }
+
+    public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
+        super(features);
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     @Override

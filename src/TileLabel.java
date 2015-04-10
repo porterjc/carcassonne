@@ -32,7 +32,13 @@ public class TileLabel extends JLabel implements MouseListener{
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addMouseListener(this);
 
-        resetView();
+        Image raw = tile.getImage();
+        if(raw != null) {
+            Image scaled = raw.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
+            this.setIcon(new ImageIcon(scaled));
+        }
+
+       // resetView();
     }
 
 
@@ -69,6 +75,9 @@ public class TileLabel extends JLabel implements MouseListener{
     private void resetView() {
         //TODO: This is just for testing. Eventually, remove this text and replace with a picture
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.tile.getFeatures();
+
+        if(this.tile instanceof PlayableTile)
+            this.setBackground(Color.YELLOW);
 
         String labeltext = "N: " + (features.get(GlobalVariables.Direction.NORTH) == null? null : features.get(GlobalVariables.Direction.NORTH)) + " ";
         labeltext += "E; " + (features.get(GlobalVariables.Direction.EAST) == null? null : features.get(GlobalVariables.Direction.EAST)) + " ";

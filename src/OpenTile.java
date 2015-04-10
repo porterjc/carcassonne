@@ -29,6 +29,11 @@ public class OpenTile extends AbstractTile {
         g.fillRect(x, y, SIZE, SIZE);
     }
 
+    @Override
+    public Image getImage() {
+        return null;
+    }
+
 
     public boolean canPlace(PlayableTile tileToPlace) {
         return checkEast(tileToPlace) && checkWest(tileToPlace) && checkNorth(tileToPlace) && checkSouth(tileToPlace);
