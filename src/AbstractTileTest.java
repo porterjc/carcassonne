@@ -16,7 +16,7 @@ public class AbstractTileTest {
 
     @Before
     public void setUp() {
-        tile = new OpenTile(0, 0);
+        tile = new OpenTile();
     }
 
     @After
@@ -43,7 +43,7 @@ public class AbstractTileTest {
         PlayableTile r = new PlayableTile(0, 0, features);
         PlayableTile t = new PlayableTile(0, 0, features);
         PlayableTile b = new PlayableTile(0, 0, features);
-        tile = new OpenTile(0, 0, l, r, t, b);
+        tile = new OpenTile(l, r, t, b);
 
 
         PlayableTile tileToPlace = new PlayableTile(0, 0, features);

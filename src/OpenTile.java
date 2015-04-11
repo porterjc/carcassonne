@@ -10,23 +10,8 @@ public class OpenTile extends AbstractTile {
         super();
     }
 
-    public OpenTile(int x, int y) {
-        super(x, y);
-    }
-
-    public OpenTile(int i, int i1, AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom) {
-        super(i, i1, left, right, top, bottom);
-    }
-
-    @Override
-    public void draw(Graphics g, int offsetX, int offsetY) {
-        int x = (getxVal() - offsetX) * 300;
-        int y = (getyVal() - offsetY) * 300;
-        g.setColor(Color.BLACK);
-        ((Graphics2D) g).setStroke(new BasicStroke(3));
-        g.drawRect(x, y, SIZE, SIZE);
-        g.setColor(Color.WHITE);
-        g.fillRect(x, y, SIZE, SIZE);
+    public OpenTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom) {
+        super(left, right, top, bottom);
     }
 
     @Override
