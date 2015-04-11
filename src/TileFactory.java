@@ -57,18 +57,17 @@ public class TileFactory {
         return new PlayableTile();
     }
 
-    //TODO: do this once the images are fixed
     /**
      * Creates the starting river tile
      * @return the starting river tile
      */
     public static PlayableTile getRiverStart() {
         try {
-            Image image = ImageIO.read(new File("images/start.png"));
+            Image image = ImageIO.read(new File("images/rstart.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
-            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.RIVER);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
             return new PlayableTile(image, features);
