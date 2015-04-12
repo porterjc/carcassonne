@@ -27,7 +27,7 @@ public class TileGrid extends JPanel {
 
     public TileGrid() {
         super();
-        this.setBackground(Color.blue);
+        this.setBackground(new Color(39, 40, 49));
         this.setLayout(new GridLayout());
         panelWidth = 900;
         panelHeight = 900;
