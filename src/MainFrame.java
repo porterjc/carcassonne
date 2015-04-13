@@ -1,5 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -18,9 +20,10 @@ public class MainFrame extends JFrame {
     private JPanel mainpanel;
     private JPanel bottompanel;
     private JPanel optionsPanel;
-    private JPanel scoretable;
-    private JPanel tilesLeftPanel;
-    private JPanel tiledisplay;
+    private ScorePanel scorePanel;
+    private JLabel tilesLeftLabel;
+    private JLabel tiledisplay;
+    private JLabel currentPlayer;
     private JPanel boardDisplay;
     private JScrollPane scrollBoard;
     private BufferedImage pic;
@@ -34,8 +37,8 @@ public class MainFrame extends JFrame {
     private final int buttonWidth = 400;
     private final int buttonHeight = 50;
 
-    private final int smallMargin = 15;
-    private final int largeMargin = 60;
+    private final int smallMargin = 10;
+    private final int largeMargin = 25;
 
     public MainFrame() {
         super();
@@ -45,9 +48,9 @@ public class MainFrame extends JFrame {
         GraphicsDevice graphD = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         graphD.setFullScreenWindow(this);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setupMainPanel();
-        setupMainMenu();
-        //setupGamePlay();
+        //setupMainPanel();
+        //setupMainMenu();
+        setupGamePlay();
         setVisible(true);
     }
 
@@ -78,7 +81,7 @@ public class MainFrame extends JFrame {
 
         optionsPanel = new JPanel();
         optionsPanel.setBackground(new Color(100, 105, 153));
-        optionsPanel.setMaximumSize(new Dimension(600, 600));
+        optionsPanel.setMaximumSize(new Dimension(600, 650));
         optionsPanel.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         backPanel.add(optionsPanel);
@@ -218,53 +221,48 @@ public class MainFrame extends JFrame {
 
     /**
      * Starts a new game and sets up the screen to play the game
+     * TODO: none of the "options" do anything and this initializes the game with defaults. fix this.
      */
     private void setupGamePlay(){
        // this.remove(optionsPanel);
         BorderLayout bl = new BorderLayout();
         mainpanel = new JPanel(bl);
-        mainpanel.setBackground(new Color(70, 70, 70));
         this.add(mainpanel);
 
-        TileGrid tileGrid = new TileGrid();
-        mainpanel.add(tileGrid, BorderLayout.CENTER);
-
-        JPanel bottomouter = new JPanel(new BorderLayout());
-        bottomouter.setBackground(new Color(39, 40, 49));
-        bottomouter.setPreferredSize(new Dimension(SCREEN_WIDTH, 200));
-        bottomouter.setBorder(BorderFactory.createRaisedBevelBorder());
-        JPanel jp1 = new JPanel();
-        jp1.setOpaque(false);
-        JPanel jp2 = new JPanel();
-        jp2.setOpaque(false);
-        JPanel jp3 = new JPanel();
-        jp3.setOpaque(false);
-        JPanel jp4 = new JPanel();
-        jp4.setOpaque(false);
-        bottomouter.add(jp1, BorderLayout.EAST);
-        bottomouter.add(jp2, BorderLayout.WEST);
-        bottomouter.add(jp3, BorderLayout.NORTH);
-        bottomouter.add(jp4, BorderLayout.SOUTH);
-
         bottompanel = new JPanel();
+        bottompanel.setBackground(new Color(39, 40, 49));
         bottompanel.setLayout(new BoxLayout(bottompanel, BoxLayout.X_AXIS));
+        bottompanel.setPreferredSize(new Dimension(SCREEN_WIDTH, 200));
         //bottompanel.setPreferredSize(new Dimension(SCREEN_WIDTH - COMPONENT_MARGIN, 200 - COMPONENT_MARGIN));
-        bottompanel.setBorder(BorderFactory.createLoweredBevelBorder());
-        mainpanel.add(bottomouter, BorderLayout.SOUTH);
-        bottomouter.add(bottompanel, BorderLayout.CENTER);
+        bottompanel.setBorder(new CompoundBorder(new EmptyBorder(22, 20, 20, 20), BorderFactory.createLoweredBevelBorder()));
+        mainpanel.add(bottompanel, BorderLayout.SOUTH);
 
-        tiledisplay = new JPanel();
-        tiledisplay.setSize(400, 400);
-        tiledisplay.setBackground(Color.GREEN);
+        Image newTileImage = TileFactory.getStartTile().getImage();
+        Image resized = newTileImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+        tiledisplay = new JLabel(new ImageIcon(resized));
+        bottompanel.add(tiledisplay);
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
-        boardDisplay = new JPanel();
-        boardDisplay.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
+        JPanel tilesLeftPanel = new JPanel();
+        tilesLeftPanel.setLayout(new BoxLayout(tilesLeftPanel, BoxLayout.Y_AXIS));
+        tilesLeftPanel.setBorder(new EmptyBorder(0, 20, 0, 20));
+        JLabel tilesLabel = new GameLabel("Tiles Left:");
+        tilesLabel.setAlignmentX(CENTER_ALIGNMENT);
+        tilesLeftLabel = new GameLabel("71");
+        tilesLeftLabel.setForeground(Color.RED);
+        tilesLeftLabel.setFont(new Font(tilesLeftLabel.getFont().getName(), Font.BOLD, 64));
+        tilesLeftLabel.setAlignmentX(CENTER_ALIGNMENT);
+        tilesLeftPanel.add(tilesLabel);
+        tilesLeftPanel.add(tilesLeftLabel);
+        bottompanel.add(tilesLeftPanel);
 
-        scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollBoard.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
-        boardDisplay.add(new TileGrid());
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
+        scorePanel = new ScorePanel(new ArrayList<Player>());
+        bottompanel.add(scorePanel);
 
-        
+        boardDisplay = new TileGrid(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
+
+        scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
@@ -272,11 +270,11 @@ public class MainFrame extends JFrame {
         scrollBoard.getViewport().addMouseMotionListener(scroller);
         scrollBoard.getViewport().addMouseListener(scroller);
 
-        JPanel t2 = new JPanel();
+       /* JPanel t2 = new JPanel();
         t2.setPreferredSize(new Dimension(400, 400));
         t2.setBackground(Color.MAGENTA);
         bottompanel.add(tiledisplay);
-        bottompanel.add(t2);
+        bottompanel.add(t2); */
 
         //QuitButton quitButton = new QuitButton();
        // mainpanel.add(bottompanel);
@@ -284,6 +282,15 @@ public class MainFrame extends JFrame {
         repaint();
     }
 
+    /**
+     * Updates the GUI to show the tile that has just been drawn
+     */
+    public void updateTile() {
+
+    }
+
+
+    // Private classes needed just for the Main Frame
 
     /**
      * This class provides a selectable button that holds a color
@@ -319,6 +326,5 @@ public class MainFrame extends JFrame {
             g2d.fill(this.getBounds());
         }
     }
-
 
 }

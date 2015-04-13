@@ -1,4 +1,4 @@
-import javafx.scene.paint.Color;
+import java.awt.Color;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
@@ -13,13 +13,13 @@ public class MeepleTest extends TestCase {
 
     @Before
     public void setUp() {
-        p = new Player(Color.AQUA);
-        m = new Meeple(p, Color.AQUA);
+        p = new Player(Color.CYAN);
+        m = new Meeple(p, Color.CYAN);
     }
 
     @Test
     public void testSetUp() {
-        assertEquals(Color.AQUA, m.getColor());
+        assertEquals(Color.CYAN, m.getColor());
         assertEquals(p, m.getPlayer());
 
     }

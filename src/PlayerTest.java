@@ -1,4 +1,4 @@
-import javafx.scene.paint.Color;
+import java.awt.Color;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +13,14 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        p = new Player(Color.AQUA);
+        p = new Player(Color.CYAN);
     }
 
     @Test
     public void testSetup() {
         assertEquals(false, p == null);
         assertEquals(0, p.getPlayerScore());
-        assertEquals(Color.AQUA, p.getColor());
+        assertEquals(Color.CYAN, p.getColor());
         assertEquals(7, p.getMeeples().size());
     }
     @Test

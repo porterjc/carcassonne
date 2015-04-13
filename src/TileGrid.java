@@ -24,13 +24,22 @@ public class TileGrid extends JPanel {
     // TODO: this should be private
     public Game game;
 
-
+    //Default, for testing purposes only
     public TileGrid() {
+        this(900, 900);
+    }
+
+    /**
+     * Constructor
+     * @param x the width of this panel
+     * @param y the height of this panel
+     */
+    public TileGrid(int x, int y) {
         super();
         this.setBackground(new Color(39, 40, 49));
         this.setLayout(new GridLayout());
-        panelWidth = 900;
-        panelHeight = 900;
+        panelWidth = x;
+        panelHeight = y;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
         minX = 0;

@@ -1,4 +1,4 @@
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 /**
  * Created by johnsoaa on 3/29/2015.

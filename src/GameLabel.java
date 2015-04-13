@@ -9,7 +9,7 @@ public class GameLabel extends JLabel {
 
     public GameLabel(String text) {
         super(text);
-        this.setFont(new Font("Arial", Font.PLAIN, 24));
+        this.setFont(new Font("Arabic Typesetting", Font.PLAIN, 32));
         this.setVerticalAlignment(JLabel.CENTER);
         this.setVerticalTextPosition(JLabel.CENTER);
     }
