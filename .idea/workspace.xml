@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="22f9f0a1-1856-4399-875e-7689412c93fd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ScorePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameLabel.java" afterPath="$PROJECT_DIR$/src/GameLabel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainFrame.java" afterPath="$PROJECT_DIR$/src/MainFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Meeple.java" afterPath="$PROJECT_DIR$/src/Meeple.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MeepleTest.java" afterPath="$PROJECT_DIR$/src/MeepleTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PlayerTest.java" afterPath="$PROJECT_DIR$/src/PlayerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TileGrid.java" afterPath="$PROJECT_DIR$/src/TileGrid.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="22f9f0a1-1856-4399-875e-7689412c93fd" name="Default" comment="" />
     <ignored path="Carcassonne2.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
