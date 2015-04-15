@@ -62,6 +62,12 @@ public class TileGridGrowthTest {
         assertEquals(startingTile.getTop().getRight(), startingTile.getRight().getTop());
     }
 
+    @Test
+    public void testStartTopLeft() {
+        assertNotNull(startingTile.getTopLeft());
+        assertEquals(startingTile.getTop().getLeft(), startingTile.getLeft().getTop());
+    }
+
     @After
     public void cleanUp() {
         grid = null;
