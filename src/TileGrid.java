@@ -76,7 +76,7 @@ public class TileGrid extends JPanel {
         addLeftColumn();
         addRightColumn();
         addBottomRow();
-        startingTile.setTop(new OpenTile());
+        addTopRow();
 
     }
 
@@ -211,6 +211,26 @@ public class TileGrid extends JPanel {
         }
 
         bottomRight = existingToLeft;
+    }
+
+    /**
+     * Adds a row of null tiles to the top of the grid
+     */
+    private void addTopRow() {
+        AbstractTile existingBelow = topLeft;
+        AbstractTile existingToLeft = new NullTile();
+        existingToLeft.setBottom(existingBelow);
+        topLeft = existingToLeft;
+
+        while(existingBelow != null) {
+            NullTile newTile = new NullTile();
+            newTile.setBottom(existingBelow);
+            newTile.setLeft(existingToLeft);
+            existingToLeft = newTile;
+            existingBelow = existingBelow.getRight();
+        }
+
+       topRight = existingToLeft;
     }
 
 
