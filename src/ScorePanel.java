@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class ScorePanel extends JPanel {
      */
     public ScorePanel(ArrayList<Player> players) {
         super();
+        this.setBorder(new EmptyBorder(20, 20, 20, 20));
         this.setLayout(new GridLayout(3, players.size() + 1));
         this.players = players;
 

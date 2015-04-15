@@ -221,7 +221,7 @@ public class MainFrame extends JFrame {
 
     /**
      * Starts a new game and sets up the screen to play the game
-     * TODO: none of the "options" do anything and this initializes the game with defaults. fix this.
+     * TODO: none of the "options" do anything and this initializes the game with defaults. Make this happen eventually
      */
     private void setupGamePlay(){
        // this.remove(optionsPanel);
@@ -257,7 +257,12 @@ public class MainFrame extends JFrame {
         bottompanel.add(tilesLeftPanel);
 
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-        scorePanel = new ScorePanel(new ArrayList<Player>());
+        // Just for GUI testing. TODO: delete
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(new Player(Color.RED));
+        players.add(new Player(Color.YELLOW));
+        players.add(new Player(Color.GREEN));
+        scorePanel = new ScorePanel(players);
         bottompanel.add(scorePanel);
 
         boardDisplay = new TileGrid(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
