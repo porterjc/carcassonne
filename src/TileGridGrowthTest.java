@@ -29,6 +29,11 @@ public class TileGridGrowthTest {
         assertNotNull(startingTile.getLeft());
     }
 
+    @Test
+    public void testStartRight() {
+        assertNotNull(startingTile.getRight());
+    }
+
     @After
     public void cleanUp() {
         grid = null;
