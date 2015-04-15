@@ -69,7 +69,15 @@ public class TileGrid extends JPanel {
         maxX = 2;
         maxY = 2;
 
-        addTile(startingTile, 1, 1, true);
+        topRight = startingTile;
+        topLeft = startingTile;
+        bottomLeft = startingTile;
+        bottomRight = startingTile;
+        startingTile.setLeft(new OpenTile());
+        startingTile.setTop(new OpenTile());
+        addRightColumn();
+        addBottomRow();
+
     }
 
     public void addTile(AbstractTile newTile, int x, int y, boolean addAround) {
@@ -143,6 +151,40 @@ public class TileGrid extends JPanel {
         for(Component component : this.getComponents()) {
             component.setBounds(component.getX(), component.getY() + TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE);
 
+        }
+    }
+
+    /**
+     * Adds a column of null tiles to the right of the grid
+     */
+    private void addRightColumn() {
+        AbstractTile existingToLeft = topRight;
+        AbstractTile existingAbove = new NullTile();
+        existingAbove.setLeft(existingToLeft);
+
+        while(existingToLeft != null) {
+            NullTile newTile = new NullTile();
+            newTile.setTop(existingAbove);
+            newTile.setLeft(existingToLeft);
+            existingAbove = newTile;
+            existingToLeft = existingToLeft.getBottom();
+        }
+    }
+
+    /**
+     * Adds a row of null tiles to the bottom of the grid
+     */
+    private void addBottomRow() {
+        AbstractTile existingAbove = bottomLeft;
+        AbstractTile existingToLeft = new NullTile();
+        existingToLeft.setTop(existingAbove);
+
+        while(existingAbove != null) {
+            NullTile newTile = new NullTile();
+            newTile.setTop(existingAbove);
+            newTile.setLeft(existingToLeft);
+            existingToLeft = newTile;
+            existingAbove = existingAbove.getRight();
         }
     }
 
