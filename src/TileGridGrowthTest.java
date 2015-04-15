@@ -47,25 +47,25 @@ public class TileGridGrowthTest {
     @Test
     public void testStartBottomRight() {
         assertNotNull(startingTile.getBottomRight());
-        assertEquals(startingTile.getBottom().getRight(), startingTile.getRight().getBottom());
+        assertSame(startingTile.getBottom().getRight(), startingTile.getRight().getBottom());
     }
 
     @Test
     public void testStartBottomLeft() {
         assertNotNull(startingTile.getBottomLeft());
-        assertEquals(startingTile.getBottom().getLeft(), startingTile.getLeft().getBottom());
+        assertSame(startingTile.getBottom().getLeft(), startingTile.getLeft().getBottom());
     }
 
     @Test
     public void testStartTopRight() {
         assertNotNull(startingTile.getTopRight());
-        assertEquals(startingTile.getTop().getRight(), startingTile.getRight().getTop());
+        assertSame(startingTile.getTop().getRight(), startingTile.getRight().getTop());
     }
 
     @Test
     public void testStartTopLeft() {
         assertNotNull(startingTile.getTopLeft());
-        assertEquals(startingTile.getTop().getLeft(), startingTile.getLeft().getTop());
+        assertSame(startingTile.getTop().getLeft(), startingTile.getLeft().getTop());
     }
 
     @After

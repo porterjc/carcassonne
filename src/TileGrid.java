@@ -161,6 +161,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingToLeft = topRight;
         AbstractTile existingAbove = new NullTile();
         existingAbove.setLeft(existingToLeft);
+        existingToLeft = existingToLeft.getBottom();
         topRight = existingAbove;
 
         while(existingToLeft != null) {
@@ -180,6 +181,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingToRight = topLeft;
         AbstractTile existingAbove= new NullTile();
         existingAbove.setRight(existingToRight);
+        existingToRight = existingToRight.getBottom();
         topLeft = existingAbove;
 
         while(existingToRight != null) {
@@ -200,6 +202,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingAbove = bottomLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setTop(existingAbove);
+        existingAbove = existingAbove.getRight();
         bottomLeft = existingToLeft;
 
         while(existingAbove != null) {
@@ -220,6 +223,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingBelow = topLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setBottom(existingBelow);
+        existingBelow = existingBelow.getRight();
         topLeft = existingToLeft;
 
         while(existingBelow != null) {
