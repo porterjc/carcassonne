@@ -59,6 +59,8 @@ public class TileGrid extends JPanel {
         minY = 0;
         maxX = 2;
         maxY = 2;
+
+        startingTile.setLeft(new OpenTile());
     }
 
     public void addTile(AbstractTile newTile, int x, int y, boolean addAround) {
