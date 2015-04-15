@@ -33,4 +33,20 @@ public class PlayableTile extends AbstractTile {
         return image;
     }
 
+    public AbstractTile getTopLeft() {
+        return getTop().getLeft();
+    }
+
+    public AbstractTile getTopRight() {
+        return getTop().getRight();
+    }
+
+    public AbstractTile getBottomLeft() {
+        return getBottom().getLeft();
+    }
+
+    public AbstractTile getBottomRight() {
+        return getBottom().getRight();
+    }
+
 }
