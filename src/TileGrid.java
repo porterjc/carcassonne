@@ -42,17 +42,23 @@ public class TileGrid extends JPanel {
         panelHeight = y;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
-        minX = 0;
-        minY = 0;
-        maxX = 2;
-        maxY = 2;
-
         // Tiles will be manually placed on this grid
         this.setLayout(null);
         //Add starting tile
         //addTile(new OpenTile(), 1, 1);
 
 
+    }
+
+    /**
+     * Initializes this grid to display basic information
+     * @param startingTile
+     */
+    public void initialize(PlayableTile startingTile) {
+        minX = 0;
+        minY = 0;
+        maxX = 2;
+        maxY = 2;
     }
 
     public void addTile(AbstractTile newTile, int x, int y, boolean addAround) {
