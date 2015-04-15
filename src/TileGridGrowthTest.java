@@ -21,7 +21,7 @@ public class TileGridGrowthTest {
 
     @Test
     public void testStart() {
-
+        assertNotNull(startingTile);
     }
 
     @After
