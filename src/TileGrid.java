@@ -73,10 +73,10 @@ public class TileGrid extends JPanel {
         topLeft = startingTile;
         bottomLeft = startingTile;
         bottomRight = startingTile;
-        startingTile.setLeft(new OpenTile());
-        startingTile.setTop(new OpenTile());
+        addLeftColumn();
         addRightColumn();
         addBottomRow();
+        startingTile.setTop(new OpenTile());
 
     }
 
@@ -161,6 +161,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingToLeft = topRight;
         AbstractTile existingAbove = new NullTile();
         existingAbove.setLeft(existingToLeft);
+        topRight = existingAbove;
 
         while(existingToLeft != null) {
             NullTile newTile = new NullTile();
@@ -169,6 +170,27 @@ public class TileGrid extends JPanel {
             existingAbove = newTile;
             existingToLeft = existingToLeft.getBottom();
         }
+        bottomRight = existingAbove;
+    }
+
+    /**
+     * Adds a column of null tiles to the left of the grid
+     */
+    private void addLeftColumn() {
+        AbstractTile existingToRight = topLeft;
+        AbstractTile existingAbove= new NullTile();
+        existingAbove.setRight(existingToRight);
+        topLeft = existingAbove;
+
+        while(existingToRight != null) {
+            NullTile newTile = new NullTile();
+            newTile.setTop(existingAbove);
+            newTile.setRight(existingToRight);
+            existingAbove = newTile;
+            existingToRight = existingToRight.getBottom();
+        }
+
+        bottomLeft = existingAbove;
     }
 
     /**
@@ -178,6 +200,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingAbove = bottomLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setTop(existingAbove);
+        bottomLeft = existingToLeft;
 
         while(existingAbove != null) {
             NullTile newTile = new NullTile();
@@ -186,6 +209,8 @@ public class TileGrid extends JPanel {
             existingToLeft = newTile;
             existingAbove = existingAbove.getRight();
         }
+
+        bottomRight = existingToLeft;
     }
 
 
