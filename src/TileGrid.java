@@ -15,6 +15,15 @@ public class TileGrid extends JPanel {
     // The maximum y value of the tiles on this grid
     private int maxY;
 
+    // The tile on the top left corner of this grid
+    private AbstractTile topLeft;
+    // The tile on the top right corner of this grid
+    private AbstractTile topRight;
+    // The tile on the bottom left corner of this grid
+    private AbstractTile bottomLeft;
+    // The tile on the bottom right corner of this grid
+    private AbstractTile bottomRight;
+
     //Provides easy storage for the panel's preferred width
     private int panelWidth;
     //Provides easy storage for the panel's preferred width
@@ -60,7 +69,6 @@ public class TileGrid extends JPanel {
         maxX = 2;
         maxY = 2;
 
-        game = new Game();
         addTile(startingTile, 1, 1, true);
     }
 
