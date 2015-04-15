@@ -60,9 +60,8 @@ public class TileGrid extends JPanel {
         maxX = 2;
         maxY = 2;
 
-        startingTile.setLeft(new OpenTile());
-        startingTile.setRight(new OpenTile());
-        startingTile.setTop(new OpenTile());
+        game = new Game();
+        addTile(startingTile, 1, 1, true);
     }
 
     public void addTile(AbstractTile newTile, int x, int y, boolean addAround) {
@@ -101,7 +100,6 @@ public class TileGrid extends JPanel {
             addTile(right, x + 1, y, false);
             newTile.setRight(right);
 
-            game.drawTile();
         }
 
        // tileList.add(newTile);
