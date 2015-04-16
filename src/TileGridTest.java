@@ -16,6 +16,8 @@ public class TileGridTest extends JFrame{
 
         this.setSize(900, 900);
         grid = new TileGrid();
+        grid.initialize(TileFactory.getStartTile());
+        grid.game.passTiles(TileFactory.loadDeck());
         JScrollPane pane = new JScrollPane(grid, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         pane.setSize(900, 900);
         this.add(pane, BorderLayout.CENTER);
@@ -26,7 +28,7 @@ public class TileGridTest extends JFrame{
     public static void main(String[] args) {
         TileGridTest tester = new TileGridTest();
         //tester.testRenderTiles();
-        tester.testAddTiles();
+        //tester.testAddTiles();
     }
 
     public void testRenderTiles() {
@@ -43,6 +45,10 @@ public class TileGridTest extends JFrame{
         grid.game = newGame;
         newGame.drawTile();
         grid.addTile(TileFactory.getStartTile(), 1, 1, true);
+
+    }
+
+    public void testGrowTiles() {
 
     }
 

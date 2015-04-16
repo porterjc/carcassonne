@@ -1,19 +1,24 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by johnsoaa on 3/27/2015.
  */
 
-public abstract class AbstractTile {
+public abstract class AbstractTile extends JLabel implements MouseListener{
 
-
-    public static final int SIZE = 300;
-    private static final int TILE_PIXEL_SIZE = 300;
+    public static final int TILE_PIXEL_SIZE = 300;
 
     private AbstractTile left, right, top, bottom;
     private Map<GlobalVariables.Direction, GlobalVariables.Feature> featuresMap;
+    private Set<GlobalVariables.Internal> internals;
+    private TileGrid grid;
 
     public AbstractTile() {
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -26,6 +31,7 @@ public abstract class AbstractTile {
         setTop(t);
         setBottom(b);
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        internals = new HashSet<GlobalVariables.Internal>();
     }
 
     public AbstractTile(AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b) {
@@ -34,11 +40,18 @@ public abstract class AbstractTile {
         setTop(t);
         setBottom(b);
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        internals = new HashSet<GlobalVariables.Internal>();
     }
 
 
     public AbstractTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         featuresMap = features;
+        internals = new HashSet<>();
+    }
+
+    public AbstractTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+        featuresMap = features;
+        this.internals = internals;
     }
 
 
@@ -87,6 +100,62 @@ public abstract class AbstractTile {
         return featuresMap;
     }
 
+    public Set<GlobalVariables.Internal> getInternals() {
+        return internals;
+    }
+
+    /**
+     * Replaces this tile in the grid with the new tile
+     * @param newTile the tile to replace this one
+     * @return whether or not the grid needs to be expanded
+     */
+    public GlobalVariables.Direction addTile(AbstractTile newTile) {
+        newTile.setTop(this.getTop());
+        newTile.setBottom(this.getBottom());
+        newTile.setLeft(this.getLeft());
+        newTile.setRight(this.getRight());
+
+
+        return newTile.updateAdjacent();
+    }
+
+    public abstract GlobalVariables.Direction updateAdjacent();
+
     public abstract Image getImage();
 
+    public void move(int x, int y) {
+        this.setBounds(x, y, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        PlayableTile current = grid.game.getCurrentTile();
+        if(this instanceof OpenTile && ((OpenTile)this).canPlace(current)) {
+            this.grid.addNullRow(this.addTile(current));
+
+            //resetView();
+            grid.game.drawTile();
+
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

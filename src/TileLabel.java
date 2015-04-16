@@ -13,6 +13,9 @@ public class TileLabel extends JLabel implements MouseListener{
     // Stores a tile that this graphical object represents
     private AbstractTile tile;
 
+    // The TileGrid that is this object's parent
+    private TileGrid grid;
+
     // The size in pixels that these labels should be rendered
     public static final int TILE_PIXEL_SIZE = 300;
 
@@ -21,10 +24,11 @@ public class TileLabel extends JLabel implements MouseListener{
     private int y;
 
     //Constructor
-    public TileLabel(AbstractTile tile, int x, int y) {
+    public TileLabel(AbstractTile tile, int x, int y, TileGrid parent) {
         this.x = x;
         this.y = y;
         this.tile = tile;
+        this.grid = parent;
 
         this.setOpaque(true);
         this.setBounds(x * TILE_PIXEL_SIZE, y * TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
@@ -37,6 +41,10 @@ public class TileLabel extends JLabel implements MouseListener{
             Image scaled = raw.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
             this.setIcon(new ImageIcon(scaled));
         }
+        else {
+            this.setOpaque(false);
+            this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        }
 
        // resetView();
     }
@@ -44,11 +52,13 @@ public class TileLabel extends JLabel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        PlayableTile current = ((TileGrid) this.getParent()).game.getCurrentTile();
+        PlayableTile current = grid.game.getCurrentTile();
         if(this.tile instanceof OpenTile && ((OpenTile)this.tile).canPlace(current)) {
+            this.grid.addNullRow(this.tile.addTile(current));
+
             this.tile = current;
-            resetView();
-            ((TileGrid) this.getParent()).game.drawTile();
+            //resetView();
+            grid.game.drawTile();
         }
     }
 

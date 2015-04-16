@@ -65,11 +65,16 @@ public class Game {
         System.out.println("E: " + (currentTile.getFeatures().get(GlobalVariables.Direction.EAST) == null ? null : currentTile.getFeatures().get(GlobalVariables.Direction.EAST)));
         System.out.println("W: " + (currentTile.getFeatures().get(GlobalVariables.Direction.WEST) == null ? null : currentTile.getFeatures().get(GlobalVariables.Direction.WEST)));
         System.out.println("S: " + (currentTile.getFeatures().get(GlobalVariables.Direction.SOUTH) == null ? null : currentTile.getFeatures().get(GlobalVariables.Direction.SOUTH)));
+        System.out.println();
         return true;
     }
 
     public PlayableTile getCurrentTile() {
         return currentTile;
+    }
+
+    public void passTiles(Stack<PlayableTile> tiles) {
+        this.tiles = tiles;
     }
 
 

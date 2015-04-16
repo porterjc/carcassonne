@@ -60,7 +60,6 @@ public class AbstractTileTest {
         PlayableTile second = new PlayableTile(0, 0, features2);
         assertEquals(false, tile.canPlace(second));
 
-
     }
 
 }

@@ -2,10 +2,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * This class is a utility to read tile images from a file and create playable tiles accordingly.
@@ -18,11 +15,86 @@ public class TileFactory {
      * @param includeStart whether or not to include the starting tile.
      * @return a shuffled stack of tiles
      */
-    public static Collection<PlayableTile> loadDeck(boolean includeStart) {
+    public static Stack<PlayableTile> loadDeck(boolean includeStart) {
         Stack<PlayableTile> deck = new Stack<PlayableTile>();
         if(includeStart) {
             deck.add(getStartTile());
         }
+
+        try {
+            Image image = ImageIO.read(new File("images/01.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+
+            deck.add(new PlayableTile(image, features));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Image image = ImageIO.read(new File("images/02.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            deck.add(new PlayableTile(image, features));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Image image = ImageIO.read(new File("images/03.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.CITY);
+            internals.add(GlobalVariables.Internal.COATOFARMS);
+            internals.add(GlobalVariables.Internal.ROADSTOP);
+
+            deck.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Image image = ImageIO.read(new File("images/04.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            deck.add(new PlayableTile(image, features));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Image image = ImageIO.read(new File("images/05.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.ROADSTOP);
+
+            deck.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
 
         Collections.shuffle(deck);
         return deck;
@@ -32,7 +104,7 @@ public class TileFactory {
      * By default, do not include the starting tile in the deck
      * @return a randomly sorted collection of tiles
      */
-    public static Collection<PlayableTile> loadDeck() {
+    public static Stack<PlayableTile> loadDeck() {
         return loadDeck(false);
     }
 
