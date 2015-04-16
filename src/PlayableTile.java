@@ -9,6 +9,7 @@ import java.util.Set;
 public class PlayableTile extends AbstractTile {
 
     private Image image;
+    private int rotation = 0; //represents how much much this tile has been rotated. 0 is the default value before rotations happen;
 
     public PlayableTile() {
         super();
@@ -59,6 +60,10 @@ public class PlayableTile extends AbstractTile {
         return image;
     }
 
+    public void rotateTile() {
+
+    }
+
     public AbstractTile getTopLeft() {
         return getTop().getLeft();
     }
@@ -74,5 +79,4 @@ public class PlayableTile extends AbstractTile {
     public AbstractTile getBottomRight() {
         return getBottom().getRight();
     }
-
 }
