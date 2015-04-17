@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class TestTileGetFeature {
 
     PlayableTile tile;
+    PlayableTile tile2;
 
     @Before
     public void setUp() {
@@ -25,6 +26,7 @@ public class TestTileGetFeature {
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         tile = new PlayableTile(features);
+        tile2 = new PlayableTile(features);
     }
 
     @After
@@ -33,12 +35,49 @@ public class TestTileGetFeature {
     }
 
     @Test
-    public void testGetNorthFeatures(){
+        public void testGetNorthFeature(){
         GlobalVariables.Feature n = GlobalVariables.Feature.ROAD;
         assertEquals(n, tile.getTargetFeature(GlobalVariables.Direction.NORTH));
     }
 
+    @Test
+    public void testGetWestFeature(){
+        GlobalVariables.Feature w = GlobalVariables.Feature.GRASS;
+        assertEquals(w, tile.getTargetFeature(GlobalVariables.Direction.WEST));
+    }
 
+    @Test
+     public void testGetNorthAfterOneRotation(){
+        tile2.rotateTile();
+        GlobalVariables.Feature n = GlobalVariables.Feature.GRASS;
+        assertEquals(n, tile2.getTargetFeature(GlobalVariables.Direction.NORTH));
+    }
+
+    @Test
+    public void testGetNorthAfterTwoRotation(){
+        tile2.rotateTile();
+        tile2.rotateTile();
+        GlobalVariables.Feature n = GlobalVariables.Feature.ROAD;
+        assertEquals(n, tile2.getTargetFeature(GlobalVariables.Direction.NORTH));
+    }
+
+    @Test
+    public void testGetEastAfterTwoRotation(){
+        tile2.rotateTile();
+        tile2.rotateTile();
+        GlobalVariables.Feature n = GlobalVariables.Feature.GRASS;
+        assertEquals(n, tile2.getTargetFeature(GlobalVariables.Direction.EAST));
+    }
+
+    @Test
+    public void testGetEastAfterFullRotation(){
+        tile2.rotateTile();
+        tile2.rotateTile();
+        tile2.rotateTile();
+        tile2.rotateTile();
+        GlobalVariables.Feature n = GlobalVariables.Feature.GRASS;
+        assertEquals(n, tile2.getTargetFeature(GlobalVariables.Direction.EAST));
+    }
 
 
 
