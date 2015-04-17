@@ -71,19 +71,37 @@ public class TileGrid extends JPanel {
 
         game = new Game();
 
-        this.add(startingTile);
-        startingTile.setBounds(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
-        startingTile.setVisible(true);
+        //this.add(startingTile);
+        //startingTile.setBounds(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
+        //startingTile.setVisible(true);
 
-        topRight = startingTile;
-        topLeft = startingTile;
-        bottomLeft = startingTile;
-        bottomRight = startingTile;
+        AbstractTile tile1 = new NullTile();
+        this.add(tile1);
+        tile1.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
 
-        addLeftColumn();
+        AbstractTile tile2 = new NullTile();
+        this.add(tile2);
+        tile2.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE * 2);
+
+        AbstractTile tile3 = new NullTile();
+        this.add(tile3);
+        tile3.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE * 3);
+
+        tile1.setBottom(tile2);
+        tile2.setBottom(tile3);
+
+        topRight = tile1;
+        topLeft = tile1;
+        bottomLeft = tile3;
+        bottomRight = tile3;
+
         addRightColumn();
-        addBottomRow();
-        addTopRow();
+        addRightColumn();
+
+       // addLeftColumn();
+        //addRightColumn();
+        //addBottomRow();
+        //addTopRow();
 
     }
 

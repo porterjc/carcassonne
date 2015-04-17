@@ -14,7 +14,7 @@ public class TileGridTest extends JFrame{
     public TileGridTest() {
         super();
 
-        this.setSize(900, 900);
+        this.setSize(1500, 1500);
         grid = new TileGrid();
         grid.initialize(TileFactory.getStartTile());
         grid.game.passTiles(TileFactory.loadDeck());
