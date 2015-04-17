@@ -33,6 +33,9 @@ public class Game {
         gameOver = false;
     }
 
+    public Game(ArrayList<Player> players) {
+    }
+
     //TODO determine where to handle score
 
     public List<Player> getPlayers() {

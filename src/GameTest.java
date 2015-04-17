@@ -1,6 +1,8 @@
 import com.sun.istack.internal.NotNull;
 import org.junit.Test;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
@@ -27,6 +29,19 @@ public class GameTest {
         assertEquals(0, board.getNumberOfTilesLeft());
         assertEquals(true, board.getPlayers() != null );
     }
+    @Test
+    public void testCreateGameWithTwoPlayers() {
+        Player p1 = new Player(Color.RED);
+        Player p2 = new Player(Color.ORANGE);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        Game board = new Game(players);
+        assertEquals(true, board != null);
+        assertEquals(0, board.getNumberOfTilesLeft());
+        assertEquals(players, board.getPlayers());
+    }
+
 
     @Test
     public void testDrawTile() {
