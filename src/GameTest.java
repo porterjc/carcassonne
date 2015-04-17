@@ -157,6 +157,10 @@ public class GameTest {
         Game game = new Game(testStack, this.players);
         game.begin();
         assertEquals(false, game.moveToNextTurn());
+
+        game = new Game(getTiles(), this.players);
+        game.begin();
+        assertEquals(true, game.moveToNextTurn());
         assertEquals(1, game.getCurrentTurn());
     }
 
