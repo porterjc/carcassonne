@@ -144,7 +144,7 @@ public class GameTest {
     }
 
     @Test
-    public void testPlayer1FirstTurn(){
+    public void testPlayerTurn(){
         Player p1 = new Player(Color.RED);
         Player p2 = new Player(Color.ORANGE);
         players.add(p1);
