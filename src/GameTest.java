@@ -157,7 +157,7 @@ public class GameTest {
         Game game = new Game(testStack,this.players);
         game.begin();
         assertEquals(true, game.moveToNextTurn());
-       // assertEquals(1, game.getCurrentTurn());
+        assertEquals(1, game.getCurrentTurn());
     }
 
 
