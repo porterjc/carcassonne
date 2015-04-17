@@ -141,8 +141,8 @@ public class GameTest {
         Game game = new Game(players);
         game.begin();
         assertEquals(0,game.getCurrentTurn());
-
     }
+
     @Test
     public void testPlayer1FirstTurn(){
         Player p1 = new Player(Color.RED);
@@ -151,7 +151,8 @@ public class GameTest {
         players.add(p2);
         Game game = new Game(players);
         game.begin();
-        assertEquals(true, game.moveToNextTurn());
+        game.moveToNextTurn();
+        assertEquals(1, game.getCurrentTurn());
     }
 
 
