@@ -26,7 +26,8 @@ public class Meeple {
     }
 
     public void place(PlayableTile pt, GlobalVariables.Feature place) {
-        placedOn = place;
+        this.placedOn = place;
+        this.tile = pt;
     }
 
     public GlobalVariables.Feature getFeature() {
@@ -35,5 +36,9 @@ public class Meeple {
 
     public PlayableTile getTile() {
         return tile;
+    }
+
+    public void remove() {
+
     }
 }
