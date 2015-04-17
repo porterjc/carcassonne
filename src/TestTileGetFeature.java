@@ -50,7 +50,7 @@ public class TestTileGetFeature {
     public void testGetNorthAfterOneRotation(){
         tile2.rotateTile();
         GlobalVariables.Feature n = GlobalVariables.Feature.GRASS;
-        assertEquals(n, tile.getTargetFeature(GlobalVariables.Direction.NORTH));
+        assertEquals(n, tile2.getTargetFeature(GlobalVariables.Direction.NORTH));
     }
 
 
