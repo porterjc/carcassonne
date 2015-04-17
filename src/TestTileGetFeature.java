@@ -32,6 +32,12 @@ public class TestTileGetFeature {
         tile = null;
     }
 
+    @Test
+    public void testGetNorthFeatures(){
+        GlobalVariables.Feature n = GlobalVariables.Feature.ROAD;
+        assertEquals(n, tile.getTargetFeature(GlobalVariables.Direction.NORTH));
+    }
+
 
 
 
