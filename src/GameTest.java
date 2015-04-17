@@ -40,6 +40,20 @@ public class GameTest {
         assertEquals(true, board != null);
         assertEquals(players, board.getPlayers());
     }
+    @Test
+    public void testCreateGameWithThreePlayers() {
+        Player p1 = new Player(Color.RED);
+        Player p2 = new Player(Color.ORANGE);
+        Player p3 = new Player(Color.BLUE);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        Game board = new Game(players);
+        assertEquals(true, board != null);
+        assertEquals(players, board.getPlayers());
+        assertEquals(3, board.getPlayers().size());
+    }
 
 
     @Test

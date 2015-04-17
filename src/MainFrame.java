@@ -48,8 +48,8 @@ public class MainFrame extends JFrame {
         GraphicsDevice graphD = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         graphD.setFullScreenWindow(this);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //setupMainPanel();
-        //setupMainMenu();
+        setupMainPanel();
+        setupMainMenu();
         setupGamePlay();
         setVisible(true);
     }
