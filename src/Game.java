@@ -82,7 +82,7 @@ public class Game {
 
 
     public boolean moveToNextTurn() {
-        return true;
+        return isGameOver();
     }
 
     public void begin() {
