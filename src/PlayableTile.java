@@ -80,8 +80,10 @@ public class PlayableTile extends AbstractTile {
     public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction){
         if(rotation == 1){
            return this.getFeatures().get(GlobalVariables.Direction.WEST);
-        }
-        return this.getFeatures().get(direction);
+        } else if(rotation == 2){
+            return this.getFeatures().get(GlobalVariables.Direction.SOUTH);
+        } else
+            return this.getFeatures().get(direction);
     }
 
     public AbstractTile getTopLeft() {

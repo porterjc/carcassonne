@@ -56,6 +56,7 @@ public class TestTileGetFeature {
     @Test
     public void testGetNorthAfterTwoRotation(){
         tile2.rotateTile();
+        tile2.rotateTile();
         GlobalVariables.Feature n = GlobalVariables.Feature.ROAD;
         assertEquals(n, tile2.getTargetFeature(GlobalVariables.Direction.NORTH));
     }
