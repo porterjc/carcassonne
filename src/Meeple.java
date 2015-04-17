@@ -35,10 +35,10 @@ public class Meeple {
     }
 
     public PlayableTile getTile() {
-        return tile;
+        return this.tile;
     }
 
     public void remove() {
-
+        this.tile = null;
     }
 }

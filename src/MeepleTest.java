@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
@@ -31,6 +32,7 @@ public class MeepleTest extends TestCase {
         assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
         assertEquals(pt, m.getTile());
     }
+
     @Test
     public void testRemove() {
         PlayableTile pt = new PlayableTile();
