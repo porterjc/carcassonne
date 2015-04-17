@@ -34,6 +34,7 @@ public class Game {
     }
 
     public Game(ArrayList<Player> players) {
+        this.players=players;
     }
 
     //TODO determine where to handle score

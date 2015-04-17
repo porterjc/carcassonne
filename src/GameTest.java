@@ -38,7 +38,6 @@ public class GameTest {
         players.add(p2);
         Game board = new Game(players);
         assertEquals(true, board != null);
-        assertEquals(0, board.getNumberOfTilesLeft());
         assertEquals(players, board.getPlayers());
     }
 
