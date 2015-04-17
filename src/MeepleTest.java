@@ -27,8 +27,10 @@ public class MeepleTest extends TestCase {
     @Test
     public void testPlaceMeeble() {
         assertEquals(null, m.getFeature());
-        m.place(GlobalVariables.Feature.GRASS);
+        PlayableTile pt = new PlayableTile();
+        m.place(pt, GlobalVariables.Feature.GRASS);
         assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
+        assertEquals(pt, m.getTile());
     }
 
     @After

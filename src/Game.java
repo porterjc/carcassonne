@@ -104,5 +104,6 @@ public class Game {
     }
 
     public void updateScore(Color red, int i) {
+
     }
 }

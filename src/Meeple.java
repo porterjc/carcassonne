@@ -9,6 +9,7 @@ public class Meeple {
     private Color mColor;
     private Player meepleOwner;
     private GlobalVariables.Feature placedOn;
+    private PlayableTile tile;
 
 
     public Meeple(Player p, Color aqua) {
@@ -24,11 +25,15 @@ public class Meeple {
         return meepleOwner;
     }
 
-    public void place(GlobalVariables.Feature place) {
+    public void place(PlayableTile pt, GlobalVariables.Feature place) {
         placedOn = place;
     }
 
     public GlobalVariables.Feature getFeature() {
         return placedOn;
+    }
+
+    public PlayableTile getTile() {
+        return tile;
     }
 }
