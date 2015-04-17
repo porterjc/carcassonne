@@ -83,8 +83,11 @@ public class Game {
 
     public boolean moveToNextTurn() {
         if(isGameOver()) return false;
-        currentTurn++;
-        return true;
+        if(currentTurn < this.players.size()-1)
+            currentTurn++;
+        else
+            currentTurn=0;
+            return true;
     }
 
     public void begin() {
