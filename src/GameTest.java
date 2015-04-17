@@ -17,24 +17,25 @@ public class GameTest {
     public final int numberOfTiles = 72;
     public ArrayList<Player> players;
 
-    @NotNull
-    private Game makeNewGame() {
-        Stack<PlayableTile> testStack = new Stack<PlayableTile>();
-        for (int i = 0; i < numberOfTiles; i++) {
-            testStack.push(new PlayableTile());
-        }
-        return new Game(testStack);
-    }
-
     @Before
     public void setUp() {
-       this.players = new ArrayList<Player>();
+        this.players = new ArrayList<Player>();
     }
 
     @After
     public void cleanUp() {
         players = null;
     }
+
+
+    private Stack<PlayableTile> getTiles() {
+        Stack<PlayableTile> testStack = new Stack<PlayableTile>();
+        for (int i = 0; i < numberOfTiles; i++) {
+            testStack.push(new PlayableTile());
+        }
+        return testStack;
+    }
+
 
     @Test
     public void testCreateGameWithNoPlayers() {
@@ -45,8 +46,8 @@ public class GameTest {
     @Test
     public void testCreateGameWithOnePlayers() {
         this.players.add(new Player(Color.RED));
-        Game board = new Game(players);
-        assertEquals(true, board.getPlayers() == null);
+        Game game = new Game(getTiles(),this.players);
+        assertEquals(true, game.getPlayers() == null);
     }
 
     @Test
@@ -55,8 +56,8 @@ public class GameTest {
         Player p2 = new Player(Color.ORANGE);
         players.add(p1);
         players.add(p2);
-        Game board = new Game(players);
-        assertEquals(players, board.getPlayers());
+        Game game = new Game(getTiles(),this.players);
+        assertEquals(players, game.getPlayers());
     }
 
     @Test
@@ -67,9 +68,9 @@ public class GameTest {
         this.players.add(p1);
         this.players.add(p2);
         this.players.add(p3);
-        Game board = new Game(this.players);
-        assertEquals(this.players, board.getPlayers());
-        assertEquals(3, board.getPlayers().size());
+        Game game = new Game(getTiles(),this.players);
+        assertEquals(this.players, game.getPlayers());
+        assertEquals(3, game.getPlayers().size());
     }
 
     @Test
@@ -82,8 +83,8 @@ public class GameTest {
         this.players.add(p2);
         this.players.add(p3);
         this.players.add(p4);
-        Game board = new Game(this.players);
-        assertEquals(4, board.getPlayers().size());
+        Game game = new Game(getTiles(),this.players);
+        assertEquals(4, game.getPlayers().size());
     }
 
     @Test
@@ -98,12 +99,13 @@ public class GameTest {
         this.players.add(p3);
         this.players.add(p4);
         this.players.add(p5);
-        Game board = new Game(this.players);
-        assertEquals(5, board.getPlayers().size());
+        Game game = new Game(getTiles(),this.players);
+        assertEquals(5, game.getPlayers().size());
     }
+
     @Test
     public void testDrawTile() {
-        Game game = makeNewGame();
+        Game game = new Game(getTiles(),this.players);
         assertEquals(numberOfTiles, game.getNumberOfTilesLeft());
         game.drawTile();
         assertEquals(numberOfTiles - 1, game.getNumberOfTilesLeft());
@@ -114,7 +116,7 @@ public class GameTest {
 
     @Test
     public void testEmptyTileList() {
-        Game game = makeNewGame();
+        Game game = new Game(getTiles(),this.players);
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
         }
@@ -124,32 +126,34 @@ public class GameTest {
 
     @Test
     public void testIsGameOver() {
-        Game game = makeNewGame();
+        Game game = new Game(getTiles(),this.players);
         assertEquals(false, game.isGameOver());
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
         }
         assertEquals(true, game.isGameOver());
     }
+
     @Test
 
-    public void testBeginGame(){
+    public void testBeginGame() {
         Player p1 = new Player(Color.RED);
         Player p2 = new Player(Color.ORANGE);
         players.add(p1);
         players.add(p2);
-        Game game = new Game(players);
+        Game game = new Game(getTiles(),this.players);
         game.begin();
-        assertEquals(0,game.getCurrentTurn());
+        assertEquals(0, game.getCurrentTurn());
+        assertEquals(false, game.isGameOver());
     }
 
     @Test
-    public void testPlayerTurn(){
+    public void testPlayerTurn() {
         Player p1 = new Player(Color.RED);
         Player p2 = new Player(Color.ORANGE);
         players.add(p1);
         players.add(p2);
-        Game game = new Game(players);
+        Game game = new Game(getTiles(),this.players);
         game.begin();
         game.moveToNextTurn();
         assertEquals(1, game.getCurrentTurn());

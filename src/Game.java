@@ -25,19 +25,15 @@ public class Game {
     /**
      * TODO add parameters for passing a list of players
      *
-     * @param testStack
+     * @param stack
      */
-    public Game(Stack<PlayableTile> testStack) {
-        players = new ArrayList<Player>();
-        tiles = testStack;
-        gameOver = false;
-    }
-
-    public Game(ArrayList<Player> players) {
+    public Game(Stack<PlayableTile> stack,ArrayList<Player> players) {
         if (players.size() > 1) {
             this.players = players;
-            currentTurn = 0;
         }
+        currentTurn = 0;
+        tiles = stack;
+        gameOver = false;
     }
 
     //TODO determine where to handle score
@@ -90,10 +86,11 @@ public class Game {
     }
 
     public void begin() {
-
+        gameOver = false;
     }
 
     public int getCurrentTurn() {
         return currentTurn;
     }
+
 }
