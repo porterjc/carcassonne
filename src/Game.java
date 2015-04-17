@@ -11,6 +11,7 @@ public class Game {
     private Stack<PlayableTile> tiles;
     private PlayableTile currentTile;
     private int currentTurn;
+    private Player currentTurnPlayer;
 
     public Game() {
         tiles = new Stack<PlayableTile>();
@@ -23,7 +24,7 @@ public class Game {
      *
      * @param stack
      */
-    public Game(Stack<PlayableTile> stack,ArrayList<Player> players) {
+    public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
         if (players.size() > 1) {
             this.players = players;
         }
@@ -78,21 +79,25 @@ public class Game {
 
 
     public boolean moveToNextTurn() {
-        if(isGameOver()) return false;
-        if(this.currentTurn < this.players.size()-1)
+        if (isGameOver()) return false;
+        if (this.currentTurn < this.players.size() - 1)
             this.currentTurn++;
         else
-           this.currentTurn=0;
-        //TODO add logic here for switching to the next player
+            this.currentTurn = 0;
+        //TODO add logic here for switching to the next player in the GUI
         return true;
     }
 
     public void begin() {
         this.gameOver = false;
+       // this.currentTurnPlayer = players.get(currentTurn);
     }
 
     public int getCurrentTurn() {
         return this.currentTurn;
     }
 
+    public Player getCurrentTurnPlayer() {
+        return currentTurnPlayer;
+    }
 }
