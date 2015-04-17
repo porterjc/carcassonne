@@ -16,7 +16,7 @@ public class PlayableTile extends AbstractTile {
     }
 
     public PlayableTile(int i, int i1, AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
-        super(o,o1,o2,o3,features);
+        super(o, o1, o2, o3, features);
     }
 
     public PlayableTile(int i, int i1, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
@@ -77,13 +77,46 @@ public class PlayableTile extends AbstractTile {
             rotation++;
     }
 
-    public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction){
-        if(rotation == 1){
-           return this.getFeatures().get(GlobalVariables.Direction.WEST);
-        } else if(rotation == 2){
-            return this.getFeatures().get(GlobalVariables.Direction.SOUTH);
-        } else
+    public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction) {
+        GlobalVariables.Feature feature = null;
+        if(rotation == 0){
             return this.getFeatures().get(direction);
+        } else {
+            if (direction.equals(GlobalVariables.Direction.NORTH)) {
+                if (rotation == 1) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.WEST);
+                } else if (rotation == 2) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.SOUTH);
+                } else if (rotation == 3) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.EAST);
+                }
+            } else if (direction.equals(GlobalVariables.Direction.SOUTH)) {
+                if (rotation == 1) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.EAST);
+                } else if (rotation == 2) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.NORTH);
+                } else if (rotation == 3) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.WEST);
+                }
+            } else if (direction.equals(GlobalVariables.Direction.EAST)) {
+                if (rotation == 1) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.NORTH);
+                } else if (rotation == 2) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.WEST);
+                } else if (rotation == 3) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.SOUTH);
+                }
+            } else if (direction.equals(GlobalVariables.Direction.WEST)) {
+                if (rotation == 1) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.SOUTH);
+                } else if (rotation == 2) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.EAST);
+                } else if (rotation == 3) {
+                    feature = this.getFeatures().get(GlobalVariables.Direction.NORTH);
+                }
+            }
+            return feature;
+        }
     }
 
     public AbstractTile getTopLeft() {
