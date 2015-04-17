@@ -9,6 +9,7 @@ import java.util.Set;
 public class PlayableTile extends AbstractTile {
 
     private Image image;
+    private int rotation = 0; //represents how much much this tile has been rotated. 0 is the default value before rotations happen;
 
     public PlayableTile() {
         super();
@@ -59,9 +60,25 @@ public class PlayableTile extends AbstractTile {
         return image;
     }
 
+
     public void drawSelf() {
         Image resized = getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
         this.setIcon(new ImageIcon(resized));
+    }
+
+    /*Unneccessary change for commit*/
+    /**
+     *  Takes a boolean and rotates
+     */
+    public void rotateTile() {
+        if(rotation == 3)
+            rotation = 0;
+        else
+            rotation++;
+    }
+
+    public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction){
+        return this.getFeatures().get(direction);
     }
 
     public AbstractTile getTopLeft() {
@@ -79,5 +96,4 @@ public class PlayableTile extends AbstractTile {
     public AbstractTile getBottomRight() {
         return getBottom().getRight();
     }
-
 }
