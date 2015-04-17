@@ -33,7 +33,8 @@ public class Game {
     }
 
     public Game(ArrayList<Player> players) {
-        this.players=players;
+        if(players.size()>1){
+            this.players=players;}
     }
 
     //TODO determine where to handle score
