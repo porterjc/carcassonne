@@ -149,10 +149,8 @@ public class GameTest {
 
     @Test
     public void testPlayerTurn() {
-        Player p1 = new Player(Color.RED);
-        Player p2 = new Player(Color.ORANGE);
-        players.add(p1);
-        players.add(p2);
+        players.add(new Player(Color.RED));
+        players.add(new Player(Color.ORANGE));
         Stack<PlayableTile> testStack = new Stack<PlayableTile>();
         Game game = new Game(testStack, this.players);
         game.begin();
@@ -165,6 +163,21 @@ public class GameTest {
 
         assertEquals(true, game.moveToNextTurn());
         assertEquals(0, game.getCurrentTurn());
+
+        this.players.add(new Player(Color.BLACK));
+        this.players.add(new Player(Color.BLUE));
+        game = new Game(getTiles(), this.players);
+        game.begin();
+        assertEquals(true, game.moveToNextTurn());
+        assertEquals(1, game.getCurrentTurn());
+        assertEquals(true, game.moveToNextTurn());
+        assertEquals(2, game.getCurrentTurn());
+        assertEquals(true, game.moveToNextTurn());
+        assertEquals(3, game.getCurrentTurn());
+        assertEquals(true, game.moveToNextTurn());
+        assertEquals(0, game.getCurrentTurn());
+
+
     }
 
 
