@@ -60,8 +60,25 @@ public class PlayableTile extends AbstractTile {
         return image;
     }
 
-    public void rotateTile() {
+    /**
+     *  Takes a string and updates if tile has been rotated.
+     */
+    public void rotateTile(String direction) {
+        if(direction.equals("right")){
+            if(rotation == 3)
+                rotation = 0;
+            else
+                rotation++;
+        }else if(direction.equals("left")){
+            if(rotation == 0)
+                rotation = 3;
+            else
+                rotation--;
+        }
+    }
 
+    public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direc){
+        return null;
     }
 
     public AbstractTile getTopLeft() {
