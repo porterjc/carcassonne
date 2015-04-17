@@ -176,8 +176,6 @@ public class GameTest {
         assertEquals(3, game.getCurrentTurn());
         assertEquals(true, game.moveToNextTurn());
         assertEquals(0, game.getCurrentTurn());
-
-
     }
 
 

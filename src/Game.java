@@ -87,7 +87,8 @@ public class Game {
             currentTurn++;
         else
             currentTurn=0;
-            return true;
+        //TODO add logic here for switching to the next player
+        return true;
     }
 
     public void begin() {
