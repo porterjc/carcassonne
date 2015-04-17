@@ -16,7 +16,6 @@ public class Game {
      * TODO add real arguments to this constructor
      */
     public Game() {
-        players = new ArrayList<Player>();
         tiles = new Stack<PlayableTile>();
         gameOver = false;
         drawTile();
