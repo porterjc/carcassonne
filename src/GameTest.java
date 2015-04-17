@@ -154,9 +154,9 @@ public class GameTest {
         players.add(p1);
         players.add(p2);
         Stack<PlayableTile> testStack = new Stack<PlayableTile>();
-        Game game = new Game(testStack,this.players);
+        Game game = new Game(testStack, this.players);
         game.begin();
-        assertEquals(true, game.moveToNextTurn());
+        assertEquals(false, game.moveToNextTurn());
         assertEquals(1, game.getCurrentTurn());
     }
 
