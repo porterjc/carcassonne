@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -130,4 +131,28 @@ public class GameTest {
         }
         assertEquals(true, game.isGameOver());
     }
+    @Test
+
+    public void testBeginGame(){
+        Player p1 = new Player(Color.RED);
+        Player p2 = new Player(Color.ORANGE);
+        players.add(p1);
+        players.add(p2);
+        Game game = new Game(players);
+        game.begin();
+        assertEquals(0,game.getCurrentTurn());
+
+    }
+    @Test
+    public void testPlayer1FirstTurn(){
+        Player p1 = new Player(Color.RED);
+        Player p2 = new Player(Color.ORANGE);
+        players.add(p1);
+        players.add(p2);
+        Game game = new Game(players);
+        game.begin();
+        assertEquals(true, game.moveToNextTurn());
+    }
+
+
 }

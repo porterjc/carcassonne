@@ -11,6 +11,7 @@ public class Game {
     private boolean gameOver;
     private Stack<PlayableTile> tiles;
     private PlayableTile currentTile;
+    private int currentTurn;
 
     /**
      * TODO add real arguments to this constructor
@@ -30,6 +31,7 @@ public class Game {
         players = new ArrayList<Player>();
         tiles = testStack;
         gameOver = false;
+
     }
 
     public Game(ArrayList<Player> players) {
@@ -82,4 +84,15 @@ public class Game {
     }
 
 
+    public boolean moveToNextTurn() {
+        return false;
+    }
+
+    public void begin() {
+
+    }
+
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
 }
