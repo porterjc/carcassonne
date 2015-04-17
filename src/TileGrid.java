@@ -22,7 +22,7 @@ public class TileGrid extends JPanel {
     // The tile on the bottom left corner of this grid
     private AbstractTile bottomLeft;
     // The tile on the bottom right corner of this grid
-    private AbstractTile bottomRight;
+    private AbstractTile bottomRight;//TODO initialize & use this variable
 
     //Provides easy storage for the panel's preferred width
     private int panelWidth;

@@ -12,4 +12,5 @@ public class GameBoardTest {
         GameBoard board = new GameBoard();
         assert board != null : "board not null";
     }
+
 }

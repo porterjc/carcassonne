@@ -46,11 +46,11 @@ public class PlayableTile extends AbstractTile {
         GlobalVariables.Direction rightdir = this.getRight().addTile(new OpenTile());
         GlobalVariables.Direction bottomdir = this.getBottom().addTile(new OpenTile());
 
-        if(topdir != null)
+        if (topdir != null)
             return topdir;
-        else if(leftdir != null)
+        else if (leftdir != null)
             return leftdir;
-        else if(rightdir != null)
+        else if (rightdir != null)
             return rightdir;
         else
             return bottomdir;
@@ -67,11 +67,12 @@ public class PlayableTile extends AbstractTile {
     }
 
     /*Unneccessary change for commit*/
+
     /**
-     *  Takes a boolean and rotates
+     * Takes a boolean and rotates
      */
     public void rotateTile() {
-        if(rotation == 3)
+        if (rotation == 3)
             rotation = 0;
         else
             rotation++;
@@ -79,44 +80,65 @@ public class PlayableTile extends AbstractTile {
 
     public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction) {
         GlobalVariables.Feature feature = null;
-        if(rotation == 0){
+        if (rotation == 0) {
             return this.getFeatures().get(direction);
         } else {
             if (direction.equals(GlobalVariables.Direction.NORTH)) {
-                if (rotation == 1) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.WEST);
-                } else if (rotation == 2) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.SOUTH);
-                } else if (rotation == 3) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.EAST);
-                }
+                feature = getFeatureInPosition0(feature, GlobalVariables.Direction.WEST, GlobalVariables.Direction.SOUTH, GlobalVariables.Direction.EAST);
             } else if (direction.equals(GlobalVariables.Direction.SOUTH)) {
-                if (rotation == 1) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.EAST);
-                } else if (rotation == 2) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.NORTH);
-                } else if (rotation == 3) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.WEST);
-                }
+                feature = getFeatureInPosition2(feature, GlobalVariables.Direction.EAST, GlobalVariables.Direction.NORTH, GlobalVariables.Direction.WEST);
             } else if (direction.equals(GlobalVariables.Direction.EAST)) {
-                if (rotation == 1) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.NORTH);
-                } else if (rotation == 2) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.WEST);
-                } else if (rotation == 3) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.SOUTH);
-                }
+                feature = getFeatureInPosition1(feature, GlobalVariables.Direction.NORTH, GlobalVariables.Direction.WEST, GlobalVariables.Direction.SOUTH);
             } else if (direction.equals(GlobalVariables.Direction.WEST)) {
-                if (rotation == 1) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.SOUTH);
-                } else if (rotation == 2) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.EAST);
-                } else if (rotation == 3) {
-                    feature = this.getFeatures().get(GlobalVariables.Direction.NORTH);
-                }
+                feature = getFeatureInPosition3(feature, GlobalVariables.Direction.SOUTH, GlobalVariables.Direction.EAST, GlobalVariables.Direction.NORTH);
             }
             return feature;
         }
+    }
+
+
+    private GlobalVariables.Feature getFeatureInPosition0(GlobalVariables.Feature feature, GlobalVariables.Direction west, GlobalVariables.Direction south, GlobalVariables.Direction east) {
+        if (rotation == 1) {
+            feature = this.getFeatures().get(west);
+        } else if (rotation == 2) {
+            feature = this.getFeatures().get(south);
+        } else if (rotation == 3) {
+            feature = this.getFeatures().get(east);
+        }
+        return feature;
+    }
+
+    private GlobalVariables.Feature getFeatureInPosition1(GlobalVariables.Feature feature, GlobalVariables.Direction north, GlobalVariables.Direction west, GlobalVariables.Direction south) {
+        if (rotation == 1) {
+            feature = this.getFeatures().get(north);
+        } else if (rotation == 2) {
+            feature = this.getFeatures().get(west);
+        } else if (rotation == 3) {
+            feature = this.getFeatures().get(south);
+        }
+        return feature;
+    }
+
+    private GlobalVariables.Feature getFeatureInPosition2(GlobalVariables.Feature feature, GlobalVariables.Direction east, GlobalVariables.Direction north, GlobalVariables.Direction west) {
+        if (rotation == 1) {
+            feature = this.getFeatures().get(east);
+        } else if (rotation == 2) {
+            feature = this.getFeatures().get(north);
+        } else if (rotation == 3) {
+            feature = this.getFeatures().get(west);
+        }
+        return feature;
+    }
+
+    private GlobalVariables.Feature getFeatureInPosition3(GlobalVariables.Feature feature, GlobalVariables.Direction south, GlobalVariables.Direction east, GlobalVariables.Direction north) {
+        if (rotation == 1) {
+            feature = this.getFeatures().get(south);
+        } else if (rotation == 2) {
+            feature = this.getFeatures().get(east);
+        } else if (rotation == 3) {
+            feature = this.getFeatures().get(north);
+        }
+        return feature;
     }
 
     public AbstractTile getTopLeft() {
