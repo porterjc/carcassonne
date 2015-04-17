@@ -33,9 +33,15 @@ public class TestTileGetFeature {
     }
 
     @Test
-    public void testGetNorthFeatures(){
+        public void testGetNorthFeature(){
         GlobalVariables.Feature n = GlobalVariables.Feature.ROAD;
         assertEquals(n, tile.getTargetFeature(GlobalVariables.Direction.NORTH));
+    }
+
+    @Test
+    public void testGetWestFeature(){
+        GlobalVariables.Feature w = GlobalVariables.Feature.GRASS;
+        assertEquals(w, tile.getTargetFeature(GlobalVariables.Direction.WEST));
     }
 
 
