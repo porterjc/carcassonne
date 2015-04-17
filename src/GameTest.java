@@ -156,7 +156,7 @@ public class GameTest {
         Stack<PlayableTile> testStack = new Stack<PlayableTile>();
         Game game = new Game(testStack,this.players);
         game.begin();
-        assertEquals(false,game.moveToNextTurn());
+        assertEquals(false, game.moveToNextTurn());
        // assertEquals(1, game.getCurrentTurn());
     }
 
