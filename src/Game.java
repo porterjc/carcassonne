@@ -31,12 +31,13 @@ public class Game {
         players = new ArrayList<Player>();
         tiles = testStack;
         gameOver = false;
-
     }
 
     public Game(ArrayList<Player> players) {
-        if(players.size()>1){
-            this.players=players;}
+        if (players.size() > 1) {
+            this.players = players;
+            currentTurn = 0;
+        }
     }
 
     //TODO determine where to handle score
