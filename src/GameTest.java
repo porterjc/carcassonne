@@ -153,10 +153,11 @@ public class GameTest {
         Player p2 = new Player(Color.ORANGE);
         players.add(p1);
         players.add(p2);
-        Game game = new Game(getTiles(),this.players);
+        Stack<PlayableTile> testStack = new Stack<PlayableTile>();
+        Game game = new Game(testStack,this.players);
         game.begin();
-        game.moveToNextTurn();
-        assertEquals(1, game.getCurrentTurn());
+        assertEquals(false,game.moveToNextTurn());
+       // assertEquals(1, game.getCurrentTurn());
     }
 
 
