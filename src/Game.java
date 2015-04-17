@@ -6,16 +6,12 @@ import java.util.Stack;
  * Created by johnsoaa on 3/25/2015.
  */
 public class Game {
-    // TODO add functional variable for turn
     private List<Player> players;
     private boolean gameOver;
     private Stack<PlayableTile> tiles;
     private PlayableTile currentTile;
     private int currentTurn;
 
-    /**
-     * TODO add real arguments to this constructor
-     */
     public Game() {
         tiles = new Stack<PlayableTile>();
         gameOver = false;
@@ -23,7 +19,7 @@ public class Game {
     }
 
     /**
-     * TODO add parameters for passing a list of players
+     * Done add parameters for passing a list of players
      *
      * @param stack
      */
@@ -83,20 +79,20 @@ public class Game {
 
     public boolean moveToNextTurn() {
         if(isGameOver()) return false;
-        if(currentTurn < this.players.size()-1)
-            currentTurn++;
+        if(this.currentTurn < this.players.size()-1)
+            this.currentTurn++;
         else
-            currentTurn=0;
+           this.currentTurn=0;
         //TODO add logic here for switching to the next player
         return true;
     }
 
     public void begin() {
-        gameOver = false;
+        this.gameOver = false;
     }
 
     public int getCurrentTurn() {
-        return currentTurn;
+        return this.currentTurn;
     }
 
 }
