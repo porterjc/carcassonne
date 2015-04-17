@@ -38,11 +38,15 @@ public class GameTest {
     @Test
     public void testCreateGameWithNoPlayers() {
         Game board = new Game();
-        assertEquals(true, board != null);
-        assertEquals(0, board.getNumberOfTilesLeft());
         assertEquals(true, board.getPlayers() == null);
     }
 
+    @Test
+    public void testCreateGameWithOnePlayers() {
+        this.players.add(new Player(Color.RED));
+        Game board = new Game(players);
+        assertEquals(true, board.getPlayers() == null);
+    }
 
     @Test
     public void testCreateGameWithTwoPlayers() {
@@ -51,7 +55,6 @@ public class GameTest {
         players.add(p1);
         players.add(p2);
         Game board = new Game(players);
-        assertEquals(true, board != null);
         assertEquals(players, board.getPlayers());
     }
 
@@ -64,7 +67,6 @@ public class GameTest {
         this.players.add(p2);
         this.players.add(p3);
         Game board = new Game(this.players);
-        assertEquals(true, board != null);
         assertEquals(this.players, board.getPlayers());
         assertEquals(3, board.getPlayers().size());
     }
