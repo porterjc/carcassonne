@@ -68,6 +68,19 @@ public class GameTest {
         assertEquals(3, board.getPlayers().size());
     }
 
+    @Test
+    public void testCreateGameWithFourPlayers() {
+        Player p1 = new Player(Color.RED);
+        Player p2 = new Player(Color.ORANGE);
+        Player p3 = new Player(Color.BLUE);
+        Player p4 = new Player(Color.YELLOW);
+        this.players.add(p1);
+        this.players.add(p2);
+        this.players.add(p3);
+        this.players.add(p4);
+        Game board = new Game(this.players);
+        assertEquals(4, board.getPlayers().size());
+    }
 
     @Test
     public void testDrawTile() {
