@@ -60,6 +60,8 @@ public class PlayableTile extends AbstractTile {
         return image;
     }
 
+    /*Unneccessary change for commit*/
+    public void testChange(){}
     /**
      *  Takes a boolean and rotates
      */
