@@ -189,9 +189,18 @@ public class GameTest {
         assertEquals(players.get(0), game.getCurrentTurnPlayer());
         game.moveToNextTurn();
         assertEquals(players.get(1), game.getCurrentTurnPlayer());
+    }
+    @Test
+    public void testUpdatePlayerScore(){
+        players.add(new Player(Color.RED));
+        players.add(new Player(Color.ORANGE));
+        Game game = new Game(getTiles(), this.players);
+        //TODO for later
+        //change ArrayList<Player> to Map<Player,Integer> (map of the player and the corresponding score
+        //game.updateScore(Color.RED, 5);
+        //assertEquals(5, players.get)
 
 
     }
-
 
 }

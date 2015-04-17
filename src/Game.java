@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -84,7 +85,9 @@ public class Game {
             this.currentTurn++;
         else
             this.currentTurn = 0;
-        //TODO add logic here for switching to the next player in the GUI
+        //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
+        //TODO consider implementing the observer pattern for when a score is updated
+        //as we don't want too much coupling between the UI and the GAME class over sharing Player objects
         return true;
     }
 
@@ -98,5 +101,8 @@ public class Game {
 
     public Player getCurrentTurnPlayer() {
         return players.get(currentTurn);
+    }
+
+    public void updateScore(Color red, int i) {
     }
 }
