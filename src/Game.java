@@ -82,6 +82,7 @@ public class Game {
 
 
     public boolean moveToNextTurn() {
+        currentTurn++;
         return isGameOver();
     }
 
