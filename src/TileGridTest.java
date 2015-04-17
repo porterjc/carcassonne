@@ -27,29 +27,7 @@ public class TileGridTest extends JFrame{
 
     public static void main(String[] args) {
         TileGridTest tester = new TileGridTest();
-        //tester.testRenderTiles();
-        //tester.testAddTiles();
     }
 
-    public void testRenderTiles() {
-        grid.addTile(new OpenTile(), 0, 0, false);
-        grid.addTile(new OpenTile(), 3, 0, false);
-        grid.addTile(new OpenTile(), 2, 4, false);
-        grid.addTile(new OpenTile(), -1, 0, false);
-        grid.addTile(new OpenTile(), 0, -1, false);
-
-    }
-
-    public void testAddTiles() {
-        Game newGame = new Game(testingTiles);
-        grid.game = newGame;
-        newGame.drawTile();
-        grid.addTile(TileFactory.getStartTile(), 1, 1, true);
-
-    }
-
-    public void testGrowTiles() {
-
-    }
 
 }

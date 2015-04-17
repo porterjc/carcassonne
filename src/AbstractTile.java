@@ -22,6 +22,8 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     public AbstractTile() {
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        internals = new HashSet<>();
+        this.addMouseListener(this);
     }
 
     public AbstractTile(AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
@@ -32,6 +34,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         setBottom(b);
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         internals = new HashSet<GlobalVariables.Internal>();
+        this.addMouseListener(this);
     }
 
     public AbstractTile(AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b) {
@@ -41,17 +44,20 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         setBottom(b);
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         internals = new HashSet<GlobalVariables.Internal>();
+        this.addMouseListener(this);
     }
 
 
     public AbstractTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         featuresMap = features;
         internals = new HashSet<>();
+        this.addMouseListener(this);
     }
 
     public AbstractTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         featuresMap = features;
         this.internals = internals;
+        this.addMouseListener(this);
     }
 
 
@@ -115,7 +121,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         newTile.setLeft(this.getLeft());
         newTile.setRight(this.getRight());
 
-
+        this.drawSelf();
         return newTile.updateAdjacent();
     }
 
@@ -123,13 +129,16 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     public abstract Image getImage();
 
-    public void move(int x, int y) {
+    public void moveTile(int x, int y) {
         this.setBounds(x, y, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
     }
 
+    public abstract void drawSelf();
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        PlayableTile current = grid.game.getCurrentTile();
+        PlayableTile current = ((TileGrid) this.getParent()).game.getCurrentTile();
+        System.out.println(current);
         if(this instanceof OpenTile && ((OpenTile)this).canPlace(current)) {
             this.grid.addNullRow(this.addTile(current));
 

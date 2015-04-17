@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
@@ -34,6 +35,11 @@ public class OpenTile extends AbstractTile {
     @Override
     public Image getImage() {
         return null;
+    }
+
+    @Override
+    public void drawSelf() {
+        this.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
     }
 
 

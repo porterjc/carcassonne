@@ -71,95 +71,22 @@ public class TileGrid extends JPanel {
 
         game = new Game();
 
+        this.add(startingTile);
+        startingTile.setBounds(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
+        startingTile.setVisible(true);
+
         topRight = startingTile;
         topLeft = startingTile;
         bottomLeft = startingTile;
         bottomRight = startingTile;
+
         addLeftColumn();
         addRightColumn();
         addBottomRow();
         addTopRow();
 
-
-        this.add(startingTile);
-        startingTile.setBounds(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
-        startingTile.setVisible(true);
-
     }
 
-    public void addTile(AbstractTile newTile, int x, int y, boolean addAround) {
-        if(x > maxX) {
-            growRight(x);
-        }
-        else if (x < 0) {
-            growLeft(x);
-            x = 0;
-        }
-
-        if(y > maxY) {
-            growDown(y);
-        }
-        else if (y < minY) {
-            growUp(y);
-            y = 0;
-        }
-
-        this.add(new TileLabel(newTile, x, y, this));
-
-        if(addAround) {
-            OpenTile top = new OpenTile();
-            addTile(top, x, y - 1, false);
-            newTile.setTop(top);
-
-            OpenTile bottom = new OpenTile();
-            addTile(bottom, x, y + 1, false);
-            newTile.setBottom(bottom);
-
-            OpenTile left = new OpenTile();
-            addTile(left, x - 1, y, false);
-            newTile.setLeft(left);
-
-            OpenTile right = new OpenTile();
-            addTile(right, x + 1, y, false);
-            newTile.setRight(right);
-
-        }
-
-       // tileList.add(newTile);
-        //if(newTile.getxVal() < offsetX)
-          //  growLeft();
-    }
-
-    private void growRight(int x) {
-        panelWidth += (x - maxX) * TileLabel.TILE_PIXEL_SIZE;
-        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-        maxX++;
-    }
-
-    private void growLeft(int x) {
-        panelWidth += Math.abs(x) * TileLabel.TILE_PIXEL_SIZE;
-        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-
-        for(Component component : this.getComponents()) {
-            component.setBounds(component.getX() + TileLabel.TILE_PIXEL_SIZE, component.getY(), TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE);
-        }
-    }
-
-    private void growDown(int y) {
-        panelHeight += (y - maxY) * TileLabel.TILE_PIXEL_SIZE;
-        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-        maxY++;
-    }
-
-    private void growUp(int y) {
-        panelHeight += Math.abs(y) * TileLabel.TILE_PIXEL_SIZE;
-        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-
-        for(Component component : this.getComponents()) {
-            component.setBounds(component.getX(), component.getY() + TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE);
-
-        }
-    }
 
     public void addNullRow(GlobalVariables.Direction dir) {
         if(dir == GlobalVariables.Direction.NORTH)
@@ -179,7 +106,8 @@ public class TileGrid extends JPanel {
         AbstractTile existingToLeft = topRight;
         AbstractTile existingAbove = new NullTile();
         existingAbove.setLeft(existingToLeft);
-        existingAbove.move(existingToLeft.getX() + AbstractTile.TILE_PIXEL_SIZE, 0);
+        existingAbove.moveTile(existingToLeft.getX() + AbstractTile.TILE_PIXEL_SIZE, existingToLeft.getY());
+        this.add(existingAbove);
         existingToLeft = existingToLeft.getBottom();
         topRight = existingAbove;
 
@@ -187,7 +115,8 @@ public class TileGrid extends JPanel {
             NullTile newTile = new NullTile();
             newTile.setTop(existingAbove);
             newTile.setLeft(existingToLeft);
-            newTile.move(existingAbove.getX(), existingToLeft.getY());
+            newTile.moveTile(existingAbove.getX(), existingToLeft.getY());
+            this.add(newTile);
             existingAbove = newTile;
             existingToLeft = existingToLeft.getBottom();
         }
@@ -201,10 +130,19 @@ public class TileGrid extends JPanel {
      * Adds a column of null tiles to the left of the grid
      */
     private void addLeftColumn() {
+
+        panelWidth += TileLabel.TILE_PIXEL_SIZE;
+        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+
+        for(Component component : this.getComponents()) {
+            component.setBounds(component.getX() + TileLabel.TILE_PIXEL_SIZE, component.getY(), AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
+        }
+
         AbstractTile existingToRight = topLeft;
         AbstractTile existingAbove= new NullTile();
         existingAbove.setRight(existingToRight);
-        existingAbove.move(0, 0);
+        existingAbove.moveTile(existingToRight.getX() - AbstractTile.TILE_PIXEL_SIZE, existingToRight.getY());
+        this.add(existingAbove);
         existingToRight = existingToRight.getBottom();
         topLeft = existingAbove;
 
@@ -212,19 +150,13 @@ public class TileGrid extends JPanel {
             NullTile newTile = new NullTile();
             newTile.setTop(existingAbove);
             newTile.setRight(existingToRight);
-            newTile.move(existingAbove.getX(), existingToRight.getY());
+            newTile.moveTile(existingAbove.getX(), existingToRight.getY());
             this.add(newTile);
             existingAbove = newTile;
             existingToRight = existingToRight.getBottom();
         }
 
         bottomLeft = existingAbove;
-        panelWidth += TileLabel.TILE_PIXEL_SIZE;
-        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-
-        for(Component component : this.getComponents()) {
-            component.move(component.getX() + TileLabel.TILE_PIXEL_SIZE, component.getY());
-        }
     }
 
     /**
@@ -234,7 +166,8 @@ public class TileGrid extends JPanel {
         AbstractTile existingAbove = bottomLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setTop(existingAbove);
-        existingToLeft.move(existingAbove.getX(), existingAbove.getY() + AbstractTile.TILE_PIXEL_SIZE);
+        existingToLeft.moveTile(existingAbove.getX(), existingAbove.getY() - AbstractTile.TILE_PIXEL_SIZE);
+        this.add(existingToLeft);
         existingAbove = existingAbove.getRight();
         bottomLeft = existingToLeft;
 
@@ -242,7 +175,8 @@ public class TileGrid extends JPanel {
             NullTile newTile = new NullTile();
             newTile.setTop(existingAbove);
             newTile.setLeft(existingToLeft);
-            newTile.move(existingAbove.getX(), existingToLeft.getY());
+            newTile.moveTile(existingAbove.getX(), existingToLeft.getY());
+            this.add(newTile);
             existingToLeft = newTile;
             existingAbove = existingAbove.getRight();
         }
@@ -256,9 +190,19 @@ public class TileGrid extends JPanel {
      * Adds a row of null tiles to the top of the grid
      */
     private void addTopRow() {
+
+        panelHeight += TileLabel.TILE_PIXEL_SIZE;
+        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+
+        for(Component component : this.getComponents()) {
+            component.setBounds(component.getX(), component.getY() + TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE);
+        }
+
         AbstractTile existingBelow = topLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setBottom(existingBelow);
+        existingToLeft.moveTile(existingBelow.getX(), existingBelow.getY() + AbstractTile.TILE_PIXEL_SIZE );
+        this.add(existingToLeft);
         existingBelow = existingBelow.getRight();
         topLeft = existingToLeft;
 
@@ -266,18 +210,13 @@ public class TileGrid extends JPanel {
             NullTile newTile = new NullTile();
             newTile.setBottom(existingBelow);
             newTile.setLeft(existingToLeft);
+            newTile.moveTile(existingBelow.getX(), existingToLeft.getY());
+            this.add(newTile);
             existingToLeft = newTile;
             existingBelow = existingBelow.getRight();
         }
 
         topRight = existingToLeft;
-        panelHeight += TileLabel.TILE_PIXEL_SIZE;
-        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-
-        for(Component component : this.getComponents()) {
-            component.setBounds(component.getX(), component.getY() + TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE, TileLabel.TILE_PIXEL_SIZE);
-
-        }
     }
 
 
