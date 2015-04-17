@@ -181,8 +181,7 @@ public class GameTest {
     public void testGetCurrentTurnPlayer(){
         players.add(new Player(Color.RED));
         players.add(new Player(Color.ORANGE));
-        Stack<PlayableTile> testStack = new Stack<PlayableTile>();
-        Game game = new Game(testStack, this.players);
+        Game game = new Game(getTiles(), this.players);
         assertEquals(players.get(0), game.getCurrentTurnPlayer());
         game.moveToNextTurn();
         assertEquals(players.get(1), game.getCurrentTurnPlayer());

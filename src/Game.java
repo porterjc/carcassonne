@@ -90,7 +90,6 @@ public class Game {
 
     public void begin() {
         this.gameOver = false;
-       // this.currentTurnPlayer = players.get(currentTurn);
     }
 
     public int getCurrentTurn() {
@@ -98,6 +97,6 @@ public class Game {
     }
 
     public Player getCurrentTurnPlayer() {
-        return currentTurnPlayer;
+        return players.get(currentTurn);
     }
 }
