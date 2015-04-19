@@ -10,6 +10,7 @@ public class PlayableTile extends AbstractTile {
 
     private Image image;
     private int rotation = 0; //represents how much much this tile has been rotated. 0 is the default value before rotations happen;
+    private Meeple meeple;
 
     public PlayableTile() {
         super();

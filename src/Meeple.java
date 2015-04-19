@@ -9,6 +9,7 @@ public class Meeple {
     private Color mColor;
     private Player meepleOwner;
     private GlobalVariables.Feature placedOn;
+    private GlobalVariables.Location location;
     private PlayableTile tile;
 
 
