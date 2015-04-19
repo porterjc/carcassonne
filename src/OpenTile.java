@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by johnsoaa on 3/31/2015.
@@ -76,5 +77,20 @@ public class OpenTile extends AbstractTile {
         else
             return tileeFeatures.get(GlobalVariables.Direction.EAST) == getRight().getFeatures().get(GlobalVariables.Direction.WEST);
 
+    }
+
+    @Override
+    public int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return -1;
+    }
+
+    @Override
+    public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return -1;
+    }
+
+    @Override
+    public int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return -1;
     }
 }

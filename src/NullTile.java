@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by robinsat on 4/14/2015.
@@ -23,6 +24,21 @@ public class NullTile extends AbstractTile {
     @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+    }
+
+    @Override
+    public int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return -1;
+    }
+
+    @Override
+    public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return -1;
+    }
+
+    @Override
+    public int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return -1;
     }
 
     @Override

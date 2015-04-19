@@ -167,4 +167,12 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
     public void mouseExited(MouseEvent e) {
 
     }
+
+    // Scoring algorithms
+
+    public abstract int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
+
+    public abstract int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
+
+    public abstract int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
 }

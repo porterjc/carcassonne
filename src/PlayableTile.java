@@ -67,6 +67,21 @@ public class PlayableTile extends AbstractTile {
         this.setIcon(new ImageIcon(resized));
     }
 
+    @Override
+    public int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return 0;
+    }
+
+    @Override
+    public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return 0;
+    }
+
+    @Override
+    public int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return 0;
+    }
+
     /*Unneccessary change for commit*/
 
     /**
