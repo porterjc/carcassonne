@@ -19,19 +19,21 @@ public class MainFrame extends JFrame {
 
     private JPanel mainpanel;
     private JPanel bottompanel;
+    private JPanel backPanel;
     private JPanel optionsPanel;
     private ScorePanel scorePanel;
     private JLabel tilesLeftLabel;
     private JLabel tiledisplay;
     private JLabel currentPlayer;
-    private JPanel boardDisplay;
+    private TileGrid boardDisplay;
     private JScrollPane scrollBoard;
     private BufferedImage pic;
     private ArrayList<PlayableTile> tiles;
 
+    private int screenWidth;
+    private int screenHeight;
+
     // Some graphic constants
-    private final int SCREEN_WIDTH = 800;
-    private final int SCREEN_HEIGHT = 600;
     private final int COMPONENT_MARGIN = 20;
 
     private final int buttonWidth = 400;
@@ -44,19 +46,21 @@ public class MainFrame extends JFrame {
         super();
 
         //this.setUndecorated(true);
-        this.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         GraphicsDevice graphD = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         graphD.setFullScreenWindow(this);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        setupMainPanel();
-//        setupMainMenu();
-        setupGamePlay();
+        setupMainPanel();
+        setupMainMenu();
+       // setupGamePlay();
         setVisible(true);
+        screenWidth = this.getWidth();
+        screenHeight = this.getHeight();
+
     }
 
     private void setupMainPanel() {
 
-        JPanel backPanel;
+       // JPanel backPanel;
         try {
             BufferedImage background = ImageIO.read(new File("images/background.png"));
             backPanel = new TiledImagePanel(background);
@@ -97,7 +101,8 @@ public class MainFrame extends JFrame {
         GraphicButton newGameButton = new GraphicButton(buttonWidth, buttonHeight, "New Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setupGameOptions();
+                //setupGameOptions();
+                setupGamePlay();
             }
         };
 
@@ -225,17 +230,36 @@ public class MainFrame extends JFrame {
      */
     private void setupGamePlay(){
        // this.remove(optionsPanel);
+        System.out.println("yo");
+        backPanel.removeAll();
+        this.remove(backPanel);
+        revalidate();
+        repaint();
+
         BorderLayout bl = new BorderLayout();
         mainpanel = new JPanel(bl);
+        //mainpanel.setBackground(Color.YELLOW);
+       // mainpanel.setOpaque(true);
+       // mainpanel.setSize(500, 500);
+       // mainpanel.setVisible(true);
+       // mainpanel.setPreferredSize(this.getPreferredSize());
         this.add(mainpanel);
 
         bottompanel = new JPanel();
         bottompanel.setBackground(new Color(39, 40, 49));
         bottompanel.setLayout(new BoxLayout(bottompanel, BoxLayout.X_AXIS));
-        bottompanel.setPreferredSize(new Dimension(SCREEN_WIDTH, 200));
+        bottompanel.setPreferredSize(new Dimension(screenWidth, 200));
         //bottompanel.setPreferredSize(new Dimension(SCREEN_WIDTH - COMPONENT_MARGIN, 200 - COMPONENT_MARGIN));
         bottompanel.setBorder(new CompoundBorder(new EmptyBorder(22, 20, 20, 20), BorderFactory.createLoweredBevelBorder()));
         mainpanel.add(bottompanel, BorderLayout.SOUTH);
+
+        boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
+        boardDisplay.initialize(TileFactory.getStartTile());
+        boardDisplay.game.passTiles(TileFactory.loadDeck());
+
+        scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
         Image newTileImage = TileFactory.getStartTile().getImage();
         Image resized = newTileImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
@@ -264,12 +288,6 @@ public class MainFrame extends JFrame {
         players.add(new Player(Color.GREEN));
         scorePanel = new ScorePanel(players);
         bottompanel.add(scorePanel);
-
-        boardDisplay = new TileGrid(SCREEN_WIDTH, SCREEN_HEIGHT - 200);
-
-        scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-        mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
         DragFrame scroller = new DragFrame(boardDisplay);
         scrollBoard.getViewport().addMouseMotionListener(scroller);

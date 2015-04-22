@@ -15,10 +15,10 @@ public class TileGridTest extends JFrame{
         super();
 
         this.setSize(1500, 1500);
-        grid = new TileGrid();
+        grid = new TileGrid(1500, 1500);
         grid.initialize(TileFactory.getStartTile());
         grid.game.passTiles(TileFactory.loadDeck());
-        JScrollPane pane = new JScrollPane(grid, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane pane = new JScrollPane(grid, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         pane.setSize(900, 900);
         this.add(pane, BorderLayout.CENTER);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

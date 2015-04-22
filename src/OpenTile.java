@@ -14,6 +14,7 @@ public class OpenTile extends AbstractTile {
 
     public OpenTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom) {
         super(left, right, top, bottom);
+        this.drawSelf();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class OpenTile extends AbstractTile {
 
     @Override
     public void drawSelf() {
-        this.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
 
 

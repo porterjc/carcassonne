@@ -71,7 +71,7 @@ public class PlayableTile extends AbstractTile {
 
 
     public void drawSelf() {
-        Image resized = getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+        Image resized = getImage().getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
         this.setIcon(new ImageIcon(resized));
     }
 

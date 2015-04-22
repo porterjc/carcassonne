@@ -64,18 +64,79 @@ public class TileGrid extends JPanel {
      * @param startingTile
      */
     public void initialize(PlayableTile startingTile) {
-        minX = 0;
+      /*  minX = 0;
         minY = 0;
         maxX = 2;
-        maxY = 2;
+        maxY = 2; */
 
         game = new Game();
+
+        // Calculate the number of tiles to start with, make sure it's an odd, positive number so it looks pretty
+        int numTilesX = panelWidth / AbstractTile.TILE_PIXEL_SIZE;
+        if (numTilesX < 5) {
+            panelWidth += (5 - numTilesX) * AbstractTile.TILE_PIXEL_SIZE;
+            numTilesX = 5;
+        }
+        if (numTilesX % 2 == 0)
+            numTilesX--;
+
+        int numTilesY = panelHeight / AbstractTile.TILE_PIXEL_SIZE;
+        if (numTilesY < 5) {
+            panelHeight += (5 - numTilesY) * AbstractTile.TILE_PIXEL_SIZE;
+            numTilesY = 5;
+        }
+        if (numTilesY % 2 == 0)
+            numTilesY--;
+
+        int xMargin = Math.abs((panelWidth - (numTilesX * AbstractTile.TILE_PIXEL_SIZE)) / 2);
+        int yMargin = Math.abs((panelHeight - (numTilesY * AbstractTile.TILE_PIXEL_SIZE)) / 2);
+
+        int fixedWidth = panelWidth;
+        int flagX = numTilesX / 2;
+        int flagY = numTilesY / 2;
+
+        //Add tile in top left corner
+        AbstractTile upperTile = new NullTile();
+        upperTile.moveTile(xMargin, yMargin);
+        this.add(upperTile);
+        topLeft = upperTile;
+        topRight = upperTile;
+
+        // The tile to flag to place the starting tile
+        AbstractTile flaggedTile = upperTile;
+
+        // Populate the leftmost column
+        for(int i = 1; i < numTilesY; i++) {
+            AbstractTile newTile = new NullTile();
+            newTile.moveTile(xMargin, yMargin + (i * AbstractTile.TILE_PIXEL_SIZE));
+            this.add(newTile);
+            newTile.setTop(upperTile);
+
+            if(i == flagY)
+                flaggedTile = newTile;
+
+            upperTile = newTile;
+        }
+
+        bottomLeft = upperTile;
+        bottomRight = upperTile;
+
+        //Expand the grid right
+        for(int i = 1; i < numTilesX; i++) {
+            addRightColumn();
+            if(i <= flagX)
+                flaggedTile = flaggedTile.getRight();
+        }
+
+        flaggedTile.addTile(startingTile);
+        panelWidth = fixedWidth;
+        this.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
         //this.add(startingTile);
         //startingTile.setBounds(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
         //startingTile.setVisible(true);
 
-        AbstractTile tile1 = new NullTile();
+       /* AbstractTile tile1 = new NullTile();
         this.add(tile1);
         tile1.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
 
@@ -88,15 +149,15 @@ public class TileGrid extends JPanel {
         tile3.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE * 3);
 
         tile1.setBottom(tile2);
-        tile2.setBottom(tile3);
+        tile2.setBottom(tile3);*/
 
-        topRight = tile1;
+        /*topRight = tile1;
         topLeft = tile1;
         bottomLeft = tile3;
-        bottomRight = tile3;
+        bottomRight = tile3;*/
 
-        addRightColumn();
-        addRightColumn();
+        //addRightColumn();
+        //addRightColumn();
 
        // addLeftColumn();
         //addRightColumn();

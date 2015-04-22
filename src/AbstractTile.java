@@ -13,7 +13,7 @@ import java.util.Set;
 
 public abstract class AbstractTile extends JLabel implements MouseListener{
 
-    public static final int TILE_PIXEL_SIZE = 300;
+    public static final int TILE_PIXEL_SIZE = 200;
 
     private AbstractTile left, right, top, bottom;
     private Map<GlobalVariables.Direction, GlobalVariables.Feature> featuresMap;
@@ -68,7 +68,8 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     public void setLeft(AbstractTile left) {
         this.left = left;
-        left.right = this;
+        if (left != null)
+            left.right = this;
     }
 
     public AbstractTile getRight() {
@@ -77,7 +78,8 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     public void setRight(AbstractTile right) {
         this.right = right;
-        right.left = this;
+        if (right != null)
+            right.left = this;
     }
 
     public AbstractTile getTop() {
@@ -86,7 +88,8 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     public void setTop(AbstractTile top) {
         this.top = top;
-        top.bottom = this;
+        if (top != null)
+            top.bottom = this;
     }
 
     public AbstractTile getBottom() {
@@ -95,7 +98,8 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     public void setBottom(AbstractTile bottom) {
         this.bottom = bottom;
-        bottom.top = this;
+        if (bottom != null)
+            bottom.top = this;
     }
 
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
@@ -117,7 +121,11 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         newTile.setLeft(this.getLeft());
         newTile.setRight(this.getRight());
 
-        this.drawSelf();
+        newTile.drawSelf();
+        newTile.setBounds(this.getBounds());
+        Container parent = this.getParent();
+        parent.remove(this);
+        parent.add(newTile);
         return newTile.updateAdjacent();
     }
 

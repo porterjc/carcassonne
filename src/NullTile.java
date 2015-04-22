@@ -11,7 +11,7 @@ public class NullTile extends AbstractTile {
     public NullTile() {
         super();
         this.setSize(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
-        this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        this.drawSelf();
         //this.setOpaque(true);
         this.setVisible(true);
     }
@@ -23,7 +23,7 @@ public class NullTile extends AbstractTile {
 
     @Override
     public void drawSelf() {
-        this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        this.setBorder(BorderFactory.createLineBorder(new Color(80, 90, 115)));
     }
 
     @Override
