@@ -61,10 +61,6 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
     }
 
 
-    /**
-     * TODO add string owner, color meepleColor, snum feature placedON, Places edge (direction)
-     */
-
 
     public AbstractTile getLeft() {
         return left;

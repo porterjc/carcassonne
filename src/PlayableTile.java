@@ -172,4 +172,12 @@ public class PlayableTile extends AbstractTile {
     public AbstractTile getBottomRight() {
         return getBottom().getRight();
     }
+
+    /**
+     * This method is soley for testing purposes.
+     * @param x
+     */
+    public void setRotation(int x){
+        this.rotation =x;
+    }
 }

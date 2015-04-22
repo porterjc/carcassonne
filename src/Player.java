@@ -8,10 +8,12 @@ public class Player {
     private int playerScore;
     private Color pColor;
     private ArrayList meeples;
+    public int lastUsedMeeple;
 
     public Player(Color color) {
         pColor = color;
         playerScore = 0;
+        lastUsedMeeple = 0;
         meeples = new ArrayList<Meeple>();
         meeples.add(new Meeple(this, color));
         meeples.add(new Meeple(this, color));
@@ -33,8 +35,12 @@ public class Player {
     public ArrayList getMeeples() {
         return meeples;
     }
+    
 
     public void updateScore(int points) {
         this.playerScore += points;
+    }
+
+    public void placeMeeple() {
     }
 }
