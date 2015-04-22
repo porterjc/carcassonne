@@ -101,6 +101,7 @@ public class MeepleTest extends TestCase {
     @Test
     public void testPlaceMeebleOnNull(){
         assertEquals(0, p.lastUsedMeeple);
+        this.p.placeMeeple(tiles.pop());
         assertEquals(1, p.lastUsedMeeple);
         this.p.placeMeeple(tiles.pop());
         assertEquals(2, p.lastUsedMeeple);
