@@ -188,4 +188,12 @@ public class PlayableTile extends AbstractTile {
     public void setRotation(int x){
         this.rotation =x;
     }
+
+    public Meeple getMeeple() {
+        return meeple;
+    }
+
+    public void setMeeple(Meeple meeple) {
+        this.meeple = meeple;
+    }
 }
