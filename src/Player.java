@@ -41,6 +41,8 @@ public class Player {
         this.playerScore += points;
     }
 
+    //Testing for this method is included in PlayableTileTest
     public void placeMeeple() {
+        lastUsedMeeple++;
     }
 }
