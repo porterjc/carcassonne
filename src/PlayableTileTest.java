@@ -81,7 +81,18 @@ public class PlayableTileTest {
         assertEquals(0, currentUser.lastUsedMeeple);
         this.currentUser.placeMeeple();
         assertEquals(1,currentUser.lastUsedMeeple);
-
+        this.currentUser.placeMeeple();
+        assertEquals(2,currentUser.lastUsedMeeple);
+        this.currentUser.placeMeeple();
+        assertEquals(3,currentUser.lastUsedMeeple);
+        this.currentUser.placeMeeple();
+        assertEquals(4,currentUser.lastUsedMeeple);
+        this.currentUser.placeMeeple();
+        assertEquals(5,currentUser.lastUsedMeeple);
+        this.currentUser.placeMeeple();
+        assertEquals(6,currentUser.lastUsedMeeple);
+        this.currentUser.placeMeeple();
+        assertEquals(6, currentUser.lastUsedMeeple);
     }
 
     @Test
