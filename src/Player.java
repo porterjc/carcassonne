@@ -42,7 +42,8 @@ public class Player {
     }
 
     //Testing for this method is included in PlayableTileTest
-    public void placeMeeple() {
+    public boolean placeMeeple() {
         lastUsedMeeple++;
+        return true;
     }
 }
