@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import java.awt.Color;
 
 /**
@@ -30,7 +32,9 @@ public class Meeple {
         this.placedOn = place;
         this.tile = pt;
     }
-
+    public Pair<AbstractTile, GlobalVariables.Feature> getPlacedOn(){
+        return  new Pair(tile, placedOn);
+    }
     public GlobalVariables.Feature getFeature() {
         return placedOn;
     }

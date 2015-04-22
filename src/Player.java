@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Player {
     private int playerScore;
     private Color pColor;
-    private ArrayList meeples;
+    private ArrayList<Meeple> meeples;
     public int lastUsedMeeple;
 
     public Player(Color color) {
@@ -32,7 +32,7 @@ public class Player {
         return pColor;
     }
 
-    public ArrayList getMeeples() {
+    public ArrayList<Meeple> getMeeples() {
         return meeples;
     }
 
@@ -42,7 +42,7 @@ public class Player {
     }
 
     //Testing for this method is included in PlayableTileTest
-    public boolean placeMeeple() {
+    public boolean placeMeeple(PlayableTile t) {
         if (lastUsedMeeple < meeples.size() -1) {
             lastUsedMeeple++;
             return true;
