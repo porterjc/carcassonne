@@ -87,7 +87,7 @@ public class MeepleTest extends TestCase {
         m.place(pt, GlobalVariables.Feature.GRASS);
         assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
         assertEquals(pt, m.getTile());
-        assertEquals(pt.getMeeple(),m.getTile().getMeeple());
+        assertEquals(p.getMeeples().get(0),m.getTile().getMeeple());
     }
 
     @Test
