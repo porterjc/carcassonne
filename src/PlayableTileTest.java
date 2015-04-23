@@ -90,4 +90,11 @@ public class PlayableTileTest {
         alreadyVisited.add(lastPlaced);
         assertEquals(0, lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
     }
+
+    @Test
+    public void testScoreCity() {
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        alreadyVisited.add(lastPlaced);
+        assertEquals(0, lastPlaced.scoreCity(alreadyVisited, new HashSet<Meeple>()));
+    }
 }
