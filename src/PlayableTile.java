@@ -110,7 +110,7 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return 0;
+        return 4;
     }
 
     @Override

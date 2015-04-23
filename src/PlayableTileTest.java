@@ -101,10 +101,10 @@ public class PlayableTileTest {
         PlayableTile tile1 = new PlayableTile(0, 0, feature);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
-        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
-        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         PlayableTile tile2 = new PlayableTile(0, 0, feature2);
 
         tile1.setBottom(tile2);
