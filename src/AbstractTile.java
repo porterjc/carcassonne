@@ -13,7 +13,7 @@ import java.util.Set;
 
 public abstract class AbstractTile extends JLabel implements MouseListener{
 
-    public static final int TILE_PIXEL_SIZE = 200;
+    public static final int TILE_PIXEL_SIZE = 160;
 
     private AbstractTile left, right, top, bottom;
     private Map<GlobalVariables.Direction, GlobalVariables.Feature> featuresMap;

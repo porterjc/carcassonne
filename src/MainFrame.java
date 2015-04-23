@@ -270,15 +270,14 @@ public class MainFrame extends JFrame {
 
             }
         };
+        
         rotateLabel.setBackground(Color.RED);
         rotateLabel.setBorder(BorderFactory.createRaisedBevelBorder());
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
         bottompanel.add(rotateLabel);
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
-        Image newTileImage = boardDisplay.getGame().getCurrentTile().getImage();
-        Image resized = newTileImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-        tiledisplay = new JLabel(new ImageIcon(resized));
+        tiledisplay = new JLabel(boardDisplay.getGame().getCurrentTile().getIcon());
         bottompanel.add(tiledisplay);
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
