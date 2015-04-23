@@ -1,8 +1,13 @@
+import javafx.scene.transform.Affine;
 import javafx.util.Pair;
 import org.junit.Test;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -13,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class PlayableTile extends AbstractTile {
 
-    private Image image;
+    private BufferedImage image;
     private int rotation = 0; //represents how much much this tile has been rotated. 0 is the default value before rotations happen;
     private Meeple meeple;
 
@@ -29,14 +34,14 @@ public class PlayableTile extends AbstractTile {
         super(features);
     }
 
-    public PlayableTile(Image image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
+    public PlayableTile(BufferedImage image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(features);
         this.image = image;
         Image scaled = image.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
         this.setIcon(new ImageIcon(scaled));
     }
 
-    public PlayableTile(Image image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+    public PlayableTile(BufferedImage image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         super(features, internals);
         this.image = image;
     }
@@ -65,14 +70,37 @@ public class PlayableTile extends AbstractTile {
             return bottomdir;
     }
 
-    public Image getImage() {
+    public BufferedImage getImage() {
         return image;
+    }
+
+    public Image getAdjustedImage() {
+        BufferedImage raw = getImage();
+        return raw.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
+       // return raw;
+        //int scaleFactor = TILE_PIXEL_SIZE /getImage().getWidth();
+        //AffineTransform transform = new AffineTransform();
+        //transform.rotate(rotation * .5 * Math.PI);
+
+        //BufferedImageOp bio = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+       /* GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+        BufferedImage rotated = gc.createCompatibleImage(raw.getWidth(), raw.getHeight());
+        Graphics2D g2d = rotated.createGraphics();
+        g2d.rotate(Math.PI * .5);
+        g2d.drawRenderedImage(raw, null);
+        g2d.dispose();
+        return rotated;*/
+        //return bio.filter(raw, null);
     }
 
 
     public void drawSelf() {
-        Image resized = getImage().getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
-        this.setIcon(new ImageIcon(resized));
+       // Image resized = getImage().getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
+      //  AffineTransform transform = AffineTransform.getScaleInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE).getQuadrantRotateInstance(rotation);
+        //AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
+        //Image rotated = op.filter(resized, null);
+       // BufferedImageOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
+        this.setIcon(getIcon());
     }
 
     @Override
@@ -195,5 +223,32 @@ public class PlayableTile extends AbstractTile {
 
     public void setMeeple(Meeple meeple) {
         this.meeple = meeple;
+    }
+
+    /**
+     * Allows the icon to be rotated
+     */
+    private class AdjustableIcon extends ImageIcon{
+
+        private int rotation;
+
+        public AdjustableIcon(Image image, int rotation) {
+            super(image);
+            this.rotation = rotation;
+        }
+
+       @Override
+        public void paintIcon(Component component, Graphics g, int x, int y) {
+            Graphics2D g2d = (Graphics2D)g.create();
+           int w1 = this.getIconWidth() / 2;
+           int w2 = (this.getIconWidth() % 2) == 0 ? 0 : -1;
+            g2d.translate(x + w1, y + w1);
+            g2d.rotate(rotation * Math.PI * .5);
+            super.paintIcon(component, g2d, -w1, - w1);
+        }
+    }
+
+    public AdjustableIcon getIcon() {
+        return new AdjustableIcon(this.getAdjustedImage(), this.rotation);
     }
 }

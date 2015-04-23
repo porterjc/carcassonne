@@ -31,7 +31,7 @@ public class TileGrid extends JPanel {
 
     // The game that this grid is keeping track of.
     // TODO: this should be private
-    public Game game;
+    private Game game;
 
     //Default, for testing purposes only
     public TileGrid() {
@@ -165,6 +165,8 @@ public class TileGrid extends JPanel {
         //addTopRow();
 
     }
+
+    public Game getGame() { return this.game; };
 
 
     public void addNullRow(GlobalVariables.Direction dir) {

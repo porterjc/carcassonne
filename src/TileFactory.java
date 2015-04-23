@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -22,7 +23,7 @@ public class TileFactory {
         }
 
         try {
-            Image image = ImageIO.read(new File("images/01.png"));
+            BufferedImage image = ImageIO.read(new File("images/01.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -35,7 +36,7 @@ public class TileFactory {
         }
 
         try {
-            Image image = ImageIO.read(new File("images/02.png"));
+            BufferedImage image = ImageIO.read(new File("images/02.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -48,7 +49,7 @@ public class TileFactory {
         }
 
         try {
-            Image image = ImageIO.read(new File("images/03.png"));
+            BufferedImage image = ImageIO.read(new File("images/03.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
@@ -66,7 +67,7 @@ public class TileFactory {
         }
 
         try {
-            Image image = ImageIO.read(new File("images/04.png"));
+            BufferedImage image = ImageIO.read(new File("images/04.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -79,7 +80,7 @@ public class TileFactory {
         }
 
         try {
-            Image image = ImageIO.read(new File("images/05.png"));
+            BufferedImage image = ImageIO.read(new File("images/05.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -114,7 +115,7 @@ public class TileFactory {
      */
     public static PlayableTile getStartTile() {
         try {
-            Image image = ImageIO.read(new File("images/start.png"));
+            BufferedImage image = ImageIO.read(new File("images/start.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -135,7 +136,7 @@ public class TileFactory {
      */
     public static PlayableTile getRiverStart() {
         try {
-            Image image = ImageIO.read(new File("images/rstart.png"));
+            BufferedImage image = ImageIO.read(new File("images/rstart.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -156,7 +157,7 @@ public class TileFactory {
      */
     public static PlayableTile getRiverEnd() {
         try {
-            Image image = ImageIO.read(new File("images/rlast.png"));
+            BufferedImage image = ImageIO.read(new File("images/rlast.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);

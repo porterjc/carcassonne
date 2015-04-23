@@ -52,13 +52,13 @@ public class TileLabel extends JLabel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        PlayableTile current = grid.game.getCurrentTile();
+        PlayableTile current = grid.getGame().getCurrentTile();
         if(this.tile instanceof OpenTile && ((OpenTile)this.tile).canPlace(current)) {
             this.grid.addNullRow(this.tile.addTile(current));
 
             this.tile = current;
             //resetView();
-            grid.game.drawTile();
+            grid.getGame().drawTile();
         }
     }
 

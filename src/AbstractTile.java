@@ -141,13 +141,13 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        PlayableTile current = ((TileGrid) this.getParent()).game.getCurrentTile();
+        PlayableTile current = ((TileGrid) this.getParent()).getGame().getCurrentTile();
         System.out.println(current);
         if(this instanceof OpenTile && ((OpenTile)this).canPlace(current)) {
             this.grid.addNullRow(this.addTile(current));
 
             //resetView();
-            grid.game.drawTile();
+            grid.getGame().drawTile();
 
         }
     }

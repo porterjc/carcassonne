@@ -76,6 +76,7 @@ public class Game {
 
     public void passTiles(Stack<PlayableTile> tiles) {
         this.tiles = tiles;
+        drawTile();
     }
 
 

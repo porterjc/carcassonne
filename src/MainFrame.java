@@ -255,13 +255,28 @@ public class MainFrame extends JFrame {
 
         boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
         boardDisplay.initialize(TileFactory.getStartTile());
-        boardDisplay.game.passTiles(TileFactory.loadDeck());
+        boardDisplay.getGame().passTiles(TileFactory.loadDeck());
 
         scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
-        Image newTileImage = TileFactory.getStartTile().getImage();
+        GraphicButton rotateLabel = new GraphicButton(100, 100) {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                PlayableTile current = boardDisplay.getGame().getCurrentTile();
+                current.rotateTile();
+                tiledisplay.setIcon(current.getIcon());
+
+            }
+        };
+        rotateLabel.setBackground(Color.RED);
+        rotateLabel.setBorder(BorderFactory.createRaisedBevelBorder());
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
+        bottompanel.add(rotateLabel);
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
+
+        Image newTileImage = boardDisplay.getGame().getCurrentTile().getImage();
         Image resized = newTileImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
         tiledisplay = new JLabel(new ImageIcon(resized));
         bottompanel.add(tiledisplay);
@@ -303,6 +318,10 @@ public class MainFrame extends JFrame {
        // mainpanel.add(bottompanel);
         revalidate();
         repaint();
+    }
+
+    private Game getGame() {
+        return this.boardDisplay.getGame();
     }
 
     /**
