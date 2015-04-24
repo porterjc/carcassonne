@@ -117,7 +117,7 @@ public class PlayableTile extends AbstractTile {
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
             return currentTileScore;
-        if(alreadyVisited.contains(this) &&alreadyVisited.size()>1){ // small circular road
+        if (alreadyVisited.contains(this) && alreadyVisited.size() > 1) { // small circular road
             return currentTileScore;
         }
         alreadyVisited.add(this);

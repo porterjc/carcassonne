@@ -122,7 +122,7 @@ public class PlayableTileTest {
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
-       // internals.add(GlobalVariables.Internal.ROADSTOP);
+        internals.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile tr = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
@@ -144,7 +144,7 @@ public class PlayableTileTest {
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         internals = new HashSet<GlobalVariables.Internal>();
-        //internals.add(GlobalVariables.Internal.ROADSTOP);
+        internals.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile br = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         br.setLeft(bl);
         br.setTop(tr);
