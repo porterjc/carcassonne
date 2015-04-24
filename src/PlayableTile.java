@@ -117,9 +117,9 @@ public class PlayableTile extends AbstractTile {
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
             return currentTileScore;
-        if (alreadyVisited.contains(this) && alreadyVisited.size() > 1) { // small circular road
-            return currentTileScore;
-        }
+//        if (alreadyVisited.contains(this) && alreadyVisited.size() > 1) { // small circular road
+//            return currentTileScore;
+//        }
         alreadyVisited.add(this);
 
         if ((!alreadyVisited.contains(this.getLeft())) && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
@@ -127,17 +127,19 @@ public class PlayableTile extends AbstractTile {
             int temp = l.scoreRoad(alreadyVisited, meeples);
             if (temp == -1) return -1;
             return 1 + temp;
-        } else if ((!alreadyVisited.contains(this.getRight())) && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+        }
+        if ((!alreadyVisited.contains(this.getRight())) && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
             AbstractTile r = this.getRight();
             int temp = r.scoreRoad(alreadyVisited, meeples);
             if (temp == -1) return -1;
             return 1 + temp;
-        } else if ((!alreadyVisited.contains(this.getTop())) && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+        } if ((!alreadyVisited.contains(this.getTop())) && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
             AbstractTile t = this.getTop();
             int temp = t.scoreRoad(alreadyVisited, meeples);
             if (temp == -1) return -1;
             return 1 + temp;
-        } else if ((!alreadyVisited.contains(this.getBottom())) && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+        }
+        if ((!alreadyVisited.contains(this.getBottom())) && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
             AbstractTile b = this.getBottom();
             int temp = b.scoreRoad(alreadyVisited, meeples);
             if (temp == -1) return -1;

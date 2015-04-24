@@ -108,7 +108,6 @@ public class PlayableTileTest {
         PlayableTile p = new PlayableTile(features, internals);
         p.setLeft(left);
         left.setRight(p);
-        alreadyVisited.add(p);
         assertEquals(2, p.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
     }
 
@@ -144,7 +143,6 @@ public class PlayableTileTest {
         tl.setBottom(bl);
         tl.setBottom(bl);
         assertEquals(-1, br.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
-
     }
 
     @Test
