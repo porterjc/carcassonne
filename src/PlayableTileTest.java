@@ -253,7 +253,7 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile tile1 = new PlayableTile(feature);
-
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        assertEquals(-1, tile1.scoreGrass(new HashSet<AbstractTile>(), new HashSet<Meeple>()));
     }
 }
