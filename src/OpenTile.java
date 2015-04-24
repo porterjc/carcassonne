@@ -60,9 +60,13 @@ public class OpenTile extends AbstractTile {
         //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.NORTH);
         if (getTop().getFeatures() == null) return true;
-        else
-            return tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.SOUTH);
+        else {
+            boolean val = tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.SOUTH);
+            if (!val)
+                System.out.println(tileFeature + " " + getTop().getTargetFeature(GlobalVariables.Direction.SOUTH));
             //return tileFeatures.get(GlobalVariables.Direction.NORTH) == getTop().getFeatures().get(GlobalVariables.Direction.SOUTH);
+            return val;
+        }
 
     }
 
@@ -70,18 +74,26 @@ public class OpenTile extends AbstractTile {
         //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.SOUTH);
         if (getBottom().getFeatures() == null) return true;
-        else
-            return tileFeature == getBottom().getTargetFeature(GlobalVariables.Direction.NORTH);
+        else {
+            boolean val = tileFeature == getBottom().getTargetFeature(GlobalVariables.Direction.NORTH);
+            if (!val)
+                System.out.println(tileFeature + " " + getBottom().getTargetFeature(GlobalVariables.Direction.NORTH));
             //return tileFeatures.get(GlobalVariables.Direction.SOUTH) == getBottom().getFeatures().get(GlobalVariables.Direction.NORTH);
+            return val;
+        }
     }
 
     public boolean checkWest(PlayableTile tile) {
        // Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.WEST);
         if (getLeft().getFeatures() == null) return true;
-        else
-            return tileFeature == getLeft().getTargetFeature(GlobalVariables.Direction.EAST);
+        else {
+            boolean val = tileFeature == getLeft().getTargetFeature(GlobalVariables.Direction.EAST);
             //return tileFeatures.get(GlobalVariables.Direction.WEST) == getLeft().getFeatures().get(GlobalVariables.Direction.EAST);
+            if (!val)
+                System.out.println(tileFeature + " " + getLeft().getTargetFeature(GlobalVariables.Direction.EAST));
+            return val;
+        }
 
     }
 
@@ -90,8 +102,12 @@ public class OpenTile extends AbstractTile {
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.EAST);
         if (getRight().getFeatures() == null) return true;
         else {
-            return tileFeature == getRight().getTargetFeature(GlobalVariables.Direction.WEST);
+            boolean val = tileFeature == getRight().getTargetFeature(GlobalVariables.Direction.WEST);
             //return tileeFeatures.get(GlobalVariables.Direction.EAST) == getRight().getFeatures().get(GlobalVariables.Direction.WEST);
+            if (!val)
+                System.out.println(tileFeature + " " + getRight().getTargetFeature(GlobalVariables.Direction.WEST));
+            System.out.println(getRight());
+            return val;
         }
 
     }

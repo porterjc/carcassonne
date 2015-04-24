@@ -61,6 +61,10 @@ public class PlayableTile extends AbstractTile {
         super(features, internals);
     }
 
+    public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
+        return featuresMap;
+    }
+
     @Override
     public GlobalVariables.Direction updateAdjacent() {
         GlobalVariables.Direction topdir = this.getTop().addTile(new OpenTile());

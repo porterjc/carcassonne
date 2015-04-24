@@ -16,7 +16,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
     public static final int TILE_PIXEL_SIZE = 160;
 
     private AbstractTile left, right, top, bottom;
-    private Map<GlobalVariables.Direction, GlobalVariables.Feature> featuresMap;
+    protected Map<GlobalVariables.Direction, GlobalVariables.Feature> featuresMap;
     private Set<GlobalVariables.Internal> internals;
     private TileGrid grid;
 
@@ -114,7 +114,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
     }
 
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
-        return featuresMap;
+        return null;
     }
 
     public Set<GlobalVariables.Internal> getInternals() {
