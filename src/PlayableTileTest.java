@@ -125,22 +125,23 @@ public class PlayableTileTest {
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
-        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         PlayableTile tile2 = new PlayableTile(0, 0, feature2);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
         feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         PlayableTile tile3 = new PlayableTile(0, 0, feature2);
 
         tile1.setBottom(tile2);
+        tile2.setRight(tile3);
 
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         alreadyVisited.add(tile1);
-        assertEquals(4, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
+        assertEquals(6, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
     }
 }
