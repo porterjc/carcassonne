@@ -238,7 +238,9 @@ public class PlayableTileTest {
         PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         tile1.setBottom(tile2);
+        tile2.setTop(tile1);
         tile2.setRight(tile3);
+        tile3.setLeft(tile2);
 
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         assertEquals(6, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
