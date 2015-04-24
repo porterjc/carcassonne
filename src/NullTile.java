@@ -37,8 +37,8 @@ public class NullTile extends AbstractTile {
     }
 
     @Override
-    public int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return -1;
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return false;
     }
 
     @Override

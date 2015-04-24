@@ -204,5 +204,5 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
 
     public abstract int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
 
-    public abstract int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
+    public abstract boolean findFarmer(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
 }

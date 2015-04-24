@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -123,7 +122,7 @@ public class OpenTile extends AbstractTile {
     }
 
     @Override
-    public int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return -1;
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return false;
     }
 }
