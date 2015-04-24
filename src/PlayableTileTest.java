@@ -5,8 +5,7 @@ import org.junit.Test;
 import java.awt.*;
 import java.util.*;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Created by robinsat on 4/1/2015
@@ -247,6 +246,7 @@ public class PlayableTileTest {
     }
 
     @Test
+<<<<<<< HEAD
     public void testScoreLargerCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
@@ -373,12 +373,53 @@ public class PlayableTileTest {
 
     @Test
     public void testScoreBasicGrass() {
+=======
+    public void testFindNoFarmerBasicGrass() {
+>>>>>>> origin/master
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile tile1 = new PlayableTile(feature);
-
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>()));
     }
+
+    @Test
+    public void testFindFarmerBasicGrass() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        Meeple m = new Meeple(new Player(Color.RED), Color.RED);
+        m.place(tile1, GlobalVariables.Feature.GRASS);
+        tile1.setMeeple(m);
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
+    }
+
+    @Test
+    public void testFindFarmerTwoGrassTiles() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), tile1, new OpenTile(), new OpenTile(), feature1);
+
+        Meeple m = new Meeple(new Player(Color.RED), Color.RED);
+        m.place(tile2, GlobalVariables.Feature.GRASS);
+        tile2.setMeeple(m);
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
+    }
+
+
 }

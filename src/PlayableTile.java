@@ -1,15 +1,7 @@
-import javafx.scene.transform.Affine;
-import javafx.util.Pair;
-import org.junit.Test;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -178,8 +170,8 @@ public class PlayableTile extends AbstractTile {
     }
 
     @Override
-    public int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return 0;
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited) {
+        return this.getMeeple() == null ? this.getLeft().findFarmer(alreadyVisited) : true;
     }
 
     /**
