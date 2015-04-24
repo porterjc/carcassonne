@@ -210,6 +210,11 @@ public class PlayableTile extends AbstractTile {
         return getBottom().getRight();
     }
 
+    @Override
+    public GlobalVariables.Direction addTile(AbstractTile tile) {
+        return null;
+    }
+
     /**
      * This method is soley for testing purposes.
      * @param x

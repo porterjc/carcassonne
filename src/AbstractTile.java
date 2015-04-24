@@ -128,6 +128,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         Container parent = this.getParent();
         parent.remove(this);
         parent.add(newTile);
+
         return newTile.updateAdjacent();
     }
 
@@ -143,12 +144,24 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        PlayableTile current = ((TileGrid) this.getParent()).getGame().getCurrentTile();
+        TileGrid grid = (TileGrid) this.getParent();
+        PlayableTile current = grid.getGame().getCurrentTile();
         System.out.println(current);
-        if(this instanceof OpenTile && ((OpenTile)this).canPlace(current)) {
-            this.grid.addNullRow(this.addTile(current));
 
-            //resetView();
+        if(this instanceof OpenTile && ((OpenTile)this).canPlace(current)) {
+            GlobalVariables.Direction direction = this.addTile(current);
+            if(direction != null) {
+                grid.addNullRow(direction);
+               /* revalidate();
+                repaint();
+                grid.revalidate();
+                grid.repaint();
+                grid.getParent().revalidate();
+                grid.getParent().repaint();*/
+            }
+            grid.revalidate();
+            grid.repaint();
+
             grid.getGame().drawTile();
 
         }

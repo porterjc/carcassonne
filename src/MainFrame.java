@@ -270,7 +270,7 @@ public class MainFrame extends JFrame {
 
             }
         };
-        
+
         rotateLabel.setBackground(Color.RED);
         rotateLabel.setBorder(BorderFactory.createRaisedBevelBorder());
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
