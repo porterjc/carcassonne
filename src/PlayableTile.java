@@ -32,8 +32,9 @@ public class PlayableTile extends AbstractTile {
     }
 
     public PlayableTile(int i, int i1, AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
-        super(o, o1, o2, o3, features,internals);
+        super(o, o1, o2, o3, features, internals);
     }
+
     public PlayableTile(int i, int i1, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(features);
     }
@@ -112,7 +113,12 @@ public class PlayableTile extends AbstractTile {
     public int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
         int currentTileScore = 1;
         alreadyVisited.add(this);
-       
+        Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
+        if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && !alreadyVisited.contains(this))
+            return currentTileScore;
+        if((!alreadyVisited.contains(this.getLeft()))&&features.get(GlobalVariables.Direction.WEST)== GlobalVariables.Feature.ROAD){
+            return 2;
+        }
         return -1;
     }
 
