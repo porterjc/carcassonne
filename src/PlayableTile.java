@@ -114,10 +114,12 @@ public class PlayableTile extends AbstractTile {
         int currentTileScore = 1;
         alreadyVisited.add(this);
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
-        if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && !alreadyVisited.contains(this))
+        if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1)
             return currentTileScore;
-        if((!alreadyVisited.contains(this.getLeft()))&&features.get(GlobalVariables.Direction.WEST)== GlobalVariables.Feature.ROAD){
-            return 2;
+        if ((!alreadyVisited.contains(this.getLeft())) && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+            AbstractTile l = this.getLeft();
+            alreadyVisited.add(l);
+            return 1 + scoreRoad(alreadyVisited, meeples);
         }
         return -1;
     }
