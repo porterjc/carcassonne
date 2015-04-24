@@ -5,9 +5,7 @@ import org.junit.Test;
 import java.awt.*;
 import java.util.*;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 /**
  * Created by robinsat on 4/1/2015
@@ -248,6 +246,17 @@ public class PlayableTileTest {
     }
 
     @Test
+    public void testFindNoFarmerBasicGrass() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>()));
+    }
+
+    @Test
     public void testFindFarmerBasicGrass() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
@@ -255,7 +264,10 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), new HashSet<Meeple>()));
+        Meeple m = new Meeple(new Player(Color.RED), Color.RED);
+        m.place(tile1, GlobalVariables.Feature.GRASS);
+        tile1.setMeeple(m);
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
     }
 
 

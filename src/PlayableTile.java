@@ -160,7 +160,7 @@ public class PlayableTile extends AbstractTile {
     }
 
     @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited) {
         return false;
     }
 
