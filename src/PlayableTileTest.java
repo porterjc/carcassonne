@@ -208,9 +208,9 @@ public class PlayableTileTest {
         PlayableTile tile2 = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         tile1.setBottom(tile2);
+        tile2.setTop(tile1);
 
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        alreadyVisited.add(tile1);
         assertEquals(4, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
     }
 
@@ -241,7 +241,6 @@ public class PlayableTileTest {
         tile2.setRight(tile3);
 
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        alreadyVisited.add(tile1);
         assertEquals(6, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
     }
 }
