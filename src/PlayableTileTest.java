@@ -113,6 +113,41 @@ public class PlayableTileTest {
     }
 
     @Test
+    public void testLongerRoadWithNoEnd() {
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        PlayableTile tl = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        internals = new HashSet<GlobalVariables.Internal>();
+        PlayableTile bl = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile br = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        br.setLeft(bl);
+        bl.setRight(br);
+        bl.setTop(tl);
+        tl.setBottom(bl);
+        tl.setBottom(bl);
+        assertEquals(-1, br.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+
+    }
+
+    @Test
     public void testLongerRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
