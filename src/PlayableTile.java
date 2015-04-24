@@ -108,7 +108,7 @@ public class PlayableTile extends AbstractTile {
         int currentTileScore =1;
         alreadyVisited.add(this);
 
-        return 0;
+        return currentTileScore;
     }
 
     @Override
