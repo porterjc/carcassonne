@@ -88,11 +88,29 @@ public class PlayableTileTest {
     public void testScoreRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         alreadyVisited.add(lastPlaced);
-        assertEquals(1, lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
-
-
+        assertEquals(-1, lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
     }
 
+    @Test
+    public void testShortRoad(){
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+
+        PlayableTile left = new PlayableTile(0, 0,new OpenTile(), new OpenTile(), new OpenTile(),new OpenTile(), features, internals);
+        PlayableTile p = new PlayableTile(features, internals);
+        p.setLeft(left);
+        left.setRight(p);
+        alreadyVisited.add(p);
+        assertEquals(2, p.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+
+    }
     @Test
     public void testScoreSmallCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();

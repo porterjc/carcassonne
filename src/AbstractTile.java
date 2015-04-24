@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by johnsoaa on 3/27/2015.
  */
 
-public abstract class AbstractTile extends JLabel implements MouseListener{
+public abstract class AbstractTile extends JLabel implements MouseListener {
 
     public static final int TILE_PIXEL_SIZE = 160;
 
@@ -60,7 +60,17 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         this.addMouseListener(this);
     }
 
-    public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction){
+    public AbstractTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+        setLeft(left);
+        setRight(right);
+        setBottom(bottom);
+        setTop(top);
+        featuresMap = features;
+        this.internals = internals;
+        this.addMouseListener(this);
+    }
+
+    public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction) {
         return null;
     }
 
@@ -114,6 +124,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
 
     /**
      * Replaces this tile in the grid with the new tile
+     *
      * @param newTile the tile to replace this one
      * @return whether or not the grid needs to be expanded
      */
@@ -148,9 +159,9 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         PlayableTile current = grid.getGame().getCurrentTile();
         System.out.println(current);
 
-        if(this instanceof OpenTile && ((OpenTile)this).canPlace(current)) {
+        if (this instanceof OpenTile && ((OpenTile) this).canPlace(current)) {
             GlobalVariables.Direction direction = this.addTile(current);
-            if(direction != null) {
+            if (direction != null) {
                 grid.addNullRow(direction);
                /* revalidate();
                 repaint();

@@ -9,6 +9,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -30,6 +31,9 @@ public class PlayableTile extends AbstractTile {
         super(o, o1, o2, o3, features);
     }
 
+    public PlayableTile(int i, int i1, AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+        super(o, o1, o2, o3, features,internals);
+    }
     public PlayableTile(int i, int i1, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(features);
     }
@@ -50,9 +54,10 @@ public class PlayableTile extends AbstractTile {
         super(features);
     }
 
-    public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features,  Set<GlobalVariables.Internal >internals) {
-        super(features,internals);
+    public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+        super(features, internals);
     }
+
     @Override
     public GlobalVariables.Direction updateAdjacent() {
         GlobalVariables.Direction topdir = this.getTop().addTile(new OpenTile());
@@ -77,7 +82,7 @@ public class PlayableTile extends AbstractTile {
     public Image getAdjustedImage() {
         BufferedImage raw = getImage();
         return raw.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
-       // return raw;
+        // return raw;
         //int scaleFactor = TILE_PIXEL_SIZE /getImage().getWidth();
         //AffineTransform transform = new AffineTransform();
         //transform.rotate(rotation * .5 * Math.PI);
@@ -95,20 +100,20 @@ public class PlayableTile extends AbstractTile {
 
 
     public void drawSelf() {
-       // Image resized = getImage().getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
-      //  AffineTransform transform = AffineTransform.getScaleInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE).getQuadrantRotateInstance(rotation);
+        // Image resized = getImage().getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
+        //  AffineTransform transform = AffineTransform.getScaleInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE).getQuadrantRotateInstance(rotation);
         //AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
         //Image rotated = op.filter(resized, null);
-       // BufferedImageOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
+        // BufferedImageOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
         this.setIcon(getIcon());
     }
 
     @Override
     public int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        int currentTileScore =1;
+        int currentTileScore = 1;
         alreadyVisited.add(this);
-
-        return currentTileScore;
+       
+        return -1;
     }
 
     @Override
@@ -220,10 +225,11 @@ public class PlayableTile extends AbstractTile {
 
     /**
      * This method is soley for testing purposes.
+     *
      * @param x
      */
-    public void setRotation(int x){
-        this.rotation =x;
+    public void setRotation(int x) {
+        this.rotation = x;
     }
 
     public Meeple getMeeple() {
@@ -237,7 +243,7 @@ public class PlayableTile extends AbstractTile {
     /**
      * Allows the icon to be rotated
      */
-    private class AdjustableIcon extends ImageIcon{
+    private class AdjustableIcon extends ImageIcon {
 
         private int rotation;
 
@@ -246,14 +252,14 @@ public class PlayableTile extends AbstractTile {
             this.rotation = rotation;
         }
 
-       @Override
+        @Override
         public void paintIcon(Component component, Graphics g, int x, int y) {
-            Graphics2D g2d = (Graphics2D)g.create();
-           int w1 = this.getIconWidth() / 2;
-           int w2 = (this.getIconWidth() % 2) == 0 ? 0 : -1;
+            Graphics2D g2d = (Graphics2D) g.create();
+            int w1 = this.getIconWidth() / 2;
+            int w2 = (this.getIconWidth() % 2) == 0 ? 0 : -1;
             g2d.translate(x + w1, y + w1);
             g2d.rotate(rotation * Math.PI * .5);
-            super.paintIcon(component, g2d, -w1, - w1);
+            super.paintIcon(component, g2d, -w1, -w1);
         }
     }
 
