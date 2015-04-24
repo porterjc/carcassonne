@@ -246,7 +246,6 @@ public class PlayableTileTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void testScoreLargerCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
@@ -370,7 +369,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         assertEquals(12, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
     }
-    
+
 
     @Test
     public void testFindNoFarmerBasicGrass() {
