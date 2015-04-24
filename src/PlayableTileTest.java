@@ -306,6 +306,71 @@ public class PlayableTileTest {
     }
 
     @Test
+    public void testScoreLarger2City() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile5 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile6 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        tile1.setTop(tile2);
+        tile2.setBottom(tile1);
+        tile1.setRight(tile5);
+        tile5.setLeft(tile1);
+        tile5.setRight(tile6);
+        tile6.setLeft(tile5);
+        tile5.setTop(tile3);
+        tile3.setBottom(tile5);
+        tile2.setRight(tile3);
+        tile3.setLeft(tile2);
+        tile3.setRight(tile4);
+        tile4.setLeft(tile3);
+        tile4.setBottom(tile6);
+        tile6.setTop(tile4);
+
+
+
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        assertEquals(12, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
+    }
+
+    @Test
     public void testScoreBasicGrass() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);

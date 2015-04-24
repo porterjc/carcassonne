@@ -169,6 +169,11 @@ public class PlayableTile extends AbstractTile {
             int temp = l.scoreCity(alreadyVisited, meeples);
             cityScore += temp;
         }
+        if ((!alreadyVisited.contains(this.getTop())) && getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.CITY) {
+            AbstractTile t = this.getTop();
+            int temp = t.scoreCity(alreadyVisited, meeples);
+            cityScore += temp;
+        }
         return cityScore;
     }
 
