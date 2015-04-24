@@ -50,33 +50,41 @@ public class OpenTile extends AbstractTile {
     }
 
     public boolean checkNorth(PlayableTile tile) {
-        Map<GlobalVariables.Direction, GlobalVariables.Feature> tileeFeatures = tile.getFeatures();
+        //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
+        GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.NORTH);
         if (getTop().getFeatures() == null) return true;
         else
-            return tileeFeatures.get(GlobalVariables.Direction.NORTH) == getTop().getFeatures().get(GlobalVariables.Direction.SOUTH);
+            return tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.SOUTH);
+            //return tileFeatures.get(GlobalVariables.Direction.NORTH) == getTop().getFeatures().get(GlobalVariables.Direction.SOUTH);
 
     }
 
     public boolean checkSouth(PlayableTile tile) {
-        Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
+        //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
+        GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.SOUTH);
         if (getBottom().getFeatures() == null) return true;
         else
-            return tileFeatures.get(GlobalVariables.Direction.SOUTH) == getBottom().getFeatures().get(GlobalVariables.Direction.NORTH);
+            return tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.NORTH);
+            //return tileFeatures.get(GlobalVariables.Direction.SOUTH) == getBottom().getFeatures().get(GlobalVariables.Direction.NORTH);
     }
 
     public boolean checkWest(PlayableTile tile) {
-        Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
+       // Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
+        GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.WEST);
         if (getLeft().getFeatures() == null) return true;
         else
-            return tileFeatures.get(GlobalVariables.Direction.WEST) == getLeft().getFeatures().get(GlobalVariables.Direction.EAST);
+            return tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.EAST);
+            //return tileFeatures.get(GlobalVariables.Direction.WEST) == getLeft().getFeatures().get(GlobalVariables.Direction.EAST);
 
     }
 
     public boolean checkEast(PlayableTile tile) {
-        Map<GlobalVariables.Direction, GlobalVariables.Feature> tileeFeatures = tile.getFeatures();
+        //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileeFeatures = tile.getFeatures();
+        GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.EAST);
         if (getRight().getFeatures() == null) return true;
         else
-            return tileeFeatures.get(GlobalVariables.Direction.EAST) == getRight().getFeatures().get(GlobalVariables.Direction.WEST);
+            return tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.WEST);
+            //return tileeFeatures.get(GlobalVariables.Direction.EAST) == getRight().getFeatures().get(GlobalVariables.Direction.WEST);
 
     }
 

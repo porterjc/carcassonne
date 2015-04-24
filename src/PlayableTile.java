@@ -130,6 +130,7 @@ public class PlayableTile extends AbstractTile {
             rotation++;
     }
 
+    @Override
     public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction) {
         GlobalVariables.Feature feature = null;
         if (rotation == 0) {

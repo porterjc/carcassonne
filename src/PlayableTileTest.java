@@ -113,4 +113,34 @@ public class PlayableTileTest {
         alreadyVisited.add(tile1);
         assertEquals(4, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
     }
+
+    @Test
+    public void testScoreSmallishCity() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        PlayableTile tile1 = new PlayableTile(0, 0, feature);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        PlayableTile tile2 = new PlayableTile(0, 0, feature2);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        PlayableTile tile3 = new PlayableTile(0, 0, feature2);
+
+        tile1.setBottom(tile2);
+
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        alreadyVisited.add(tile1);
+        assertEquals(4, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
+    }
 }

@@ -60,7 +60,9 @@ public abstract class AbstractTile extends JLabel implements MouseListener{
         this.addMouseListener(this);
     }
 
-
+    public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction){
+        return null;
+    }
 
     public AbstractTile getLeft() {
         return left;
