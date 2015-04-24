@@ -29,6 +29,8 @@ public class TileGrid extends JPanel {
     //Provides easy storage for the panel's preferred width
     private int panelHeight;
 
+    private JLabel currentTileLabel;
+
     // The game that this grid is keeping track of.
     // TODO: this should be private
     private Game game;
@@ -298,6 +300,14 @@ public class TileGrid extends JPanel {
         }
 
         topRight = existingToLeft;
+    }
+
+    public void setTileLabel(JLabel label) {
+        this.currentTileLabel = label;
+    }
+
+    public void updateCurrentTileUI() {
+        this.currentTileLabel.setIcon(game.getCurrentTile().getIcon());
     }
 
 

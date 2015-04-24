@@ -266,7 +266,7 @@ public class MainFrame extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 PlayableTile current = boardDisplay.getGame().getCurrentTile();
                 current.rotateTile();
-                tiledisplay.setIcon(current.getIcon());
+                updateTile();
 
             }
         };
@@ -278,6 +278,7 @@ public class MainFrame extends JFrame {
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
         tiledisplay = new JLabel(boardDisplay.getGame().getCurrentTile().getIcon());
+        boardDisplay.setTileLabel(tiledisplay);
         bottompanel.add(tiledisplay);
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
@@ -327,7 +328,7 @@ public class MainFrame extends JFrame {
      * Updates the GUI to show the tile that has just been drawn
      */
     public void updateTile() {
-
+        tiledisplay.setIcon(getGame().getCurrentTile().getIcon());
     }
 
 
