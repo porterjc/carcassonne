@@ -80,6 +80,7 @@ public class OpenTile extends AbstractTile {
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.WEST);
         if (getLeft().getFeatures() == null) return true;
         else
+            return tileFeature == getLeft().getTargetFeature(GlobalVariables.Direction.EAST);
             //return tileFeatures.get(GlobalVariables.Direction.WEST) == getLeft().getFeatures().get(GlobalVariables.Direction.EAST);
 
     }
@@ -89,6 +90,7 @@ public class OpenTile extends AbstractTile {
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.EAST);
         if (getRight().getFeatures() == null) return true;
         else {
+            return tileFeature == getRight().getTargetFeature(GlobalVariables.Direction.WEST);
             //return tileeFeatures.get(GlobalVariables.Direction.EAST) == getRight().getFeatures().get(GlobalVariables.Direction.WEST);
         }
 
