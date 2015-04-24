@@ -9,6 +9,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -123,7 +124,6 @@ public class PlayableTile extends AbstractTile {
         }
         return -1;
     }
-
     @Override
     public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
         return 4;

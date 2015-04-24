@@ -16,6 +16,7 @@ public class PlayableTileTest {
     private Stack<PlayableTile> tiles;
     PlayableTile tile, lastPlaced;
     Player currentUser;
+    private HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features;
 
     @Before
     public void setUp() {
@@ -92,7 +93,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testShortRoad(){
+    public void testShortRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -103,14 +104,57 @@ public class PlayableTileTest {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
 
-        PlayableTile left = new PlayableTile(0, 0,new OpenTile(), new OpenTile(), new OpenTile(),new OpenTile(), features, internals);
+        PlayableTile left = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         PlayableTile p = new PlayableTile(features, internals);
         p.setLeft(left);
         left.setRight(p);
         alreadyVisited.add(p);
         assertEquals(2, p.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+    }
+
+    @Test
+    public void testLongerRoad() {
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile tr = new PlayableTile(features, internals);
+        features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        PlayableTile tl = new PlayableTile(features, internals);
+        features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile bl = new PlayableTile(features, internals);
+        features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile br = new PlayableTile(features, internals);
+        br.setLeft(bl);
+        bl.setRight(br);
+        bl.setTop(tl);
+        br.setTop(tr);
+        tl.setBottom(bl);
+        tl.setRight(tr);
+        tr.setLeft(tl);
+        tl.setBottom(bl);
+        alreadyVisited.add(br);
+        assertEquals(4, br.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
 
     }
+
     @Test
     public void testScoreSmallCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
