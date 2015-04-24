@@ -82,15 +82,6 @@ public class MeepleTest extends TestCase {
     }
 
     @Test
-    public void testPlaceMeeble() {
-        PlayableTile pt = new PlayableTile();
-        m.place(pt, GlobalVariables.Feature.GRASS);
-        assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
-        assertEquals(pt, m.getTile());
-        assertEquals(p.getMeeples().get(0),m.getTile().getMeeple());
-    }
-
-    @Test
     public void testRemove() {
         PlayableTile pt = new PlayableTile();
         m.place(pt, GlobalVariables.Feature.GRASS);
@@ -106,7 +97,6 @@ public class MeepleTest extends TestCase {
         assertEquals(1, p.lastUsedMeeple);
         this.p.placeMeeple(tiles.pop());
         assertEquals(2, p.lastUsedMeeple);
-
         this.p.placeMeeple(tiles.pop());
         assertEquals(3, p.lastUsedMeeple);
         this.p.placeMeeple(tiles.pop());
@@ -126,12 +116,21 @@ public class MeepleTest extends TestCase {
     }
 
     @Test
-    public void testPlaceMeeple(PlayableTileTest MeepleTest) {
+    public void testPlaceMeeple() {
         PlayableTile t = this.tiles.pop();
-        MeepleTest.currentUser.placeMeeple(t);
+        p.placeMeeple(t);
         Pair<AbstractTile, GlobalVariables.Feature> place;
-        Meeple m = MeepleTest.currentUser.getMeeples().listIterator().next();
+        Meeple m = p.getMeeples().listIterator().next();
         place = m.getPlacedOn();
         assertEquals(t, place.getKey());
+    }
+
+    @Test
+    public void testPlaceMeeble() {
+        PlayableTile pt = new PlayableTile();
+        m.place(pt, GlobalVariables.Feature.GRASS);
+        assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
+        assertEquals(pt, m.getTile());
+        assertEquals(p.getMeeples().get(0),m.getTile().getMeeple());
     }
 }

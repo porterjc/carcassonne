@@ -88,7 +88,9 @@ public class PlayableTileTest {
     public void testScoreRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         alreadyVisited.add(lastPlaced);
-        assertEquals(0, lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+        assertEquals(1, lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+
+
     }
 
     @Test

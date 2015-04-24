@@ -105,6 +105,9 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     public int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        int currentTileScore =1;
+        alreadyVisited.add(this);
+
         return 0;
     }
 
