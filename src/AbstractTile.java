@@ -32,7 +32,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
         setRight(r);
         setTop(t);
         setBottom(b);
-        featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        featuresMap = features;
         internals = new HashSet<GlobalVariables.Internal>();
         this.addMouseListener(this);
     }
@@ -61,13 +61,12 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
     }
 
     public AbstractTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
-        setLeft(left);
-        setRight(right);
-        setBottom(bottom);
-        setTop(top);
+        this.left = left;
+        this.right = right;
+        this.bottom = bottom;
+        this.top = top;
         featuresMap = features;
         this.internals = internals;
-        this.addMouseListener(this);
     }
 
     public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction) {

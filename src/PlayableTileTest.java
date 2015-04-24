@@ -16,7 +16,7 @@ public class PlayableTileTest {
     private Stack<PlayableTile> tiles;
     PlayableTile tile, lastPlaced;
     Player currentUser;
-    private HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features;
+    //private HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features;
 
     @Before
     public void setUp() {
@@ -115,6 +115,7 @@ public class PlayableTileTest {
     @Test
     public void testLongerRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -153,7 +154,6 @@ public class PlayableTileTest {
         tl.setRight(tr);
         tr.setLeft(tl);
         tl.setBottom(bl);
-        alreadyVisited.add(br);
         assertEquals(4, br.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
 
     }
