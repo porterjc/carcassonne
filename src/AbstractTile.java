@@ -173,6 +173,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
             grid.repaint();
 
             grid.getGame().drawTile();
+            grid.updateCurrentTileUI();
 
         }
     }
