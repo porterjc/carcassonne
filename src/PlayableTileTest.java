@@ -363,6 +363,7 @@ public class PlayableTileTest {
         tile4.setLeft(tile3);
         tile4.setBottom(tile6);
         tile6.setTop(tile4);
+        
 
 
 
