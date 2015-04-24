@@ -39,14 +39,14 @@ public class OpenTileTest {
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
 
-        PlayableTile l = new PlayableTile(0, 0, features);
-        PlayableTile r = new PlayableTile(0, 0, features);
-        PlayableTile t = new PlayableTile(0, 0, features);
-        PlayableTile b = new PlayableTile(0, 0, features);
+        PlayableTile l = new PlayableTile(features);
+        PlayableTile r = new PlayableTile(features);
+        PlayableTile t = new PlayableTile(features);
+        PlayableTile b = new PlayableTile(features);
         tile = new OpenTile(l, r, t, b);
 
 
-        PlayableTile tileToPlace = new PlayableTile(0, 0, features);
+        PlayableTile tileToPlace = new PlayableTile(features);
         assertEquals(features, tileToPlace.getFeatures());
         assertEquals(true, tile.canPlace(tileToPlace));
 
@@ -57,7 +57,7 @@ public class OpenTileTest {
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
 
         assertEquals(features, tileToPlace.getFeatures());
-        PlayableTile second = new PlayableTile(0, 0, features2);
+        PlayableTile second = new PlayableTile(features2);
         assertEquals(false, tile.canPlace(second));
 
 

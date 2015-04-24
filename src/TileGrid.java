@@ -311,14 +311,4 @@ public class TileGrid extends JPanel {
     }
 
 
-    // Draws all of the tiles curretnly on the grid
-   /* @Override
-    public void paintComponent(Graphics g) {
-        g.setColor(Color.blue);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        for (AbstractTile tile : tileList) {
-            tile.draw(g, offsetX, offsetY);
-        }
-    }*/
-
 }

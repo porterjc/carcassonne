@@ -28,18 +28,15 @@ public class PlayableTile extends AbstractTile {
         super();
     }
 
-    public PlayableTile(int i, int i1, AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
+    public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(o, o1, o2, o3, features);
 
     }
 
-    public PlayableTile(int i, int i1, AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+    public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         super(o, o1, o2, o3, features, internals);
     }
 
-    public PlayableTile(int i, int i1, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
-        super(features);
-    }
 
     public PlayableTile(BufferedImage image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(features);
@@ -175,8 +172,6 @@ public class PlayableTile extends AbstractTile {
     public int scoreGrass(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
         return 0;
     }
-
-    /*Unneccessary change for commit*/
 
     /**
      * Takes a boolean and rotates

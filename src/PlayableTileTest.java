@@ -34,21 +34,21 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        tiles.add(new PlayableTile(0, 0, feature));
+        tiles.add(new PlayableTile(feature));
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
         feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        tiles.add(new PlayableTile(0, 0, feature1));
+        tiles.add(new PlayableTile(feature1));
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        PlayableTile p = new PlayableTile(0, 0, feature2);
+        PlayableTile p = new PlayableTile(feature2);
         Object m = currentUser.getMeeples().get(0);
         tiles.add(p);
 
@@ -57,16 +57,16 @@ public class PlayableTileTest {
         feature3.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
         feature3.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature3.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        tiles.add(new PlayableTile(0, 0, feature3));
+        tiles.add(new PlayableTile(feature3));
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature4 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature4.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
         feature4.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
         feature4.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
         feature4.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        p = new PlayableTile(0, 0, feature4);
+        p = new PlayableTile(feature4);
         currentUser.getMeeples().get(currentUser.lastUsedMeeple);
-        tiles.add(new PlayableTile(0, 0, feature4));
+        tiles.add(new PlayableTile(feature4));
     }
 
     @After
@@ -104,7 +104,7 @@ public class PlayableTileTest {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
 
-        PlayableTile left = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile left = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         PlayableTile p = new PlayableTile(features, internals);
         p.setLeft(left);
         left.setRight(p);
@@ -121,14 +121,14 @@ public class PlayableTileTest {
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
-        PlayableTile tl = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile tl = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         internals = new HashSet<GlobalVariables.Internal>();
-        PlayableTile bl = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile bl = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -136,7 +136,7 @@ public class PlayableTileTest {
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
-        PlayableTile br = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile br = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         br.setLeft(bl);
         bl.setRight(br);
         bl.setTop(tl);
@@ -156,21 +156,21 @@ public class PlayableTileTest {
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
-        PlayableTile tr = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile tr = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         internals = new HashSet<GlobalVariables.Internal>();
-        PlayableTile tl = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile tl = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         internals = new HashSet<GlobalVariables.Internal>();
-        PlayableTile bl = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile bl = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -178,7 +178,7 @@ public class PlayableTileTest {
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
-        PlayableTile br = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        PlayableTile br = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         br.setLeft(bl);
         br.setTop(tr);
         bl.setRight(br);
@@ -198,14 +198,14 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        PlayableTile tile1 = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
-        PlayableTile tile2 = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         tile1.setBottom(tile2);
         tile2.setTop(tile1);
@@ -221,26 +221,37 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        PlayableTile tile1 = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
-        PlayableTile tile2 = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
-        PlayableTile tile3 = new PlayableTile(0, 0, new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         tile1.setBottom(tile2);
         tile2.setRight(tile3);
 
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         assertEquals(6, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
+    }
+
+    @Test
+    public void testScoreBasicGrass() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(feature);
+
     }
 }
