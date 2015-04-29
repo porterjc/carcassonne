@@ -210,7 +210,21 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     public boolean findFarmer(Set<AbstractTile> alreadyVisited) {
-        return this.getMeeple() == null ? this.getLeft().findFarmer(alreadyVisited) || this.getRight().findFarmer(alreadyVisited) || this.getTop().findFarmer(alreadyVisited) || this.getBottom().findFarmer(alreadyVisited) : true;
+        alreadyVisited.add(this);
+        
+        if (this.getMeeple() != null)
+            return true;
+
+        boolean found = false;
+        if(!alreadyVisited.contains(this.getLeft()))
+            found = this.getLeft().findFarmer(alreadyVisited);
+        if (!alreadyVisited.contains(this.getRight()))
+            found = found || this.getRight().findFarmer(alreadyVisited);
+        if (!alreadyVisited.contains(this.getTop()))
+            found = found || this.getTop().findFarmer(alreadyVisited);
+        if (!alreadyVisited.contains(this.getBottom()))
+            found = found || this.getBottom().findFarmer(alreadyVisited);
+        return found;
     }
 
     /**
