@@ -572,5 +572,45 @@ public class PlayableTileTest {
         assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
     }
 
+    @Test
+    public void testFindNoFarmerInSurroundingGrass() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<>();
+        feature3.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature3.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature3.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature3.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature3);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature4 = new HashMap<>();
+        feature4.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature4.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature4.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature4.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature4);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature5 = new HashMap<>();
+        feature5.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature5.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature5.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature5.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile5 = new PlayableTile(tile1, tile2, tile3, tile4, feature5);
+
+        assertFalse(tile5.findFarmer(new HashSet<AbstractTile>()));
+    }
+
 
 }
