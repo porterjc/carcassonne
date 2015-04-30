@@ -1,11 +1,10 @@
+import javafx.util.Pair;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by johnsoaa on 3/27/2015.
@@ -200,7 +199,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
 
     // Scoring algorithms
 
-    public abstract int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
+    public abstract Pair<ArrayList<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
 
     public abstract int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
 

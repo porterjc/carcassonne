@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -103,11 +104,15 @@ public class PlayableTileTest {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
 
+        Meeple m = new Meeple(currentUser, currentUser.getColor());
         PlayableTile left = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
-        PlayableTile p = new PlayableTile(features, internals);
+        PlayableTile p = new PlayableTile(features, internals, m);
         p.setLeft(left);
         left.setRight(p);
-        assertEquals(2, p.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+        Pair<ArrayList<Meeple>,Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>());
+        assertEquals((Integer) 2, result.getValue());
+        assertEquals(true, result.getKey().contains(p));
+
     }
 
     @Test
@@ -246,7 +251,6 @@ public class PlayableTileTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void testScoreLargerCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);

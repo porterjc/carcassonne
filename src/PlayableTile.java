@@ -1,6 +1,9 @@
+import javafx.util.Pair;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +17,7 @@ public class PlayableTile extends AbstractTile {
 
     private BufferedImage image;
     private int rotation = 0; //represents how much much this tile has been rotated. 0 is the default value before rotations happen;
-    private Meeple meeple;
+    private Meeple meeple = null;
 
     public PlayableTile() {
         super();
@@ -46,8 +49,9 @@ public class PlayableTile extends AbstractTile {
         super(features);
     }
 
-    public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+    public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals, Meeple m) {
         super(features, internals);
+        this.meeple = m;
     }
 
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
@@ -105,28 +109,35 @@ public class PlayableTile extends AbstractTile {
     }
 
     @Override
-    public int scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+    public Pair<ArrayList<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
         int currentTileScore = 1;
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
             return currentTileScore;
-//        if (alreadyVisited.contains(this) && alreadyVisited.size() > 1) { // small circular road
-//            return currentTileScore;
-//        }
+        if (this.getMeeple() != null) {
+            meeples.add(this.getMeeple());
+        }
         alreadyVisited.add(this);
 
         if ((!alreadyVisited.contains(this.getLeft())) && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
             AbstractTile l = this.getLeft();
             int temp = l.scoreRoad(alreadyVisited, meeples);
             if (temp == -1) return -1;
-            return 1 + temp;
+            else {
+                if (this.getMeeple() != null) {
+                    meeples.add(this.getMeeple());
+                }
+                return 1 + temp;
+            }
         }
         if ((!alreadyVisited.contains(this.getRight())) && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
             AbstractTile r = this.getRight();
             int temp = r.scoreRoad(alreadyVisited, meeples);
             if (temp == -1) return -1;
+
             return 1 + temp;
-        } if ((!alreadyVisited.contains(this.getTop())) && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+        }
+        if ((!alreadyVisited.contains(this.getTop())) && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
             AbstractTile t = this.getTop();
             int temp = t.scoreRoad(alreadyVisited, meeples);
             if (temp == -1) return -1;
