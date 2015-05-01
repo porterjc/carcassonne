@@ -225,7 +225,7 @@ public class PlayableTileTest {
         }
         assertEquals(4,currentUser.getScore());
         assertEquals(4,p.getScore());
-        currentUser.updateScore(3);
+        currentUser.updateScore(3); //arbitrary score update
         assertEquals(7, currentUser.getScore());
 
     }

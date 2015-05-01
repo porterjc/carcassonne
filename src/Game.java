@@ -89,6 +89,7 @@ public class Game {
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
         //TODO consider implementing the observer pattern for when a score is updated
         //as we don't want too much coupling between the UI and the GAME class over sharing Player objects
+
         return true;
     }
 
@@ -104,7 +105,8 @@ public class Game {
         return players.get(currentTurn);
     }
 
-    public void updateScore(Color red, int i) {
+    public void updateScore(Player p, int i) {
+
 
     }
 }
