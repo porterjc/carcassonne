@@ -91,7 +91,7 @@ public class PlayableTileTest {
     public void testScoreRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         alreadyVisited.add(lastPlaced);
-        assertEquals(-1, lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+        assertEquals(-1, (int) lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>()).getValue());
     }
 
     @Test
@@ -213,18 +213,18 @@ public class PlayableTileTest {
         tl.setRight(tr);
         tr.setLeft(tl);
         tl.setBottom(bl);
-        Pair<HashSet<Meeple>,Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>());
+        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>());
         assertEquals((Integer) 4, temp.getValue());
         assertEquals(2, temp.getKey().size());
 
         /**
          * Testing updating player score
          */
-        for(Meeple meep :temp.getKey()){
+        for (Meeple meep : temp.getKey()) {
             meep.getPlayer().updateScore(temp.getValue());
         }
-        assertEquals(4,currentUser.getScore());
-        assertEquals(4,p.getScore());
+        assertEquals(4, currentUser.getScore());
+        assertEquals(4, p.getScore());
         currentUser.updateScore(3); //arbitrary score update
         assertEquals(7, currentUser.getScore());
 
