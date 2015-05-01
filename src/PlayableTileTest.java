@@ -289,7 +289,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.WEST);
-        assertEquals(6, tile3.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true));
+        assertEquals((Integer) 6, tile3.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
     }
 
     @Test
