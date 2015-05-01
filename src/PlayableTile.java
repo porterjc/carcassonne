@@ -154,32 +154,58 @@ public class PlayableTile extends AbstractTile {
 //        return -1;
     }
 
+    public int startScoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, GlobalVariables.Direction direction){
+        int currentScore = 2;
+        alreadyVisited.add(this);
+
+        if(getMeeple() != null)
+            meeples.add(this.getMeeple());
+
+        if (direction == (GlobalVariables.Direction.NORTH)){
+            currentScore += getTop().scoreCity(alreadyVisited, meeples);
+        }
+        if (direction == (GlobalVariables.Direction.WEST)){
+            currentScore += getLeft().scoreCity(alreadyVisited, meeples);
+        }
+        if (direction == (GlobalVariables.Direction.EAST)){
+            currentScore += getRight().scoreCity(alreadyVisited, meeples);
+        }
+        if (direction == (GlobalVariables.Direction.SOUTH)){
+            currentScore += getBottom().scoreCity(alreadyVisited, meeples);
+        }
+            return currentScore;
+    }
+
     @Override
     public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
         int cityScore = 2;
-
         alreadyVisited.add(this);
-        if ((!alreadyVisited.contains(this.getBottom())) && getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.CITY) {
-            AbstractTile b = this.getBottom();
-            int temp = b.scoreCity(alreadyVisited, meeples);
-            cityScore += temp;
+
+        if (!this.getInternals().contains(GlobalVariables.Internal.CITY)){
+            return cityScore;
+        } else {
+            if ((!alreadyVisited.contains(this.getBottom())) && getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.CITY) {
+                AbstractTile b = this.getBottom();
+                int temp = b.scoreCity(alreadyVisited, meeples);
+                cityScore += temp;
+            }
+            if ((!alreadyVisited.contains(this.getRight())) && getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.CITY) {
+                AbstractTile r = this.getRight();
+                int temp = r.scoreCity(alreadyVisited, meeples);
+                cityScore += temp;
+            }
+            if ((!alreadyVisited.contains(this.getLeft())) && getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.CITY) {
+                AbstractTile l = this.getLeft();
+                int temp = l.scoreCity(alreadyVisited, meeples);
+                cityScore += temp;
+            }
+            if ((!alreadyVisited.contains(this.getTop())) && getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.CITY) {
+                AbstractTile t = this.getTop();
+                int temp = t.scoreCity(alreadyVisited, meeples);
+                cityScore += temp;
+            }
+            return cityScore;
         }
-        if ((!alreadyVisited.contains(this.getRight())) && getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.CITY) {
-            AbstractTile r = this.getRight();
-            int temp = r.scoreCity(alreadyVisited, meeples);
-            cityScore += temp;
-        }
-        if ((!alreadyVisited.contains(this.getLeft())) && getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.CITY) {
-            AbstractTile l = this.getLeft();
-            int temp = l.scoreCity(alreadyVisited, meeples);
-            cityScore += temp;
-        }
-        if ((!alreadyVisited.contains(this.getTop())) && getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.CITY) {
-            AbstractTile t = this.getTop();
-            int temp = t.scoreCity(alreadyVisited, meeples);
-            cityScore += temp;
-        }
-        return cityScore;
     }
 
     @Override
