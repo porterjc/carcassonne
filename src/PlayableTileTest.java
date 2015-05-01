@@ -455,7 +455,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.SOUTH);
-        assertEquals(4, tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true));
+        assertEquals((Integer) 4, tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
     }
 
     @Test
@@ -482,7 +482,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.SOUTH);
-        assertEquals(-1, tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true));
+        assertEquals(-1, (int) tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
     }
 
     @Test
@@ -550,7 +550,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.NORTH);
-        assertEquals(-1, tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true));
+        assertEquals(-1, (int) tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
     }
 
 
