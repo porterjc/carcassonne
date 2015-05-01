@@ -106,7 +106,6 @@ public class Game {
     }
 
     public void updateScore(Player p, int i) {
-
-
+        p.updateScore(i);
     }
 }
