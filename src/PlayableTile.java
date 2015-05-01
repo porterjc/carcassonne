@@ -211,7 +211,7 @@ public class PlayableTile extends AbstractTile {
     @Override
     public boolean findFarmer(Set<AbstractTile> alreadyVisited) {
         alreadyVisited.add(this);
-        
+
         if (this.getMeeple() != null)
             return true;
 
