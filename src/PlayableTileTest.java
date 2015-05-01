@@ -168,6 +168,8 @@ public class PlayableTileTest {
 
     @Test
     public void testLongerRoad() {
+        Meeple p1m = new Meeple(new Player(Color.ORANGE), Color.ORANGE);
+        Meeple m = new Meeple(currentUser, currentUser.getColor());
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -200,6 +202,8 @@ public class PlayableTileTest {
         internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile br = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        p1m.place(bl, GlobalVariables.Feature.ROAD, GlobalVariables.Location.TOP);
+        m.place(br, GlobalVariables.Feature.ROAD, GlobalVariables.Location.LEFT);
         br.setLeft(bl);
         br.setTop(tr);
         bl.setRight(br);
@@ -208,8 +212,9 @@ public class PlayableTileTest {
         tl.setRight(tr);
         tr.setLeft(tl);
         tl.setBottom(bl);
-        assertEquals(4, br.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
-
+        Pair<HashSet<Meeple>,Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>());
+        assertEquals(4, temp);
+        assertEquals(2, temp.getKey().size());
     }
 
     @Test
