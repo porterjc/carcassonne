@@ -374,7 +374,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         assertEquals(12, tile1.scoreCity(alreadyVisited, new HashSet<Meeple>()));
     }
-    
+
 
     @Test
     public void testFindNoFarmerBasicGrass() {
