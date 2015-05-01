@@ -634,5 +634,25 @@ public class PlayableTileTest {
         assertFalse(tile1.findFarmer(new HashSet<AbstractTile>()));
     }
 
+    @Test
+    public void testFindFarmerPastRoad() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature2);
+
+        Meeple m = new Meeple(new Player(Color.RED), Color.RED);
+        m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOM);
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>()));
+    }
 
 }
