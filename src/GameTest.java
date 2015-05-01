@@ -195,8 +195,10 @@ public class GameTest {
         players.add(new Player(Color.RED));
         players.add(new Player(Color.ORANGE));
         Game game = new Game(getTiles(), this.players);
+        game.updateScore(game.getPlayers().get(0), 7);
+        assertEquals(7, game.getPlayers().get(0).getPlayerScore());
         game.updateScore(game.getPlayers().get(0),7);
-        assertEquals(7,game.getPlayers().get(0).getPlayerScore());
+        assertEquals(14,game.getPlayers().get(0).getPlayerScore());
 
     }
 
