@@ -199,7 +199,7 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
 
     // Scoring algorithms
 
-    public abstract Pair<ArrayList<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
+    public abstract Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
 
     public abstract int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion);
 

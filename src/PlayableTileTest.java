@@ -2,6 +2,7 @@ import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import sun.rmi.runtime.Log;
 
 import java.awt.*;
 import java.util.*;
@@ -95,7 +96,6 @@ public class PlayableTileTest {
     @Test
     public void testShortRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -106,12 +106,20 @@ public class PlayableTileTest {
 
         Meeple m = new Meeple(currentUser, currentUser.getColor());
         PlayableTile left = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
-        PlayableTile p = new PlayableTile(features, internals, m);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile p = new PlayableTile(features1, internals, m);
+        m.place(p, GlobalVariables.Feature.ROAD, GlobalVariables.Location.RIGHT);
+        assertEquals(m, p.getMeeple());
         p.setLeft(left);
         left.setRight(p);
-        Pair<ArrayList<Meeple>,Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>());
+        Pair<HashSet<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>());
+        assertEquals(1, result.getKey().size());
         assertEquals((Integer) 2, result.getValue());
-        assertEquals(true, result.getKey().contains(p));
+        assertEquals((Integer) 2, result.getValue());
 
     }
 
@@ -209,6 +217,7 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+
         PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
 
         tile1.setBottom(tile2);
@@ -380,8 +389,6 @@ public class PlayableTileTest {
         tile4.setRight(tile3);
         tile4.setBottom(tile6);
         tile6.setTop(tile4);
-        
-
 
 
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
@@ -391,7 +398,7 @@ public class PlayableTileTest {
     }
 
     @Test
-     public void testDoesNotScoreNeighborCity(){
+    public void testDoesNotScoreNeighborCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -425,7 +432,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testScoreUnCompletedCityForCompletion(){
+    public void testScoreUnCompletedCityForCompletion() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.CITY);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -518,7 +525,6 @@ public class PlayableTileTest {
         directions.add(GlobalVariables.Direction.NORTH);
         assertEquals(-1, tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true));
     }
-
 
 
     @Test
