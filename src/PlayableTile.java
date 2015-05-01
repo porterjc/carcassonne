@@ -209,21 +209,23 @@ public class PlayableTile extends AbstractTile {
     }
 
     @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited) {
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         alreadyVisited.add(this);
 
-        if (this.getMeeple() != null)
+        if (this.getMeeple() != null) {
+
             return true;
+        }
 
         boolean found = false;
         if(this.getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getLeft()))
-            found = this.getLeft().findFarmer(alreadyVisited);
+            found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.LEFT);
         if (this.getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getRight()))
-            found = found || this.getRight().findFarmer(alreadyVisited);
+            found = found || this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.RIGHT);
         if (this.getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getTop()))
-            found = found || this.getTop().findFarmer(alreadyVisited);
+            found = found || this.getTop().findFarmer(alreadyVisited, GlobalVariables.Location.TOP);
         if (this.getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getBottom()))
-            found = found || this.getBottom().findFarmer(alreadyVisited); 
+            found = found || this.getBottom().findFarmer(alreadyVisited, GlobalVariables.Location.BOTTOM);
         return found;
     }
 

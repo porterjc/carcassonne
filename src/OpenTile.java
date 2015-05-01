@@ -125,7 +125,7 @@ public class OpenTile extends AbstractTile {
     }
 
     @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited) {
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         return false;
     }
 }

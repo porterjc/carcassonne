@@ -40,7 +40,7 @@ public class NullTile extends AbstractTile {
     }
 
     @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisitedE) {
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         return false;
     }
 

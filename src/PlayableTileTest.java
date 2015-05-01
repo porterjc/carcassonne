@@ -467,7 +467,7 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -481,7 +481,7 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile1, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile1.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -503,7 +503,7 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -525,7 +525,7 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -547,7 +547,7 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -569,7 +569,7 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -609,7 +609,7 @@ public class PlayableTileTest {
         feature5.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile5 = new PlayableTile(tile1, tile2, tile3, tile4, feature5);
 
-        assertFalse(tile5.findFarmer(new HashSet<AbstractTile>()));
+        assertFalse(tile5.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -631,7 +631,7 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
     @Test
@@ -652,7 +652,7 @@ public class PlayableTileTest {
 
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOM);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>()));
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
 }
