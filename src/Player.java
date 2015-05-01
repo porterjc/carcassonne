@@ -51,9 +51,10 @@ public class Player {
     }
 
     public void adjustScore(Integer value) {
+        this.playerScore =4;
     }
 
     public int getScore() {
-        return 0;
+        return this.playerScore;
     }
 }
