@@ -180,6 +180,10 @@ public class PlayableTile extends AbstractTile {
     public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
         int cityScore = 2;
         alreadyVisited.add(this);
+        Meeple meep = getMeeple();
+
+        if(meep != null && meep.getFeature() == GlobalVariables.Feature.CITY)
+            meeples.add(meep);
 
         if (!this.getInternals().contains(GlobalVariables.Internal.CITY)){
             return cityScore;
@@ -187,22 +191,42 @@ public class PlayableTile extends AbstractTile {
             if ((!alreadyVisited.contains(this.getBottom())) && getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.CITY) {
                 AbstractTile b = this.getBottom();
                 int temp = b.scoreCity(alreadyVisited, meeples, completion);
-                cityScore += temp;
+                if (completion){
+                    if(temp == -1){
+                        return -3;
+                    } else
+                        cityScore += temp;
+                }
             }
             if ((!alreadyVisited.contains(this.getRight())) && getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.CITY) {
                 AbstractTile r = this.getRight();
                 int temp = r.scoreCity(alreadyVisited, meeples, completion);
-                cityScore += temp;
+                if (completion){
+                    if(temp == -1){
+                        return -3;
+                    } else
+                        cityScore += temp;
+                }
             }
             if ((!alreadyVisited.contains(this.getLeft())) && getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.CITY) {
                 AbstractTile l = this.getLeft();
                 int temp = l.scoreCity(alreadyVisited, meeples, completion);
-                cityScore += temp;
+                if (completion){
+                    if(temp == -1){
+                        return -3;
+                    } else
+                        cityScore += temp;
+                }
             }
             if ((!alreadyVisited.contains(this.getTop())) && getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.CITY) {
                 AbstractTile t = this.getTop();
                 int temp = t.scoreCity(alreadyVisited, meeples, completion);
-                cityScore += temp;
+                if (completion){
+                    if(temp == -1){
+                        return -3;
+                    } else
+                        cityScore += temp;
+                }
             }
             return cityScore;
         }
