@@ -284,7 +284,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingBelow = topLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setBottom(existingBelow);
-        existingToLeft.moveTile(existingBelow.getX(), existingBelow.getY() + AbstractTile.TILE_PIXEL_SIZE );
+        existingToLeft.moveTile(existingBelow.getX(), existingBelow.getY() - AbstractTile.TILE_PIXEL_SIZE );
         this.add(existingToLeft);
         existingBelow = existingBelow.getRight();
         topLeft = existingToLeft;
@@ -300,6 +300,9 @@ public class TileGrid extends JPanel {
         }
 
         topRight = existingToLeft;
+
+        revalidate();
+        repaint();
     }
 
     public void setTileLabel(JLabel label) {

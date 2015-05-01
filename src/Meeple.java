@@ -28,9 +28,12 @@ public class Meeple {
         return meepleOwner;
     }
 
-    public void place(PlayableTile pt, GlobalVariables.Feature place) {
+
+    public void place(PlayableTile pt, GlobalVariables.Feature place, GlobalVariables.Location loc) {
         this.placedOn = place;
         this.tile = pt;
+        pt.setMeeple(this);
+        this.location = loc;
     }
     public Pair<AbstractTile, GlobalVariables.Feature> getPlacedOn(){
         return  new Pair(tile, placedOn);

@@ -84,7 +84,7 @@ public class MeepleTest extends TestCase {
     @Test
     public void testRemove() {
         PlayableTile pt = new PlayableTile();
-        m.place(pt, GlobalVariables.Feature.GRASS);
+        m.place(pt, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
         assertEquals(pt, m.getTile());
         m.remove();
@@ -128,7 +128,7 @@ public class MeepleTest extends TestCase {
     @Test
     public void testPlaceMeeble() {
         PlayableTile pt = new PlayableTile();
-        m.place(pt, GlobalVariables.Feature.GRASS);
+        m.place(pt, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
         assertEquals(pt, m.getTile());
 //        assertEquals(p.getMeeples().get(0),m.getTile().getMeeple());
