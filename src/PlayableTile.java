@@ -193,40 +193,44 @@ public class PlayableTile extends AbstractTile {
                 int temp = b.scoreCity(alreadyVisited, meeples, completion);
                 if (completion){
                     if(temp == -1){
-                        return -3;
+                        return -1;
                     } else
                         cityScore += temp;
-                }
+                } else
+                    cityScore += temp;
             }
             if ((!alreadyVisited.contains(this.getRight())) && getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.CITY) {
                 AbstractTile r = this.getRight();
                 int temp = r.scoreCity(alreadyVisited, meeples, completion);
-                if (completion){
-                    if(temp == -1){
-                        return -3;
+                if (completion) {
+                    if (temp == -1) {
+                        return -1;
                     } else
                         cityScore += temp;
-                }
+                } else
+                    cityScore += temp;
             }
             if ((!alreadyVisited.contains(this.getLeft())) && getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.CITY) {
                 AbstractTile l = this.getLeft();
                 int temp = l.scoreCity(alreadyVisited, meeples, completion);
                 if (completion){
                     if(temp == -1){
-                        return -3;
+                        return -1;
                     } else
                         cityScore += temp;
-                }
+                } else
+                    cityScore += temp;
             }
             if ((!alreadyVisited.contains(this.getTop())) && getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.CITY) {
                 AbstractTile t = this.getTop();
                 int temp = t.scoreCity(alreadyVisited, meeples, completion);
                 if (completion){
                     if(temp == -1){
-                        return -3;
+                        return -1;
                     } else
                         cityScore += temp;
-                }
+                } else
+                    cityScore += temp;
             }
             return cityScore;
         }
