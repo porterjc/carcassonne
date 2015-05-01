@@ -168,7 +168,8 @@ public class PlayableTileTest {
 
     @Test
     public void testLongerRoad() {
-        Meeple p1m = new Meeple(new Player(Color.ORANGE), Color.ORANGE);
+        Player p = new Player(Color.ORANGE);
+        Meeple p1m = new Meeple(p, Color.ORANGE);
         Meeple m = new Meeple(currentUser, currentUser.getColor());
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -215,6 +216,15 @@ public class PlayableTileTest {
         Pair<HashSet<Meeple>,Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>());
         assertEquals(4, temp);
         assertEquals(2, temp.getKey().size());
+
+        /**
+         * Testing updating player score
+         */
+        for(Meeple meep :temp.getKey()){
+            meep.getPlayer().adjustScore(temp.getValue());
+        }
+        assertEquals(4,currentUser.getScore());
+        assertEquals(4,p.getScore());
     }
 
     @Test

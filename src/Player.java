@@ -43,10 +43,17 @@ public class Player {
 
     //Testing for this method is included in PlayableTileTest
     public boolean placeMeeple(PlayableTile t) {
-        if (lastUsedMeeple < meeples.size() -1) {
+        if (lastUsedMeeple < meeples.size() - 1) {
             lastUsedMeeple++;
             return true;
         }
         return false;
+    }
+
+    public void adjustScore(Integer value) {
+    }
+
+    public int getScore() {
+        return 0;
     }
 }
