@@ -355,16 +355,16 @@ public class PlayableTileTest {
 
         tile1.setTop(tile2);
         tile2.setBottom(tile1);
-        tile1.setRight(tile5);
-        tile5.setLeft(tile1);
-        tile5.setRight(tile6);
-        tile6.setLeft(tile5);
+        tile1.setLeft(tile5);
+        tile5.setRight(tile1);
+        tile5.setLeft(tile6);
+        tile6.setRight(tile5);
         tile5.setTop(tile3);
         tile3.setBottom(tile5);
-        tile2.setRight(tile3);
-        tile3.setLeft(tile2);
-        tile3.setRight(tile4);
-        tile4.setLeft(tile3);
+        tile2.setLeft(tile3);
+        tile3.setRight(tile2);
+        tile3.setLeft(tile4);
+        tile4.setRight(tile3);
         tile4.setBottom(tile6);
         tile6.setTop(tile4);
         
