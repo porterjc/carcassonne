@@ -10,6 +10,30 @@ public class GlobalVariables {
 
     public static enum Location {TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
 
+       public static boolean isBottom(Location loc) {
+           switch(loc) {
+               case TOPLEFT:
+                   return false;
+               case TOP:
+                   return false;
+               case TOPRIGHT:
+                   return false;
+               case LEFT:
+                   return false;
+               case CENTER:
+                   return false;
+               case RIGHT:
+                   return false;
+               case BOTTOMLEFT:
+                   return true;
+               case BOTTOM:
+                   return true;
+               case BOTTOMRIGHT:
+                   return true;
+           }
+           return false;
+       }
+
         public static Location goDown(Location loc) {
             switch (loc) {
                 case TOP:
