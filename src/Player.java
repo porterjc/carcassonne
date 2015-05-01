@@ -50,10 +50,6 @@ public class Player {
         return false;
     }
 
-    public void adjustScore(Integer value) {
-        this.playerScore =4;
-    }
-
     public int getScore() {
         return this.playerScore;
     }

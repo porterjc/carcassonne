@@ -214,17 +214,20 @@ public class PlayableTileTest {
         tr.setLeft(tl);
         tl.setBottom(bl);
         Pair<HashSet<Meeple>,Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>());
-        assertEquals(4, temp);
+        assertEquals((Integer) 4, temp.getValue());
         assertEquals(2, temp.getKey().size());
 
         /**
          * Testing updating player score
          */
         for(Meeple meep :temp.getKey()){
-            meep.getPlayer().adjustScore(temp.getValue());
+            meep.getPlayer().updateScore(temp.getValue());
         }
         assertEquals(4,currentUser.getScore());
         assertEquals(4,p.getScore());
+        currentUser.updateScore(3);
+        assertEquals(7, currentUser.getScore());
+
     }
 
     @Test
