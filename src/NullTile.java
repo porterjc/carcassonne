@@ -36,8 +36,8 @@ public class NullTile extends AbstractTile {
     }
 
     @Override
-    public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
-        return -1;
+    public Pair<HashSet<Meeple>,Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+        return new Pair(meeples, -1);
     }
 
     @Override

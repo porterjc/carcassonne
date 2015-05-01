@@ -163,7 +163,7 @@ public class PlayableTile extends AbstractTile {
         return new Pair(meeples, -1);
     }
 
-    public int startScoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, Set<GlobalVariables.Direction> directions, boolean completion) {
+    public Pair<HashSet<Meeple>, Integer> startScoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, Set<GlobalVariables.Direction> directions, boolean completion) {
         int currentScore = 2;
         alreadyVisited.add(this);
 
@@ -171,22 +171,22 @@ public class PlayableTile extends AbstractTile {
             meeples.add(this.getMeeple());
 
         if (directions.contains(GlobalVariables.Direction.NORTH)) {
-            currentScore += getTop().scoreCity(alreadyVisited, meeples, completion);
+            currentScore += getTop().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
         if (directions.contains(GlobalVariables.Direction.WEST)) {
-            currentScore += getLeft().scoreCity(alreadyVisited, meeples, completion);
+            currentScore += getLeft().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
         if (directions.contains(GlobalVariables.Direction.EAST)) {
-            currentScore += getRight().scoreCity(alreadyVisited, meeples, completion);
+            currentScore += getRight().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
-            currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion);
+            currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        return currentScore;
+        return new Pair(meeples, currentScore);
     }
 
     @Override
-    public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+    public Pair<HashSet<Meeple>,Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
         int cityScore = 2;
         alreadyVisited.add(this);
         Meeple meep = getMeeple();
@@ -195,14 +195,14 @@ public class PlayableTile extends AbstractTile {
             meeples.add(meep);
 
         if (!this.getInternals().contains(GlobalVariables.Internal.CITY)) {
-            return cityScore;
+            return new Pair(meeples, cityScore);
         } else {
             if ((!alreadyVisited.contains(this.getBottom())) && getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.CITY) {
                 AbstractTile b = this.getBottom();
-                int temp = b.scoreCity(alreadyVisited, meeples, completion);
+                int temp = b.scoreCity(alreadyVisited, meeples, completion).getValue();;
                 if (completion) {
                     if (temp == -1) {
-                        return -1;
+                        return new Pair(meeples, -1);
                     } else
                         cityScore += temp;
                 } else
@@ -210,10 +210,10 @@ public class PlayableTile extends AbstractTile {
             }
             if ((!alreadyVisited.contains(this.getRight())) && getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.CITY) {
                 AbstractTile r = this.getRight();
-                int temp = r.scoreCity(alreadyVisited, meeples, completion);
+                int temp = r.scoreCity(alreadyVisited, meeples, completion).getValue();;
                 if (completion) {
                     if (temp == -1) {
-                        return -1;
+                        return new Pair(meeples, -1);
                     } else
                         cityScore += temp;
                 } else
@@ -221,10 +221,10 @@ public class PlayableTile extends AbstractTile {
             }
             if ((!alreadyVisited.contains(this.getLeft())) && getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.CITY) {
                 AbstractTile l = this.getLeft();
-                int temp = l.scoreCity(alreadyVisited, meeples, completion);
+                int temp = l.scoreCity(alreadyVisited, meeples, completion).getValue();
                 if (completion) {
                     if (temp == -1) {
-                        return -1;
+                        return new Pair(meeples, -1);
                     } else
                         cityScore += temp;
                 } else
@@ -232,16 +232,16 @@ public class PlayableTile extends AbstractTile {
             }
             if ((!alreadyVisited.contains(this.getTop())) && getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.CITY) {
                 AbstractTile t = this.getTop();
-                int temp = t.scoreCity(alreadyVisited, meeples, completion);
+                int temp = t.scoreCity(alreadyVisited, meeples, completion).getValue();
                 if (completion) {
                     if (temp == -1) {
-                        return -1;
+                        return new Pair(meeples, -1);
                     } else
                         cityScore += temp;
                 } else
                     cityScore += temp;
             }
-            return cityScore;
+            return new Pair(meeples,cityScore);
         }
     }
 

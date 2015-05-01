@@ -78,7 +78,6 @@ public class Game {
         drawTile();
     }
 
-
     public boolean moveToNextTurn() {
         if (isGameOver()) return false;
         if (this.currentTurn < this.players.size() - 1)

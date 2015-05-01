@@ -346,7 +346,7 @@ public class MainFrame extends JFrame {
             this.color = color;
             this.setBackground(color);
         }
-
+        //TODO add button listener?
 
     }
 
