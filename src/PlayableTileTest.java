@@ -1,4 +1,5 @@
 import javafx.util.Pair;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -126,6 +127,10 @@ public class PlayableTileTest {
     @Test
     public void testLongerRoadWithNoEnd() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        //make meeples for testing
+        Meeple p1m = new Meeple(new Player(Color.ORANGE), Color.ORANGE);
+        Meeple m = new Meeple(currentUser, currentUser.getColor());
+
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -141,6 +146,7 @@ public class PlayableTileTest {
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         internals = new HashSet<GlobalVariables.Internal>();
         PlayableTile bl = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        p1m.place(bl, GlobalVariables.Feature.ROAD, GlobalVariables.Location.TOP);
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -149,12 +155,15 @@ public class PlayableTileTest {
         internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile br = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+        m.place(br, GlobalVariables.Feature.ROAD, GlobalVariables.Location.LEFT);
         br.setLeft(bl);
         bl.setRight(br);
         bl.setTop(tl);
         tl.setBottom(bl);
         tl.setBottom(bl);
-        assertEquals(-1, br.scoreRoad(alreadyVisited, new HashSet<Meeple>()));
+        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>());
+        assertEquals(-1, (int) temp.getValue());
+        assertEquals(2, temp.getKey().size());
     }
 
     @Test
