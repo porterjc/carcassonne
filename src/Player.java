@@ -37,8 +37,9 @@ public class Player {
     }
 
 
-    public void updateScore(int points) {
-        this.playerScore += points;
+    public void updateScore(int points)
+    {   if(points>0)
+            this.playerScore += points;
     }
 
     //Testing for this method is included in PlayableTileTest
