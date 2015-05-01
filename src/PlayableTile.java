@@ -216,14 +216,14 @@ public class PlayableTile extends AbstractTile {
             return true;
 
         boolean found = false;
-        if(!alreadyVisited.contains(this.getLeft()))
+        if(this.getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getLeft()))
             found = this.getLeft().findFarmer(alreadyVisited);
-        if (!alreadyVisited.contains(this.getRight()))
+        if (this.getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getRight()))
             found = found || this.getRight().findFarmer(alreadyVisited);
-        if (!alreadyVisited.contains(this.getTop()))
+        if (this.getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getTop()))
             found = found || this.getTop().findFarmer(alreadyVisited);
-        if (!alreadyVisited.contains(this.getBottom()))
-            found = found || this.getBottom().findFarmer(alreadyVisited);
+        if (this.getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getBottom()))
+            found = found || this.getBottom().findFarmer(alreadyVisited); 
         return found;
     }
 
