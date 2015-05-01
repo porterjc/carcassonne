@@ -71,7 +71,7 @@ public class MeepleTest extends TestCase {
         feature4.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
         feature4.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
-        p = new PlayableTile(feature4,internals);
+        p = new PlayableTile(feature4);
         tiles.add(new PlayableTile(feature4));
     }
     @Test

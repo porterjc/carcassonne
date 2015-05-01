@@ -31,7 +31,7 @@ public class NullTile extends AbstractTile {
 
     @Override
     public Pair<ArrayList<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return -1;
+        return new Pair(meeples, -1);
     }
 
     @Override
