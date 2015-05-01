@@ -40,9 +40,70 @@ public class GlobalVariables {
                     return BOTTOM;
                 case TOPLEFT:
                     return BOTTOMLEFT;
-
+                case LEFT:
+                    return BOTTOMLEFT;
+                case RIGHT:
+                    return BOTTOMRIGHT;
+                case TOPRIGHT:
+                    return BOTTOMRIGHT;
+                case CENTER:
+                    return BOTTOM;
             }
             return BOTTOM;
+        }
+
+        public static Location goUp(Location loc) {
+            switch (loc) {
+                case BOTTOM:
+                    return TOP;
+                case BOTTOMRIGHT:
+                    return TOPRIGHT;
+                case RIGHT:
+                    return TOPRIGHT;
+                case LEFT:
+                    return TOPLEFT;
+                case BOTTOMLEFT:
+                    return TOPLEFT;
+                case CENTER:
+                    return TOP;
+            }
+            return TOP;
+        }
+
+        public static Location goLeft(Location loc) {
+            switch (loc) {
+                case BOTTOM:
+                    return BOTTOMLEFT;
+                case BOTTOMRIGHT:
+                    return BOTTOMLEFT;
+                case RIGHT:
+                    return LEFT;
+                case TOP:
+                    return TOPLEFT;
+                case TOPRIGHT:
+                    return TOPLEFT;
+                case CENTER:
+                    return LEFT;
+            }
+            return LEFT;
+        }
+
+        public static Location goRight(Location loc) {
+            switch (loc) {
+                case BOTTOM:
+                    return BOTTOMRIGHT;
+                case BOTTOMLEFT:
+                    return BOTTOMRIGHT;
+                case LEFT:
+                    return RIGHT;
+                case TOP:
+                    return TOPRIGHT;
+                case TOPLEFT:
+                    return TOPRIGHT;
+                case CENTER:
+                    return RIGHT;
+            }
+            return RIGHT;
         }
 
     }
