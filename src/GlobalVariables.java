@@ -34,6 +34,78 @@ public class GlobalVariables {
            return false;
        }
 
+        public static boolean isTop(Location loc) {
+            switch(loc) {
+                case TOPLEFT:
+                    return true;
+                case TOP:
+                    return true;
+                case TOPRIGHT:
+                    return true;
+                case LEFT:
+                    return false;
+                case CENTER:
+                    return false;
+                case RIGHT:
+                    return false;
+                case BOTTOMLEFT:
+                    return false;
+                case BOTTOM:
+                    return false;
+                case BOTTOMRIGHT:
+                    return false;
+            }
+            return false;
+        }
+
+        public static boolean isLeft(Location loc) {
+            switch(loc) {
+                case TOPLEFT:
+                    return true;
+                case TOP:
+                    return false;
+                case TOPRIGHT:
+                    return false;
+                case LEFT:
+                    return true;
+                case CENTER:
+                    return false;
+                case RIGHT:
+                    return false;
+                case BOTTOMLEFT:
+                    return true;
+                case BOTTOM:
+                    return false;
+                case BOTTOMRIGHT:
+                    return false;
+            }
+            return false;
+        }
+
+        public static boolean isRight(Location loc) {
+            switch(loc) {
+                case TOPLEFT:
+                    return false;
+                case TOP:
+                    return false;
+                case TOPRIGHT:
+                    return true;
+                case LEFT:
+                    return false;
+                case CENTER:
+                    return false;
+                case RIGHT:
+                    return true;
+                case BOTTOMLEFT:
+                    return false;
+                case BOTTOM:
+                    return false;
+                case BOTTOMRIGHT:
+                    return true;
+            }
+            return false;
+        }
+
         public static Location goDown(Location loc) {
             switch (loc) {
                 case TOP:
