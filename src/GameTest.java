@@ -199,6 +199,8 @@ public class GameTest {
         assertEquals(7, game.getPlayers().get(0).getPlayerScore());
         game.updateScore(game.getPlayers().get(0),7);
         assertEquals(14,game.getPlayers().get(0).getPlayerScore());
+        game.updateScore(game.getPlayers().get(0),-1);
+        assertEquals(14,game.getPlayers().get(0).getPlayerScore());
 
     }
 
