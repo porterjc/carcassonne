@@ -120,6 +120,10 @@ public class GlobalVariables {
                     return BOTTOMRIGHT;
                 case CENTER:
                     return BOTTOM;
+                case BOTTOMRIGHT:
+                    return BOTTOMRIGHT;
+                case BOTTOMLEFT:
+                    return BOTTOMLEFT;
             }
             return BOTTOM;
         }
@@ -138,6 +142,10 @@ public class GlobalVariables {
                     return TOPLEFT;
                 case CENTER:
                     return TOP;
+                case TOPRIGHT:
+                    return TOPRIGHT;
+                case TOPLEFT:
+                    return TOPLEFT;
             }
             return TOP;
         }
@@ -156,6 +164,10 @@ public class GlobalVariables {
                     return TOPLEFT;
                 case CENTER:
                     return LEFT;
+                case TOPLEFT:
+                    return TOPLEFT;
+                case BOTTOMLEFT:
+                    return BOTTOMLEFT;
             }
             return LEFT;
         }
@@ -174,6 +186,10 @@ public class GlobalVariables {
                     return TOPRIGHT;
                 case CENTER:
                     return RIGHT;
+                case TOPRIGHT:
+                    return TOPRIGHT;
+                case BOTTOMRIGHT:
+                    return BOTTOMRIGHT;
             }
             return RIGHT;
         }
