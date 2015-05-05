@@ -37,16 +37,21 @@ public class Player {
     }
 
 
-    public void updateScore(int points) {
-        this.playerScore += points;
+    public void updateScore(int points)
+    {   if(points>0)
+            this.playerScore += points;
     }
 
     //Testing for this method is included in PlayableTileTest
     public boolean placeMeeple(PlayableTile t) {
-        if (lastUsedMeeple < meeples.size() -1) {
+        if (lastUsedMeeple < meeples.size() - 1) {
             lastUsedMeeple++;
             return true;
         }
         return false;
+    }
+
+    public int getScore() {
+        return this.playerScore;
     }
 }

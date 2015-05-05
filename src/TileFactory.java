@@ -30,7 +30,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,7 +46,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,6 +95,7 @@ public class TileFactory {
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.ROADSTOP);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
 
             deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
@@ -104,6 +111,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -145,7 +153,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,6 +170,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -307,6 +319,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.CITY);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -352,6 +365,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -367,7 +381,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -410,6 +427,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -483,7 +501,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -540,6 +561,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -615,6 +637,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.CITY);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -676,6 +699,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
             internals.add(GlobalVariables.Internal.COATOFARMS);
             internals.add(GlobalVariables.Internal.CITY);
 
@@ -830,6 +854,8 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -858,7 +884,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -872,6 +901,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -888,6 +918,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.GARDEN);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -935,7 +966,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -979,6 +1013,8 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -1007,7 +1043,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1021,6 +1060,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.ROADSTOP);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -1037,6 +1077,7 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
             internals.add(GlobalVariables.Internal.GARDEN);
 
             deck.add(new PlayableTile(image, features, internals));
@@ -1068,7 +1109,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
-            deck.add(new PlayableTile(image, features));
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1090,7 +1134,7 @@ public class TileFactory {
         }
 
         try {
-            BufferedImage image = ImageIO.read(new File("images/68.png"));
+            BufferedImage image = ImageIO.read(new File("images/71.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);

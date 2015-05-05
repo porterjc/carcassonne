@@ -195,12 +195,12 @@ public class GameTest {
         players.add(new Player(Color.RED));
         players.add(new Player(Color.ORANGE));
         Game game = new Game(getTiles(), this.players);
-        //TODO for later
-        //change ArrayList<Player> to Map<Player,Integer> (map of the player and the corresponding score
-        //game.updateScore(Color.RED, 5);
-        //assertEquals(5, players.get)
-
-
+        game.updateScore(game.getPlayers().get(0), 7);
+        assertEquals(7, game.getPlayers().get(0).getPlayerScore());
+        game.updateScore(game.getPlayers().get(0),7);
+        assertEquals(14,game.getPlayers().get(0).getPlayerScore());
+        game.updateScore(game.getPlayers().get(0),-1);
+        assertEquals(14,game.getPlayers().get(0).getPlayerScore());
     }
 
 }

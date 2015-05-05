@@ -3,6 +3,7 @@ import javafx.util.Pair;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -46,6 +47,11 @@ public class OpenTile extends AbstractTile {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
 
+    @Override
+    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return new Pair(meeples, -1);
+    }
+
 
     public boolean canPlace(PlayableTile tileToPlace) {
         //boolean can = checkEast(tileToPlace) && checkWest(tileToPlace) && checkNorth(tileToPlace) && checkSouth(tileToPlace);
@@ -86,7 +92,7 @@ public class OpenTile extends AbstractTile {
     }
 
     public boolean checkWest(PlayableTile tile) {
-       // Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
+        // Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.WEST);
         if (getLeft().getFeatures() == null) return true;
         else {
@@ -115,13 +121,8 @@ public class OpenTile extends AbstractTile {
     }
 
     @Override
-    public Pair<ArrayList<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
         return new Pair(meeples, -1);
-    }
-
-    @Override
-    public int scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
-        return -1;
     }
 
     @Override
