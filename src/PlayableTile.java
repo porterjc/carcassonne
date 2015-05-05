@@ -168,6 +168,7 @@ public class PlayableTile extends AbstractTile {
         alreadyVisited.add(this);
 
         if(this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
+            currentScore += 2;
 
         if (getMeeple() != null)
             meeples.add(this.getMeeple());
@@ -194,6 +195,7 @@ public class PlayableTile extends AbstractTile {
         Meeple meep = getMeeple();
 
         if(this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
+            cityScore += 2;
 
         if (meep != null && meep.getFeature() == GlobalVariables.Feature.CITY)
             meeples.add(meep);
