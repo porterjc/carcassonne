@@ -38,9 +38,12 @@ public class Meeple {
     public Pair<AbstractTile, GlobalVariables.Feature> getPlacedOn(){
         return  new Pair(tile, placedOn);
     }
+
     public GlobalVariables.Feature getFeature() {
         return placedOn;
     }
+
+    public GlobalVariables.Location getLocation() { return location; }
 
     public PlayableTile getTile() {
         return this.tile;
