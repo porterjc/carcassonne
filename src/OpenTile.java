@@ -2,6 +2,8 @@ import javafx.util.Pair;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,15 +11,17 @@ import java.util.Set;
 /**
  * Created by johnsoaa on 3/31/2015.
  */
-public class OpenTile extends AbstractTile {
+public class OpenTile extends AbstractTile implements MouseListener {
 
     public OpenTile() {
         super();
+        this.addMouseListener(this);
     }
 
     public OpenTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom) {
         super(left, right, top, bottom);
         this.drawSelf();
+        this.addMouseListener(this);
     }
 
     @Override
@@ -31,7 +35,7 @@ public class OpenTile extends AbstractTile {
         else if (getRight() == null)
             return GlobalVariables.Direction.EAST;
 
-        else if (getLeft() == null)
+        else if (getBottom() == null)
             return GlobalVariables.Direction.SOUTH;
 
         return null;
@@ -128,5 +132,45 @@ public class OpenTile extends AbstractTile {
     @Override
     public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         return false;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        TileGrid grid = (TileGrid) this.getParent();
+        PlayableTile current = grid.getGame().getCurrentTile();
+        System.out.println(current);
+
+        if (this.canPlace(current)) {
+            GlobalVariables.Direction direction = this.addTile(current);
+            if (direction != null) {
+                grid.addNullRow(direction);
+            }
+            grid.revalidate();
+            grid.repaint();
+
+            grid.getGame().drawTile();
+            grid.updateCurrentTileUI();
+
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

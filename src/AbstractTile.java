@@ -10,7 +10,7 @@ import java.util.*;
  * Created by johnsoaa on 3/27/2015.
  */
 
-public abstract class AbstractTile extends JLabel implements MouseListener {
+public abstract class AbstractTile extends JLabel {
 
     public static final int TILE_PIXEL_SIZE = 160;
 
@@ -22,7 +22,6 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
     public AbstractTile() {
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         internals = new HashSet<>();
-        this.addMouseListener(this);
     }
 
     public AbstractTile(AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
@@ -33,7 +32,6 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
         setBottom(b);
         featuresMap = features;
         internals = new HashSet<GlobalVariables.Internal>();
-        this.addMouseListener(this);
     }
 
     public AbstractTile(AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b) {
@@ -43,20 +41,17 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
         setBottom(b);
         featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         internals = new HashSet<GlobalVariables.Internal>();
-        this.addMouseListener(this);
     }
 
 
     public AbstractTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         featuresMap = features;
         internals = new HashSet<>();
-        this.addMouseListener(this);
     }
 
     public AbstractTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         featuresMap = features;
         this.internals = internals;
-        this.addMouseListener(this);
     }
 
     public AbstractTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
@@ -150,52 +145,6 @@ public abstract class AbstractTile extends JLabel implements MouseListener {
     }
 
     public abstract void drawSelf();
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        TileGrid grid = (TileGrid) this.getParent();
-        PlayableTile current = grid.getGame().getCurrentTile();
-        System.out.println(current);
-
-        if (this instanceof OpenTile && ((OpenTile) this).canPlace(current)) {
-            GlobalVariables.Direction direction = this.addTile(current);
-            if (direction != null) {
-                grid.addNullRow(direction);
-               /* revalidate();
-                repaint();
-                grid.revalidate();
-                grid.repaint();
-                grid.getParent().revalidate();
-                grid.getParent().repaint();*/
-            }
-            grid.revalidate();
-            grid.repaint();
-
-            grid.getGame().drawTile();
-            grid.updateCurrentTileUI();
-
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 
     // Scoring algorithms
 
