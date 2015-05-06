@@ -205,7 +205,7 @@ public class GlobalVariables {
     public static Color YELLOW = new Color(245, 234, 0);
     public static Color GREEN = new Color(4, 148, 7);
     public static Color BLUE = new Color(47, 47, 255);
-    public static Color Black = new Color(45, 45, 45);
+    public static Color BLACK = new Color(45, 45, 45);
 
     // Graphical Constants
     public static Color LIGHT_BLUE = new Color(167, 171, 209);

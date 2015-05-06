@@ -148,12 +148,12 @@ public class MainFrame extends JFrame {
         optionsPanel.add(getMarginArea(smallMargin));
 
         SelectPanel meepleSelectPanel = new SelectPanel();
-        MeepleButton redbutton = new MeepleButton(Color.RED, meepleSelectPanel);
+        MeepleButton redbutton = new MeepleButton(GlobalVariables.RED, meepleSelectPanel);
         meepleSelectPanel.add(redbutton);
-        meepleSelectPanel.add(new MeepleButton(Color.YELLOW, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(Color.GREEN, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(Color.BLUE, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(Color.BLACK, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.YELLOW, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.GREEN, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.BLUE, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.BLACK, meepleSelectPanel));
 
         meepleSelectPanel.setSelected(redbutton);
 
