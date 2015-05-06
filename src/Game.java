@@ -9,10 +9,13 @@ import java.util.Stack;
 public class Game {
     private List<Player> players;
     private boolean gameOver;
+    private boolean riverMode;
+    private boolean abbotMode;
     private Stack<PlayableTile> tiles;
     private PlayableTile currentTile;
     private int currentTurn;
-    private Player currentTurnPlayer;
+    private TurnState currentTurnState;
+   // private Player currentTurnPlayer;
 
     public Game() {
         tiles = new Stack<PlayableTile>();
@@ -20,16 +23,23 @@ public class Game {
         drawTile();
     }
 
+    public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
+        this(stack, players, false, false);
+    }
+
     /**
      * Done add parameters for passing a list of players
      *
      * @param stack
      */
-    public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
+    public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
         if (players.size() > 1) {
             this.players = players;
         }
+        riverMode = river;
+        abbotMode = abbot;
         currentTurn = 0;
+        currentTurnState = TurnState.TILE_PlACEMENT;
         tiles = stack;
         gameOver = false;
     }
@@ -91,6 +101,24 @@ public class Game {
         return true;
     }
 
+    public boolean moveToNextState() {
+        if (isGameOver()) return false;
+
+        switch (currentTurnState) {
+            case TILE_PlACEMENT:
+                currentTurnState = TurnState.MEEPLE_PLACEMENT;
+                return true;
+            case MEEPLE_PLACEMENT:
+                currentTurnState = TurnState.SCORING;
+                return true;
+            case SCORING:
+                currentTurnState = TurnState.TILE_PlACEMENT;
+                return moveToNextTurn();
+        }
+
+        return false;
+    }
+
     public void begin() {
         this.gameOver = false;
     }
@@ -105,5 +133,11 @@ public class Game {
 
     public void updateScore(Player p, int i) {
         p.updateScore(i);
+    }
+
+    private enum TurnState {
+        TILE_PlACEMENT,
+        MEEPLE_PLACEMENT,
+        SCORING;
     }
 }
