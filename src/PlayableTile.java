@@ -94,6 +94,10 @@ public class PlayableTile extends AbstractTile {
     }
 
 
+    /**
+     * Draws the appropriately scaled and rotated icon image on the tile
+     */
+    @Override
     public void drawSelf() {
         // Image resized = getImage().getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
         //  AffineTransform transform = AffineTransform.getScaleInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE).getQuadrantRotateInstance(rotation);
@@ -102,6 +106,14 @@ public class PlayableTile extends AbstractTile {
         // BufferedImageOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
         this.setIcon(getIcon());
     }
+
+    /**
+     *
+     */
+    public void addMeepleButtons() {
+
+    }
+
 
     @Override
     public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
@@ -526,7 +538,7 @@ public class PlayableTile extends AbstractTile {
         public void paintIcon(Component component, Graphics g, int x, int y) {
             Graphics2D g2d = (Graphics2D) g.create();
             int w1 = this.getIconWidth() / 2;
-            int w2 = (this.getIconWidth() % 2) == 0 ? 0 : -1;
+           // int w2 = (this.getIconWidth() % 2) == 0 ? 0 : -1;
             g2d.translate(x + w1, y + w1);
             g2d.rotate(rotation * Math.PI * .5);
             super.paintIcon(component, g2d, -w1, -w1);
