@@ -11,7 +11,7 @@ public abstract class GraphicButton extends JPanel implements MouseListener{
 
     public GraphicButton(int width, int height) {
         super();
-        this.setBackground(new Color(167, 171, 209));
+        this.setBackground(GlobalVariables.LIGHT_BLUE);
         this.setPreferredSize(new Dimension(width, height));
         this.setMaximumSize(new Dimension(width, height));
         this.setBorder(BorderFactory.createRaisedBevelBorder());

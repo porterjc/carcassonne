@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * Created by johnsoaa on 3/29/2015.
  */
@@ -196,4 +198,17 @@ public class GlobalVariables {
 
     }
 
+    // COLORS
+
+    // Player colors
+    public static Color RED = new Color(227, 6, 16);
+    public static Color YELLOW = new Color(245, 234, 0);
+    public static Color GREEN = new Color(4, 148, 7);
+    public static Color BLUE = new Color(47, 47, 255);
+    public static Color Black = new Color(45, 45, 45);
+
+    // Graphical Constants
+    public static Color LIGHT_BLUE = new Color(167, 171, 209);
+    public static Color MEDIUM_BLUE = new Color(100, 105, 153);
+    public static Color DARK_BLUE = new Color(39, 40, 49);
 }

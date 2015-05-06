@@ -48,7 +48,7 @@ public class TileGrid extends JPanel {
      */
     public TileGrid(int x, int y) {
         super();
-        this.setBackground(new Color(39, 40, 49));
+        this.setBackground(GlobalVariables.DARK_BLUE);
         this.setLayout(new GridLayout());
         panelWidth = x;
         panelHeight = y;

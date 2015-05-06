@@ -67,7 +67,7 @@ public class MainFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
             backPanel = new JPanel();
-            backPanel.setBackground(new Color(39, 40, 49));
+            backPanel.setBackground(GlobalVariables.DARK_BLUE);
         }
 
         backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));
@@ -84,7 +84,7 @@ public class MainFrame extends JFrame {
         }
 
         optionsPanel = new JPanel();
-        optionsPanel.setBackground(new Color(100, 105, 153));
+        optionsPanel.setBackground(GlobalVariables.MEDIUM_BLUE);
         optionsPanel.setMaximumSize(new Dimension(600, 650));
         optionsPanel.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
@@ -246,7 +246,7 @@ public class MainFrame extends JFrame {
         this.add(mainpanel);
 
         bottompanel = new JPanel();
-        bottompanel.setBackground(new Color(39, 40, 49));
+        bottompanel.setBackground(GlobalVariables.DARK_BLUE);
         bottompanel.setLayout(new BoxLayout(bottompanel, BoxLayout.X_AXIS));
         bottompanel.setPreferredSize(new Dimension(screenWidth, 200));
         //bottompanel.setPreferredSize(new Dimension(SCREEN_WIDTH - COMPONENT_MARGIN, 200 - COMPONENT_MARGIN));
