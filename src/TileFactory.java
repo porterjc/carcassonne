@@ -664,8 +664,8 @@ public class TileFactory {
         try {
             BufferedImage image = ImageIO.read(new File("images/42.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
@@ -712,8 +712,8 @@ public class TileFactory {
             BufferedImage image = ImageIO.read(new File("images/45.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
-            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
@@ -927,22 +927,6 @@ public class TileFactory {
         }
 
         try {
-            BufferedImage image = ImageIO.read(new File("images/59.jpg"));
-            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
-            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
-
-            Set<GlobalVariables.Internal> internals = new HashSet<>();
-            internals.add(GlobalVariables.Internal.GARDEN);
-
-            deck.add(new PlayableTile(image, features, internals));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             BufferedImage image = ImageIO.read(new File("images/59.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
@@ -1120,10 +1104,10 @@ public class TileFactory {
         try {
             BufferedImage image = ImageIO.read(new File("images/70.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
-            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
-            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.GARDEN);
