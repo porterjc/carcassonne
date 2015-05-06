@@ -1211,5 +1211,15 @@ public class TileFactory {
         return new PlayableTile();
     }
 
+    /**
+     * Creates a stack of all of the river tiles
+     * @return a stack of all of the river tiles
+     */
+    public static Stack<PlayableTile> getRiverTiles() {
+        Stack<PlayableTile> riverTiles = new Stack<>();
+
+        return riverTiles;
+    }
+
 
 }
