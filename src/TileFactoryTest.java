@@ -8,7 +8,7 @@ public class TileFactoryTest extends JFrame {
     public TileFactoryTest() {
         super();
         this.setSize(900, 900);
-        this.add(new TileLabel(TileFactory.getStartTile(), 1, 1, new TileGrid()));
+        this.add(TileFactory.getStartTile());
         this.setVisible(true);
     }
 

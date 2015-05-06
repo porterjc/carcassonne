@@ -278,7 +278,6 @@ public class MainFrame extends JFrame {
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
         tiledisplay = new JLabel(boardDisplay.getGame().getCurrentTile().getIcon());
-        boardDisplay.setTileLabel(tiledisplay);
         bottompanel.add(tiledisplay);
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
@@ -287,13 +286,15 @@ public class MainFrame extends JFrame {
         tilesLeftPanel.setBorder(new EmptyBorder(0, 20, 0, 20));
         JLabel tilesLabel = new GameLabel("Tiles Left:");
         tilesLabel.setAlignmentX(CENTER_ALIGNMENT);
-        tilesLeftLabel = new GameLabel("71");
+        tilesLeftLabel = new GameLabel(boardDisplay.getGame().getNumberOfTilesLeft() + "");
         tilesLeftLabel.setForeground(Color.RED);
         tilesLeftLabel.setFont(new Font(tilesLeftLabel.getFont().getName(), Font.BOLD, 64));
         tilesLeftLabel.setAlignmentX(CENTER_ALIGNMENT);
         tilesLeftPanel.add(tilesLabel);
         tilesLeftPanel.add(tilesLeftLabel);
         bottompanel.add(tilesLeftPanel);
+
+        boardDisplay.setTileLabels(tiledisplay, tilesLeftLabel);
 
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
         // Just for GUI testing. TODO: delete
@@ -328,7 +329,9 @@ public class MainFrame extends JFrame {
      * Updates the GUI to show the tile that has just been drawn
      */
     public void updateTile() {
+
         tiledisplay.setIcon(getGame().getCurrentTile().getIcon());
+
     }
 
 
