@@ -56,10 +56,10 @@ public abstract class AbstractTile extends JLabel {
     }
 
     public AbstractTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
-        this.left = left;
-        this.right = right;
-        this.bottom = bottom;
-        this.top = top;
+        setLeft(left);
+        setRight(right);
+        setTop(top);
+        setBottom(bottom);
         featuresMap = features;
         this.internals = internals;
     }

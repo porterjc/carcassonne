@@ -286,22 +286,43 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
+        if(this.meeple == null || this.meeple.getFeature() != GlobalVariables.Feature.GRASS)
+            return false;
+        else if(this.hasEWbisector() && GlobalVariables.Location.isTop(this.meeple.getLocation()))
+            return false;
+
+        return true;
     }
 
     @Override
     protected boolean checkFromTop(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
+        System.out.println(this.meeple);
+
+        if(this.meeple == null || this.meeple.getFeature() != GlobalVariables.Feature.GRASS)
+            return false;
+        else if(this.hasEWbisector() && GlobalVariables.Location.isBottom(this.meeple.getLocation()))
+            return false;
+        return true;
     }
 
     @Override
     protected boolean checkFromLeft(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
+        if(this.meeple == null || this.meeple.getFeature() != GlobalVariables.Feature.GRASS)
+            return false;
+        else if(this.hasNSbisector() && GlobalVariables.Location.isRight(this.meeple.getLocation()))
+            return false;
+
+        return true;
     }
 
     @Override
     protected boolean checkFromRight(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
+        if(this.meeple == null || this.meeple.getFeature() != GlobalVariables.Feature.GRASS)
+            return false;
+        else if(this.hasNSbisector() && GlobalVariables.Location.isLeft(this.meeple.getLocation()))
+            return false;
+
+        return true;
     }
 
     /**
