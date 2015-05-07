@@ -388,7 +388,7 @@ public class PlayableTile extends AbstractTile {
         }
         return feature;
     }
-
+    //todo move to AbstractTile
     public AbstractTile getTopLeft() {
         return getTop().getLeft();
     }

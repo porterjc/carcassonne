@@ -231,6 +231,16 @@ public class PlayableTileTest {
     }
 
     @Test
+    public void testEndOfGameScoringRoad(){
+        MockGame mg = new MockGame();
+
+
+    }
+
+
+
+
+    @Test
     public void testScoreSmallCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
