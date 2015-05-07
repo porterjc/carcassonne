@@ -739,7 +739,7 @@ public class PlayableTileTest {
     } */
 
     @Test
-    public void testGetPlayableNeighbors(){
+     public void testGetTotalPlayableNeighbors(){
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -758,6 +758,27 @@ public class PlayableTileTest {
         tile2.setTop(tile1);
 
         assertEquals(1, tile1.getTotalPlayableNeighbors());
+    }
+
+    @Test
+    public void testGetTotalPlayableNeighbors2(){
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+
+        tile1.setTop(tile3);
+        tile3.setBottom(tile1);
+        tile1.setBottom(tile2);
+        tile2.setTop(tile1);
+
+        assertEquals(2, tile1.getTotalPlayableNeighbors());
     }
 
     @Test
