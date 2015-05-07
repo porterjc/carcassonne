@@ -262,30 +262,16 @@ public class PlayableTile extends AbstractTile {
     }
 
     /**
-     * If completion is true will ensure that there are 8 neighbors to complete the scoring. Otherwise returns total neighbors plus this tile. 
-     *
-     * @param completion
-     * @return
-     */
-    public int scoreMonastery(boolean completion){
-        int neighbors = getTotalPlayableNeighbors();
-        if(completion && neighbors != 8)
-            return -1;
-        return neighbors + 1;
-    }
-
-    /**
      * If completion is true will ensure that there are 8 neighbors to complete the scoring. Otherwise returns total neighbors plus this tile.
      *
      * @param completion
      * @return
      */
-    public int scoreGarden(boolean completion){
+    public int scoreSurrounding(boolean completion){
         int neighbors = getTotalPlayableNeighbors();
         if(completion && neighbors != 8)
             return -1;
-        else
-            return neighbors + 1;
+        return neighbors + 1;
     }
 
     /**
