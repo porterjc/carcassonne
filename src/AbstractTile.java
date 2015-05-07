@@ -137,6 +137,10 @@ public abstract class AbstractTile extends JLabel {
         return newTile.updateAdjacent();
     }
 
+    public int getValue(){
+        return 0;
+    }
+
     public abstract GlobalVariables.Direction updateAdjacent();
 
     public abstract Image getImage();

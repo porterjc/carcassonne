@@ -270,6 +270,11 @@ public class PlayableTile extends AbstractTile {
     }
 
     public int getTotalPlayableNeighbors(){
+        return getBottom().getValue() + getTop().getValue();
+    }
+
+    @Override
+    public int getValue(){
         return 1;
     }
 
