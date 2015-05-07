@@ -542,9 +542,9 @@ public class PlayableTile extends AbstractTile {
      * @return
      */
     public boolean hasNSbisector() {
-        if((rotation == 1 || rotation == 3))
-            return false;
-        else if(this.getInternals().contains(GlobalVariables.Internal.NSBISECTOR))
+        if((rotation == 1 || rotation == 3) && this.getInternals().contains(GlobalVariables.Internal.EWBISECTOR))
+            return true;
+        else if((rotation == 0|| rotation == 2) && this.getInternals().contains(GlobalVariables.Internal.NSBISECTOR))
             return true;
         else
             return false;
@@ -555,9 +555,9 @@ public class PlayableTile extends AbstractTile {
      * @return
      */
     public boolean hasEWbisector() {
-        if((rotation == 1 || rotation == 3))
-            return false;
-        else if(this.getInternals().contains(GlobalVariables.Internal.EWBISECTOR))
+        if((rotation == 1 || rotation == 3) && this.getInternals().contains(GlobalVariables.Internal.NSBISECTOR))
+            return true;
+        else if((rotation == 0 || rotation == 2) && this.getInternals().contains(GlobalVariables.Internal.EWBISECTOR))
             return true;
         else
             return false;
