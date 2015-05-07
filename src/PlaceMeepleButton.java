@@ -22,7 +22,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
      */
     public PlaceMeepleButton(Color color, int x, int y) {
         this.color = color;
-        this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
+        this.setBounds(60, 60, BUTTON_SIZE, BUTTON_SIZE);
     }
 
     /* Mouse Listener methods */
@@ -54,9 +54,18 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
 
     @Override
     public void paintComponent(Graphics g) {
+        int rad = getRadius();
         g.setColor(Color.BLACK);
-        g.drawOval(this.getX(), this.getY(), BUTTON_SIZE, BUTTON_SIZE);
+        g.drawOval(this.getX(), this.getY(), rad, rad);
         g.setColor(this.color);
-        g.fillOval(this.getX(), this.getY(), BUTTON_SIZE, BUTTON_SIZE);
+        g.fillOval(this.getX(), this.getY(), rad, rad);
+    }
+
+    /**
+     * Returns the radius of this button
+     * @return the radius of this button
+     */
+    public int getRadius() {
+        return BUTTON_SIZE / 2;
     }
 }

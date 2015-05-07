@@ -77,20 +77,6 @@ public class PlayableTile extends AbstractTile {
     public Image getAdjustedImage() {
         BufferedImage raw = getImage();
         return raw.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
-        // return raw;
-        //int scaleFactor = TILE_PIXEL_SIZE /getImage().getWidth();
-        //AffineTransform transform = new AffineTransform();
-        //transform.rotate(rotation * .5 * Math.PI);
-
-        //BufferedImageOp bio = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-       /* GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-        BufferedImage rotated = gc.createCompatibleImage(raw.getWidth(), raw.getHeight());
-        Graphics2D g2d = rotated.createGraphics();
-        g2d.rotate(Math.PI * .5);
-        g2d.drawRenderedImage(raw, null);
-        g2d.dispose();
-        return rotated;*/
-        //return bio.filter(raw, null);
     }
 
 
@@ -99,19 +85,14 @@ public class PlayableTile extends AbstractTile {
      */
     @Override
     public void drawSelf() {
-        // Image resized = getImage().getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
-        //  AffineTransform transform = AffineTransform.getScaleInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE).getQuadrantRotateInstance(rotation);
-        //AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
-        //Image rotated = op.filter(resized, null);
-        // BufferedImageOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
         this.setIcon(getIcon());
     }
 
     /**
-     *
+     * Adds buttons to place a meeple over a tile
      */
     public void addMeepleButtons() {
-
+        this.add(new PlaceMeepleButton(Color.RED, 10, 10));
     }
 
 
@@ -301,24 +282,24 @@ public class PlayableTile extends AbstractTile {
         // Make necessary checks depending on where this is coming from
         if (GlobalVariables.Location.isBottom(from)) {
             found = checkFromBottom(alreadyVisited, from);
-            if(found) return found;
+            if(found) return true;
         }
         if (GlobalVariables.Location.isTop(from)) {
             found = checkFromTop(alreadyVisited, from);
-            if(found) return found;
+            if(found) return true;
         }
         if(GlobalVariables.Location.isLeft(from)) {
             found = checkFromLeft(alreadyVisited, from);
-            if(found) return found;
+            if(found) return true;
         }
         if(GlobalVariables.Location.isRight(from)) {
             found = checkFromRight(alreadyVisited, from);
-            if(found) return found;
+            if(found) return true;
         }
 
         if(from == GlobalVariables.Location.CENTER) {
             if (this.getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getLeft()))
-                found = found || this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.LEFT);
+                found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.LEFT);
             if (this.getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getRight()))
                 found = found || this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.RIGHT);
             if (this.getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.GRASS && !alreadyVisited.contains(this.getTop()))
@@ -520,6 +501,25 @@ public class PlayableTile extends AbstractTile {
 
     public void setMeeple(Meeple meeple) {
         this.meeple = meeple;
+    }
+
+    /* Some locations for placing graphics */
+
+    /**
+     * Calculates the appropriate pixel at which to place an object in the center of a tile
+     * @param objectSize the size of the object being placed
+     * @return the x or y value of the object's location
+     */
+    private int getHalfwayLocation(int objectSize) {
+        return (TILE_PIXEL_SIZE / 2) - objectSize;
+    }
+
+    /**
+     * Calculates the pixel at which to place an object to the far right or bottom of a tile
+     * @return the x or y value of the object's location
+     */
+    private int getBottomLocation() {
+        return TILE_PIXEL_SIZE - TILE_INNER_MARGIN;
     }
 
     /**
