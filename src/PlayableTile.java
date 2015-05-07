@@ -541,10 +541,10 @@ public class PlayableTile extends AbstractTile {
     }
 
     public boolean hasNSbisector() {
-        return false;
+        return true;
     }
 
     public boolean hasEWbisector() {
-        return false;
+        return true;
     }
 }
