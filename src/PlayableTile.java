@@ -163,6 +163,15 @@ public class PlayableTile extends AbstractTile {
         return new Pair(meeples, -1);
     }
 
+    /**
+     * startScoreCity runs scoreCity in all given directions and then returns the total score and list of meeples found
+     *
+     * @param alreadyVisited
+     * @param meeples
+     * @param directions
+     * @param completion
+     * @return
+     */
     public Pair<HashSet<Meeple>, Integer> startScoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, Set<GlobalVariables.Direction> directions, boolean completion) {
         int currentScore = 2;
         alreadyVisited.add(this);
@@ -185,9 +194,20 @@ public class PlayableTile extends AbstractTile {
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
+        if (currentScore == 1){
+            return new Pair(meeples, -1);
+        }
         return new Pair(meeples, currentScore);
     }
 
+    /**
+     * Recurses through adjacent tiles that continue the city that is being scored. If completion is true then the method will short circuit if an adjacent tile does not continue the city.
+     *
+     * @param alreadyVisited
+     * @param meeples
+     * @param completion
+     * @return
+     */
     @Override
     public Pair<HashSet<Meeple>,Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
         int cityScore = 2;
@@ -249,6 +269,18 @@ public class PlayableTile extends AbstractTile {
             }
             return new Pair(meeples,cityScore);
         }
+    }
+
+    public Pair<Meeple,Integer> scoreMonastary(){
+        return null;
+    }
+
+    public Pair<Meeple,Integer> scoreGarden(){
+        return null;
+    }
+
+    public Pair<Meeple, Integer> getTotalPlayableNeighbors(){
+        return null;
     }
 
     @Override
