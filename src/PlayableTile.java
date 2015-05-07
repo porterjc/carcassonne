@@ -540,4 +540,11 @@ public class PlayableTile extends AbstractTile {
         return new AdjustableIcon(this.getAdjustedImage(), this.rotation);
     }
 
+    public boolean hasNSbisector() {
+        return false;
+    }
+
+    public boolean hasEWbisector() {
+        return false;
+    }
 }
