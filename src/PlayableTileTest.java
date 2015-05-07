@@ -482,7 +482,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.SOUTH);
-        assertEquals(-1, (int) tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
+        assertEquals(1, (int) tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
     }
 
     @Test
@@ -550,7 +550,7 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.NORTH);
-        assertEquals(-1, (int) tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
+        assertEquals(1, (int) tile1.startScoreCity(alreadyVisited, new HashSet<Meeple>(), directions, true).getValue());
     }
 
 
@@ -835,7 +835,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testNSbisector0rotationsNoNSbisector(){
+    public void testNSbisector0rotationsNoNSbisector() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -844,6 +844,22 @@ public class PlayableTileTest {
 
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
         assertFalse(tile1.hasNSbisector());
+    }
+
+    @Test
+    public void testNWbisector1rotationsWithEWbisector(){
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature, internals);
+        tile1.rotateTile();
+        assertTrue(tile1.hasNSbisector());
     }
 
     @Test
@@ -918,5 +934,21 @@ public class PlayableTileTest {
 
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
         assertFalse(tile1.hasEWbisector());
+    }
+
+    @Test
+    public void testEWbisector1rotationsWithNSbisector(){
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature, internals);
+        tile1.rotateTile();
+        assertTrue(tile1.hasEWbisector());
     }
 }

@@ -194,9 +194,6 @@ public class PlayableTile extends AbstractTile {
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if (currentScore == 1){
-            return new Pair(meeples, -1);
-        }
         return new Pair(meeples, currentScore);
     }
 
@@ -540,21 +537,29 @@ public class PlayableTile extends AbstractTile {
         return new AdjustableIcon(this.getAdjustedImage(), this.rotation);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean hasNSbisector() {
-        if(rotation == 1)
+        if((rotation == 1 || rotation == 3))
             return false;
-        else if(rotation == 3)
-            return false;
-        else
+        else if(this.getInternals().contains(GlobalVariables.Internal.NSBISECTOR))
             return true;
+        else
+            return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean hasEWbisector() {
-        if(rotation == 1)
+        if((rotation == 1 || rotation == 3))
             return false;
-        else if(rotation == 3)
-            return false;
-        else
+        else if(this.getInternals().contains(GlobalVariables.Internal.EWBISECTOR))
             return true;
+        else
+            return false;
     }
 }
