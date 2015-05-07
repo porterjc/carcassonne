@@ -261,14 +261,38 @@ public class PlayableTile extends AbstractTile {
         }
     }
 
-    public Pair<Meeple,Integer> scoreMonastary(){
-        return null;
+    /**
+     * If completion is true will ensure that there are 8 neighbors to complete the scoring. Otherwise returns total neighbors plus this tile. 
+     *
+     * @param completion
+     * @return
+     */
+    public int scoreMonastery(boolean completion){
+        int neighbors = getTotalPlayableNeighbors();
+        if(completion && neighbors != 8)
+            return -1;
+        return neighbors + 1;
     }
 
-    public Pair<Meeple,Integer> scoreGarden(){
-        return null;
+    /**
+     * If completion is true will ensure that there are 8 neighbors to complete the scoring. Otherwise returns total neighbors plus this tile.
+     *
+     * @param completion
+     * @return
+     */
+    public int scoreGarden(boolean completion){
+        int neighbors = getTotalPlayableNeighbors();
+        if(completion && neighbors != 8)
+            return -1;
+        else
+            return neighbors + 1;
     }
 
+    /**
+     * Looks at all 8 surrounding tiles to see if they are playable, adding 1 to the total return if they are.
+     *
+     * @return
+     */
     public int getTotalPlayableNeighbors(){
         return getBottom().getValue() + getTop().getValue() + getRight().getValue() + getLeft().getValue() + getTopLeft().getValue() + getTopRight().getValue() + getBottomLeft().getValue() + getBottomRight().getValue();
     }
