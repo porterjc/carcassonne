@@ -277,7 +277,7 @@ public class PlayableTile extends AbstractTile {
     public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         alreadyVisited.add(this);
         return this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT) || this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT)
-                || this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
+                || this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM) || this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
     }
 
     @Override
@@ -287,7 +287,7 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     protected boolean checkFromTop(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return false;
+        return this.meeple != null;
     }
 
     @Override
