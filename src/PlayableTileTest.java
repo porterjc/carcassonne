@@ -803,6 +803,22 @@ public class PlayableTileTest {
     }
 
     @Test
+    public void testNSbisector2rotations(){
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.NSBISECTOR);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature, internals);
+        tile1.rotateTile();
+        tile1.rotateTile();
+        assertTrue(tile1.hasNSbisector());
+    }
+
+    @Test
      public void testEWbisector0rotations(){
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.EWBISECTOR);
@@ -829,5 +845,21 @@ public class PlayableTileTest {
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature, internals);
         tile1.rotateTile();
         assertFalse(tile1.hasEWbisector());
+    }
+
+    @Test
+    public void testEWbisector2rotations(){
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.EWBISECTOR);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature, internals);
+        tile1.rotateTile();
+        tile1.rotateTile();
+        assertTrue(tile1.hasEWbisector());
     }
 }
