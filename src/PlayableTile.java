@@ -269,8 +269,8 @@ public class PlayableTile extends AbstractTile {
         return null;
     }
 
-    public Pair<Meeple, Integer> getTotalPlayableNeighbors(){
-        return null;
+    public int getTotalPlayableNeighbors(){
+        return 1;
     }
 
     @Override

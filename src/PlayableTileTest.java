@@ -757,7 +757,7 @@ public class PlayableTileTest {
         tile1.setBottom(tile2);
         tile2.setTop(tile1);
 
-        assertEquals((Integer) 1, tile1.getTotalPlayableNeighbors().getValue());
+        assertEquals(1, tile1.getTotalPlayableNeighbors());
     }
 
     @Test
