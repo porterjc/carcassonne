@@ -270,7 +270,7 @@ public class PlayableTile extends AbstractTile {
     }
 
     public int getTotalPlayableNeighbors(){
-        return getBottom().getValue() + getTop().getValue() + getRight().getValue() + getLeft().getValue();
+        return getBottom().getValue() + getTop().getValue() + getRight().getValue() + getLeft().getValue() + getTopLeft().getValue() + getTopRight().getValue() + getBottomLeft().getValue() + getBottomRight().getValue();
     }
 
     @Override

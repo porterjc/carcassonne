@@ -745,14 +745,11 @@ public class PlayableTileTest {
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
 
-        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<>();
-        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
-        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature2);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
 
         tile1.setBottom(tile2);
         tile2.setTop(tile1);
@@ -767,11 +764,14 @@ public class PlayableTileTest {
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
 
-        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
 
-        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
 
         tile1.setTop(tile3);
         tile3.setBottom(tile1);
@@ -817,15 +817,24 @@ public class PlayableTileTest {
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
-        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
-        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
-        PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
-        PlayableTile tile5 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
-        PlayableTile tile6 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
-        PlayableTile tile7 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
-        PlayableTile tile8 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
-        PlayableTile tile9 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile4 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile5 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile6 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile7 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile8 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile9 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
 
         tile8.setTop(tile4);
         tile4.setBottom(tile8);
