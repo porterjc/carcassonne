@@ -632,7 +632,7 @@ public class PlayableTileTest {
         tile2.setMeeple(m);
         assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
-/*
+
     @Test
     public void testFindFarmerOnGrassBelow() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
@@ -654,7 +654,7 @@ public class PlayableTileTest {
         tile2.setMeeple(m);
         assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
-
+/*
     @Test
     public void testFindNoFarmerInSurroundingGrass() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
