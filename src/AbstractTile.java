@@ -137,7 +137,7 @@ public abstract class AbstractTile extends JLabel {
         return newTile.updateAdjacent();
     }
 
-    public int getValue(){
+    public int getValue() {
         return 0;
     }
 
@@ -152,10 +152,13 @@ public abstract class AbstractTile extends JLabel {
     public abstract void drawSelf();
 
     // Scoring algorithms
+    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+        return new Pair(meeples, -1);
+    }
 
-    public abstract Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples);
-
-    public abstract Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion);
+    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+        return new Pair(meeples, -1);
+    }
 
     public abstract boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from);
 

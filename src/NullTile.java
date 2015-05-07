@@ -30,15 +30,6 @@ public class NullTile extends AbstractTile {
         this.setBorder(BorderFactory.createLineBorder(new Color(80, 90, 115)));
     }
 
-    @Override
-    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return new Pair(meeples, -1);
-    }
-
-    @Override
-    public Pair<HashSet<Meeple>,Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
-        return new Pair(meeples, -1);
-    }
 
     @Override
     public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {

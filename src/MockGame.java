@@ -13,12 +13,18 @@ public class MockGame {
     private Stack<PlayableTile> tiles;
     private PlayableTile currentTile;
     private int currentTurn;
-    private TurnState currentTurnState;
 
     public MockGame() {
         tiles = new Stack<PlayableTile>();
         gameOver = false;
-        drawTile();
+
     }
 
+    public void setGameOver() {
+        this.gameOver = true;
+    }
+
+    public void updateScore(Player p, int i) {
+        p.updateScore(i);
+    }
 }
