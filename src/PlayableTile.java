@@ -543,12 +543,18 @@ public class PlayableTile extends AbstractTile {
     public boolean hasNSbisector() {
         if(rotation == 1)
             return false;
-        return true;
+        else if(rotation == 3)
+            return false;
+        else
+            return true;
     }
 
     public boolean hasEWbisector() {
         if(rotation == 1)
             return false;
-        return true;
+        else if(rotation == 3)
+            return false;
+        else
+            return true;
     }
 }
