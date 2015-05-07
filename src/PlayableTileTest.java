@@ -724,6 +724,10 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
+        /**
+         * This is failing not because of refactoring, but because of adding the set of Meeples to the return
+         * TODO fix
+         */
         assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 /*

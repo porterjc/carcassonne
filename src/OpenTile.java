@@ -51,12 +51,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
 
-    @Override
-    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return new Pair(meeples, -1);
-    }
-
-
     public boolean canPlace(PlayableTile tileToPlace) {
         //boolean can = checkEast(tileToPlace) && checkWest(tileToPlace) && checkNorth(tileToPlace) && checkSouth(tileToPlace);
         boolean e = checkEast(tileToPlace);
@@ -122,11 +116,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
             return val;
         }
 
-    }
-
-    @Override
-    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
-        return new Pair(meeples, -1);
     }
 
     @Override
