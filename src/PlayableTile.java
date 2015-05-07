@@ -276,6 +276,7 @@ public class PlayableTile extends AbstractTile {
     @Override
     public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         alreadyVisited.add(this);
+        GlobalVariables.Feature left = this.getLeftFeature();
         boolean l = this.getLeftFeature() == GlobalVariables.Feature.GRASS ? this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT) : false;
         boolean r = this.getRightFeature() == GlobalVariables.Feature.GRASS ? this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT) : false;
         boolean t = this.getTopFeature() == GlobalVariables.Feature.GRASS ? this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM) : false;
