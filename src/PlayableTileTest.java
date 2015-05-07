@@ -798,6 +798,7 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature, internals);
+        tile1.rotateTile();
         assertFalse(tile1.hasNSbisector());
     }
 
@@ -826,6 +827,7 @@ public class PlayableTileTest {
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature, internals);
+        tile1.rotateTile();
         assertFalse(tile1.hasEWbisector());
     }
 }
