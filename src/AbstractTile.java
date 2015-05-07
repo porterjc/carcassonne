@@ -154,4 +154,21 @@ public abstract class AbstractTile extends JLabel {
     public abstract Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion);
 
     public abstract boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from);
+
+    protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        return false;
+    }
+
+    protected boolean checkFromTop(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        return false;
+    }
+
+    protected boolean checkFromLeft(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        return false;
+    }
+
+    protected boolean checkFromRight(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        return false;
+    }
+
 }
