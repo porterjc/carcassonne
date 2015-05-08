@@ -217,7 +217,6 @@ public class PlayableTile extends AbstractTile {
             if ((!alreadyVisited.contains(this.getBottom())) && getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.CITY) {
                 AbstractTile b = this.getBottom();
                 int temp = b.scoreCity(alreadyVisited, meeples, completion).getValue();
-                ;
                 if (completion) {
                     if (temp == -1) {
                         return new Pair(meeples, -1);
@@ -229,7 +228,6 @@ public class PlayableTile extends AbstractTile {
             if ((!alreadyVisited.contains(this.getRight())) && getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.CITY) {
                 AbstractTile r = this.getRight();
                 int temp = r.scoreCity(alreadyVisited, meeples, completion).getValue();
-                ;
                 if (completion) {
                     if (temp == -1) {
                         return new Pair(meeples, -1);
@@ -610,10 +608,8 @@ public class PlayableTile extends AbstractTile {
     public boolean hasNSbisector() {
         if ((rotation == 1 || rotation == 3) && this.getInternals().contains(GlobalVariables.Internal.EWBISECTOR))
             return true;
-        else if ((rotation == 0 || rotation == 2) && this.getInternals().contains(GlobalVariables.Internal.NSBISECTOR))
-            return true;
         else
-            return false;
+            return (rotation == 0 || rotation == 2) && this.getInternals().contains(GlobalVariables.Internal.NSBISECTOR);
     }
 
     /**
@@ -622,9 +618,7 @@ public class PlayableTile extends AbstractTile {
     public boolean hasEWbisector() {
         if ((rotation == 1 || rotation == 3) && this.getInternals().contains(GlobalVariables.Internal.NSBISECTOR))
             return true;
-        else if ((rotation == 0 || rotation == 2) && this.getInternals().contains(GlobalVariables.Internal.EWBISECTOR))
-            return true;
         else
-            return false;
+            return (rotation == 0 || rotation == 2) && this.getInternals().contains(GlobalVariables.Internal.EWBISECTOR);
     }
 }

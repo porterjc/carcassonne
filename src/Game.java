@@ -7,6 +7,7 @@ import java.util.Stack;
  * Created by johnsoaa on 3/25/2015.
  */
 public class Game {
+    private TileGrid grid;
     private List<Player> players;
     private boolean gameOver;
     private boolean riverMode;
@@ -143,6 +144,6 @@ public class Game {
     private enum TurnState {
         TILE_PlACEMENT,
         MEEPLE_PLACEMENT,
-        SCORING;
+        SCORING
     }
 }

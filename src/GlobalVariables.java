@@ -10,13 +10,13 @@ import java.util.Set;
 public class GlobalVariables {
     public static ArrayList<OpenTile> openTiles;
 
-    public static enum Feature {ROAD, GRASS, RIVER, CITY}
+    public enum Feature {ROAD, GRASS, RIVER, CITY}
 
-    public static enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
+    public enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
 
-    public static enum Direction {NORTH, SOUTH, EAST, WEST}
+    public enum Direction {NORTH, SOUTH, EAST, WEST}
 
-    public static enum Location {
+    public enum Location {
         TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
 
         public static boolean isBottom(Location loc) {

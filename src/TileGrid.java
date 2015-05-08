@@ -170,7 +170,7 @@ public class TileGrid extends JPanel {
 
     }
 
-    public Game getGame() { return this.game; };
+    public Game getGame() { return this.game; }
 
 
     public void addNullRow(GlobalVariables.Direction dir) {
@@ -310,7 +310,7 @@ public class TileGrid extends JPanel {
         repaint();
     }
 
-    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel) {
+    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel, GraphicButton moveOnButton) {
         this.currentTileLabel = tileLabel;
         this.tilesLeftLabel = tilesLeftLabel;
     }
