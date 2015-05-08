@@ -42,20 +42,9 @@ public class OpenTile extends AbstractTile implements MouseListener {
     }
 
     @Override
-    public Image getImage() {
-        return null;
-    }
-
-    @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
-
-    @Override
-    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return new Pair(meeples, -1);
-    }
-
 
     public boolean canPlace(PlayableTile tileToPlace) {
         //boolean can = checkEast(tileToPlace) && checkWest(tileToPlace) && checkNorth(tileToPlace) && checkSouth(tileToPlace);

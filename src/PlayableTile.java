@@ -79,7 +79,6 @@ public class PlayableTile extends AbstractTile {
         return raw.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
     }
 
-
     /**
      * Draws the appropriately scaled and rotated icon image on the tile
      */
@@ -261,16 +260,31 @@ public class PlayableTile extends AbstractTile {
         }
     }
 
-    public Pair<Meeple,Integer> scoreMonastary(){
-        return null;
+    /**
+     * If completion is true will ensure that there are 8 neighbors to complete the scoring. Otherwise returns total neighbors plus this tile.
+     *
+     * @param completion
+     * @return
+     */
+    public int scoreSurrounding(boolean completion){
+        int neighbors = getTotalPlayableNeighbors();
+        if(completion && neighbors != 8)
+            return -1;
+        return neighbors + 1;
     }
 
-    public Pair<Meeple,Integer> scoreGarden(){
-        return null;
+    /**
+     * Looks at all 8 surrounding tiles to see if they are playable, adding 1 to the total return if they are.
+     *
+     * @return
+     */
+    public int getTotalPlayableNeighbors(){
+        return getBottom().getValue() + getTop().getValue() + getRight().getValue() + getLeft().getValue() + getTopLeft().getValue() + getTopRight().getValue() + getBottomLeft().getValue() + getBottomRight().getValue();
     }
 
-    public Pair<Meeple, Integer> getTotalPlayableNeighbors(){
-        return null;
+    @Override
+    public int getValue(){
+        return 1;
     }
 
     @Override
@@ -505,7 +519,7 @@ public class PlayableTile extends AbstractTile {
         }
         return feature;
     }
-
+    //todo move to AbstractTile
     public AbstractTile getTopLeft() {
         return getTop().getLeft();
     }

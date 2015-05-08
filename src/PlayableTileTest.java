@@ -231,6 +231,16 @@ public class PlayableTileTest {
     }
 
     @Test
+    public void testEndOfGameScoringRoad(){
+        MockGame mg = new MockGame();
+
+
+    }
+
+
+
+
+    @Test
     public void testScoreSmallCity() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
@@ -714,6 +724,10 @@ public class PlayableTileTest {
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
+        /**
+         * This is failing not because of refactoring, but because of adding the set of Meeples to the return
+         * TODO fix
+         */
         assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
     }
 
@@ -856,7 +870,50 @@ public class PlayableTileTest {
     }*/
 
     @Test
-    public void testGetPlayableNeighbors(){
+     public void testGetTotalPlayableNeighbors(){
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+
+        PlayableTile tile2 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+
+        tile1.setBottom(tile2);
+        tile2.setTop(tile1);
+
+        assertEquals(1, tile1.getTotalPlayableNeighbors());
+    }
+
+    @Test
+    public void testGetTotalPlayableNeighbors2(){
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+
+        PlayableTile tile2 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+
+        PlayableTile tile3 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+
+        tile1.setTop(tile3);
+        tile3.setBottom(tile1);
+        tile1.setBottom(tile2);
+        tile2.setTop(tile1);
+
+        assertEquals(2, tile1.getTotalPlayableNeighbors());
+    }
+
+    @Test
+    public void testGetTotalPlayableNeighbors4(){
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -864,17 +921,78 @@ public class PlayableTileTest {
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
 
-        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<>();
-        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
-        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature2);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
 
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+
+        PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+
+        PlayableTile tile5 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature1);
+
+        tile1.setLeft(tile4);
+        tile4.setRight(tile1);
+        tile1.setRight(tile5);
+        tile5.setLeft(tile1);
+        tile1.setTop(tile3);
+        tile3.setBottom(tile1);
         tile1.setBottom(tile2);
         tile2.setTop(tile1);
 
-        assertEquals((Integer) 1, tile1.getTotalPlayableNeighbors().getValue());
+        assertEquals(4, tile1.getTotalPlayableNeighbors());
+    }
+
+    @Test
+    public void testGetTotalPlayableNeighbors8(){
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile4 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile5 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile6 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile7 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile8 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+        PlayableTile tile9 = new PlayableTile(new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()),
+                new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), new OpenTile(new NullTile(), new NullTile(), new NullTile(), new NullTile()), feature1);
+
+        tile8.setTop(tile4);
+        tile4.setBottom(tile8);
+        tile8.setRight(tile2);
+        tile2.setLeft(tile8);
+        tile9.setLeft(tile2);
+        tile2.setRight(tile9);
+        tile9.setTop(tile5);
+        tile5.setBottom(tile9);
+        tile6.setBottom(tile4);
+        tile4.setTop(tile6);
+        tile6.setRight(tile3);
+        tile3.setLeft(tile6);
+        tile7.setLeft(tile3);
+        tile3.setRight(tile7);
+        tile7.setBottom(tile5);
+        tile5.setTop(tile7);
+        tile1.setLeft(tile4);
+        tile4.setRight(tile1);
+        tile1.setRight(tile5);
+        tile5.setLeft(tile1);
+        tile1.setTop(tile3);
+        tile3.setBottom(tile1);
+        tile1.setBottom(tile2);
+        tile2.setTop(tile1);
+
+        assertEquals(8, tile1.getTotalPlayableNeighbors());
     }
 
     @Test

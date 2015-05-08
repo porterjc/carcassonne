@@ -15,7 +15,7 @@ public class Game {
     private PlayableTile currentTile;
     private int currentTurn;
     private TurnState currentTurnState;
-   // private Player currentTurnPlayer;
+
 
     public Game() {
         tiles = new Stack<PlayableTile>();

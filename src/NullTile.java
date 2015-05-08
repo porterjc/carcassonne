@@ -21,33 +21,8 @@ public class NullTile extends AbstractTile {
     }
 
     @Override
-    public Image getImage() {
-        return null;
-    }
-
-    @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(new Color(80, 90, 115)));
-    }
-
-    @Override
-    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
-        return new Pair(meeples, -1);
-    }
-
-    @Override
-    public Pair<HashSet<Meeple>,Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
-        return new Pair(meeples, -1);
-    }
-
-    @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return false;
-    }
-
-    @Override
-    public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
-        return null;
     }
 
     @Override
@@ -55,7 +30,7 @@ public class NullTile extends AbstractTile {
         GlobalVariables.Direction dir = super.addTile(newTile);
         return dir;
     }
-
+    // TODO either delete or refactor
     @Override
     public GlobalVariables.Direction updateAdjacent() {
         // This should never be called
