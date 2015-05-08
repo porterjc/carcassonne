@@ -115,7 +115,7 @@ public class PlayableTileTest {
         assertEquals(m, p.getMeeple());
         p.setLeft(left);
         left.setRight(p);
-        Pair<HashSet<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        Pair<HashSet<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
         assertEquals(1, result.getKey().size());
         assertEquals(m, result.getKey().toArray()[0]);
         assertEquals((Integer) 2, result.getValue());
@@ -159,7 +159,7 @@ public class PlayableTileTest {
         bl.setTop(tl);
         tl.setBottom(bl);
         tl.setBottom(bl);
-        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
         assertEquals(-1, (int) temp.getValue());
         assertEquals(2, temp.getKey().size());
     }
@@ -211,7 +211,7 @@ public class PlayableTileTest {
         tl.setRight(tr);
         tr.setLeft(tl);
         tl.setBottom(bl);
-        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
         assertEquals((Integer) 4, temp.getValue());
         assertEquals(2, temp.getKey().size());
 
@@ -268,7 +268,7 @@ public class PlayableTileTest {
 
         Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(),true);
         assertEquals(3, (int) temp.getValue());
-        assertEquals(3, temp.getKey().size());
+        assertEquals(2, temp.getKey().size());
     }
 
 
