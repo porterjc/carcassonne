@@ -165,8 +165,6 @@ public abstract class AbstractTile extends JLabel {
         return false;
     }
 
-   // public abstract boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from);
-
     protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         return false;
     }

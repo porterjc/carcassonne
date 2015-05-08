@@ -20,16 +20,9 @@ public class NullTile extends AbstractTile {
         this.setVisible(true);
     }
 
-
     @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(new Color(80, 90, 115)));
-    }
-
-
-    @Override
-    public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
-        return null;
     }
 
     @Override
