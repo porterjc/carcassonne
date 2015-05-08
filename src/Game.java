@@ -180,6 +180,7 @@ public class Game {
     }
 
     public boolean updateAllScores() {
+
         return true;
     }
 

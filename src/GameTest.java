@@ -208,6 +208,7 @@ public class GameTest {
     public void testUpdateAllScores() {
         players.add(new Player(Color.RED));
         players.add(new Player(Color.ORANGE));
+
         Game game = new Game(new TileGrid(), getTiles(), this.players);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -232,7 +233,8 @@ public class GameTest {
         GlobalVariables.openTiles.add((OpenTile) t2.getLeft());
         game.setCurrentTile(t1);
         assertEquals(true, game.updateAllScores());
-
+        assertEquals(0, players.get(0).getPlayerScore());
+        assertEquals(0, players.get(1).getPlayerScore());
 
     }
 
