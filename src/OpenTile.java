@@ -135,6 +135,13 @@ public class OpenTile extends AbstractTile implements MouseListener {
     }
 
     @Override
+    public GlobalVariables.Direction addTile(AbstractTile tile) {
+        GlobalVariables.Direction direction = super.addTile(tile);
+        //TODO: remove self from list
+        return direction;
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
         TileGrid grid = (TileGrid) this.getParent();
         PlayableTile current = grid.getGame().getCurrentTile();
