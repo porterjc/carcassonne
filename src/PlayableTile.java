@@ -14,6 +14,8 @@ public class PlayableTile extends AbstractTile {
     private int rotation = 0; //represents how much much this tile has been rotated. 0 is the default value before rotations happen;
     private Meeple meeple = null;
 
+    public static final int TILE_INNER_MARGIN = 10;
+
     public PlayableTile() {
         super();
     }
@@ -90,8 +92,18 @@ public class PlayableTile extends AbstractTile {
     /**
      * Adds buttons to place a meeple over a tile
      */
-    public void addMeepleButtons() {
-        this.add(new PlaceMeepleButton(Color.RED, 10, 10));
+    public void addMeepleButtons(Color color) {
+        int half = getHalfwayLocation(PlaceMeepleButton.getRadius());
+        int far = getBottomLocation(PlaceMeepleButton.getRadius());
+        this.add(new PlaceMeepleButton(color, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(color, half, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(color, far, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(color, TILE_INNER_MARGIN, half));
+        this.add(new PlaceMeepleButton(color, half, half));
+        this.add(new PlaceMeepleButton(color, far, half));
+        this.add(new PlaceMeepleButton(color, TILE_INNER_MARGIN, far));
+        this.add(new PlaceMeepleButton(color, half, far));
+        this.add(new PlaceMeepleButton(color, far, far));
     }
 
 
@@ -563,8 +575,8 @@ public class PlayableTile extends AbstractTile {
      *
      * @return the x or y value of the object's location
      */
-    private int getBottomLocation() {
-        return TILE_PIXEL_SIZE - TILE_INNER_MARGIN;
+    private int getBottomLocation(int objectSize) {
+        return TILE_PIXEL_SIZE - TILE_INNER_MARGIN - objectSize;
     }
 
     /**
