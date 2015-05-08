@@ -20,11 +20,12 @@ public class PlayableTile extends AbstractTile {
 
     public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(o, o1, o2, o3, features);
-
+        super.isPlayable = true;
     }
 
     public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         super(o, o1, o2, o3, features, internals);
+        super.isPlayable = true;
     }
 
 
@@ -32,20 +33,24 @@ public class PlayableTile extends AbstractTile {
         super(features);
         this.image = image;
         Image scaled = image.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
+        super.isPlayable = true;
         this.setIcon(new ImageIcon(scaled));
     }
 
     public PlayableTile(BufferedImage image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         super(features, internals);
+        super.isPlayable = true;
         this.image = image;
     }
 
     public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(features);
+        super.isPlayable = true;
     }
 
     public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals, Meeple m) {
         super(features, internals);
+        super.isPlayable = true;
         this.meeple = m;
     }
 
@@ -107,19 +112,19 @@ public class PlayableTile extends AbstractTile {
             if (tileM.getFeature() == GlobalVariables.Feature.ROAD)
                 meeples.add(tileM);
         }
-        if ((!alreadyVisited.contains(this.getTop())) && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+        if ((!alreadyVisited.contains(this.getTop())) && this.getTop().isPlayable && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
             AbstractTile t = this.getTop();
             return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
         }
-        if ((!alreadyVisited.contains(this.getBottom())) && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+        if ((!alreadyVisited.contains(this.getBottom())) && this.getBottom().isPlayable && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
             AbstractTile t = this.getBottom();
             return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
         }
-        if ((!alreadyVisited.contains(this.getLeft())) && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+        if ((!alreadyVisited.contains(this.getLeft())) && this.getLeft().isPlayable && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
             AbstractTile t = this.getLeft();
             return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
         }
-        if ((!alreadyVisited.contains(this.getRight())) && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+        if ((!alreadyVisited.contains(this.getRight())) && this.getRight().isPlayable && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
             AbstractTile t = this.getRight();
             return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
         }
@@ -130,10 +135,9 @@ public class PlayableTile extends AbstractTile {
     private Pair<HashSet<Meeple>, Integer> scoreRoadHelperMethod(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame, int currentTileScore, AbstractTile t) {
         Pair<HashSet<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples, isEndOfGame);
         if (isEndOfGame && temp.getValue() == -1) {
-            return new Pair(meeples, currentTileScore);
-        } else if (temp.getValue() == -1) {
-            return new Pair(meeples, -1);
-        } else {
+            return new Pair(meeples, currentTileScore + 1);
+        } else if (temp.getValue() == -1) return new Pair(meeples, -1);
+        else {
             if (this.getMeeple() != null) {
                 meeples.add(this.getMeeple());
             }

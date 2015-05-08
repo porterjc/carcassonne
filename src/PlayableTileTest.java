@@ -86,13 +86,6 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testScoreRoad() {
-        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        alreadyVisited.add(lastPlaced);
-        assertEquals(-1, (int) lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true).getValue());
-    }
-
-    @Test
     public void testShortRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -110,7 +103,7 @@ public class PlayableTileTest {
         features1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         features1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         features1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile p = new PlayableTile(features1, internals, m);
+        PlayableTile p = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(),features1, internals);
         m.place(p, GlobalVariables.Feature.ROAD, GlobalVariables.Location.RIGHT);
         assertEquals(m, p.getMeeple());
         p.setLeft(left);
