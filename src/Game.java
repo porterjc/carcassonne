@@ -20,6 +20,7 @@ public class Game {
 
     /**
      * Constructor for a game
+     *
      * @param grid The grid that stores all of the tiles in this game
      */
     public Game(TileGrid grid) {
@@ -29,6 +30,7 @@ public class Game {
         drawTile();
     }
 
+    //TODO get rid of all constructors and just make one
     public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
         this(stack, players, false, false);
     }
@@ -48,6 +50,23 @@ public class Game {
         currentTurnState = TurnState.TILE_PlACEMENT;
         tiles = stack;
         gameOver = false;
+    }
+
+    public Game(TileGrid grid, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+        this.grid = grid;
+        if (players.size() > 1) {
+            this.players = players;
+        }
+        riverMode = river;
+        abbotMode = abbot;
+        currentTurn = 0;
+        currentTurnState = TurnState.TILE_PlACEMENT;
+        tiles = stack;
+        gameOver = false;
+    }
+
+    public Game(TileGrid tileGrid, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
+        this(tileGrid, playableTiles,players, false,false);
     }
 
     //TODO determine where to handle score
