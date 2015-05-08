@@ -279,15 +279,15 @@ public class PlayableTile extends AbstractTile {
 
         if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
             if(hasEWbisector()) {
-                if(from == GlobalVariables.Location.TOP)
+                if(GlobalVariables.Location.isTop(from))
                     return GlobalVariables.Location.isTop(meeple.getLocation());
-                else if(from == GlobalVariables.Location.BOTTOM)
+                else if(GlobalVariables.Location.isBottom(from))
                     return GlobalVariables.Location.isBottom(meeple.getLocation());
             }
             if(hasNSbisector()) {
-                if(from == GlobalVariables.Location.LEFT)
+                if(GlobalVariables.Location.isLeft(from))
                     return GlobalVariables.Location.isLeft(meeple.getLocation());
-                else if(from == GlobalVariables.Location.RIGHT)
+                else if(GlobalVariables.Location.isRight(from))
                     return GlobalVariables.Location.isRight(meeple.getLocation());
             }
             return true;
