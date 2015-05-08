@@ -297,26 +297,39 @@ public class PlayableTile extends AbstractTile {
         boolean found = false;
 
         if(!alreadyVisited.contains(this.getTop())) {
-            if(this.getTopFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature topFeature = this.getTopFeature();
+            if(topFeature == GlobalVariables.Feature.GRASS)
                 found = this.getTop().findFarmer(alreadyVisited, GlobalVariables.Location.BOTTOM);
+            else if(topFeature == GlobalVariables.Feature.ROAD || topFeature == GlobalVariables.Feature.RIVER)
+                found = this.getTop().findFarmer(alreadyVisited, GlobalVariables.Location.goDown(from));
         }
         if(found) return true;
 
         if(!alreadyVisited.contains(this.getBottom())) {
-            if(this.getBottomFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature bottomFeature = this.getBottomFeature();
+            if(bottomFeature == GlobalVariables.Feature.GRASS)
                 found = this.getBottom().findFarmer(alreadyVisited, GlobalVariables.Location.TOP);
+            else if(bottomFeature == GlobalVariables.Feature.ROAD || bottomFeature == GlobalVariables.Feature.RIVER)
+                found = this.getBottom().findFarmer(alreadyVisited, GlobalVariables.Location.goUp(from));
         }
         if(found) return true;
 
         if(!alreadyVisited.contains(this.getLeft())) {
-            if(this.getLeftFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature leftFeature = this.getLeftFeature();
+            if(leftFeature == GlobalVariables.Feature.GRASS)
                 found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.RIGHT);
+            else if(leftFeature == GlobalVariables.Feature.ROAD || leftFeature == GlobalVariables.Feature.RIVER)
+                found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.goRight(from));
         }
         if(found) return true;
 
         if(!alreadyVisited.contains(this.getRight())) {
-            if(this.getRightFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature rightFeature = this.getRightFeature();
+            if(rightFeature == GlobalVariables.Feature.GRASS)
                 found = this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.LEFT);
+            else if(rightFeature == GlobalVariables.Feature.ROAD || rightFeature == GlobalVariables.Feature.RIVER);
+                found = this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.goLeft(from));
+
         }
 
         return found;
