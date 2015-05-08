@@ -322,6 +322,21 @@ public class TileGrid extends JPanel {
     }
 
     public boolean areValidMoves(ArrayList<OpenTile> slots, PlayableTile tile){
-        return true;
+        for(int i = 0; i < slots.size(); i++){
+            OpenTile temp = slots.get(i);
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+        }
+        return false;
     }
 }
