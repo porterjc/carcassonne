@@ -322,6 +322,6 @@ public class TileGrid extends JPanel {
     }
 
     public boolean areValidMoves(ArrayList<OpenTile> slots, PlayableTile tile){
-        return false;
+        return true;
     }
 }
