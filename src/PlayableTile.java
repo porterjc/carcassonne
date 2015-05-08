@@ -287,46 +287,111 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        alreadyVisited.add(this);
+
         if(this.hasEWbisector()) {
             if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isBottom(this.meeple.getLocation()))
                 return true;
         }
         else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
             return true;
-        return this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.TOP);
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getTop()))
+            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft()))
+            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
+        if(found) return found;
+
+        if(!alreadyVisited.contains(this.getRight()))
+            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
+
+        return found;
+
     }
 
     @Override
     protected boolean checkFromTop(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        alreadyVisited.add(this);
+
         if(this.hasEWbisector()) {
             if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isTop(this.meeple.getLocation()))
                 return true;
         }
         else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
             return true;
-        return this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getBottom()))
+            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft()))
+            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
+        if(found) return found;
+
+        if(!alreadyVisited.contains(this.getRight()))
+            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
+
+        return found;
     }
 
     @Override
     protected boolean checkFromLeft(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        alreadyVisited.add(this);
+
         if(this.hasNSbisector()) {
             if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isLeft(this.meeple.getLocation()))
                 return true;
         }
         else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
             return true;
-        return this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getBottom()))
+            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getTop()))
+            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getRight()))
+            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
+
+        return found;
     }
 
     @Override
     protected boolean checkFromRight(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        alreadyVisited.add(this);
+
         if(this.hasNSbisector()) {
             if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isRight(this.meeple.getLocation()))
                 return true;
         }
         else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
             return true;
-        return this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getBottom()))
+            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getTop()))
+            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft()))
+            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
+
+        return found;
     }
 
     /**
