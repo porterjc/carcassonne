@@ -286,10 +286,10 @@ public class GameTest {
         t1.setRight(t4);
         t4.setLeft(t1);
 
-        game.setCurrentTile(t4);
+        game.setCurrentTile(t3);
         assertEquals(true, game.updateAllScores());
-        assertEquals(2, players.get(0).getPlayerScore());
-        assertEquals(3, players.get(1).getPlayerScore());
+        assertEquals(2, game.getPlayers().get(0).getPlayerScore());
+        assertEquals(3, game.getPlayers().get(1).getPlayerScore());
 
     }
 }

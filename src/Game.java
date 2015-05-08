@@ -180,15 +180,23 @@ public class Game {
     }
 
     public boolean updateAllScores() {
-
-        Pair<HashSet<Meeple>, Integer> scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
-        if(scoreCity.getValue()>0){
-            for(Meeple m:scoreCity.getKey()){
+        Pair<HashSet<Meeple>, Integer> scoreCity, scoreRoad, scoreFarmer;
+        scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        scoreRoad = this.currentTile.scoreRoad(new HashSet<AbstractTile>(),new HashSet<Meeple>(),false);
+        if (scoreCity.getValue() > 0) {
+            for (Meeple m : scoreCity.getKey()) {
                 m.getPlayer().updateScore(scoreCity.getValue());
             }
+            return true;
         }
-        this.players.get(1).updateScore(3);
-        return true;
+
+        if (scoreRoad.getValue() > 0) {
+            for (Meeple m : scoreRoad.getKey()) {
+                m.getPlayer().updateScore(scoreRoad.getValue());
+            }
+            return true;
+        }
+        return false;
     }
 
 
