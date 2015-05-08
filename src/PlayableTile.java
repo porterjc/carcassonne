@@ -279,159 +279,144 @@ public class PlayableTile extends AbstractTile {
         alreadyVisited.add(this);
 
         if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
-            if(hasEWbisector()) {
-                if(from == GlobalVariables.Location.TOP)
-                    return GlobalVariables.Location.isTop(meeple.getLocation());
-                else if(from == GlobalVariables.Location.BOTTOM)
-                    return GlobalVariables.Location.isBottom(meeple.getLocation());
-            }
-            if(hasNSbisector()) {
-                if(from == GlobalVariables.Location.LEFT)
-                    return GlobalVariables.Location.isLeft(meeple.getLocation());
-                else if(from == GlobalVariables.Location.RIGHT)
-                    return GlobalVariables.Location.isRight(meeple.getLocation());
-            }
-            return true;
+            if(isAdjacentToFarmer(from))
+                return true;
         }
 
         //No meeple on this tile, so check others
         boolean found = false;
 
         if(!alreadyVisited.contains(this.getTop())) {
-            if(this.getTopFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature topFeature = this.getTopFeature();
+            if(topFeature == GlobalVariables.Feature.GRASS)
                 found = this.getTop().findFarmer(alreadyVisited, GlobalVariables.Location.BOTTOM);
+            else if(topFeature == GlobalVariables.Feature.ROAD || topFeature == GlobalVariables.Feature.RIVER)
+                found = this.getTop().findFarmer(alreadyVisited, GlobalVariables.Location.goDown(from));
         }
         if(found) return true;
 
         if(!alreadyVisited.contains(this.getBottom())) {
-            if(this.getBottomFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature bottomFeature = this.getBottomFeature();
+            if(bottomFeature == GlobalVariables.Feature.GRASS)
                 found = this.getBottom().findFarmer(alreadyVisited, GlobalVariables.Location.TOP);
+            else if(bottomFeature == GlobalVariables.Feature.ROAD || bottomFeature == GlobalVariables.Feature.RIVER)
+                found = this.getBottom().findFarmer(alreadyVisited, GlobalVariables.Location.goUp(from));
         }
         if(found) return true;
 
         if(!alreadyVisited.contains(this.getLeft())) {
-            if(this.getLeftFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature leftFeature = this.getLeftFeature();
+            if(leftFeature == GlobalVariables.Feature.GRASS)
                 found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.RIGHT);
+            else if(leftFeature == GlobalVariables.Feature.ROAD || leftFeature == GlobalVariables.Feature.RIVER)
+                found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.goRight(from));
         }
         if(found) return true;
 
         if(!alreadyVisited.contains(this.getRight())) {
-            if(this.getRightFeature() == GlobalVariables.Feature.GRASS)
+            GlobalVariables.Feature rightFeature = this.getRightFeature();
+            if(rightFeature == GlobalVariables.Feature.GRASS)
                 found = this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.LEFT);
+            else if(rightFeature == GlobalVariables.Feature.ROAD || rightFeature == GlobalVariables.Feature.RIVER)
+                found = this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.goLeft(from));
+
         }
 
         return found;
     }
 
-    /*
-    @Override
-    protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        alreadyVisited.add(this);
+    private boolean isAdjacentToFarmer(GlobalVariables.Location from) {
+        GlobalVariables.Feature top = getTopFeature();
+        GlobalVariables.Feature bottom = getBottomFeature();
+        GlobalVariables.Feature left = getLeftFeature();
+        GlobalVariables.Feature right = getRightFeature();
 
-        if(this.hasEWbisector()) {
-            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isBottom(this.meeple.getLocation()))
+        if(GlobalVariables.Location.isTop(from)) {
+            if(GlobalVariables.Location.isTop(meeple.getLocation())) {
+                if(top == GlobalVariables.Feature.GRASS)
+                    return true;
+                else if(top == GlobalVariables.Feature.ROAD || top == GlobalVariables.Feature.RIVER)
+                    // Are they on the same side of the river or road?
+                    return GlobalVariables.Location.isLeft(from) == GlobalVariables.Location.isLeft(meeple.getLocation());
+            }
+            else if (hasEWbisector())
+                return false;
+            else {
+                if(bottom == GlobalVariables.Feature.ROAD || bottom == GlobalVariables.Feature.RIVER) {
+                    if((left == GlobalVariables.Feature.ROAD || left == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isLeft(meeple.getLocation()))
+                        return false;
+                    else if((right == GlobalVariables.Feature.ROAD || right == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isRight(meeple.getLocation()))
+                        return false;
+                    return GlobalVariables.Location.isLeft(from) == GlobalVariables.Location.isLeft(meeple.getLocation());
+                }
                 return true;
+            }
+
         }
-        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
-            return true;
 
-        boolean found = false;
+        else if(GlobalVariables.Location.isBottom(from)) {
+            if(GlobalVariables.Location.isBottom(meeple.getLocation())) {
+                if(bottom == GlobalVariables.Feature.GRASS)
+                    return true;
+                else if(bottom == GlobalVariables.Feature.ROAD || bottom == GlobalVariables.Feature.RIVER)
+                    // Are they on the same side of the river or road?
+                    return GlobalVariables.Location.isLeft(from) == GlobalVariables.Location.isLeft(meeple.getLocation());
+            }
+            else if (hasEWbisector())
+                return false;
+            else {
+                if(top == GlobalVariables.Feature.ROAD || top == GlobalVariables.Feature.RIVER) {
+                    if((left == GlobalVariables.Feature.ROAD || left == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isLeft(meeple.getLocation()))
+                        return false;
+                    else if((right == GlobalVariables.Feature.ROAD || right == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isRight(meeple.getLocation()))
+                        return false;
+                }
+                return GlobalVariables.Location.isLeft(from) == GlobalVariables.Location.isLeft(meeple.getLocation());
+            }
+        }
+        else if(GlobalVariables.Location.isLeft(from)) {
+            if(GlobalVariables.Location.isLeft(meeple.getLocation())) {
+                if(left == GlobalVariables.Feature.GRASS)
+                    return true;
+                else if(left == GlobalVariables.Feature.ROAD || left == GlobalVariables.Feature.RIVER)
+                    // Are they on the same side of the river or road?
+                    return GlobalVariables.Location.isTop(from) == GlobalVariables.Location.isTop(meeple.getLocation());
+            }
+            else if (hasNSbisector())
+                return false;
+            else {
+                if(right == GlobalVariables.Feature.ROAD || right == GlobalVariables.Feature.RIVER) {
+                    if((top == GlobalVariables.Feature.ROAD || top == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isTop(meeple.getLocation()))
+                        return false;
+                    else if((bottom == GlobalVariables.Feature.ROAD || bottom == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isBottom(meeple.getLocation()))
+                        return false;
+                }
+                return GlobalVariables.Location.isTop(from) == GlobalVariables.Location.isTop(meeple.getLocation());
+            }
+        }
+        else { // From right
+            if(GlobalVariables.Location.isRight(meeple.getLocation())) {
+                if(right == GlobalVariables.Feature.GRASS)
+                    return true;
+                else if(right == GlobalVariables.Feature.ROAD || right == GlobalVariables.Feature.RIVER)
+                    // Are they on the same side of the river or road?
+                    return GlobalVariables.Location.isTop(from) == GlobalVariables.Location.isTop(meeple.getLocation());
+            }
+            else if (hasNSbisector())
+                return false;
+            else {
+                if(left == GlobalVariables.Feature.ROAD || left == GlobalVariables.Feature.RIVER) {
+                    if((top == GlobalVariables.Feature.ROAD || top == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isTop(meeple.getLocation()))
+                        return false;
+                    else if((bottom == GlobalVariables.Feature.ROAD || bottom == GlobalVariables.Feature.RIVER) && GlobalVariables.Location.isBottom(meeple.getLocation()))
+                        return false;
+                }
+                return GlobalVariables.Location.isTop(from) == GlobalVariables.Location.isTop(meeple.getLocation());
+            }
+        }
 
-        if(!alreadyVisited.contains(this.getTop()))
-            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
-        if(found) return true;
-
-        if(!alreadyVisited.contains(this.getLeft()))
-            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
-        if(found) return found;
-
-        if(!alreadyVisited.contains(this.getRight()))
-            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
-
-        return found;
-
+        return true;
     }
-
-    @Override
-    protected boolean checkFromTop(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        alreadyVisited.add(this);
-
-        if(this.hasEWbisector()) {
-            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isTop(this.meeple.getLocation()))
-                return true;
-        }
-        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
-            return true;
-
-        boolean found = false;
-
-        if(!alreadyVisited.contains(this.getBottom()))
-            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
-        if(found) return true;
-
-        if(!alreadyVisited.contains(this.getLeft()))
-            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
-        if(found) return found;
-
-        if(!alreadyVisited.contains(this.getRight()))
-            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
-
-        return found;
-    }
-
-    @Override
-    protected boolean checkFromLeft(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        alreadyVisited.add(this);
-
-        if(this.hasNSbisector()) {
-            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isLeft(this.meeple.getLocation()))
-                return true;
-        }
-        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
-            return true;
-
-        boolean found = false;
-
-        if(!alreadyVisited.contains(this.getBottom()))
-            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
-        if(found) return true;
-
-        if(!alreadyVisited.contains(this.getTop()))
-            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
-        if(found) return true;
-
-        if(!alreadyVisited.contains(this.getRight()))
-            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
-
-        return found;
-    }
-
-    @Override
-    protected boolean checkFromRight(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        alreadyVisited.add(this);
-
-        if(this.hasNSbisector()) {
-            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isRight(this.meeple.getLocation()))
-                return true;
-        }
-        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
-            return true;
-
-        boolean found = false;
-
-        if(!alreadyVisited.contains(this.getBottom()))
-            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
-        if(found) return true;
-
-        if(!alreadyVisited.contains(this.getTop()))
-            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
-        if(found) return true;
-
-        if(!alreadyVisited.contains(this.getLeft()))
-            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
-
-        return found;
-    } */
 
     /**
      * Takes a boolean and rotate
