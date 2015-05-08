@@ -276,13 +276,50 @@ public class PlayableTile extends AbstractTile {
     @Override
     public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         alreadyVisited.add(this);
-        GlobalVariables.Feature left = this.getLeftFeature();
-        boolean l = this.getLeftFeature() == GlobalVariables.Feature.GRASS ? this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT) : false;
-        boolean r = this.getRightFeature() == GlobalVariables.Feature.GRASS ? this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT) : false;
-        boolean t = this.getTopFeature() == GlobalVariables.Feature.GRASS ? this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM) : false;
-        boolean b = this.getBottomFeature() == GlobalVariables.Feature.GRASS ? this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP) : false;
 
-        return l || r || t || b;
+        if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
+            if(hasEWbisector()) {
+                if(from == GlobalVariables.Location.TOP)
+                    return GlobalVariables.Location.isTop(meeple.getLocation());
+                else if(from == GlobalVariables.Location.BOTTOM)
+                    return GlobalVariables.Location.isBottom(meeple.getLocation());
+            }
+            if(hasNSbisector()) {
+                if(from == GlobalVariables.Location.LEFT)
+                    return GlobalVariables.Location.isLeft(meeple.getLocation());
+                else if(from == GlobalVariables.Location.RIGHT)
+                    return GlobalVariables.Location.isRight(meeple.getLocation());
+            }
+            return true;
+        }
+
+        //No meeple on this tile, so check others
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getTop())) {
+            if(this.getTopFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getTop().findFarmer(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        }
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getBottom())) {
+            if(this.getBottomFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getBottom().findFarmer(alreadyVisited, GlobalVariables.Location.TOP);
+        }
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft())) {
+            if(this.getLeftFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.RIGHT);
+        }
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getRight())) {
+            if(this.getRightFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.LEFT);
+        }
+
+        return found;
     }
 
     @Override
