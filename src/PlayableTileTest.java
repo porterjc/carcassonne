@@ -277,7 +277,6 @@ public class PlayableTileTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         //make meeples for testing
         Meeple m = new Meeple(currentUser, currentUser.getColor());
-
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> fls = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
@@ -287,23 +286,27 @@ public class PlayableTileTest {
         fls.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         fls.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         PlayableTile tl1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), fls, internals);
-        fls = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        fls.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
-        fls.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-        fls.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-        fls.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> fs = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        fs.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        fs.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        fs.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        fs.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         internals = new HashSet<GlobalVariables.Internal>();
-        PlayableTile bl1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), fls, internals);
+        PlayableTile bl1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), fs, internals);
         bl1.setTop(tl1);
         tl1.setBottom(bl1);
 
-        Pair<HashSet<Meeple>, Integer> temp = tl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        assertEquals(bl1, tl1.getBottom());
+        assertEquals(tl1, bl1.getTop());
+
+
+        Pair<HashSet<Meeple>, Integer> temp = bl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
         assertEquals(2, (int) temp.getValue());
         assertEquals(0, temp.getKey().size());
 
         m.place(tl1, GlobalVariables.Feature.ROAD, GlobalVariables.Location.RIGHT);
 
-        temp = tl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        temp = tl1.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
         assertEquals(2, (int) temp.getValue());
         assertEquals(1, temp.getKey().size());
     }
