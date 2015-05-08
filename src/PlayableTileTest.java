@@ -965,14 +965,14 @@ public class PlayableTileTest {
         PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature2, internal2);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<>();
-        feature3.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature3.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature3.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature3.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
-        feature3.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        feature3.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), tile2, new OpenTile(), feature3);
 
         Meeple m = new Meeple(new Player(Color.RED), Color.RED);
-        m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOMLEFT);
+        m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.TOPLEFT);
         tile3.setMeeple(m);
         assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT));
     }
