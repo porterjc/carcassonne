@@ -95,8 +95,10 @@ public class PlayableTile extends AbstractTile {
     }
 
 
+
+
     @Override
-    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples) {
+    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame) {
         int currentTileScore = 1;
         alreadyVisited.add(this);
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
@@ -110,7 +112,7 @@ public class PlayableTile extends AbstractTile {
 
         if ((!alreadyVisited.contains(this.getLeft())) && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
             AbstractTile l = this.getLeft();
-            Pair<HashSet<Meeple>, Integer> temp = l.scoreRoad(alreadyVisited, meeples);
+            Pair<HashSet<Meeple>, Integer> temp = l.scoreRoad(alreadyVisited, meeples, isEndOfGame);
             if (temp.getValue() == -1) return new Pair(meeples, -1);
             else {
                 if (this.getMeeple() != null) {
@@ -121,7 +123,7 @@ public class PlayableTile extends AbstractTile {
         }
         if ((!alreadyVisited.contains(this.getRight())) && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
             AbstractTile r = this.getRight();
-            Pair<HashSet<Meeple>, Integer> temp = r.scoreRoad(alreadyVisited, meeples);
+            Pair<HashSet<Meeple>, Integer> temp = r.scoreRoad(alreadyVisited, meeples, isEndOfGame);
             if (temp.getValue() == -1) return new Pair(meeples, -1);
             else {
                 if (this.getMeeple() != null) {
@@ -132,7 +134,7 @@ public class PlayableTile extends AbstractTile {
         }
         if ((!alreadyVisited.contains(this.getTop())) && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
             AbstractTile t = this.getTop();
-            Pair<HashSet<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples);
+            Pair<HashSet<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples, isEndOfGame);
             if (temp.getValue() == -1) return new Pair(meeples, -1);
             else {
                 if (this.getMeeple() != null) {
@@ -143,7 +145,7 @@ public class PlayableTile extends AbstractTile {
         }
         if ((!alreadyVisited.contains(this.getBottom())) && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
             AbstractTile b = this.getBottom();
-            Pair<HashSet<Meeple>, Integer> temp = b.scoreRoad(alreadyVisited, meeples);
+            Pair<HashSet<Meeple>, Integer> temp = b.scoreRoad(alreadyVisited, meeples, isEndOfGame);
             if (temp.getValue() == -1) return new Pair(meeples, -1);
             else {
                 if (this.getMeeple() != null) {
