@@ -35,6 +35,8 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         parent.removeAll();
         parent.add(this);
         parent.repaint();
+        //TODO: Do it a much better way than this
+        ((TileGrid) parent.getParent()).getGame().moveToNextState();
     }
 
     @Override

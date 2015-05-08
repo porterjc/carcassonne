@@ -15,16 +15,22 @@ public class Game {
     private PlayableTile currentTile;
     private int currentTurn;
     private TurnState currentTurnState;
+    private TileGrid grid;
 
 
-    public Game() {
-        tiles = new Stack<PlayableTile>();
+    /**
+     * Constructor for a game
+     * @param grid The grid that stores all of the tiles in this game
+     */
+    public Game(TileGrid grid) {
+        this.grid = grid;
+        tiles = new Stack<>();
         gameOver = false;
         drawTile();
     }
 
-    public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
-        this(stack, players, false, false);
+    public Game(TileGrid grid, Stack<PlayableTile> stack, ArrayList<Player> players) {
+        this(grid, stack, players, false, false);
     }
 
     /**
@@ -32,7 +38,8 @@ public class Game {
      *
      * @param stack
      */
-    public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+    public Game(TileGrid grid, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+        this.grid = grid;
         if (players.size() > 1) {
             this.players = players;
         }
@@ -94,6 +101,10 @@ public class Game {
             this.currentTurn++;
         else
             this.currentTurn = 0;
+        drawTile();
+        grid.updateCurrentTileUI();
+        grid.updateTurnLabel();
+
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
         //TODO consider implementing the observer pattern for when a score is updated
         //as we don't want too much coupling between the UI and the GAME class over sharing Player objects

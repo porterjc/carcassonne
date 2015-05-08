@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by robinsat on 3/31/2015.
@@ -24,6 +25,7 @@ public class TileGrid extends JPanel {
 
     private JLabel currentTileLabel;
     private JLabel tilesLeftLabel;
+    private GraphicButton turnLabel;
 
     // The game that this grid is keeping track of.
     private Game game;
@@ -60,7 +62,11 @@ public class TileGrid extends JPanel {
      */
     public void initialize(PlayableTile startingTile) {
 
-        game = new Game();
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(new Player(Color.RED));
+        players.add(new Player(Color.YELLOW));
+        players.add(new Player(Color.GREEN));
+        game = new Game(this, new Stack<PlayableTile>(), players);
 
         // Calculate the number of tiles to start with, make sure it's an odd, positive number so it looks pretty
         int numTilesX = panelWidth / AbstractTile.TILE_PIXEL_SIZE;
@@ -241,7 +247,7 @@ public class TileGrid extends JPanel {
         AbstractTile existingBelow = topLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setBottom(existingBelow);
-        existingToLeft.moveTile(existingBelow.getX(), existingBelow.getY() - AbstractTile.TILE_PIXEL_SIZE );
+        existingToLeft.moveTile(existingBelow.getX(), existingBelow.getY() - AbstractTile.TILE_PIXEL_SIZE);
         this.add(existingToLeft);
         existingBelow = existingBelow.getRight();
         topLeft = existingToLeft;
@@ -262,15 +268,20 @@ public class TileGrid extends JPanel {
         repaint();
     }
 
-    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel) {
+    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel, GraphicButton turnLabel) {
         this.currentTileLabel = tileLabel;
         this.tilesLeftLabel = tilesLeftLabel;
+        this.turnLabel = turnLabel;
     }
 
     public void updateCurrentTileUI() {
         this.currentTileLabel.setIcon(game.getCurrentTile().getIcon());
         this.tilesLeftLabel.setText(game.getNumberOfTilesLeft() + "");
 
+    }
+
+    public void updateTurnLabel() {
+        this.turnLabel.setBackground(game.getCurrentTurnPlayer().getColor());
     }
 
     public boolean areValidMoves(ArrayList<OpenTile> slots, PlayableTile tile){

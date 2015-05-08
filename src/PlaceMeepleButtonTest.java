@@ -34,7 +34,7 @@ public class PlaceMeepleButtonTest extends JFrame {
 
         try {
             BufferedImage image = ImageIO.read(new File("images/41.png"));
-            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
