@@ -114,6 +114,23 @@ public class OpenTile extends AbstractTile implements MouseListener {
     }
 
     @Override
+    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+        return new Pair(meeples, -1);
+    }
+
+    @Override
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        return false;
+    }
+
+    @Override
+    public GlobalVariables.Direction addTile(AbstractTile tile) {
+        GlobalVariables.Direction direction = super.addTile(tile);
+        //TODO: remove self from list
+        return direction;
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
         TileGrid grid = (TileGrid) this.getParent();
         PlayableTile current = grid.getGame().getCurrentTile();

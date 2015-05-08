@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by robinsat on 3/31/2015.
@@ -320,5 +321,22 @@ public class TileGrid extends JPanel {
 
     }
 
-
+    public boolean areValidMoves(ArrayList<OpenTile> slots, PlayableTile tile){
+        for(int i = 0; i < slots.size(); i++){
+            OpenTile temp = slots.get(i);
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if(temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+        }
+        return false;
+    }
 }

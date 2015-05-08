@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -28,6 +29,5 @@ public class TileGridTest extends JFrame{
     public static void main(String[] args) {
         TileGridTest tester = new TileGridTest();
     }
-
 
 }

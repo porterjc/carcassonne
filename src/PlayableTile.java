@@ -55,10 +55,10 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     public GlobalVariables.Direction updateAdjacent() {
-        GlobalVariables.Direction topdir = this.getTop().addTile(new OpenTile());
-        GlobalVariables.Direction leftdir = this.getLeft().addTile(new OpenTile());
-        GlobalVariables.Direction rightdir = this.getRight().addTile(new OpenTile());
-        GlobalVariables.Direction bottomdir = this.getBottom().addTile(new OpenTile());
+        GlobalVariables.Direction topdir = this.getTop().getClass() != OpenTile.class ? this.getTop().addTile(new OpenTile()) : null;
+        GlobalVariables.Direction leftdir = this.getLeft().getClass() != OpenTile.class ? this.getLeft().addTile(new OpenTile()) : null;
+        GlobalVariables.Direction rightdir = this.getRight().getClass() != OpenTile.class ? this.getRight().addTile(new OpenTile()) : null;
+        GlobalVariables.Direction bottomdir = this.getBottom().getClass() != OpenTile.class ? this.getBottom().addTile(new OpenTile()) : null;
 
         if (topdir != null)
             return topdir;
@@ -276,29 +276,161 @@ public class PlayableTile extends AbstractTile {
     @Override
     public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         alreadyVisited.add(this);
-        return this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT) || this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT)
-                || this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM) || this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+
+        if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
+            if(hasEWbisector()) {
+                if(from == GlobalVariables.Location.TOP)
+                    return GlobalVariables.Location.isTop(meeple.getLocation());
+                else if(from == GlobalVariables.Location.BOTTOM)
+                    return GlobalVariables.Location.isBottom(meeple.getLocation());
+            }
+            if(hasNSbisector()) {
+                if(from == GlobalVariables.Location.LEFT)
+                    return GlobalVariables.Location.isLeft(meeple.getLocation());
+                else if(from == GlobalVariables.Location.RIGHT)
+                    return GlobalVariables.Location.isRight(meeple.getLocation());
+            }
+            return true;
+        }
+
+        //No meeple on this tile, so check others
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getTop())) {
+            if(this.getTopFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getTop().findFarmer(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        }
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getBottom())) {
+            if(this.getBottomFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getBottom().findFarmer(alreadyVisited, GlobalVariables.Location.TOP);
+        }
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft())) {
+            if(this.getLeftFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getLeft().findFarmer(alreadyVisited, GlobalVariables.Location.RIGHT);
+        }
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getRight())) {
+            if(this.getRightFeature() == GlobalVariables.Feature.GRASS)
+                found = this.getRight().findFarmer(alreadyVisited, GlobalVariables.Location.LEFT);
+        }
+
+        return found;
     }
 
+    /*
     @Override
     protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
+        alreadyVisited.add(this);
+
+        if(this.hasEWbisector()) {
+            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isBottom(this.meeple.getLocation()))
+                return true;
+        }
+        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
+            return true;
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getTop()))
+            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft()))
+            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
+        if(found) return found;
+
+        if(!alreadyVisited.contains(this.getRight()))
+            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
+
+        return found;
+
     }
 
     @Override
     protected boolean checkFromTop(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
+        alreadyVisited.add(this);
+
+        if(this.hasEWbisector()) {
+            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isTop(this.meeple.getLocation()))
+                return true;
+        }
+        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
+            return true;
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getBottom()))
+            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft()))
+            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
+        if(found) return found;
+
+        if(!alreadyVisited.contains(this.getRight()))
+            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
+
+        return found;
     }
 
     @Override
     protected boolean checkFromLeft(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
+        alreadyVisited.add(this);
+
+        if(this.hasNSbisector()) {
+            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isLeft(this.meeple.getLocation()))
+                return true;
+        }
+        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
+            return true;
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getBottom()))
+            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getTop()))
+            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getRight()))
+            found = this.getRight().checkFromLeft(alreadyVisited, GlobalVariables.Location.LEFT);
+
+        return found;
     }
 
     @Override
     protected boolean checkFromRight(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return this.meeple != null;
-    }
+        alreadyVisited.add(this);
+
+        if(this.hasNSbisector()) {
+            if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS && GlobalVariables.Location.isRight(this.meeple.getLocation()))
+                return true;
+        }
+        else if(this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS)
+            return true;
+
+        boolean found = false;
+
+        if(!alreadyVisited.contains(this.getBottom()))
+            found = this.getBottom().checkFromTop(alreadyVisited, GlobalVariables.Location.TOP);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getTop()))
+            found = this.getTop().checkFromBottom(alreadyVisited, GlobalVariables.Location.BOTTOM);
+        if(found) return true;
+
+        if(!alreadyVisited.contains(this.getLeft()))
+            found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
+
+        return found;
+    } */
 
     /**
      * Takes a boolean and rotate
