@@ -86,13 +86,6 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testScoreRoad() {
-        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        alreadyVisited.add(lastPlaced);
-        assertEquals(-1, (int) lastPlaced.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true).getValue());
-    }
-
-    @Test
     public void testShortRoad() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -110,7 +103,7 @@ public class PlayableTileTest {
         features1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         features1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         features1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile p = new PlayableTile(features1, internals, m);
+        PlayableTile p = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(),features1, internals);
         m.place(p, GlobalVariables.Feature.ROAD, GlobalVariables.Location.RIGHT);
         assertEquals(m, p.getMeeple());
         p.setLeft(left);
@@ -229,7 +222,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testEndOfGameScoringLongerRoadWithNoEnd(){
+    public void testEndOfGameScoringLongerRoadWithNoEnd() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         //make meeples for testing
         Meeple p1m = new Meeple(new Player(Color.ORANGE), Color.ORANGE);
@@ -266,12 +259,50 @@ public class PlayableTileTest {
         tl.setBottom(bl);
         tl.setBottom(bl);
 
-        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(),true);
+        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
         assertEquals(3, (int) temp.getValue());
         assertEquals(2, temp.getKey().size());
     }
 
 
+    @Test
+    public void testEndOfGameScoringLongerRoadWithNoEndInOtherDirection() {
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        //make meeples for testing
+        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> fls = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        fls = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        fls.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        fls.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        fls.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        fls.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        PlayableTile tl1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), fls, internals);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> fs = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        fs.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        fs.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        fs.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        fs.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        internals = new HashSet<GlobalVariables.Internal>();
+        PlayableTile bl1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), fs, internals);
+        bl1.setTop(tl1);
+        tl1.setBottom(bl1);
+
+        assertEquals(bl1, tl1.getBottom());
+        assertEquals(tl1, bl1.getTop());
+
+
+        Pair<HashSet<Meeple>, Integer> temp = bl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        assertEquals(2, (int) temp.getValue());
+        assertEquals(0, temp.getKey().size());
+
+        m.place(tl1, GlobalVariables.Feature.ROAD, GlobalVariables.Location.RIGHT);
+
+        temp = tl1.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
+        assertEquals(2, (int) temp.getValue());
+        assertEquals(1, temp.getKey().size());
+    }
 
 
     @Test
@@ -891,7 +922,8 @@ public class PlayableTileTest {
         feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
         internal2.add(GlobalVariables.Internal.NSBISECTOR);
         PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature2, internal2);
 
@@ -926,7 +958,8 @@ public class PlayableTileTest {
         feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
         internal2.add(GlobalVariables.Internal.NSBISECTOR);
         PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature2, internal2);
 
@@ -960,7 +993,8 @@ public class PlayableTileTest {
         feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
         internal2.add(GlobalVariables.Internal.NSBISECTOR);
         PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(), feature2, internal2);
 
@@ -978,7 +1012,7 @@ public class PlayableTileTest {
     }
 
     @Test
-     public void testGetTotalPlayableNeighbors(){
+    public void testGetTotalPlayableNeighbors() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -997,7 +1031,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testGetTotalPlayableNeighbors2(){
+    public void testGetTotalPlayableNeighbors2() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -1021,7 +1055,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testGetTotalPlayableNeighbors4(){
+    public void testGetTotalPlayableNeighbors4() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -1050,7 +1084,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testGetTotalPlayableNeighbors8(){
+    public void testGetTotalPlayableNeighbors8() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -1104,7 +1138,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testScoreSurroundingForCompletionIncomplete(){
+    public void testScoreSurroundingForCompletionIncomplete() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -1154,7 +1188,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testScoreSurroundingIncompleteCompletionFalse(){
+    public void testScoreSurroundingIncompleteCompletionFalse() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -1205,7 +1239,7 @@ public class PlayableTileTest {
     }
 
     @Test
-     public void testNSbisector0rotations(){
+    public void testNSbisector0rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.NSBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1219,7 +1253,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testNSbisector1rotations(){
+    public void testNSbisector1rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.NSBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1234,7 +1268,7 @@ public class PlayableTileTest {
     }
 
     @Test
-     public void testNSbisector2rotations(){
+    public void testNSbisector2rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.NSBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1248,8 +1282,9 @@ public class PlayableTileTest {
         tile1.rotateTile();
         assertTrue(tile1.hasNSbisector());
     }
+
     @Test
-    public void testNSbisector3rotations(){
+    public void testNSbisector3rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.NSBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1278,7 +1313,7 @@ public class PlayableTileTest {
     }
 
     @Test
-     public void testNSbisector1rotationsWithEWbisector(){
+    public void testNSbisector1rotationsWithEWbisector() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -1294,7 +1329,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testNSbisector2rotationsWithNSbisector(){
+    public void testNSbisector2rotationsWithNSbisector() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -1311,7 +1346,7 @@ public class PlayableTileTest {
     }
 
     @Test
-     public void testEWbisector0rotations(){
+    public void testEWbisector0rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.EWBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1325,7 +1360,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testEWbisector1rotations(){
+    public void testEWbisector1rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.EWBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1340,7 +1375,7 @@ public class PlayableTileTest {
     }
 
     @Test
-     public void testEWbisector2rotations(){
+    public void testEWbisector2rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.EWBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1356,7 +1391,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testEWbisector3rotations(){
+    public void testEWbisector3rotations() {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.EWBISECTOR);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -1373,7 +1408,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testEWbisector0rotationsNoEWbisector(){
+    public void testEWbisector0rotationsNoEWbisector() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -1385,7 +1420,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testEWbisector1rotationsWithNSbisector(){
+    public void testEWbisector1rotationsWithNSbisector() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -1401,7 +1436,7 @@ public class PlayableTileTest {
     }
 
     @Test
-    public void testEWbisector2rotationsWithEWbisector(){
+    public void testEWbisector2rotationsWithEWbisector() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);

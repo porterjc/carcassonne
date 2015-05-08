@@ -13,7 +13,7 @@ import java.util.*;
 public abstract class AbstractTile extends JLabel {
 
     public static final int TILE_PIXEL_SIZE = 160;
-
+    public  boolean isPlayable = false;
     private AbstractTile left, right, top, bottom;
     protected Map<GlobalVariables.Direction, GlobalVariables.Feature> featuresMap;
     private Set<GlobalVariables.Internal> internals;
