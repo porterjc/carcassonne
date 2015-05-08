@@ -238,11 +238,7 @@ public class MainFrame extends JFrame {
 
         BorderLayout bl = new BorderLayout();
         mainpanel = new JPanel(bl);
-        //mainpanel.setBackground(Color.YELLOW);
-       // mainpanel.setOpaque(true);
-       // mainpanel.setSize(500, 500);
-       // mainpanel.setVisible(true);
-       // mainpanel.setPreferredSize(this.getPreferredSize());
+
         this.add(mainpanel);
 
         bottompanel = new JPanel();
@@ -294,7 +290,19 @@ public class MainFrame extends JFrame {
         tilesLeftPanel.add(tilesLeftLabel);
         bottompanel.add(tilesLeftPanel);
 
-        boardDisplay.setTileLabels(tiledisplay, tilesLeftLabel);
+        GraphicButton moveOnButton = new GraphicButton(100, 100) {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                boardDisplay.getGame().moveToNextState();
+            }
+        };
+        moveOnButton.setBackground(Color.RED);
+        moveOnButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
+        bottompanel.add(moveOnButton);
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
+
+        boardDisplay.setTileLabels(tiledisplay, tilesLeftLabel, moveOnButton);
 
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
         // Just for GUI testing. TODO: delete
@@ -309,14 +317,6 @@ public class MainFrame extends JFrame {
         scrollBoard.getViewport().addMouseMotionListener(scroller);
         scrollBoard.getViewport().addMouseListener(scroller);
 
-       /* JPanel t2 = new JPanel();
-        t2.setPreferredSize(new Dimension(400, 400));
-        t2.setBackground(Color.MAGENTA);
-        bottompanel.add(tiledisplay);
-        bottompanel.add(t2); */
-
-        //QuitButton quitButton = new QuitButton();
-       // mainpanel.add(bottompanel);
         revalidate();
         repaint();
     }

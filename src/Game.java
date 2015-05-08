@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -18,9 +17,13 @@ public class Game {
     private TurnState currentTurnState;
 
 
-    public Game() {
-        tiles = new Stack<PlayableTile>();
-        GlobalVariables.openTiles = new ArrayList<OpenTile>();
+    /**
+     * Constructor for a game
+     * @param grid The grid that stores all of the tiles in this game
+     */
+    public Game(TileGrid grid) {
+        this.grid = grid;
+        tiles = new Stack<>();
         gameOver = false;
         drawTile();
     }
@@ -46,6 +49,7 @@ public class Game {
         gameOver = false;
     }
 
+    //TODO determine where to handle score
 
     public List<Player> getPlayers() {
         return players;

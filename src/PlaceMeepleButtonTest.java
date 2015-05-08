@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,20 +20,21 @@ public class PlaceMeepleButtonTest extends JFrame {
      */
     public static void main(String[] args) {
         PlaceMeepleButtonTest testFrame = new PlaceMeepleButtonTest();
+        testFrame.setLayout(null);
         testFrame.setSize(900, 900);
         testFrame.setVisible(true);
         testFrame.runTests();
     }
 
     public void runTests() {
-        testAddOneButton();
+        testAddGrassButtons();
     }
 
-    public void testAddOneButton() {
+    public void testAddGrassButtons() {
 
         try {
             BufferedImage image = ImageIO.read(new File("images/41.png"));
-            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<>();
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
@@ -42,9 +44,9 @@ public class PlaceMeepleButtonTest extends JFrame {
             internals.add(GlobalVariables.Internal.MONASTERY);
 
             PlayableTile tile = new PlayableTile(image, features, internals);
-            this.add(tile);
             tile.moveTile(200, 200);
-            tile.addMeepleButtons();
+            this.add(tile);
+            tile.addMeepleButtons(Color.RED);
 
         } catch (IOException e) {
             e.printStackTrace();

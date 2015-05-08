@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * Created by robinsat on 3/31/2015.
@@ -35,7 +34,7 @@ public class TileGrid extends JPanel {
     private JLabel tilesLeftLabel;
 
     // The game that this grid is keeping track of.
-
+    // TODO: this should be private
     private Game game;
 
     //Default, for testing purposes only
@@ -136,6 +135,39 @@ public class TileGrid extends JPanel {
         flaggedTile.addTile(startingTile);
         panelWidth = fixedWidth;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+
+        //this.add(startingTile);
+        //startingTile.setBounds(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
+        //startingTile.setVisible(true);
+
+       /* AbstractTile tile1 = new NullTile();
+        this.add(tile1);
+        tile1.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
+
+        AbstractTile tile2 = new NullTile();
+        this.add(tile2);
+        tile2.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE * 2);
+
+        AbstractTile tile3 = new NullTile();
+        this.add(tile3);
+        tile3.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE * 3);
+
+        tile1.setBottom(tile2);
+        tile2.setBottom(tile3);*/
+
+        /*topRight = tile1;
+        topLeft = tile1;
+        bottomLeft = tile3;
+        bottomRight = tile3;*/
+
+        //addRightColumn();
+        //addRightColumn();
+
+       // addLeftColumn();
+        //addRightColumn();
+        //addBottomRow();
+        //addTopRow();
+
     }
 
     public Game getGame() { return this.game; };
@@ -288,9 +320,10 @@ public class TileGrid extends JPanel {
         this.tilesLeftLabel.setText(game.getNumberOfTilesLeft() + "");
 
     }
-
-    public boolean areValidMoves(PlayableTile tile){
-        ArrayList<OpenTile> slots = GlobalVariables.openTiles;
+    public void updateTurnLabel() {
+        this.turnLabel.setBackground(game.getCurrentTurnPlayer().getColor());
+    }
+    public boolean areValidMoves(ArrayList<OpenTile> slots, PlayableTile tile){
         for(int i = 0; i < slots.size(); i++){
             OpenTile temp = slots.get(i);
             if(temp.canPlace(tile))

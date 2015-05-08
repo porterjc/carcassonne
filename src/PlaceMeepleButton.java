@@ -14,7 +14,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     /** The color of this button */
     private Color color;
     /** The size of this button */
-    private static final int BUTTON_SIZE = 30;
+    public static final int BUTTON_SIZE = 30;
 
     /**
      * Constructor
@@ -22,14 +22,21 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
      */
     public PlaceMeepleButton(Color color, int x, int y) {
         this.color = color;
-        this.setBounds(60, 60, BUTTON_SIZE, BUTTON_SIZE);
+        this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
+        this.addMouseListener(this);
     }
 
     /* Mouse Listener methods */
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        // Keep only this one
+        Container parent = getParent();
+        parent.removeAll();
+        parent.add(this);
+        parent.repaint();
+        //TODO: Do it a much better way than this
+        ((TileGrid) parent.getParent()).getGame().moveToNextState();
     }
 
     @Override
@@ -56,16 +63,16 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     public void paintComponent(Graphics g) {
         int rad = getRadius();
         g.setColor(Color.BLACK);
-        g.drawOval(this.getX(), this.getY(), rad, rad);
+        g.drawOval(0, 0, rad, rad);
         g.setColor(this.color);
-        g.fillOval(this.getX(), this.getY(), rad, rad);
+        g.fillOval(0, 0, rad, rad);
     }
 
     /**
      * Returns the radius of this button
      * @return the radius of this button
      */
-    public int getRadius() {
+    public static int getRadius() {
         return BUTTON_SIZE / 2;
     }
 }
