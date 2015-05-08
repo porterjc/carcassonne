@@ -244,8 +244,8 @@ public class GameTest {
 
         Game game = new Game(new TileGrid(), getTiles(), this.players);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
         PlayableTile t1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
@@ -263,5 +263,33 @@ public class GameTest {
         assertEquals(true, game.updateAllScores());
         assertEquals(2, players.get(0).getPlayerScore());
         assertEquals(0, players.get(1).getPlayerScore());
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> internals = new HashSet<>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2,internals);
+        players.get(1).getMeeples().get(0).place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
+        internals = new HashSet<>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> featuress = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        featuress.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        featuress.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        featuress.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        featuress.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        PlayableTile t4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), featuress, internals);
+        t3.setBottom(t1);
+        t1.setTop(t3);
+        t1.setRight(t4);
+        t4.setLeft(t1);
+
+        game.setCurrentTile(t4);
+        assertEquals(true, game.updateAllScores());
+        assertEquals(2, players.get(0).getPlayerScore());
+        assertEquals(3, players.get(1).getPlayerScore());
+
     }
 }
