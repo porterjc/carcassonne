@@ -180,7 +180,7 @@ public class Game {
     }
 
     public boolean updateAllScores() {
-
+        this.players.get(0).updateScore(2);
         return true;
     }
 
