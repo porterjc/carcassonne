@@ -117,6 +117,7 @@ public abstract class AbstractTile extends JLabel {
     }
 
     /**
+     * TODO  Move this to OpenTile
      * Replaces this tile in the grid with the new tile
      *
      * @param newTile the tile to replace this one

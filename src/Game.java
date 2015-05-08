@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -19,6 +20,7 @@ public class Game {
 
     public Game() {
         tiles = new Stack<PlayableTile>();
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
         gameOver = false;
         drawTile();
     }
@@ -44,7 +46,6 @@ public class Game {
         gameOver = false;
     }
 
-    //TODO determine where to handle score
 
     public List<Player> getPlayers() {
         return players;

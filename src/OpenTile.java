@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -122,6 +121,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
     public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         return false;
     }
+
 
     @Override
     public GlobalVariables.Direction addTile(AbstractTile tile) {

@@ -1,43 +1,50 @@
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by johnsoaa on 3/29/2015.
+ *
  */
 public class GlobalVariables {
+    public static ArrayList<OpenTile> openTiles;
+
     public static enum Feature {ROAD, GRASS, RIVER, CITY}
 
     public static enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
 
     public static enum Direction {NORTH, SOUTH, EAST, WEST}
 
-    public static enum Location {TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
+    public static enum Location {
+        TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
 
-       public static boolean isBottom(Location loc) {
-           switch(loc) {
-               case TOPLEFT:
-                   return false;
-               case TOP:
-                   return false;
-               case TOPRIGHT:
-                   return false;
-               case LEFT:
-                   return false;
-               case CENTER:
-                   return false;
-               case RIGHT:
-                   return false;
-               case BOTTOMLEFT:
-                   return true;
-               case BOTTOM:
-                   return true;
-               case BOTTOMRIGHT:
-                   return true;
-           }
-           return false;
-       }
+        public static boolean isBottom(Location loc) {
+            switch (loc) {
+                case TOPLEFT:
+                    return false;
+                case TOP:
+                    return false;
+                case TOPRIGHT:
+                    return false;
+                case LEFT:
+                    return false;
+                case CENTER:
+                    return false;
+                case RIGHT:
+                    return false;
+                case BOTTOMLEFT:
+                    return true;
+                case BOTTOM:
+                    return true;
+                case BOTTOMRIGHT:
+                    return true;
+            }
+            return false;
+        }
 
         public static boolean isTop(Location loc) {
-            switch(loc) {
+            switch (loc) {
                 case TOPLEFT:
                     return true;
                 case TOP:
@@ -61,7 +68,7 @@ public class GlobalVariables {
         }
 
         public static boolean isLeft(Location loc) {
-            switch(loc) {
+            switch (loc) {
                 case TOPLEFT:
                     return true;
                 case TOP:
@@ -85,7 +92,7 @@ public class GlobalVariables {
         }
 
         public static boolean isRight(Location loc) {
-            switch(loc) {
+            switch (loc) {
                 case TOPLEFT:
                     return false;
                 case TOP:

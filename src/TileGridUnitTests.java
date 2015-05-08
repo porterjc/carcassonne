@@ -30,10 +30,9 @@ public class TileGridUnitTests {
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile1 = new PlayableTile(feature);
-
-        openTiles.add(new OpenTile(tile1, tile1, tile1, tile1));
-
-        assertTrue(grid.areValidMoves(openTiles, tile1));
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
+        GlobalVariables.openTiles.add(new OpenTile(tile1, tile1, tile1, tile1));
+        assertTrue(grid.areValidMoves(tile1));
     }
 
     @Test
@@ -53,6 +52,6 @@ public class TileGridUnitTests {
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile2 = new PlayableTile(feature);
 
-        assertTrue(grid.areValidMoves(openTiles, tile2));
+        assertTrue(grid.areValidMoves( tile2));
     }
 }
