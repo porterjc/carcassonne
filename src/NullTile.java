@@ -20,21 +20,12 @@ public class NullTile extends AbstractTile {
         this.setVisible(true);
     }
 
-    @Override
-    public Image getImage() {
-        return null;
-    }
 
     @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(new Color(80, 90, 115)));
     }
 
-
-    @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return false;
-    }
 
     @Override
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
@@ -46,7 +37,7 @@ public class NullTile extends AbstractTile {
         GlobalVariables.Direction dir = super.addTile(newTile);
         return dir;
     }
-
+    // TODO either delete or refactor
     @Override
     public GlobalVariables.Direction updateAdjacent() {
         // This should never be called

@@ -42,11 +42,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
     }
 
     @Override
-    public Image getImage() {
-        return null;
-    }
-
-    @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
@@ -116,11 +111,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
             return val;
         }
 
-    }
-
-    @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return false;
     }
 
     @Override

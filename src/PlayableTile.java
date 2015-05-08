@@ -79,7 +79,6 @@ public class PlayableTile extends AbstractTile {
         return raw.getScaledInstance(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE, Image.SCALE_DEFAULT);
     }
 
-
     /**
      * Draws the appropriately scaled and rotated icon image on the tile
      */

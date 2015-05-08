@@ -143,7 +143,9 @@ public abstract class AbstractTile extends JLabel {
 
     public abstract GlobalVariables.Direction updateAdjacent();
 
-    public abstract Image getImage();
+    public Image getImage() {
+        return null;
+    }
 
     public void moveTile(int x, int y) {
         this.setBounds(x, y, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
@@ -159,8 +161,11 @@ public abstract class AbstractTile extends JLabel {
     public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
         return new Pair(meeples, -1);
     }
+    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+        return false;
+    }
 
-    public abstract boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from);
+   // public abstract boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from);
 
     protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         return false;
