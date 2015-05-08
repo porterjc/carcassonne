@@ -4,17 +4,10 @@ import java.util.ArrayList;
 
 /**
  * Created by robinsat on 3/31/2015.
+ *
+ * This keeps track of all of the tiles in the game and displays them on a panel
  */
 public class TileGrid extends JPanel {
-
-    // The minimum x value of the tiles on this grid
-    private int minX;
-    // The minimum y value of the tiles on this grid
-    private int minY;
-    // The maximum x value of the tiles on this grid
-    private int maxX;
-    // The maximum y value of the tiles on this grid
-    private int maxY;
 
     // The tile on the top left corner of this grid
     private AbstractTile topLeft;
@@ -22,8 +15,7 @@ public class TileGrid extends JPanel {
     private AbstractTile topRight;
     // The tile on the bottom left corner of this grid
     private AbstractTile bottomLeft;
-    // The tile on the bottom right corner of this grid
-    private AbstractTile bottomRight;//TODO initialize & use this variable
+    // bottomRight is the only one we don't need
 
     //Provides easy storage for the panel's preferred width
     private int panelWidth;
@@ -34,7 +26,6 @@ public class TileGrid extends JPanel {
     private JLabel tilesLeftLabel;
 
     // The game that this grid is keeping track of.
-    // TODO: this should be private
     private Game game;
 
     //Default, for testing purposes only
@@ -65,13 +56,9 @@ public class TileGrid extends JPanel {
 
     /**
      * Initializes this grid to display basic information
-     * @param startingTile
+     * @param startingTile the tile at the center at the beginning of the game.
      */
     public void initialize(PlayableTile startingTile) {
-      /*  minX = 0;
-        minY = 0;
-        maxX = 2;
-        maxY = 2; */
 
         game = new Game();
 
@@ -123,7 +110,6 @@ public class TileGrid extends JPanel {
         }
 
         bottomLeft = upperTile;
-        bottomRight = upperTile;
 
         //Expand the grid right
         for(int i = 1; i < numTilesX; i++) {
@@ -136,41 +122,9 @@ public class TileGrid extends JPanel {
         panelWidth = fixedWidth;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
-        //this.add(startingTile);
-        //startingTile.setBounds(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
-        //startingTile.setVisible(true);
-
-       /* AbstractTile tile1 = new NullTile();
-        this.add(tile1);
-        tile1.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
-
-        AbstractTile tile2 = new NullTile();
-        this.add(tile2);
-        tile2.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE * 2);
-
-        AbstractTile tile3 = new NullTile();
-        this.add(tile3);
-        tile3.moveTile(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE * 3);
-
-        tile1.setBottom(tile2);
-        tile2.setBottom(tile3);*/
-
-        /*topRight = tile1;
-        topLeft = tile1;
-        bottomLeft = tile3;
-        bottomRight = tile3;*/
-
-        //addRightColumn();
-        //addRightColumn();
-
-       // addLeftColumn();
-        //addRightColumn();
-        //addBottomRow();
-        //addTopRow();
-
     }
 
-    public Game getGame() { return this.game; };
+    public Game getGame() { return this.game; }
 
 
     public void addNullRow(GlobalVariables.Direction dir) {
@@ -206,7 +160,6 @@ public class TileGrid extends JPanel {
             existingToLeft = existingToLeft.getBottom();
         }
 
-        bottomRight = existingAbove;
         panelWidth +=  AbstractTile.TILE_PIXEL_SIZE;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
     }
@@ -267,7 +220,6 @@ public class TileGrid extends JPanel {
             existingAbove = existingAbove.getRight();
         }
 
-        bottomRight = existingToLeft;
         System.out.println("ph: " + panelHeight + " h: " + this.getHeight());
         panelHeight += AbstractTile.TILE_PIXEL_SIZE;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
@@ -322,18 +274,17 @@ public class TileGrid extends JPanel {
     }
 
     public boolean areValidMoves(ArrayList<OpenTile> slots, PlayableTile tile){
-        for(int i = 0; i < slots.size(); i++){
-            OpenTile temp = slots.get(i);
-            if(temp.canPlace(tile))
+        for (OpenTile temp : slots) {
+            if (temp.canPlace(tile))
                 return true;
             tile.rotateTile();
-            if(temp.canPlace(tile))
+            if (temp.canPlace(tile))
                 return true;
             tile.rotateTile();
-            if(temp.canPlace(tile))
+            if (temp.canPlace(tile))
                 return true;
             tile.rotateTile();
-            if(temp.canPlace(tile))
+            if (temp.canPlace(tile))
                 return true;
             tile.rotateTile();
         }
