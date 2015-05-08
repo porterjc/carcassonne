@@ -55,10 +55,10 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     public GlobalVariables.Direction updateAdjacent() {
-        GlobalVariables.Direction topdir = this.getTop().addTile(new OpenTile());
-        GlobalVariables.Direction leftdir = this.getLeft().addTile(new OpenTile());
-        GlobalVariables.Direction rightdir = this.getRight().addTile(new OpenTile());
-        GlobalVariables.Direction bottomdir = this.getBottom().addTile(new OpenTile());
+        GlobalVariables.Direction topdir = this.getTop().getClass() != OpenTile.class ? this.getTop().addTile(new OpenTile()) : null;
+        GlobalVariables.Direction leftdir = this.getLeft().getClass() != OpenTile.class ? this.getLeft().addTile(new OpenTile()) : null;
+        GlobalVariables.Direction rightdir = this.getRight().getClass() != OpenTile.class ? this.getRight().addTile(new OpenTile()) : null;
+        GlobalVariables.Direction bottomdir = this.getBottom().getClass() != OpenTile.class ? this.getBottom().addTile(new OpenTile()) : null;
 
         if (topdir != null)
             return topdir;
@@ -322,6 +322,7 @@ public class PlayableTile extends AbstractTile {
         return found;
     }
 
+    /*
     @Override
     protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         alreadyVisited.add(this);
@@ -429,7 +430,7 @@ public class PlayableTile extends AbstractTile {
             found = this.getLeft().checkFromRight(alreadyVisited, GlobalVariables.Location.RIGHT);
 
         return found;
-    }
+    } */
 
     /**
      * Takes a boolean and rotate
