@@ -180,7 +180,14 @@ public class Game {
     }
 
     public boolean updateAllScores() {
-        this.players.get(0).updateScore(2);
+
+        Pair<HashSet<Meeple>, Integer> scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        if(scoreCity.getValue()>0){
+            for(Meeple m:scoreCity.getKey()){
+                m.getPlayer().updateScore(scoreCity.getValue());
+            }
+        }
+        this.players.get(1).updateScore(3);
         return true;
     }
 
