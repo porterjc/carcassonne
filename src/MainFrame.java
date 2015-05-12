@@ -5,11 +5,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by porterjc on 3/26/2015.
@@ -175,12 +173,12 @@ public class MainFrame extends JFrame {
         optionsPanel.add(getMarginArea(smallMargin));
 
         SelectPanel meepleSelectPanel = new SelectPanel();
-        MeepleButton redbutton = new MeepleButton(GlobalVariables.PLAYERCOLOR.RED, meepleSelectPanel);
+        MeepleButton redbutton = new MeepleButton(GlobalVariables.PlayerColor.RED, meepleSelectPanel);
         meepleSelectPanel.add(redbutton);
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.YELLOW, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.GREEN, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.BLUE, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.BLACK, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.YELLOW, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.GREEN, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.BLUE, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.BLACK, meepleSelectPanel));
 
         meepleSelectPanel.setSelected(redbutton);
 
@@ -367,9 +365,9 @@ public class MainFrame extends JFrame {
      */
     private class MeepleButton extends SelectableButton {
 
-        GlobalVariables.PLAYERCOLOR color;
+        GlobalVariables.PlayerColor color;
 
-        public MeepleButton(GlobalVariables.PLAYERCOLOR color, SelectPanel panel) {
+        public MeepleButton(GlobalVariables.PlayerColor color, SelectPanel panel) {
             super(100, 100, panel);
             this.color = color;
             this.setBackground(color.getColor());
