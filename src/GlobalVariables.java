@@ -5,15 +5,18 @@ import java.io.IOException;
 
 /**
  * Created by johnsoaa on 3/29/2015.
+ *
+ * Global enums and variables that will be used throughout the program are defined here
  */
+
 public class GlobalVariables {
-    public static enum Feature {ROAD, GRASS, RIVER, CITY}
+    public enum Feature {ROAD, GRASS, RIVER, CITY}
 
-    public static enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
+    public enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
 
-    public static enum Direction {NORTH, SOUTH, EAST, WEST}
+    public enum Direction {NORTH, SOUTH, EAST, WEST}
 
-    public static enum Location {TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
+    public enum Location {TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
 
        public static boolean isBottom(Location loc) {
            switch(loc) {
@@ -200,15 +203,14 @@ public class GlobalVariables {
         }
 
     }
-
-    // COLORS
-    
-
+/*
+    // Some Color constants
     public static Color RED = new Color(227, 6, 16);
     public static Color YELLOW = new Color(245, 234, 0);
     public static Color GREEN = new Color(4, 148, 7);
     public static Color BLUE = new Color(47, 47, 255);
     public static Color BLACK = new Color(45, 45, 45);
+*/
 
     // Graphical Constants
     public static Color LIGHT_BLUE = new Color(167, 171, 209);
@@ -216,6 +218,8 @@ public class GlobalVariables {
     public static Color DARK_BLUE = new Color(39, 40, 49);
 
     //Images that will be reused many times
+
+    /** The image for a red meeple */
     public static Image redMeeple;
     static {
         try {
@@ -225,6 +229,7 @@ public class GlobalVariables {
         }
     }
 
+    /** The image for a yellow meeple */
     public static Image yellowMeeple;
     static {
         try {
@@ -234,6 +239,7 @@ public class GlobalVariables {
         }
     }
 
+    /** The image for a green meeple */
     public static Image greenMeeple;
     static {
         try {
@@ -243,6 +249,7 @@ public class GlobalVariables {
         }
     }
 
+    /** The image for a blue meeple */
     public static Image blueMeeple;
     static {
         try {
@@ -252,6 +259,7 @@ public class GlobalVariables {
         }
     }
 
+    /** The image for a black meeple */
     public static Image blackMeeple;
     static {
         try {
@@ -260,4 +268,107 @@ public class GlobalVariables {
             e.printStackTrace();
         }
     }
+
+    /** The image for a red abbot */
+    public static Image redAbbot;
+    static {
+        try {
+            redAbbot = ImageIO.read(new File("images/meeples/abbot_red.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** The image for a yellow abbot */
+    public static Image yellowAbbot;
+    static {
+        try {
+            yellowAbbot = ImageIO.read(new File("images/meeples/abbot_yellow.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** The image for a green abbot */
+    public static Image greenAbbot;
+    static {
+        try {
+            greenAbbot = ImageIO.read(new File("images/meeples/abbot_green.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** The image for a blue abbot */
+    public static Image blueAbbot;
+    static {
+        try {
+            blueAbbot = ImageIO.read(new File("images/meeples/abbot_blue.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** The image for a black abbot */
+    public static Image blackAbbot;
+    static {
+        try {
+            blackAbbot = ImageIO.read(new File("images/meeples/abbot_black.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Convieniently stores the necessary colors and images
+     */
+    public enum PLAYERCOLOR {RED (new Color(227, 6, 16), redMeeple, redMeeple),
+                                    YELLOW (new Color(245, 234, 0), yellowMeeple, yellowMeeple),
+                                    GREEN (new Color(4, 148, 7), greenMeeple, greenMeeple),
+                                    BLUE (new Color(47, 47, 255), blueMeeple, blueMeeple),
+                                    BLACK (new Color(45, 45, 45), blackMeeple, blackMeeple);
+
+        /** The color to display */
+        Color color;
+        /** The image to display for a meeple of this color */
+        Image meepleImage;
+        /** The image to display for an abbot of this color */
+        Image abbotImage;
+
+        /**
+         * Constructor
+         * @param color The color
+         * @param meepleImage The meeple image associated with this color
+         * @param abbotImage The abbot image associated with this color
+         */
+        private PLAYERCOLOR(Color color, Image meepleImage, Image abbotImage) {
+            this.color = color;
+            this.meepleImage = meepleImage;
+            this.abbotImage = abbotImage;
+        }
+
+        /**
+         * Getter method for the color
+         * @return the color
+         */
+        public Color getColor() {
+            return color;
+        }
+
+        /**
+         * Getter method for the meeple Image
+         * @return the meeple Image
+         */
+        public Image getMeepleImage() {
+            return meepleImage;
+        }
+
+        /**
+         * Getter method for the abbot Image
+         * @return the abbot Image
+         */
+        public Image getAbbotImage() {
+            return abbotImage;
+        }
+        }
 }

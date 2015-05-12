@@ -16,7 +16,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
 
     /**
      * Constructor
-     * @param image the color of this button
+     * @param image the image of this button
      * @param x the x coordinate of this button
      * @param y the y coordinate of this button
      */
@@ -60,12 +60,4 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         // Not necessary
     }
 
-
-    /**
-     * Returns the radius of this button
-     * @return the radius of this button
-     */
-    public static int getRadius() {
-        return BUTTON_SIZE / 2;
-    }
 }

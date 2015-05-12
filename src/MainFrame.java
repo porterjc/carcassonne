@@ -175,12 +175,12 @@ public class MainFrame extends JFrame {
         optionsPanel.add(getMarginArea(smallMargin));
 
         SelectPanel meepleSelectPanel = new SelectPanel();
-        MeepleButton redbutton = new MeepleButton(GlobalVariables.RED, meepleSelectPanel);
+        MeepleButton redbutton = new MeepleButton(GlobalVariables.PLAYERCOLOR.RED, meepleSelectPanel);
         meepleSelectPanel.add(redbutton);
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.YELLOW, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.GREEN, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.BLUE, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.BLACK, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.YELLOW, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.GREEN, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.BLUE, meepleSelectPanel));
+        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PLAYERCOLOR.BLACK, meepleSelectPanel));
 
         meepleSelectPanel.setSelected(redbutton);
 
@@ -369,12 +369,12 @@ public class MainFrame extends JFrame {
      */
     private class MeepleButton extends SelectableButton {
 
-        Color color;
+        GlobalVariables.PLAYERCOLOR color;
 
-        public MeepleButton(Color color, SelectPanel panel) {
+        public MeepleButton(GlobalVariables.PLAYERCOLOR color, SelectPanel panel) {
             super(100, 100, panel);
             this.color = color;
-            this.setBackground(color);
+            this.setBackground(color.getColor());
         }
         //TODO add button listener?
 
