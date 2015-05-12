@@ -98,17 +98,17 @@ public class PlayableTile extends AbstractTile {
      * Adds buttons to place a meeple over a tile
      */
     public void addMeepleButtons(Color color) {
-        int half = getHalfwayLocation(PlaceMeepleButton.getRadius());
-        int far = getBottomLocation(PlaceMeepleButton.getRadius());
-        this.add(new PlaceMeepleButton(color, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
-        this.add(new PlaceMeepleButton(color, half, TILE_INNER_MARGIN));
-        this.add(new PlaceMeepleButton(color, far, TILE_INNER_MARGIN));
-        this.add(new PlaceMeepleButton(color, TILE_INNER_MARGIN, half));
-        this.add(new PlaceMeepleButton(color, half, half));
-        this.add(new PlaceMeepleButton(color, far, half));
-        this.add(new PlaceMeepleButton(color, TILE_INNER_MARGIN, far));
-        this.add(new PlaceMeepleButton(color, half, far));
-        this.add(new PlaceMeepleButton(color, far, far));
+        int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
+        int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, half));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, half));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, half));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, far));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, far));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, far));
     }
 
 
@@ -565,7 +565,7 @@ public class PlayableTile extends AbstractTile {
      * @return the x or y value of the object's location
      */
     private int getHalfwayLocation(int objectSize) {
-        return (TILE_PIXEL_SIZE / 2) - objectSize;
+        return (TILE_PIXEL_SIZE / 2) - (objectSize / 2);
     }
 
     /**

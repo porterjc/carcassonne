@@ -89,6 +89,7 @@ public class MainFrame extends JFrame {
         optionsPanel.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         backPanel.add(optionsPanel);
+        backPanel.add(getMarginArea(largeMargin));
 
     }
 
@@ -110,7 +111,7 @@ public class MainFrame extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                //TODO: display rules
+                setupRuleReader();
             }
         };
 
@@ -128,6 +129,32 @@ public class MainFrame extends JFrame {
         optionsPanel.add(rulesButton);
         optionsPanel.add(getMarginArea(largeMargin));
         optionsPanel.add(quitButton);
+
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * This sets up the UI to display the rules of the game.
+     */
+    private void setupRuleReader() {
+        optionsPanel.removeAll();
+
+        RulesPanel rulesPanel = new RulesPanel(optionsPanel.getWidth() - COMPONENT_MARGIN);
+        JScrollPane scrollPane = new JScrollPane(rulesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setMaximumSize(new Dimension(optionsPanel.getWidth() - 50, 100));
+        optionsPanel.add(getMarginArea(largeMargin));
+        optionsPanel.add(scrollPane);
+        optionsPanel.add(getMarginArea(largeMargin));
+
+        GraphicButton backButton = new GraphicButton(buttonWidth, buttonHeight, "Back") {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setupMainMenu();
+            }
+        };
+        optionsPanel.add(backButton);
+        optionsPanel.add(getMarginArea(largeMargin));
 
         revalidate();
         repaint();

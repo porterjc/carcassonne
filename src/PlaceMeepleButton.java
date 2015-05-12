@@ -11,19 +11,20 @@ import java.awt.event.MouseListener;
 
 public class PlaceMeepleButton extends JLabel implements MouseListener{
 
-    /** The color of this button */
-    private Color color;
     /** The size of this button */
     public static final int BUTTON_SIZE = 30;
 
     /**
      * Constructor
-     * @param color the color of this button
+     * @param image the color of this button
+     * @param x the x coordinate of this button
+     * @param y the y coordinate of this button
      */
-    public PlaceMeepleButton(Color color, int x, int y) {
-        this.color = color;
+    public PlaceMeepleButton(Image image, int x, int y) {
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
         this.addMouseListener(this);
+
+        this.setIcon(new ImageIcon(image.getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
     }
 
     /* Mouse Listener methods */
@@ -59,14 +60,6 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         // Not necessary
     }
 
-    @Override
-    public void paintComponent(Graphics g) {
-        int rad = getRadius();
-        g.setColor(Color.BLACK);
-        g.drawOval(0, 0, rad, rad);
-        g.setColor(this.color);
-        g.fillOval(0, 0, rad, rad);
-    }
 
     /**
      * Returns the radius of this button

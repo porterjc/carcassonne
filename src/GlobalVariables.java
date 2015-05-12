@@ -1,4 +1,7 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by johnsoaa on 3/29/2015.
@@ -199,8 +202,8 @@ public class GlobalVariables {
     }
 
     // COLORS
+    
 
-    // Player colors
     public static Color RED = new Color(227, 6, 16);
     public static Color YELLOW = new Color(245, 234, 0);
     public static Color GREEN = new Color(4, 148, 7);
@@ -211,4 +214,50 @@ public class GlobalVariables {
     public static Color LIGHT_BLUE = new Color(167, 171, 209);
     public static Color MEDIUM_BLUE = new Color(100, 105, 153);
     public static Color DARK_BLUE = new Color(39, 40, 49);
+
+    //Images that will be reused many times
+    public static Image redMeeple;
+    static {
+        try {
+            redMeeple = ImageIO.read(new File("images/meeples/meeple_red.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Image yellowMeeple;
+    static {
+        try {
+            yellowMeeple = ImageIO.read(new File("images/meeples/meeple_yellow.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Image greenMeeple;
+    static {
+        try {
+            greenMeeple = ImageIO.read(new File("images/meeples/meeple_green.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Image blueMeeple;
+    static {
+        try {
+            blueMeeple = ImageIO.read(new File("images/meeples/meeple_blue.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Image blackMeeple;
+    static {
+        try {
+            blackMeeple = ImageIO.read(new File("images/meeples/meeple_black.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
