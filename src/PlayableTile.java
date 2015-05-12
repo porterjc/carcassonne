@@ -101,20 +101,11 @@ public class PlayableTile extends AbstractTile {
         int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
 
-        addCenterButton(currentPlayer, half);
-       /* this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, TILE_INNER_MARGIN));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, TILE_INNER_MARGIN));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, half));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, half));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, half));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, far));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, far));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, far)); */
-    }
-
-    private void addCenterButton(Player player, int pix) {
-       this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, player, pix, pix));
+        this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, half, half));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, half, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, half));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, half));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, half, far));
     }
 
 
