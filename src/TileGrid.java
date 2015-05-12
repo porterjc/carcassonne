@@ -207,7 +207,6 @@ public class TileGrid extends JPanel {
      * Adds a row of null tiles to the bottom of the grid
      */
     private void addBottomRow() {
-        System.out.println("Heya");
         AbstractTile existingAbove = bottomLeft;
         AbstractTile existingToLeft = new NullTile();
         existingToLeft.setTop(existingAbove);
@@ -226,10 +225,8 @@ public class TileGrid extends JPanel {
             existingAbove = existingAbove.getRight();
         }
 
-        System.out.println("ph: " + panelHeight + " h: " + this.getHeight());
         panelHeight += AbstractTile.TILE_PIXEL_SIZE;
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-        System.out.println("newph: " + panelHeight + " newh: " + this.getHeight());
     }
 
     /**

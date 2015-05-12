@@ -53,18 +53,20 @@ public class OpenTile extends AbstractTile implements MouseListener {
         boolean n = checkNorth(tileToPlace);
         boolean s = checkSouth(tileToPlace);
 
-        System.out.println("E: " + e + "W: " + w + "N: " + n + "S: " + s);
         return e && w && n && s;
     }
 
     public boolean checkNorth(PlayableTile tile) {
         //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.NORTH);
-        if (getTop().getFeatures() == null) return true;
+        if (getTop().getFeatures() == null) {
+            System.out.println("Top was null");
+            return true;
+        }
         else {
             boolean val = tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.SOUTH);
-            if (!val)
-                System.out.println(tileFeature + " " + getTop().getTargetFeature(GlobalVariables.Direction.SOUTH));
+           // if (!val)
+                System.out.println("This top: " + tileFeature + " Bottom on tile above: " + getTop().getTargetFeature(GlobalVariables.Direction.SOUTH));
             //return tileFeatures.get(GlobalVariables.Direction.NORTH) == getTop().getFeatures().get(GlobalVariables.Direction.SOUTH);
             return val;
         }
@@ -74,11 +76,14 @@ public class OpenTile extends AbstractTile implements MouseListener {
     public boolean checkSouth(PlayableTile tile) {
         //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.SOUTH);
-        if (getBottom().getFeatures() == null) return true;
+        if (getBottom().getFeatures() == null) {
+            System.out.println("Bottom was null");
+            return true;
+        }
         else {
             boolean val = tileFeature == getBottom().getTargetFeature(GlobalVariables.Direction.NORTH);
-            if (!val)
-                System.out.println(tileFeature + " " + getBottom().getTargetFeature(GlobalVariables.Direction.NORTH));
+          //  if (!val)
+                System.out.println("This bottom: " + tileFeature + " Top on tile below: " + getBottom().getTargetFeature(GlobalVariables.Direction.NORTH));
             //return tileFeatures.get(GlobalVariables.Direction.SOUTH) == getBottom().getFeatures().get(GlobalVariables.Direction.NORTH);
             return val;
         }
@@ -87,12 +92,15 @@ public class OpenTile extends AbstractTile implements MouseListener {
     public boolean checkWest(PlayableTile tile) {
         // Map<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.WEST);
-        if (getLeft().getFeatures() == null) return true;
+        if (getLeft().getFeatures() == null) {
+            System.out.println("Left was null");
+            return true;
+        }
         else {
             boolean val = tileFeature == getLeft().getTargetFeature(GlobalVariables.Direction.EAST);
             //return tileFeatures.get(GlobalVariables.Direction.WEST) == getLeft().getFeatures().get(GlobalVariables.Direction.EAST);
-            if (!val)
-                System.out.println(tileFeature + " " + getLeft().getTargetFeature(GlobalVariables.Direction.EAST));
+          //  if (!val)
+                System.out.println("This left: " + tileFeature + " Right on tile to left: " + getLeft().getTargetFeature(GlobalVariables.Direction.EAST));
             return val;
         }
 
@@ -101,12 +109,15 @@ public class OpenTile extends AbstractTile implements MouseListener {
     public boolean checkEast(PlayableTile tile) {
         //Map<GlobalVariables.Direction, GlobalVariables.Feature> tileeFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.EAST);
-        if (getRight().getFeatures() == null) return true;
+        if (getRight().getFeatures() == null) {
+            System.out.println("Right was null");
+            return true;
+        }
         else {
             boolean val = tileFeature == getRight().getTargetFeature(GlobalVariables.Direction.WEST);
             //return tileeFeatures.get(GlobalVariables.Direction.EAST) == getRight().getFeatures().get(GlobalVariables.Direction.WEST);
-            if (!val)
-                System.out.println(tileFeature + " " + getRight().getTargetFeature(GlobalVariables.Direction.WEST));
+            //if (!val)
+                System.out.println("This right: " + tileFeature + " Left on tile to right: " + getRight().getTargetFeature(GlobalVariables.Direction.WEST));
             System.out.println(getRight());
             return val;
         }
@@ -134,7 +145,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         TileGrid grid = (TileGrid) this.getParent();
         PlayableTile current = grid.getGame().getCurrentTile();
-        System.out.println(current);
 
         if (this.canPlace(current)) {
             GlobalVariables.Direction direction = this.addTile(current);

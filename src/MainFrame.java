@@ -256,8 +256,6 @@ public class MainFrame extends JFrame {
      * TODO: none of the "options" do anything and this initializes the game with defaults. Make this happen eventually
      */
     private void setupGamePlay(){
-       // this.remove(optionsPanel);
-        System.out.println("yo");
         backPanel.removeAll();
         this.remove(backPanel);
         revalidate();
