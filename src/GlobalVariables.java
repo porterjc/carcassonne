@@ -10,6 +10,7 @@ import java.io.IOException;
  */
 
 public class GlobalVariables {
+
     public enum Feature {ROAD, GRASS, RIVER, CITY}
 
     public enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
@@ -322,7 +323,7 @@ public class GlobalVariables {
     /**
      * Convieniently stores the necessary colors and images
      */
-    public enum PLAYERCOLOR {RED (new Color(227, 6, 16), redMeeple, redMeeple),
+    public enum PlayerColor {RED (new Color(227, 6, 16), redMeeple, redMeeple),
                                     YELLOW (new Color(245, 234, 0), yellowMeeple, yellowMeeple),
                                     GREEN (new Color(4, 148, 7), greenMeeple, greenMeeple),
                                     BLUE (new Color(47, 47, 255), blueMeeple, blueMeeple),
@@ -341,7 +342,7 @@ public class GlobalVariables {
          * @param meepleImage The meeple image associated with this color
          * @param abbotImage The abbot image associated with this color
          */
-        private PLAYERCOLOR(Color color, Image meepleImage, Image abbotImage) {
+        private PlayerColor(Color color, Image meepleImage, Image abbotImage) {
             this.color = color;
             this.meepleImage = meepleImage;
             this.abbotImage = abbotImage;

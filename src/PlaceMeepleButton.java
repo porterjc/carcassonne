@@ -11,6 +11,10 @@ import java.awt.event.MouseListener;
 
 public class PlaceMeepleButton extends JLabel implements MouseListener{
 
+    /** The feature on which a meeple is to be placed */
+    private GlobalVariables.Feature feature;
+    /** The internal feature on which a meeple is to be placed */
+    private GlobalVariables.Internal internal;
     /** The size of this button */
     public static final int BUTTON_SIZE = 30;
 
@@ -20,10 +24,11 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
      * @param x the x coordinate of this button
      * @param y the y coordinate of this button
      */
-    public PlaceMeepleButton(Image image, int x, int y) {
+    public PlaceMeepleButton(GlobalVariables.Feature feature, GlobalVariables.Internal internal, Image image, int x, int y) {
+        this.feature = feature;
+        this.internal = internal;
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
         this.addMouseListener(this);
-
         this.setIcon(new ImageIcon(image.getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
     }
 

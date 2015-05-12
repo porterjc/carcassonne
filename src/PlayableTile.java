@@ -111,8 +111,8 @@ public class PlayableTile extends AbstractTile {
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, far)); */
     }
 
-    private void addCenterButton() {
-
+    private void addCenterButton(int pix) {
+       // this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, GlobalVariables.redMeeple, pix, pix));
     }
 
 
