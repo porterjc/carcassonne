@@ -73,6 +73,17 @@ public class PlaceMeepleButtonTest extends JFrame {
             tile1.moveTile(250, 50);
             tiles.add(tile1);
 
+            BufferedImage image2 = ImageIO.read(new File("images/12.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features2 = new HashMap<>();
+            features2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+            features2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            PlayableTile tile2 = new PlayableTile(image2, features2);
+            tile2.moveTile(450, 50);
+            tiles.add(tile2);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
