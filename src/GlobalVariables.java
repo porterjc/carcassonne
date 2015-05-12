@@ -334,11 +334,11 @@ public class GlobalVariables {
                                     BLACK (new Color(45, 45, 45), blackMeeple, blackMeeple);
 
         /** The color to display */
-        Color color;
+        private Color color;
         /** The image to display for a meeple of this color */
-        Image meepleImage;
+        private Image meepleImage;
         /** The image to display for an abbot of this color */
-        Image abbotImage;
+        private Image abbotImage;
 
         /**
          * Constructor

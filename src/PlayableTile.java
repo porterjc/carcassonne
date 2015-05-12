@@ -100,6 +100,8 @@ public class PlayableTile extends AbstractTile {
     public void addMeepleButtons(Player currentPlayer) {
         int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
+
+        addCenterButton(currentPlayer, half);
        /* this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, TILE_INNER_MARGIN));
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, TILE_INNER_MARGIN));
@@ -111,8 +113,8 @@ public class PlayableTile extends AbstractTile {
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, far)); */
     }
 
-    private void addCenterButton(int pix) {
-       // this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, GlobalVariables.redMeeple, pix, pix));
+    private void addCenterButton(Player player, int pix) {
+       this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, player, pix, pix));
     }
 
 

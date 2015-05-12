@@ -31,8 +31,11 @@ public class PlaceMeepleButtonTest extends JFrame {
     }
 
     public void runTests() {
-        player = new Player(GlobalVariables.PlayerColor.RED);
+        player = new Player(GlobalVariables.PlayerColor.YELLOW);
         testAddGrassButtons();
+
+        revalidate();
+        repaint();
     }
 
     public void testAddGrassButtons() {
