@@ -13,6 +13,7 @@ public class Meeple {
     private GlobalVariables.PlayerColor mColor;
     private Player meepleOwner;
     private GlobalVariables.Feature placedOn;
+    private GlobalVariables.Feature placedOnInternal;
     private GlobalVariables.Location location;
     private PlayableTile tile;
 

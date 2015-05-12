@@ -107,6 +107,10 @@ public class PlayableTile extends AbstractTile {
         this.add(new PlaceMeepleButton(getLeftFeature(), null, currentPlayer, TILE_INNER_MARGIN, half));
         this.add(new PlaceMeepleButton(getRightFeature(), null, currentPlayer, far, half));
         this.add(new PlaceMeepleButton(getBottomFeature(), null, currentPlayer, half, far));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, far));
+        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, far));
     }
 
 

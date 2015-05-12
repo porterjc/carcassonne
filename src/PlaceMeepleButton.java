@@ -15,6 +15,8 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     private GlobalVariables.Feature feature;
     /** The internal feature on which a meeple is to be placed */
     private GlobalVariables.Internal internal;
+    /** The player that will control the placed meeple */
+    private Player player;
     /** The size of this button */
     public static final int BUTTON_SIZE = 30;
 
@@ -27,6 +29,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     public PlaceMeepleButton(GlobalVariables.Feature feature, GlobalVariables.Internal internal, Player player, int x, int y) {
         this.feature = feature;
         this.internal = internal;
+        this.player = player;
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
         this.addMouseListener(this);
         this.setIcon(new ImageIcon(player.getColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
@@ -41,6 +44,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         parent.removeAll();
         parent.add(this);
         parent.repaint();
+
         //TODO: Do it a much better way than this
         ((TileGrid) parent.getParent()).getGame().moveToNextState();
     }
