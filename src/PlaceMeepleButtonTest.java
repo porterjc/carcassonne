@@ -4,9 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This is a graphical test class intended to test the placement of meeple placement buttons
@@ -17,6 +15,8 @@ public class PlaceMeepleButtonTest extends JFrame {
 
     /** The player to use for these tests */
     private Player player;
+    /** The tiles to use for these tests */
+    private java.util.List<PlayableTile> tiles;
 
     /**
      * Main method creates a frame and runs the tests
@@ -30,16 +30,23 @@ public class PlaceMeepleButtonTest extends JFrame {
         testFrame.runTests();
     }
 
+    /**
+     * Runs the test methods to add tiles
+     */
     public void runTests() {
         player = new Player(GlobalVariables.PlayerColor.YELLOW);
-        testAddGrassButtons();
+        initializeTiles();
+        testAddMeepleButtons();
 
         revalidate();
         repaint();
     }
 
-    public void testAddGrassButtons() {
-
+    /**
+     * Initializes the tiles needed for these tests
+     */
+    public void initializeTiles() {
+        tiles = new ArrayList<PlayableTile>();
         try {
             BufferedImage image = ImageIO.read(new File("images/41.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<>();
@@ -51,13 +58,20 @@ public class PlaceMeepleButtonTest extends JFrame {
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.MONASTERY);
 
-            PlayableTile tile = new PlayableTile(image, features, internals);
-            tile.moveTile(200, 200);
-            this.add(tile);
-            tile.addMeepleButtons(player);
+            PlayableTile tile0 = new PlayableTile(image, features, internals);
+            tile0.moveTile(50, 50);
+            tiles.add(tile0);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void testAddMeepleButtons() {
+        for(PlayableTile tile : tiles) {
+            this.add(tile);
+            tile.addMeepleButtons(player);
+        }
+
     }
 }
