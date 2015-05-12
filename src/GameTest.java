@@ -44,15 +44,15 @@ public class GameTest {
 
     @Test
     public void testCreateGameWithOnePlayers() {
-        this.players.add(new Player(Color.RED));
+        this.players.add(new Player(GlobalVariables.PlayerColor.RED));
         Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(true, game.getPlayers() == null);
     }
 
     @Test
     public void testCreateGameWithTwoPlayers() {
-        Player p1 = new Player(Color.RED);
-        Player p2 = new Player(Color.ORANGE);
+        Player p1 = new Player(GlobalVariables.PlayerColor.RED);
+        Player p2 = new Player(GlobalVariables.PlayerColor.YELLOW);
         players.add(p1);
         players.add(p2);
         Game game = new Game(new TileGrid(), getTiles(), this.players);
@@ -61,9 +61,9 @@ public class GameTest {
 
     @Test
     public void testCreateGameWithThreePlayers() {
-        Player p1 = new Player(Color.RED);
-        Player p2 = new Player(Color.ORANGE);
-        Player p3 = new Player(Color.BLUE);
+        Player p1 = new Player(GlobalVariables.PlayerColor.RED);
+        Player p2 = new Player(GlobalVariables.PlayerColor.YELLOW);
+        Player p3 = new Player(GlobalVariables.PlayerColor.BLUE);
         this.players.add(p1);
         this.players.add(p2);
         this.players.add(p3);
@@ -74,10 +74,10 @@ public class GameTest {
 
     @Test
     public void testCreateGameWithFourPlayers() {
-        Player p1 = new Player(Color.RED);
-        Player p2 = new Player(Color.ORANGE);
-        Player p3 = new Player(Color.BLUE);
-        Player p4 = new Player(Color.YELLOW);
+        Player p1 = new Player(GlobalVariables.PlayerColor.RED);
+        Player p2 = new Player(GlobalVariables.PlayerColor.GREEN);
+        Player p3 = new Player(GlobalVariables.PlayerColor.BLUE);
+        Player p4 = new Player(GlobalVariables.PlayerColor.YELLOW);
         this.players.add(p1);
         this.players.add(p2);
         this.players.add(p3);
@@ -88,11 +88,11 @@ public class GameTest {
 
     @Test
     public void testCreateGameWithFivePlayers() {
-        Player p1 = new Player(Color.RED);
-        Player p2 = new Player(Color.ORANGE);
-        Player p3 = new Player(Color.BLUE);
-        Player p4 = new Player(Color.YELLOW);
-        Player p5 = new Player(Color.PINK);
+        Player p1 = new Player(GlobalVariables.PlayerColor.RED);
+        Player p2 = new Player(GlobalVariables.PlayerColor.GREEN);
+        Player p3 = new Player(GlobalVariables.PlayerColor.BLUE);
+        Player p4 = new Player(GlobalVariables.PlayerColor.YELLOW);
+        Player p5 = new Player(GlobalVariables.PlayerColor.BLACK);
         this.players.add(p1);
         this.players.add(p2);
         this.players.add(p3);
@@ -136,8 +136,8 @@ public class GameTest {
     @Test
 
     public void testBeginGame() {
-        Player p1 = new Player(Color.RED);
-        Player p2 = new Player(Color.ORANGE);
+        Player p1 = new Player(GlobalVariables.PlayerColor.RED);
+        Player p2 = new Player(GlobalVariables.PlayerColor.YELLOW);
         players.add(p1);
         players.add(p2);
         Game game = new Game(new TileGrid(), getTiles(), this.players);
@@ -148,8 +148,8 @@ public class GameTest {
 
     @Test
     public void testPlayerTurn() {
-        players.add(new Player(Color.RED));
-        players.add(new Player(Color.ORANGE));
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
         Stack<PlayableTile> testStack = new Stack<PlayableTile>();
         Game game = new Game(new TileGrid(), testStack, this.players);
         game.begin();
@@ -163,8 +163,8 @@ public class GameTest {
         assertEquals(true, game.moveToNextTurn());
         assertEquals(0, game.getCurrentTurn());
 
-        this.players.add(new Player(Color.BLACK));
-        this.players.add(new Player(Color.BLUE));
+        this.players.add(new Player(GlobalVariables.PlayerColor.BLACK));
+        this.players.add(new Player(GlobalVariables.PlayerColor.BLUE));
         game = new Game(new TileGrid(), getTiles(), this.players);
         game.begin();
         assertEquals(true, game.moveToNextTurn());
@@ -179,8 +179,8 @@ public class GameTest {
 
     @Test
     public void testGetCurrentTurnPlayer() {
-        players.add(new Player(Color.RED));
-        players.add(new Player(Color.ORANGE));
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
         Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(players.get(0), game.getCurrentTurnPlayer());
         game.moveToNextTurn();
@@ -193,8 +193,8 @@ public class GameTest {
 
     @Test
     public void testUpdatePlayerScore() {
-        players.add(new Player(Color.RED));
-        players.add(new Player(Color.ORANGE));
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
         Game game = new Game(new TileGrid(), getTiles(), this.players);
         game.updateScore(game.getPlayers().get(0), 7);
         assertEquals(7, game.getPlayers().get(0).getPlayerScore());
@@ -206,8 +206,8 @@ public class GameTest {
 
     @Test
     public void testUpdateAllScores() {
-        players.add(new Player(Color.RED));
-        players.add(new Player(Color.ORANGE));
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
 
         Game game = new Game(new TileGrid(), getTiles(), this.players);
 
@@ -239,8 +239,8 @@ public class GameTest {
 
     @Test
     public void testUpdateAllScoresWithCity() {
-        players.add(new Player(Color.RED));
-        players.add(new Player(Color.ORANGE));
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
 
         Game game = new Game(new TileGrid(), getTiles(), this.players);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();

@@ -65,9 +65,9 @@ public class TileGrid extends JPanel {
     public void initialize(PlayableTile startingTile) {
 
         ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(Color.RED));
-        players.add(new Player(Color.YELLOW));
-        players.add(new Player(Color.GREEN));
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+        players.add(new Player(GlobalVariables.PlayerColor.GREEN));
         game = new Game(this, new Stack<PlayableTile>(), players);
 
         // Calculate the number of tiles to start with, make sure it's an odd, positive number so it looks pretty
@@ -282,7 +282,7 @@ public class TileGrid extends JPanel {
     }
 
     public void updateTurnLabel() {
-        this.turnLabel.setBackground(game.getCurrentTurnPlayer().getColor());
+        this.turnLabel.setBackground(game.getCurrentTurnPlayer().getColor().getColor());
     }
 
     public boolean areValidMoves(PlayableTile tile) {

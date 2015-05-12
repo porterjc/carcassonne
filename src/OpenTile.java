@@ -151,7 +151,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
             if (direction != null) {
                 grid.addNullRow(direction);
             }
-            current.addMeepleButtons(grid.getGame().getCurrentTurnPlayer().getColor());
+            current.addMeepleButtons(grid.getGame().getCurrentTurnPlayer());
             grid.revalidate();
             grid.repaint();
 

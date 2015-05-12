@@ -26,8 +26,8 @@ public class MeepleTest extends TestCase {
 
     @Before
     public void setUp() {
-        p = new Player(Color.CYAN);
-        m = new Meeple(p, Color.CYAN);
+        p = new Player(GlobalVariables.PlayerColor.BLUE);
+        m = new Meeple(p, GlobalVariables.PlayerColor.BLUE);
         tiles = new Stack<PlayableTile>();
         addTiles();
     }

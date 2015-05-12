@@ -13,7 +13,7 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        p = new Player(Color.CYAN);
+        p = new Player(GlobalVariables.PlayerColor.BLUE);
     }
 
     @Test

@@ -3,24 +3,26 @@ import javafx.util.Pair;
 import java.awt.Color;
 
 /**
+ * Meeples may be placed on any feature of a tile, and they belong to the player of their designated color.
+ * This keeps track of who "owns" the feature and can claim points for it
  * Created by johnsoaa on 3/29/2015.
  */
 public class Meeple {
 
 
-    private Color mColor;
+    private GlobalVariables.PlayerColor mColor;
     private Player meepleOwner;
     private GlobalVariables.Feature placedOn;
     private GlobalVariables.Location location;
     private PlayableTile tile;
 
 
-    public Meeple(Player p, Color aqua) {
-        mColor = aqua;
+    public Meeple(Player p, GlobalVariables.PlayerColor color) {
+        mColor = color;
         meepleOwner = p;
     }
 
-    public Color getColor() {
+    public GlobalVariables.PlayerColor getColor() {
         return mColor;
     }
 
@@ -35,6 +37,7 @@ public class Meeple {
         pt.setMeeple(this);
         this.location = loc;
     }
+
     public Pair<AbstractTile, GlobalVariables.Feature> getPlacedOn(){
         return  new Pair(tile, placedOn);
     }

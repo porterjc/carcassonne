@@ -40,7 +40,7 @@ public class ScorePanel extends JPanel {
 
         for(Player p : players) { // Add color labels
             JPanel colorPanel = new JPanel();
-            colorPanel.setBackground(p.getColor());
+            colorPanel.setBackground(p.getColor().getColor());
             this.add(colorPanel);
         }
 

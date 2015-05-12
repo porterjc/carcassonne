@@ -15,10 +15,14 @@ import java.util.Set;
  */
 public class PlaceMeepleButtonTest extends JFrame {
 
+    /** The player to use for these tests */
+    private Player player;
+
     /**
      * Main method creates a frame and runs the tests
      */
     public static void main(String[] args) {
+
         PlaceMeepleButtonTest testFrame = new PlaceMeepleButtonTest();
         testFrame.setLayout(null);
         testFrame.setSize(900, 900);
@@ -27,6 +31,7 @@ public class PlaceMeepleButtonTest extends JFrame {
     }
 
     public void runTests() {
+        player = new Player(GlobalVariables.PlayerColor.RED);
         testAddGrassButtons();
     }
 
@@ -46,7 +51,7 @@ public class PlaceMeepleButtonTest extends JFrame {
             PlayableTile tile = new PlayableTile(image, features, internals);
             tile.moveTile(200, 200);
             this.add(tile);
-            tile.addMeepleButtons(Color.RED);
+            tile.addMeepleButtons(player);
 
         } catch (IOException e) {
             e.printStackTrace();

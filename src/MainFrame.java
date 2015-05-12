@@ -330,9 +330,9 @@ public class MainFrame extends JFrame {
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
         // Just for GUI testing. TODO: delete
         ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(Color.RED));
-        players.add(new Player(Color.YELLOW));
-        players.add(new Player(Color.GREEN));
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+        players.add(new Player(GlobalVariables.PlayerColor.GREEN));
         scorePanel = new ScorePanel(players);
         bottompanel.add(scorePanel);
 

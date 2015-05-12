@@ -97,7 +97,7 @@ public class PlayableTile extends AbstractTile {
     /**
      * Adds buttons to place a meeple over a tile
      */
-    public void addMeepleButtons(Color color) {
+    public void addMeepleButtons(Player currentPlayer) {
         int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
        /* this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));

@@ -6,11 +6,11 @@ import java.util.ArrayList;
  */
 public class Player {
     private int playerScore;
-    private Color pColor;
+    private GlobalVariables.PlayerColor pColor;
     private ArrayList<Meeple> meeples;
     public int lastUsedMeeple;
 
-    public Player(Color color) {
+    public Player(GlobalVariables.PlayerColor color) {
         pColor = color;
         playerScore = 0;
         lastUsedMeeple = 0;
@@ -28,7 +28,7 @@ public class Player {
         return playerScore;
     }
 
-    public Color getColor() {
+    public GlobalVariables.PlayerColor getColor() {
         return pColor;
     }
 
