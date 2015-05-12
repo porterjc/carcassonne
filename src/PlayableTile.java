@@ -100,7 +100,7 @@ public class PlayableTile extends AbstractTile {
     public void addMeepleButtons(Color color) {
         int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
+       /* this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, TILE_INNER_MARGIN));
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, TILE_INNER_MARGIN));
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, half));
@@ -108,7 +108,11 @@ public class PlayableTile extends AbstractTile {
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, half));
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, TILE_INNER_MARGIN, far));
         this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, half, far));
-        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, far));
+        this.add(new PlaceMeepleButton(GlobalVariables.redMeeple, far, far)); */
+    }
+
+    private void addCenterButton() {
+
     }
 
 
@@ -501,7 +505,6 @@ public class PlayableTile extends AbstractTile {
         return feature;
     }
 
-    //todo move to AbstractTile
     public AbstractTile getTopLeft() {
         return getTop().getLeft();
     }
