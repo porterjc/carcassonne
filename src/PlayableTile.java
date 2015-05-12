@@ -14,7 +14,7 @@ public class PlayableTile extends AbstractTile {
     private int rotation = 0; //represents how much much this tile has been rotated. 0 is the default value before rotations happen;
     private Meeple meeple = null;
 
-    public static final int TILE_INNER_MARGIN = 10;
+    public static final int TILE_INNER_MARGIN = 5;
 
     public PlayableTile() {
         super();
@@ -101,11 +101,12 @@ public class PlayableTile extends AbstractTile {
         int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
 
-        this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, half, half));
-        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, half, TILE_INNER_MARGIN));
-        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, half));
-        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, half));
-        this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, half, far));
+        if(this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
+            this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, half, half));
+        this.add(new PlaceMeepleButton(getTopFeature(), null, currentPlayer, half, TILE_INNER_MARGIN));
+        this.add(new PlaceMeepleButton(getLeftFeature(), null, currentPlayer, TILE_INNER_MARGIN, half));
+        this.add(new PlaceMeepleButton(getRightFeature(), null, currentPlayer, far, half));
+        this.add(new PlaceMeepleButton(getBottomFeature(), null, currentPlayer, half, far));
     }
 
 
