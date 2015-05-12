@@ -14,38 +14,38 @@ import static org.junit.Assert.assertTrue;
  */
 public class TileGridUnitTests {
     TileGrid grid;
-    ArrayList<OpenTile> openTiles;
 
     @Before
     public void setUp() {
         grid = new TileGrid();
-        openTiles = new ArrayList<OpenTile>();
+    }
+
+    @After
+    public void tearDown() {
+        grid = null;
     }
 
     @Test
-    public void testAreValidMoves(){
+    public void testAreValidMoves() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile1 = new PlayableTile(feature);
-
-        openTiles.add(new OpenTile(tile1, tile1, tile1, tile1));
-
-        assertTrue(grid.areValidMoves(openTiles, tile1));
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
+        GlobalVariables.openTiles.add(new OpenTile(tile1, tile1, tile1, tile1));
+        assertTrue(grid.areValidMoves(tile1));
     }
 
     @Test
-    public void testAreValidMovesMoreTiles(){
+    public void testAreValidMovesMoreTiles() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile1 = new PlayableTile(feature);
-
-        openTiles.add(new OpenTile(tile1, tile1, tile1, tile1));
 
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -53,6 +53,9 @@ public class TileGridUnitTests {
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile2 = new PlayableTile(feature);
 
-        assertTrue(grid.areValidMoves(openTiles, tile2));
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
+        GlobalVariables.openTiles.add(new OpenTile(tile1, tile1, tile1, tile1));
+
+        assertTrue(grid.areValidMoves(tile2));
     }
 }

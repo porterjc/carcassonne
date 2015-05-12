@@ -1,5 +1,11 @@
+import javafx.util.Pair;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -7,6 +13,7 @@ import java.util.Stack;
  * Created by johnsoaa on 3/25/2015.
  */
 public class Game {
+    private TileGrid grid;
     private List<Player> players;
     private boolean gameOver;
     private boolean riverMode;
@@ -15,22 +22,29 @@ public class Game {
     private PlayableTile currentTile;
     private int currentTurn;
     private TurnState currentTurnState;
-    private TileGrid grid;
+    private int numberOfOpenTilesOnBoard;
 
 
     /**
      * Constructor for a game
+     *
      * @param grid The grid that stores all of the tiles in this game
      */
     public Game(TileGrid grid) {
         this.grid = grid;
         tiles = new Stack<>();
         gameOver = false;
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
+
+        numberOfOpenTilesOnBoard = 0;
         drawTile();
     }
 
-    public Game(TileGrid grid, Stack<PlayableTile> stack, ArrayList<Player> players) {
-        this(grid, stack, players, false, false);
+    //TODO get rid of all constructors and just make one
+    public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
+        this(stack, players, false, false);
+        numberOfOpenTilesOnBoard = 0;
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
     }
 
     /**
@@ -38,6 +52,20 @@ public class Game {
      *
      * @param stack
      */
+    public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+        if (players.size() > 1) {
+            this.players = players;
+        }
+        riverMode = river;
+        abbotMode = abbot;
+        numberOfOpenTilesOnBoard = 0;
+        currentTurn = 0;
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
+        currentTurnState = TurnState.TILE_PlACEMENT;
+        tiles = stack;
+        gameOver = false;
+    }
+
     public Game(TileGrid grid, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
         this.grid = grid;
         if (players.size() > 1) {
@@ -45,10 +73,18 @@ public class Game {
         }
         riverMode = river;
         abbotMode = abbot;
+        numberOfOpenTilesOnBoard = 0;
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
         currentTurn = 0;
         currentTurnState = TurnState.TILE_PlACEMENT;
         tiles = stack;
         gameOver = false;
+    }
+
+    public Game(TileGrid tileGrid, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
+        this(tileGrid, playableTiles, players, false, false);
+        numberOfOpenTilesOnBoard = 0;
+        GlobalVariables.openTiles = new ArrayList<OpenTile>();
     }
 
     //TODO determine where to handle score
@@ -92,16 +128,13 @@ public class Game {
 
     public boolean moveToNextTurn() {
         if (isGameOver()) return false;
-        if (this.currentTurn < this.players.size() - 1)
-            this.currentTurn++;
-        else
-            this.currentTurn = 0;
-        drawTile();
-        grid.updateCurrentTileUI();
-        grid.updateTurnLabel();
+        if (this.currentTurn < this.players.size() - 1) {
 
+            this.currentTurn++;
+        } else
+            this.currentTurn = 0;
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
-        //TODO consider implementing the observer pattern for when a score is updated
+
         //as we don't want too much coupling between the UI and the GAME class over sharing Player objects
 
         return true;
@@ -141,9 +174,73 @@ public class Game {
         p.updateScore(i);
     }
 
+    public boolean updateAllScores() {
+        Pair<HashSet<Meeple>, Integer> scoreCity, scoreRoad, scoreFarmer;
+        scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        scoreRoad = this.currentTile.scoreRoad(new HashSet<AbstractTile>(),new HashSet<Meeple>(),false);
+        if (scoreCity.getValue() > 0) {
+            for (Meeple m : scoreCity.getKey()) {
+                m.getPlayer().updateScore(scoreCity.getValue());
+            }
+            return true;
+        }
+
+        if (scoreRoad.getValue() > 0) {
+            for (Meeple m : scoreRoad.getKey()) {
+                m.getPlayer().updateScore(scoreRoad.getValue());
+            }
+            return true;
+        }
+        return false;
+    }
+
+
     private enum TurnState {
         TILE_PlACEMENT,
         MEEPLE_PLACEMENT,
-        SCORING;
+        SCORING
+    }
+
+    class ListResponseModel<E> extends AbstractListModel {
+
+        private static final long serialVersionUID = 1L;
+
+        private ArrayList<OpenTile> delegate = new ArrayList<OpenTile>();
+
+        @Override
+        public int getSize() {
+            return delegate.size();
+        }
+
+        @Override
+        public Object getElementAt(int index) {
+            return delegate.get(index);
+        }
+
+        public void add(OpenTile e) {
+            int index = delegate.size();
+            delegate.add(e);
+            fireIntervalAdded(this, index, index);
+        }
+
+        @Override
+        protected void fireIntervalAdded(Object source, int index0, int index1) {
+            super.fireIntervalAdded(source, index0, index1);//no idea what this does
+
+        }
+
+        @Override
+        protected void fireIntervalRemoved(Object source, int index0, int index1) {
+            super.fireIntervalRemoved(source, index0, index1);
+        }
+    }
+
+    /**
+     * For testing purposes only. should never be called elsewhere
+     *
+     * @param t
+     */
+    public void setCurrentTile(PlayableTile t) {
+        this.currentTile = t;
     }
 }

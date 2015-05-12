@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by johnsoaa on 3/29/2015.
@@ -11,40 +12,43 @@ import java.io.IOException;
 
 public class GlobalVariables {
 
+    public static ArrayList<OpenTile> openTiles;
+
     public enum Feature {ROAD, GRASS, RIVER, CITY}
 
     public enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
 
     public enum Direction {NORTH, SOUTH, EAST, WEST}
 
-    public enum Location {TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
+    public enum Location {
+        TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
 
-       public static boolean isBottom(Location loc) {
-           switch(loc) {
-               case TOPLEFT:
-                   return false;
-               case TOP:
-                   return false;
-               case TOPRIGHT:
-                   return false;
-               case LEFT:
-                   return false;
-               case CENTER:
-                   return false;
-               case RIGHT:
-                   return false;
-               case BOTTOMLEFT:
-                   return true;
-               case BOTTOM:
-                   return true;
-               case BOTTOMRIGHT:
-                   return true;
-           }
-           return false;
-       }
+        public static boolean isBottom(Location loc) {
+            switch (loc) {
+                case TOPLEFT:
+                    return false;
+                case TOP:
+                    return false;
+                case TOPRIGHT:
+                    return false;
+                case LEFT:
+                    return false;
+                case CENTER:
+                    return false;
+                case RIGHT:
+                    return false;
+                case BOTTOMLEFT:
+                    return true;
+                case BOTTOM:
+                    return true;
+                case BOTTOMRIGHT:
+                    return true;
+            }
+            return false;
+        }
 
         public static boolean isTop(Location loc) {
-            switch(loc) {
+            switch (loc) {
                 case TOPLEFT:
                     return true;
                 case TOP:
@@ -68,7 +72,7 @@ public class GlobalVariables {
         }
 
         public static boolean isLeft(Location loc) {
-            switch(loc) {
+            switch (loc) {
                 case TOPLEFT:
                     return true;
                 case TOP:
@@ -92,7 +96,7 @@ public class GlobalVariables {
         }
 
         public static boolean isRight(Location loc) {
-            switch(loc) {
+            switch (loc) {
                 case TOPLEFT:
                     return false;
                 case TOP:
@@ -342,7 +346,7 @@ public class GlobalVariables {
          * @param meepleImage The meeple image associated with this color
          * @param abbotImage The abbot image associated with this color
          */
-        private PlayerColor(Color color, Image meepleImage, Image abbotImage) {
+        PlayerColor(Color color, Image meepleImage, Image abbotImage) {
             this.color = color;
             this.meepleImage = meepleImage;
             this.abbotImage = abbotImage;
@@ -371,5 +375,5 @@ public class GlobalVariables {
         public Image getAbbotImage() {
             return abbotImage;
         }
-        }
+    }
 }

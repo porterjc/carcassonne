@@ -4,8 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.*;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -46,7 +45,7 @@ public class GameTest {
     @Test
     public void testCreateGameWithOnePlayers() {
         this.players.add(new Player(Color.RED));
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(true, game.getPlayers() == null);
     }
 
@@ -56,7 +55,7 @@ public class GameTest {
         Player p2 = new Player(Color.ORANGE);
         players.add(p1);
         players.add(p2);
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(players, game.getPlayers());
     }
 
@@ -68,7 +67,7 @@ public class GameTest {
         this.players.add(p1);
         this.players.add(p2);
         this.players.add(p3);
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(this.players, game.getPlayers());
         assertEquals(3, game.getPlayers().size());
     }
@@ -83,7 +82,7 @@ public class GameTest {
         this.players.add(p2);
         this.players.add(p3);
         this.players.add(p4);
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(4, game.getPlayers().size());
     }
 
@@ -99,13 +98,13 @@ public class GameTest {
         this.players.add(p3);
         this.players.add(p4);
         this.players.add(p5);
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(5, game.getPlayers().size());
     }
 
     @Test
     public void testDrawTile() {
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(numberOfTiles, game.getNumberOfTilesLeft());
         game.drawTile();
         assertEquals(numberOfTiles - 1, game.getNumberOfTilesLeft());
@@ -116,7 +115,7 @@ public class GameTest {
 
     @Test
     public void testEmptyTileList() {
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
         }
@@ -126,7 +125,7 @@ public class GameTest {
 
     @Test
     public void testIsGameOver() {
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         assertEquals(false, game.isGameOver());
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
@@ -141,7 +140,7 @@ public class GameTest {
         Player p2 = new Player(Color.ORANGE);
         players.add(p1);
         players.add(p2);
-        Game game = new Game(new TileGrid(), getTiles(),this.players);
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
         game.begin();
         assertEquals(0, game.getCurrentTurn());
         assertEquals(false, game.isGameOver());
@@ -177,8 +176,9 @@ public class GameTest {
         assertEquals(true, game.moveToNextTurn());
         assertEquals(0, game.getCurrentTurn());
     }
+
     @Test
-    public void testGetCurrentTurnPlayer(){
+    public void testGetCurrentTurnPlayer() {
         players.add(new Player(Color.RED));
         players.add(new Player(Color.ORANGE));
         Game game = new Game(new TileGrid(), getTiles(), this.players);
@@ -190,17 +190,106 @@ public class GameTest {
         game.moveToNextTurn();
         assertEquals(players.get(1), game.getCurrentTurnPlayer());
     }
+
     @Test
-    public void testUpdatePlayerScore(){
+    public void testUpdatePlayerScore() {
         players.add(new Player(Color.RED));
         players.add(new Player(Color.ORANGE));
         Game game = new Game(new TileGrid(), getTiles(), this.players);
         game.updateScore(game.getPlayers().get(0), 7);
         assertEquals(7, game.getPlayers().get(0).getPlayerScore());
-        game.updateScore(game.getPlayers().get(0),7);
-        assertEquals(14,game.getPlayers().get(0).getPlayerScore());
-        game.updateScore(game.getPlayers().get(0),-1);
-        assertEquals(14,game.getPlayers().get(0).getPlayerScore());
+        game.updateScore(game.getPlayers().get(0), 7);
+        assertEquals(14, game.getPlayers().get(0).getPlayerScore());
+        game.updateScore(game.getPlayers().get(0), -1);
+        assertEquals(14, game.getPlayers().get(0).getPlayerScore());
     }
 
+    @Test
+    public void testUpdateAllScores() {
+        players.add(new Player(Color.RED));
+        players.add(new Player(Color.ORANGE));
+
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile t1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile t2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+        t1.setBottom(t2);
+        t2.setTop(t1);
+        GlobalVariables.openTiles.add((OpenTile) t1.getTop());
+        GlobalVariables.openTiles.add((OpenTile) t1.getLeft());
+        GlobalVariables.openTiles.add((OpenTile) t1.getRight());
+        GlobalVariables.openTiles.add((OpenTile) t2.getBottom());
+        GlobalVariables.openTiles.add((OpenTile) t2.getRight());
+        GlobalVariables.openTiles.add((OpenTile) t2.getLeft());
+        game.setCurrentTile(t1);
+        assertEquals(true, game.updateAllScores());
+        assertEquals(0, players.get(0).getPlayerScore());
+        assertEquals(0, players.get(1).getPlayerScore());
+    }
+
+    @Test
+    public void testUpdateAllScoresWithCity() {
+        players.add(new Player(Color.RED));
+        players.add(new Player(Color.ORANGE));
+
+        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        PlayableTile t1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        players.get(0).getMeeples().get(0).place(t1, GlobalVariables.Feature.CITY, GlobalVariables.Location.BOTTOM);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile t2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
+        t1.setBottom(t2);
+        t2.setTop(t1);
+
+        game.setCurrentTile(t1);
+        assertEquals(true, game.updateAllScores());
+        assertEquals(2, players.get(0).getPlayerScore());
+        assertEquals(0, players.get(1).getPlayerScore());
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> internals = new HashSet<>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2,internals);
+        players.get(1).getMeeples().get(0).place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
+        internals = new HashSet<>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> featuress = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        featuress.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        featuress.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        featuress.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        featuress.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        PlayableTile t4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), featuress, internals);
+        t3.setBottom(t1);
+        t1.setTop(t3);
+        t1.setRight(t4);
+        t4.setLeft(t1);
+
+        game.setCurrentTile(t3);
+        assertEquals(true, game.updateAllScores());
+        assertEquals(2, game.getPlayers().get(0).getPlayerScore());
+        assertEquals(3, game.getPlayers().get(1).getPlayerScore());
+
+    }
 }
