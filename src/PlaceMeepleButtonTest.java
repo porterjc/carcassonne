@@ -48,19 +48,30 @@ public class PlaceMeepleButtonTest extends JFrame {
     public void initializeTiles() {
         tiles = new ArrayList<PlayableTile>();
         try {
-            BufferedImage image = ImageIO.read(new File("images/41.png"));
-            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+            BufferedImage image0 = ImageIO.read(new File("images/41.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features0 = new HashMap<>();
+            features0.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features0.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features0.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features0.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.MONASTERY);
 
-            PlayableTile tile0 = new PlayableTile(image, features, internals);
+            PlayableTile tile0 = new PlayableTile(image0, features0, internals);
             tile0.moveTile(50, 50);
             tiles.add(tile0);
+
+            BufferedImage image1 = ImageIO.read(new File("images/04.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features1 = new HashMap<>();
+            features1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+            features1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            PlayableTile tile1 = new PlayableTile(image1, features1, internals);
+            tile1.moveTile(250, 50);
+            tiles.add(tile1);
 
         } catch (IOException e) {
             e.printStackTrace();
