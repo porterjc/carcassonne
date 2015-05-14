@@ -313,6 +313,8 @@ public class MainFrame extends JFrame {
         tilesLeftPanel.add(tilesLeftLabel);
         bottompanel.add(tilesLeftPanel);
 
+
+        GameLabel statusLabel = new GameLabel("RED: Place a tile");
         GraphicButton moveOnButton = new GraphicButton(100, 100) {
             @Override
             public void mouseClicked(MouseEvent e) {

@@ -170,6 +170,8 @@ public class Game {
         return players.get(currentTurn);
     }
 
+    public String getCurrentStateText() { return this.currentTurnState.getText(); }
+
     public void updateScore(Player p, int i) {
         p.updateScore(i);
     }
@@ -196,9 +198,19 @@ public class Game {
 
 
     private enum TurnState {
-        TILE_PlACEMENT,
-        MEEPLE_PLACEMENT,
-        SCORING
+        TILE_PlACEMENT("Place a tile"),
+        MEEPLE_PLACEMENT("Place a meeple"),
+        SCORING("Scoring, please wait...");
+
+        String text;
+
+        TurnState(String text) {
+            this.text = text;
+        }
+
+        public String getText() {
+            return this.text;
+        }
     }
 
     class ListResponseModel<E> extends AbstractListModel {
