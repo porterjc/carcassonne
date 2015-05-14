@@ -157,6 +157,8 @@ public class PlayableTile extends AbstractTile {
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
         {
+            //addMeeple(meeples); //TODO actually fix this
+            //add meeple? here
             return new Pair(meeples, currentTileScore);
         } else {
             addMeeple(meeples);

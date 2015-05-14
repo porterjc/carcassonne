@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class PlayableTileRoadTest {
 
-
     private Stack<PlayableTile> tiles;
     PlayableTile tile, lastPlaced;
     Player currentUser;
