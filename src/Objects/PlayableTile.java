@@ -106,7 +106,7 @@ public class PlayableTile extends AbstractTile {
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
 
         // Center (Pretty much only for monasteries)
-        if(this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
+        if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
             this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, half, half));
 
         GlobalVariables.Feature t = getTopFeature();
@@ -121,13 +121,13 @@ public class PlayableTile extends AbstractTile {
         this.add(new PlaceMeepleButton(b, null, currentPlayer, half, far));//Bottom
 
         //Corners
-        if((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
+        if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, TILE_INNER_MARGIN)); //Top Left
-        if((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
+        if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, TILE_INNER_MARGIN)); // Top Right
-        if((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
+        if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, far)); // Bottom Left
-        if((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
+        if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, far)); // Bottom Right
 
        /* this.add(new UIComponents.PlaceMeepleButton(Main.GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
@@ -142,7 +142,7 @@ public class PlayableTile extends AbstractTile {
     }
 
     private void addCenterButton(int pix) {
-       // this.add(new UIComponents.PlaceMeepleButton(null, Main.GlobalVariables.Internal.MONASTERY, Main.GlobalVariables.redMeeple, pix, pix));
+        // this.add(new UIComponents.PlaceMeepleButton(null, Main.GlobalVariables.Internal.MONASTERY, Main.GlobalVariables.redMeeple, pix, pix));
     }
 
 
@@ -152,27 +152,35 @@ public class PlayableTile extends AbstractTile {
         alreadyVisited.add(this);
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
+        {
             return new Pair(meeples, currentTileScore);
-        Meeple tileM = this.getMeeple();
-        if (tileM != null) {
-            if (tileM.getFeature() == GlobalVariables.Feature.ROAD)
-                meeples.add(tileM);
-        }
-        if ((!alreadyVisited.contains(this.getTop())) && this.getTop().isPlayable && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
-            AbstractTile top = this.getTop();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, top);
-        }
-        if ((!alreadyVisited.contains(this.getBottom())) && this.getBottom().isPlayable && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
-            AbstractTile bottom = this.getBottom();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, bottom);
-        }
-        if ((!alreadyVisited.contains(this.getLeft())) && this.getLeft().isPlayable && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
-            AbstractTile left = this.getLeft();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, left);
-        }
-        if ((!alreadyVisited.contains(this.getRight())) && this.getRight().isPlayable && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
-            AbstractTile right = this.getRight();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, right);
+        } else {
+            Meeple tileM = this.getMeeple();
+            if (tileM != null) {//TODO add this inside of the below ifs
+                if (tileM.getFeature() == GlobalVariables.Feature.ROAD)
+                    meeples.add(tileM);
+            }
+            if ((!alreadyVisited.contains(this.getTop())) && this.getTop().isPlayable && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+                AbstractTile top = this.getTop();
+                return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, top);
+            }
+            if ((!alreadyVisited.contains(this.getBottom())) && this.getBottom().isPlayable && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+                AbstractTile bottom = this.getBottom();
+                return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, bottom);
+            }
+            AbstractTile leftt = this.getLeft();
+
+            boolean bo = !alreadyVisited.contains(this.getLeft());
+            boolean isPlayable = this.getLeft().isPlayable;
+            boolean a =features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD;
+            if (bo && isPlayable && a) {
+                AbstractTile left = this.getLeft();
+                return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, left);
+            }
+            if ((!alreadyVisited.contains(this.getRight())) && this.getRight().isPlayable && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+                AbstractTile right = this.getRight();
+                return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, right);
+            }
         }
 
         return new Pair(meeples, -1);

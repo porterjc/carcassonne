@@ -74,8 +74,6 @@ public abstract class AbstractTile extends JLabel {
 
     public void setLeft(AbstractTile left) {
         this.left = left;
-        if (left != null)
-            left.right = this;
     }
 
     public AbstractTile getRight() {
@@ -84,8 +82,6 @@ public abstract class AbstractTile extends JLabel {
 
     public void setRight(AbstractTile right) {
         this.right = right;
-        if (right != null)
-            right.left = this;
     }
 
     public AbstractTile getTop() {
@@ -94,8 +90,6 @@ public abstract class AbstractTile extends JLabel {
 
     public void setTop(AbstractTile top) {
         this.top = top;
-        if (top != null)
-            top.bottom = this;
     }
 
     public AbstractTile getBottom() {
@@ -104,8 +98,6 @@ public abstract class AbstractTile extends JLabel {
 
     public void setBottom(AbstractTile bottom) {
         this.bottom = bottom;
-        if (bottom != null)
-            bottom.top = this;
     }
 
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
