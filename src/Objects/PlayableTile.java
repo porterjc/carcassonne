@@ -159,20 +159,20 @@ public class PlayableTile extends AbstractTile {
                 meeples.add(tileM);
         }
         if ((!alreadyVisited.contains(this.getTop())) && this.getTop().isPlayable && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
-            AbstractTile t = this.getTop();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
+            AbstractTile top = this.getTop();
+            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, top);
         }
         if ((!alreadyVisited.contains(this.getBottom())) && this.getBottom().isPlayable && features.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
-            AbstractTile t = this.getBottom();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
+            AbstractTile bottom = this.getBottom();
+            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, bottom);
         }
         if ((!alreadyVisited.contains(this.getLeft())) && this.getLeft().isPlayable && features.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
-            AbstractTile t = this.getLeft();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
+            AbstractTile left = this.getLeft();
+            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, left);
         }
         if ((!alreadyVisited.contains(this.getRight())) && this.getRight().isPlayable && features.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
-            AbstractTile t = this.getRight();
-            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, t);
+            AbstractTile right = this.getRight();
+            return scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, right);
         }
 
         return new Pair(meeples, -1);

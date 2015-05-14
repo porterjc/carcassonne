@@ -86,7 +86,38 @@ public class PlayableTileRoadTest {
 
 
     @Test
-    public void testShortRoad() {
+    public void testShortRoadWithNoOtherRoads() {
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
+        internals.add(GlobalVariables.Internal.ROADSTOP);
+
+        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        PlayableTile left = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        features1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        features1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        features1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        features1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile p = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features1, internals);
+        m.place(p, GlobalVariables.Feature.ROAD, GlobalVariables.Location.RIGHT);
+        assertEquals(m, p.getMeeple());
+        p.setLeft(left);
+        left.setRight(p);
+        Pair<HashSet<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        assertEquals(1, result.getKey().size());
+        assertEquals(m, result.getKey().toArray()[0]);
+        assertEquals((Integer) 2, result.getValue());
+
+    }
+
+    @Test
+    public void testShortRoadWithOtherRoadsPastBlockage() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
@@ -114,7 +145,6 @@ public class PlayableTileRoadTest {
         assertEquals((Integer) 2, result.getValue());
 
     }
-
     @Test
     public void testLongerRoadWithNoEnd() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
