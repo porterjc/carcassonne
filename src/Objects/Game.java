@@ -21,13 +21,14 @@ public class Game {
     private int currentTurn;
     private TurnState currentTurnState;
     private int numberOfOpenTilesOnBoard;
-    /** The meeples placed in monasteries that must be continuously checked for completion each time a tile is placed */
+    /**
+     * The meeples placed in monasteries that must be continuously checked for completion each time a tile is placed
+     */
     private List<Meeple> monks;
 
 
     /**
      * Constructor for a game
-     *
      */
    /* public Game(BottomDisplay bottomDisplay) {
         this.bottomDisplay = bottomDisplay;
@@ -59,7 +60,6 @@ public class Game {
         tiles = stack;
         gameOver = false;
     } */
-
     public Game(BottomDisplay display, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
         this(display, playableTiles, players, false, false);
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
@@ -173,14 +173,16 @@ public class Game {
         return currentTurnState == TurnState.MEEPLE_PLACEMENT;
     }
 
-    public String getCurrentStateText() { return this.currentTurnState.getText(); }
+    public String getCurrentStateText() {
+        return this.currentTurnState.getText();
+    }
 
     public void updateScore(Player p, int i) {
         p.updateScore(i);
     }
 
     private void scoreCurrentTurn() {
-        
+
     }
 
     public boolean updateAllScores() {
@@ -188,26 +190,31 @@ public class Game {
         scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<Set<Meeple>, Integer> scoreRoad = this.currentTile.scoreRoad(alreadyVisited, meeples, false).pop();
-        if (scoreCity.getValue() > 0) {
-            for (Meeple m : scoreCity.getKey()) {
-                m.getPlayer().updateScore(scoreCity.getValue());
-            }
-            return true;
-        }
+        Stack<Pair<Set<Meeple>, Integer>> pairs = this.currentTile.scoreRoad(alreadyVisited, meeples, false);
+        System.out.println("Number of pairs: " + pairs.size());
 
-        if (scoreRoad.getValue() > 0) {
-            for (Meeple m : scoreRoad.getKey()) {
-            for (Meeple m : scoreRoad.getKey()) {
-                m.getPlayer().updateScore(scoreRoad.getValue());
+            if (scoreCity.getValue() > 0) {
+                for (Meeple m: scoreCity.getKey()) {
+                    m.getPlayer().updateScore(scoreCity.getValue());
+                }
             }
-            return true;
+            while (pairs.size() > 0) {
+                Pair<Set<Meeple>, Integer> p = pairs.pop();
+
+                System.out.println("Number of Meeples: " + p.getKey().size());
+                System.out.println("Score adding:" + p.getValue());
+                Meeple[] meeps = p.getKey().toArray(new Meeple[p.getKey().size()]);
+            if (p.getValue() > 0) {
+                for (int i = 0; i < meeps.length; i++) {
+                    meeps[i].getPlayer().updateScore(p.getValue());
+                }
+            }
         }
-        return false;
+        return true;
     }
 
     public void passTurn() {
-        if(currentTurnState == TurnState.MEEPLE_PLACEMENT) {
+        if (currentTurnState == TurnState.MEEPLE_PLACEMENT) {
             moveToNextState();
             moveToNextState();
         }
@@ -215,6 +222,7 @@ public class Game {
 
     /**
      * Adds a meeple to the list of monks
+     *
      * @param monk The meeple to add
      */
     public void addMonk(Meeple monk) {

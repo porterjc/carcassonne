@@ -254,12 +254,12 @@ public class GameTest {
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
 
         Game game = new Game(bdstub, getTiles(), this.players);
-        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
-        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        PlayableTile t1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> t1features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        t1features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        t1features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        t1features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        t1features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        PlayableTile t1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), t1features);
         players.get(0).getMeeples().get(0).place(t1, GlobalVariables.Feature.CITY, GlobalVariables.Location.BOTTOM);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
