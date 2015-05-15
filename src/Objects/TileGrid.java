@@ -24,6 +24,8 @@ public class TileGrid extends JPanel {
     private AbstractTile bottomLeft;
     // bottomRight is the only one we don't need
 
+    private ArrayList<OpenTile> slots;
+
     //Provides easy storage for the panel's preferred width
     private int panelWidth;
     //Provides easy storage for the panel's preferred width
@@ -60,7 +62,7 @@ public class TileGrid extends JPanel {
         //Add starting tile
         //addTile(new Objects.OpenTile(), 1, 1);
 
-
+        this.slots = new ArrayList<>();
     }
 
     /**
@@ -291,22 +293,27 @@ public class TileGrid extends JPanel {
         this.turnLabel.setBackground(game.getCurrentTurnPlayer().getColor().getColor());
     }
 
+    /**
+     * Takes a playable tile and checks that it can be placed where one of the OpeTile's currently exist.
+     *
+     * @param tile
+     * @return
+     */
     public boolean areValidMoves(PlayableTile tile) {
-//        ArrayList<OpenTile> slots = GlobalVariables.openTiles;
-//        for (OpenTile temp : slots) {
-//            if (temp.canPlace(tile))
-//                return true;
-//            tile.rotateTile();
-//            if (temp.canPlace(tile))
-//                return true;
-//            tile.rotateTile();
-//            if (temp.canPlace(tile))
-//                return true;
-//            tile.rotateTile();
-//            if (temp.canPlace(tile))
-//                return true;
-//            tile.rotateTile();
-//        }
+        for (OpenTile temp : slots) {
+            if (temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if (temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if (temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+            if (temp.canPlace(tile))
+                return true;
+            tile.rotateTile();
+        }
         return false;
     }
 }
