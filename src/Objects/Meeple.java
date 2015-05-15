@@ -1,6 +1,7 @@
 package Objects;
 
 import Main.GlobalVariables;
+import UIComponents.PlaceMeepleButton;
 import javafx.util.Pair;
 
 import java.awt.Color;
@@ -69,6 +70,7 @@ public class Meeple {
     }
 
     public void remove() {
+        this.tile.removeAll();
         this.tile = null;
     }
 

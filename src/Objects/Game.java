@@ -20,6 +20,8 @@ public class Game {
     private int currentTurn;
     private TurnState currentTurnState;
     private int numberOfOpenTilesOnBoard;
+    /** The meeples placed in monasteries that must be continuously checked for completion each time a tile is placed */
+    private List<Meeple> monks;
 
 
     /**
@@ -75,6 +77,7 @@ public class Game {
         currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
         gameOver = false;
+        monks = new ArrayList<>();
         drawTile();
     }
 
@@ -201,6 +204,14 @@ public class Game {
             moveToNextState();
             moveToNextState();
         }
+    }
+
+    /**
+     * Adds a meeple to the list of monks
+     * @param monk The meeple to add
+     */
+    public void addMonk(Meeple monk) {
+        this.monks.add(monk);
     }
 
 

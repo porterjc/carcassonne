@@ -1,10 +1,7 @@
 package UIComponents;
 
 import Main.GlobalVariables;
-import Objects.Meeple;
-import Objects.PlayableTile;
-import Objects.Player;
-import Objects.TileGrid;
+import Objects.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,8 +59,13 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
             toPlace.place(parentTile, feature, location);
         else
             toPlace.place(parentTile, internal, location);
-        ((TileGrid) parentTile.getParent()).getGame().moveToNextState();
-        ((TileGrid) parentTile.getParent()).getGame().moveToNextState();
+        Game game = ((TileGrid) parentTile.getParent()).getGame();
+        //If this is on a garden or monastery, the game needs to know about it
+        if(internal == GlobalVariables.Internal.MONASTERY || internal == GlobalVariables.Internal.GARDEN)
+            game.addMonk(toPlace);
+
+        game.moveToNextState();
+        game.moveToNextState();
     }
 
     @Override
