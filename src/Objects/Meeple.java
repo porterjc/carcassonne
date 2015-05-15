@@ -1,6 +1,7 @@
 package Objects;
 
 import Main.GlobalVariables;
+import UIComponents.PlaceMeepleButton;
 import javafx.util.Pair;
 
 import java.awt.Color;
@@ -16,7 +17,7 @@ public class Meeple {
     private GlobalVariables.PlayerColor mColor;
     private Player meepleOwner;
     private GlobalVariables.Feature placedOn;
-    private GlobalVariables.Feature placedOnInternal;
+    private GlobalVariables.Internal placedOnInternal;
     private GlobalVariables.Location location;
     private PlayableTile tile;
 
@@ -25,6 +26,8 @@ public class Meeple {
         mColor = color;
         meepleOwner = p;
     }
+
+
 
     public GlobalVariables.PlayerColor getColor() {
         return mColor;
@@ -40,6 +43,16 @@ public class Meeple {
         this.tile = pt;
         pt.setMeeple(this);
         this.location = loc;
+        getPlayer().placeMeeple(pt);
+    }
+
+    public void place(PlayableTile pt, GlobalVariables.Internal place, GlobalVariables.Location loc) {
+        this.placedOnInternal = place;
+        this.tile = pt;
+        pt.setMeeple(this);
+        this.location = loc;
+
+
     }
 
     public Pair<AbstractTile, GlobalVariables.Feature> getPlacedOn(){
@@ -57,6 +70,7 @@ public class Meeple {
     }
 
     public void remove() {
+        this.tile.removeAll();
         this.tile = null;
     }
 

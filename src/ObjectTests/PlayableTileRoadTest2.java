@@ -51,9 +51,14 @@ public class PlayableTileRoadTest2 {
     }
     //Done need test incomplete road not end of game
     @Test
+    public  void testsRoadToScoreNotCompleteNotEndOfGame() {
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
+    }
+
+    @Test
     public void testIncompleteRoadNotEndOfGame(){
 
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         tileFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         tileFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -85,7 +90,7 @@ public class PlayableTileRoadTest2 {
     }
     @Test
     public void testIncompleteRoadEndOfGame(){
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         tileFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         tileFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -119,7 +124,7 @@ public class PlayableTileRoadTest2 {
 
     @Test
     public void testsRoadToScoreCompleteNotEndOfGame() {
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         tileFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         tileFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
@@ -154,7 +159,7 @@ public class PlayableTileRoadTest2 {
     @Test
     public void testsRoadToScoreCompleteNotEndOfGameMultipleMeeples() {
 
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         Meeple m2 = new Meeple(new Player(GlobalVariables.PlayerColor.GREEN), GlobalVariables.PlayerColor.GREEN);
         //Make Top Tile
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -205,7 +210,7 @@ public class PlayableTileRoadTest2 {
     @Test
     public void testsRoadToScoreComepletedAndNotCompleteEndOfGame(){
 
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         Meeple m2 = new Meeple(new Player(GlobalVariables.PlayerColor.GREEN), GlobalVariables.PlayerColor.GREEN);
 
         //Make Top Tile
@@ -267,7 +272,7 @@ public class PlayableTileRoadTest2 {
     public void testObtainMeeplesFromManyLocations(){
 
 
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         Meeple m2 = new Meeple(new Player(GlobalVariables.PlayerColor.GREEN), GlobalVariables.PlayerColor.GREEN);
 
         //Make Top Tile

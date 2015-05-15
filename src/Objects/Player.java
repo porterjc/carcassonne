@@ -33,7 +33,7 @@ public class Player {
         return playerScore;
     }
 
-    public GlobalVariables.PlayerColor getColor() {
+    public GlobalVariables.PlayerColor getPlayerColor() {
         return pColor;
     }
 
@@ -53,6 +53,16 @@ public class Player {
             return true;
         }
         return false;
+    }
+
+    public boolean hasMeeplesLeft() {
+        return meeples.size() != 0;
+    }
+
+    public Meeple removeMeeple() {
+        if (!hasMeeplesLeft())
+            return null;
+        return meeples.remove(meeples.size() - 1);
     }
 
     public int getScore() {

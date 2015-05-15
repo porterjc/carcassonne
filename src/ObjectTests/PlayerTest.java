@@ -25,7 +25,7 @@ public class PlayerTest {
     public void testSetup() {
         assertEquals(false, p == null);
         assertEquals(0, p.getPlayerScore());
-        assertEquals(Color.CYAN, p.getColor());
+        assertEquals(Color.CYAN, p.getPlayerColor());
         assertEquals(7, p.getMeeples().size());
     }
     @Test

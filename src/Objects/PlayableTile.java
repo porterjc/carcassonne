@@ -112,7 +112,7 @@ public class PlayableTile extends AbstractTile {
 
         // Center (Pretty much only for monasteries)
         if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
-            this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, half, half));
+            this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
 
         GlobalVariables.Feature t = getTopFeature();
         GlobalVariables.Feature l = getLeftFeature();
@@ -120,20 +120,20 @@ public class PlayableTile extends AbstractTile {
         GlobalVariables.Feature b = getBottomFeature();
 
         //Edges
-        this.add(new PlaceMeepleButton(t, null, currentPlayer, half, TILE_INNER_MARGIN)); //Top
-        this.add(new PlaceMeepleButton(l, null, currentPlayer, TILE_INNER_MARGIN, half)); //Left
-        this.add(new PlaceMeepleButton(r, null, currentPlayer, far, half));//Right
-        this.add(new PlaceMeepleButton(b, null, currentPlayer, half, far));//Bottom
+        this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN)); //Top
+        this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half)); //Left
+        this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));//Right
+        this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));//Bottom
 
         //Corners
         if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
-            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, TILE_INNER_MARGIN)); //Top Left
+            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN)); //Top Left
         if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
-            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, TILE_INNER_MARGIN)); // Top Right
+            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN)); // Top Right
         if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
-            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, TILE_INNER_MARGIN, far)); // Bottom Left
+            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far)); // Bottom Left
         if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
-            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, far, far)); // Bottom Right
+            this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far)); // Bottom Right
 
        /* this.add(new UIComponents.PlaceMeepleButton(Main.GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
         this.add(new UIComponents.PlaceMeepleButton(Main.GlobalVariables.redMeeple, half, TILE_INNER_MARGIN));
