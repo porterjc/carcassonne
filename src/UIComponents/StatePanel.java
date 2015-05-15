@@ -33,25 +33,26 @@ public class StatePanel extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         stateLabel = new GameLabel("Place a tile");
+        stateLabel.setAlignmentX(CENTER_ALIGNMENT);
         this.add(stateLabel);
 
         passButton = new GraphicButton(120, 50) {
             @Override
             public void mouseClicked(MouseEvent e) {
-                game.passButtonPressed();
+                passButtonPressed();
             }
         };
         passButton.setBackground(game.getCurrentTurnPlayer().getPlayerColor().getColor());
+        passButton.setAlignmentX(CENTER_ALIGNMENT);
         this.add(passButton);
     }
 
     /**
      * Updates the "pass" button to display properly after each turn state
-     * @param showPass whether or not to display the text "pass" on the button
      */
-    public void updatePassButton(boolean showPass) {
+    public void updatePassButton() {
         passButton.clear();
-        if(showPass)
+        if(game.canManuallyPass())
             passButton.setText("Pass");
         passButton.setBackground(game.getCurrentTurnPlayer().getPlayerColor().getColor());
     }
@@ -61,6 +62,13 @@ public class StatePanel extends JPanel {
      */
     public void updateStateLabel() {
         stateLabel.setText(game.getCurrentStateText());
+    }
+
+    /**
+     * Called when the "Pass" button is pressed
+     */
+    public void passButtonPressed() {
+        game.passTurn();
     }
 
 }

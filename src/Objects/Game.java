@@ -1,5 +1,6 @@
 package Objects;
 
+import UIComponents.BottomDisplay;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.util.Stack;
  * Created by johnsoaa on 3/25/2015.
  */
 public class Game {
-    private TileGrid grid;
+    private BottomDisplay bottomDisplay;
     private List<Player> players;
     private boolean gameOver;
     private boolean riverMode;
@@ -27,31 +28,25 @@ public class Game {
     /**
      * Constructor for a game
      *
-     * @param grid The grid that stores all of the tiles in this game
      */
-    public Game(TileGrid grid) {
-        this.grid = grid;
+   /* public Game(BottomDisplay bottomDisplay) {
+        this.bottomDisplay = bottomDisplay;
         tiles = new Stack<>();
         gameOver = false;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>(); //TODO change this!this
 
         numberOfOpenTilesOnBoard = 0;
         drawTile();
-    }
+    }*/
 
     //TODO get rid of all constructors and just make one
-    public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
+   /* public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
         this(stack, players, false, false);
         numberOfOpenTilesOnBoard = 0;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-    }
+    }*/
 
-    /**
-     * Done add parameters for passing a list of players
-     *
-     * @param stack
-     */
-    public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+   /* public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
         if (players.size() > 1) {
             this.players = players;
         }
@@ -63,10 +58,16 @@ public class Game {
         currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
         gameOver = false;
+    } */
+
+    public Game(BottomDisplay display, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
+        this(display, playableTiles, players, false, false);
+        numberOfOpenTilesOnBoard = 0;
+//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
     }
 
-    public Game(TileGrid grid, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
-        this.grid = grid;
+    public Game(BottomDisplay bottomDisplay, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+        this.bottomDisplay = bottomDisplay;
         if (players.size() > 1) {
             this.players = players;
         }
@@ -80,11 +81,6 @@ public class Game {
         gameOver = false;
     }
 
-    public Game(TileGrid tileGrid, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
-        this(tileGrid, playableTiles, players, false, false);
-        numberOfOpenTilesOnBoard = 0;
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-    }
 
     //TODO determine where to handle score
 
@@ -169,6 +165,10 @@ public class Game {
         return players.get(currentTurn);
     }
 
+    public boolean canManuallyPass() {
+        return currentTurnState == TurnState.MEEPLE_PLACEMENT;
+    }
+
     public String getCurrentStateText() { return this.currentTurnState.getText(); }
 
     public void updateScore(Player p, int i) {
@@ -195,7 +195,7 @@ public class Game {
         return false;
     }
 
-    public void passButtonPressed() {
+    public void passTurn() {
         if(currentTurnState == TurnState.MEEPLE_PLACEMENT)
             moveToNextState();
     }

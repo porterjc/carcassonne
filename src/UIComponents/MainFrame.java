@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class MainFrame extends JFrame {
 
     private JPanel mainpanel;
-    private JPanel bottompanel;
+    private BottomDisplay bottompanel;
     private JPanel backPanel;
     private JPanel optionsPanel;
     private ScorePanel scorePanel;
@@ -282,7 +282,8 @@ public class MainFrame extends JFrame {
 
         mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
-        bottompanel = new BottomDisplay(screenWidth, screenHeight,boardDisplay.getGame());
+        bottompanel = new BottomDisplay(screenWidth, screenHeight);
+        bottompanel.initializeLabels(boardDisplay.getGame());
         mainpanel.add(bottompanel, BorderLayout.SOUTH);
 
         DragFrame scroller = new DragFrame(boardDisplay);
@@ -295,15 +296,6 @@ public class MainFrame extends JFrame {
 
     private Game getGame() {
         return this.boardDisplay.getGame();
-    }
-
-    /**
-     * Updates the GUI to show the tile that has just been drawn
-     */
-    public void updateTile() {
-
-        tiledisplay.setIcon(getGame().getCurrentTile().getIcon());
-
     }
 
 

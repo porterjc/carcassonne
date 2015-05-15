@@ -5,6 +5,7 @@ import Objects.TileGrid;
 import Objects.OpenTile;
 import Objects.Game;
 import Main.GlobalVariables;
+import UIComponents.BottomDisplay;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +21,12 @@ import static org.junit.Assert.assertEquals;
 public class GameTest {
     public final int numberOfTiles = 72;
     public ArrayList<Player> players;
+    public BottomDisplay bdstub;
 
     @Before
     public void setUp() {
         this.players = new ArrayList<Player>();
+        this.bdstub = new BottomDisplay(500, 500);
     }
 
     @After
@@ -41,16 +44,18 @@ public class GameTest {
     }
 
 
-    @Test
+   /*
+   A game with no players is not allowed, so this test is obsolete
+   @Test
     public void testCreateGameWithNoPlayers() {
-        Game board = new Game(new TileGrid());
+        Game board = new Game(bdstub);
         assertEquals(true, board.getPlayers() == null);
-    }
+    }*/
 
     @Test
     public void testCreateGameWithOnePlayers() {
         this.players.add(new Player(GlobalVariables.PlayerColor.RED));
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(true, game.getPlayers() == null);
     }
 
@@ -60,7 +65,7 @@ public class GameTest {
         Player p2 = new Player(GlobalVariables.PlayerColor.YELLOW);
         players.add(p1);
         players.add(p2);
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(players, game.getPlayers());
     }
 
@@ -72,7 +77,7 @@ public class GameTest {
         this.players.add(p1);
         this.players.add(p2);
         this.players.add(p3);
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(this.players, game.getPlayers());
         assertEquals(3, game.getPlayers().size());
     }
@@ -87,7 +92,7 @@ public class GameTest {
         this.players.add(p2);
         this.players.add(p3);
         this.players.add(p4);
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(4, game.getPlayers().size());
     }
 
@@ -103,13 +108,13 @@ public class GameTest {
         this.players.add(p3);
         this.players.add(p4);
         this.players.add(p5);
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(5, game.getPlayers().size());
     }
 
     @Test
     public void testDrawTile() {
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(numberOfTiles, game.getNumberOfTilesLeft());
         game.drawTile();
         assertEquals(numberOfTiles - 1, game.getNumberOfTilesLeft());
@@ -120,7 +125,7 @@ public class GameTest {
 
     @Test
     public void testEmptyTileList() {
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
         }
@@ -130,7 +135,7 @@ public class GameTest {
 
     @Test
     public void testIsGameOver() {
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(false, game.isGameOver());
         for (int i = 0; i < numberOfTiles; i++) {
             game.drawTile();
@@ -145,7 +150,7 @@ public class GameTest {
         Player p2 = new Player(GlobalVariables.PlayerColor.YELLOW);
         players.add(p1);
         players.add(p2);
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         game.begin();
         assertEquals(0, game.getCurrentTurn());
         assertEquals(false, game.isGameOver());
@@ -156,11 +161,11 @@ public class GameTest {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
         Stack<PlayableTile> testStack = new Stack<PlayableTile>();
-        Game game = new Game(new TileGrid(), testStack, this.players);
+        Game game = new Game(bdstub, testStack, this.players);
         game.begin();
         assertEquals(false, game.moveToNextTurn());
 
-        game = new Game(new TileGrid(), getTiles(), this.players);
+        game = new Game(bdstub, getTiles(), this.players);
         game.begin();
         assertEquals(true, game.moveToNextTurn());
         assertEquals(1, game.getCurrentTurn());
@@ -170,7 +175,7 @@ public class GameTest {
 
         this.players.add(new Player(GlobalVariables.PlayerColor.BLACK));
         this.players.add(new Player(GlobalVariables.PlayerColor.BLUE));
-        game = new Game(new TileGrid(), getTiles(), this.players);
+        game = new Game(bdstub, getTiles(), this.players);
         game.begin();
         assertEquals(true, game.moveToNextTurn());
         assertEquals(1, game.getCurrentTurn());
@@ -186,7 +191,7 @@ public class GameTest {
     public void testGetCurrentTurnPlayer() {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         assertEquals(players.get(0), game.getCurrentTurnPlayer());
         game.moveToNextTurn();
         assertEquals(players.get(1), game.getCurrentTurnPlayer());
@@ -200,7 +205,7 @@ public class GameTest {
     public void testUpdatePlayerScore() {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         game.updateScore(game.getPlayers().get(0), 7);
         assertEquals(7, game.getPlayers().get(0).getPlayerScore());
         game.updateScore(game.getPlayers().get(0), 7);
@@ -214,7 +219,7 @@ public class GameTest {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
 
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
@@ -248,7 +253,7 @@ public class GameTest {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
 
-        Game game = new Game(new TileGrid(), getTiles(), this.players);
+        Game game = new Game(bdstub, getTiles(), this.players);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);

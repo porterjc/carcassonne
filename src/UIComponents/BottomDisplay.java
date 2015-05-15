@@ -33,11 +33,8 @@ public class BottomDisplay extends JPanel{
      * Constructor
      * @param screenWidth The width of the screen
      * @param screenHeight The height of the screen
-     * @param game The game associated with this panel
      */
-    public BottomDisplay(int screenWidth, int screenHeight, Game game) {
-        this.game = game;
-
+    public BottomDisplay(int screenWidth, int screenHeight) {
         //Set up how this will look
         this.setBackground(GlobalVariables.DARK_BLUE);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -60,7 +57,7 @@ public class BottomDisplay extends JPanel{
         addMargin();
 
         // Add label to display the current tile
-        currentTileLabel = new JLabel(game.getCurrentTile().getIcon());
+        currentTileLabel = new JLabel();
         this.add(currentTileLabel);
         addMargin();
 
@@ -70,13 +67,20 @@ public class BottomDisplay extends JPanel{
         tilesLeftPanel.setBorder(new EmptyBorder(0, 20, 0, 20));
         JLabel tilesLabel = new GameLabel("Tiles Left:");
         tilesLabel.setAlignmentX(CENTER_ALIGNMENT);
-        tilesLeftLabel = new GameLabel(game.getNumberOfTilesLeft() + "");
+        tilesLeftLabel = new GameLabel("");
         tilesLeftLabel.setForeground(Color.RED);
         tilesLeftLabel.setFont(new Font(tilesLeftLabel.getFont().getName(), Font.BOLD, 64));
         tilesLeftLabel.setAlignmentX(CENTER_ALIGNMENT);
         tilesLeftPanel.add(tilesLabel);
         tilesLeftPanel.add(tilesLeftLabel);
         this.add(tilesLeftPanel);
+
+    }
+
+    public void initializeLabels(Game game) {
+        this.game = game;
+        currentTileLabel.setIcon(game.getCurrentTile().getIcon());
+        tilesLeftLabel.setText(game.getNumberOfTilesLeft() + "");
 
         // Add panel to display game state
         statePanel = new StatePanel(game);
