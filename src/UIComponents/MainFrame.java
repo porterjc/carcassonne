@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by porterjc on 3/26/2015.
@@ -274,17 +275,25 @@ public class MainFrame extends JFrame {
 
         this.add(mainpanel);
 
+        bottompanel = new BottomDisplay(screenWidth, screenHeight);
+        mainpanel.add(bottompanel, BorderLayout.SOUTH);
+
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+
+        Stack<PlayableTile> tiles = TileFactory.loadDeck();
+        Game game = new Game(bottompanel, tiles, players);
+
         boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
         boardDisplay.initialize(TileFactory.getStartTile());
-        boardDisplay.getGame().passTiles(TileFactory.loadDeck());
+        boardDisplay.setGame(game);
 
         scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        mainpanel.add(scrollBoard, BorderLayout.CENTER);
-
-        bottompanel = new BottomDisplay(screenWidth, screenHeight);
-        bottompanel.initializeLabels(boardDisplay.getGame());
+        bottompanel.initializeLabels(game);
         mainpanel.add(bottompanel, BorderLayout.SOUTH);
+        mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
         DragFrame scroller = new DragFrame(boardDisplay);
         scrollBoard.getViewport().addMouseMotionListener(scroller);
@@ -292,10 +301,6 @@ public class MainFrame extends JFrame {
 
         revalidate();
         repaint();
-    }
-
-    private Game getGame() {
-        return this.boardDisplay.getGame();
     }
 
 

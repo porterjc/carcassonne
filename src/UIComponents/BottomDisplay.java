@@ -2,15 +2,12 @@ package UIComponents;
 
 import Main.GlobalVariables;
 import Objects.Game;
-import Objects.PlayableTile;
-import Objects.Player;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 /**
  * This panel is displayed at the bottom of the screen and must be continuously updated as the game progresses. 
@@ -28,6 +25,9 @@ public class BottomDisplay extends JPanel{
     private ScorePanel scorePanel;
     /** The game in progress */
     private Game game;
+
+    /** Keeping track of whether the rotate button should respond */
+    private boolean rotateResponds;
 
     /**
      * Constructor
@@ -77,6 +77,10 @@ public class BottomDisplay extends JPanel{
 
     }
 
+    /**
+     * Initializes the labels based on data in a game object
+     * @param game the game object
+     */
     public void initializeLabels(Game game) {
         this.game = game;
         currentTileLabel.setIcon(game.getCurrentTile().getIcon());
@@ -91,6 +95,8 @@ public class BottomDisplay extends JPanel{
         // Add panel to display scores
         scorePanel = new ScorePanel(game.getPlayers());
         this.add(scorePanel);
+
+        rotateResponds = true;
     }
 
     /**
@@ -104,8 +110,37 @@ public class BottomDisplay extends JPanel{
      * Called when the "rotate tile" button is pressed
      */
     private void handleRotatePress() {
-        game.getCurrentTile().rotateTile();
+        if(rotateResponds) {
+            game.getCurrentTile().rotateTile();
+            updateCurrentTileLabel();
+        }
+    }
+
+    /**
+     * Called each time a tile is placed to update the UI
+     */
+    public void placedTileUpdate() {
+        rotateResponds = false;
+        disableLabel(currentTileLabel);
+        updateTilesLeftLabel();
+        updateStatePanel();
+    }
+
+    /**
+     * Called each time a meeple is placed to update the UI
+     */
+    public void placedMeepleUpdate() {
+        updateStatePanel();
+    }
+
+    /**
+     * Called each time the scoring algorithms have finished running
+     */
+    public void finishedScoringUpdate() {
+        rotateResponds = true;
         updateCurrentTileLabel();
+        updateStatePanel();
+        updateScorePanel();
     }
 
     /**
@@ -135,5 +170,13 @@ public class BottomDisplay extends JPanel{
      */
     private void updateScorePanel() {
         scorePanel.updateTable();
+    }
+
+    /**
+     * Sets the label to appear as "disabled"
+     * @param label the label to disable
+     */
+    private void disableLabel(JLabel label) {
+        //TODO make this appear gray
     }
 }

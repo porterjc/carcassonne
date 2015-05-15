@@ -62,7 +62,6 @@ public class Game {
 
     public Game(BottomDisplay display, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
         this(display, playableTiles, players, false, false);
-        numberOfOpenTilesOnBoard = 0;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
     }
 
@@ -79,6 +78,7 @@ public class Game {
         currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
         gameOver = false;
+        drawTile();
     }
 
 
@@ -116,10 +116,6 @@ public class Game {
         return currentTile;
     }
 
-    public void passTiles(Stack<PlayableTile> tiles) {
-        this.tiles = tiles;
-        drawTile();
-    }
 
     public boolean moveToNextTurn() {
         if (isGameOver()) return false;
@@ -131,6 +127,7 @@ public class Game {
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
 
         //as we don't want too much coupling between the UI and the GAME class over sharing Objects.Player objects
+        drawTile();
 
         return true;
     }
@@ -141,12 +138,18 @@ public class Game {
         switch (currentTurnState) {
             case TILE_PLACEMENT:
                 currentTurnState = TurnState.MEEPLE_PLACEMENT;
+                bottomDisplay.placedTileUpdate();
+                System.out.println("CURRENT: MEEPLE");
                 return true;
             case MEEPLE_PLACEMENT:
                 currentTurnState = TurnState.SCORING;
+                bottomDisplay.placedMeepleUpdate();
+                System.out.println("CURRENT: SCORING");
                 return true;
             case SCORING:
                 currentTurnState = TurnState.TILE_PLACEMENT;
+                bottomDisplay.finishedScoringUpdate();
+                System.out.println("CURRENT: TILE");
                 return moveToNextTurn();
         }
 
@@ -196,8 +199,10 @@ public class Game {
     }
 
     public void passTurn() {
-        if(currentTurnState == TurnState.MEEPLE_PLACEMENT)
+        if(currentTurnState == TurnState.MEEPLE_PLACEMENT) {
             moveToNextState();
+            moveToNextState();
+        }
     }
 
 

@@ -29,10 +29,6 @@ public class TileGrid extends JPanel {
     //Provides easy storage for the panel's preferred width
     private int panelHeight;
 
-    private JLabel currentTileLabel;
-    private JLabel tilesLeftLabel;
-    private JPanel statePanel;
-
     // The game that this grid is keeping track of.
     private Game game;
 
@@ -69,12 +65,6 @@ public class TileGrid extends JPanel {
      * @param startingTile the tile at the center at the beginning of the game.
      */
     public void initialize(PlayableTile startingTile) {
-
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(GlobalVariables.PlayerColor.RED));
-        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        players.add(new Player(GlobalVariables.PlayerColor.GREEN));
-        game = new Game(this, new Stack<PlayableTile>(), players);
 
         // Calculate the number of tiles to start with, make sure it's an odd, positive number so it looks pretty
         int numTilesX = panelWidth / AbstractTile.TILE_PIXEL_SIZE;
@@ -138,10 +128,21 @@ public class TileGrid extends JPanel {
 
     }
 
+    /**
+     * Getter method for the game associated with this component
+     * @return the game associated with this component
+     */
     public Game getGame() {
         return this.game;
     }
 
+    /**
+     * Setter method for the game associated with this component
+     * @param game the game associated with this component
+     */
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public void addNullRow(GlobalVariables.Direction dir) {
         if (dir == GlobalVariables.Direction.NORTH)
@@ -273,23 +274,6 @@ public class TileGrid extends JPanel {
 
         revalidate();
         repaint();
-    }
-
-    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel, StatePanel statePanel) {
-        this.currentTileLabel = tileLabel;
-        this.tilesLeftLabel = tilesLeftLabel;
-        this.statePanel = statePanel;
-    }
-
-    public void updateCurrentTileUI() {
-        this.currentTileLabel.setIcon(game.getCurrentTile().getIcon());
-        this.tilesLeftLabel.setText(game.getNumberOfTilesLeft() + "");
-
-    }
-
-
-    public void updateStatePanel() {
-
     }
 
     public boolean areValidMoves(PlayableTile tile) {
