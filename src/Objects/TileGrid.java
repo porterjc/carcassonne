@@ -31,7 +31,6 @@ public class TileGrid extends JPanel {
 
     private JLabel currentTileLabel;
     private JLabel tilesLeftLabel;
-    private GraphicButton turnLabel;
     private JPanel statePanel;
 
     // The game that this grid is keeping track of.
@@ -276,10 +275,9 @@ public class TileGrid extends JPanel {
         repaint();
     }
 
-    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel, GraphicButton turnLabel, StatePanel statePanel) {
+    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel, StatePanel statePanel) {
         this.currentTileLabel = tileLabel;
         this.tilesLeftLabel = tilesLeftLabel;
-        this.turnLabel = turnLabel;
         this.statePanel = statePanel;
     }
 
@@ -289,9 +287,6 @@ public class TileGrid extends JPanel {
 
     }
 
-    public void updateTurnLabel() {
-        this.turnLabel.setBackground(game.getCurrentTurnPlayer().getPlayerColor().getColor());
-    }
 
     public void updateStatePanel() {
 

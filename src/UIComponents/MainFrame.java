@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -273,14 +274,6 @@ public class MainFrame extends JFrame {
 
         this.add(mainpanel);
 
-        bottompanel = new JPanel();
-        bottompanel.setBackground(GlobalVariables.DARK_BLUE);
-        bottompanel.setLayout(new BoxLayout(bottompanel, BoxLayout.X_AXIS));
-        bottompanel.setPreferredSize(new Dimension(screenWidth, 200));
-        //bottompanel.setPreferredSize(new Dimension(SCREEN_WIDTH - COMPONENT_MARGIN, 200 - COMPONENT_MARGIN));
-        bottompanel.setBorder(new CompoundBorder(new EmptyBorder(22, 20, 20, 20), BorderFactory.createLoweredBevelBorder()));
-        mainpanel.add(bottompanel, BorderLayout.SOUTH);
-
         boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
         boardDisplay.initialize(TileFactory.getStartTile());
         boardDisplay.getGame().passTiles(TileFactory.loadDeck());
@@ -289,67 +282,8 @@ public class MainFrame extends JFrame {
 
         mainpanel.add(scrollBoard, BorderLayout.CENTER);
 
-        GraphicButton rotateLabel = new GraphicButton(100, 100) {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                PlayableTile current = boardDisplay.getGame().getCurrentTile();
-                current.rotateTile();
-                updateTile();
-
-            }
-        };
-
-        rotateLabel.setBackground(Color.RED);
-        rotateLabel.setBorder(BorderFactory.createRaisedBevelBorder());
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-        bottompanel.add(rotateLabel);
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-
-        tiledisplay = new JLabel(boardDisplay.getGame().getCurrentTile().getIcon());
-        bottompanel.add(tiledisplay);
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-
-        JPanel tilesLeftPanel = new JPanel();
-        tilesLeftPanel.setLayout(new BoxLayout(tilesLeftPanel, BoxLayout.Y_AXIS));
-        tilesLeftPanel.setBorder(new EmptyBorder(0, 20, 0, 20));
-        JLabel tilesLabel = new GameLabel("Tiles Left:");
-        tilesLabel.setAlignmentX(CENTER_ALIGNMENT);
-        tilesLeftLabel = new GameLabel(boardDisplay.getGame().getNumberOfTilesLeft() + "");
-        tilesLeftLabel.setForeground(Color.RED);
-        tilesLeftLabel.setFont(new Font(tilesLeftLabel.getFont().getName(), Font.BOLD, 64));
-        tilesLeftLabel.setAlignmentX(CENTER_ALIGNMENT);
-        tilesLeftPanel.add(tilesLabel);
-        tilesLeftPanel.add(tilesLeftLabel);
-        bottompanel.add(tilesLeftPanel);
-
-        GameLabel statusLabel = new GameLabel("RED: Place a tile");
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-        bottompanel.add(statusLabel);
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-
-        GraphicButton moveOnButton = new GraphicButton(120, 50) {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                boardDisplay.getGame().moveToNextState();
-            }
-        };
-
-        moveOnButton.setBackground(Color.RED);
-        moveOnButton.setBorder(BorderFactory.createRaisedBevelBorder());
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-        bottompanel.add(moveOnButton);
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-
-        boardDisplay.setTileLabels(tiledisplay, tilesLeftLabel, moveOnButton, new StatePanel());
-
-        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
-        // Just for GUI testing. TODO: delete
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(GlobalVariables.PlayerColor.RED));
-        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        players.add(new Player(GlobalVariables.PlayerColor.GREEN));
-        scorePanel = new ScorePanel(players);
-        bottompanel.add(scorePanel);
+        bottompanel = new BottomDisplay(screenWidth, screenHeight,boardDisplay.getGame());
+        mainpanel.add(bottompanel, BorderLayout.SOUTH);
 
         DragFrame scroller = new DragFrame(boardDisplay);
         scrollBoard.getViewport().addMouseMotionListener(scroller);
