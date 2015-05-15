@@ -80,7 +80,7 @@ public class PlayableTileRoadTest2 {
         Set<Meeple> meeples= new HashSet<Meeple>();
         Pair<HashSet<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false);
         assertEquals(1, score.getKey().size());
-       // assertEquals( 2, (int) score.getValue());
+        assertEquals( 2, (int) score.getValue());
     }
 
 }

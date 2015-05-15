@@ -152,7 +152,7 @@ public class PlayableTile extends AbstractTile {
     @Override
     public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame) {
         int currentTileScore = 1;
-        Pair<HashSet<Meeple>, Integer> leftscore, rightscore, topscore, bottomscore;
+        Pair<HashSet<Meeple>, Integer> leftscore, rightscore, topscore, bottomscore = null;
         alreadyVisited.add(this);
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
@@ -180,7 +180,7 @@ public class PlayableTile extends AbstractTile {
             }
         }
 
-        return new Pair(meeples, -1);
+        return new Pair(meeples, bottomscore.getValue());
     }
 
     private void addMeeple(Set<Meeple> meeples) {
