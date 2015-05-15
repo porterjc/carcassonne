@@ -150,9 +150,11 @@ public class PlayableTile extends AbstractTile {
 
 
     @Override
-    public Pair<HashSet<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame) {
+    public Pair<Set<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame) {
         int currentTileScore = 1;
-        Pair<HashSet<Meeple>, Integer> leftscore, rightscore, topscore, bottomscore = null;
+        Pair<Set<Meeple>, Integer> leftscore, rightscore, topscore;
+        Pair<Set<Meeple>,Integer> bottomscore = new Pair(meeples , -1);
+
         alreadyVisited.add(this);
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
@@ -180,7 +182,7 @@ public class PlayableTile extends AbstractTile {
             }
         }
 
-        return new Pair(meeples, bottomscore.getValue());
+        return new Pair(bottomscore.getKey(), bottomscore.getValue());
     }
 
     private void addMeeple(Set<Meeple> meeples) {
@@ -191,8 +193,8 @@ public class PlayableTile extends AbstractTile {
         }
     }
 
-    private Pair<HashSet<Meeple>, Integer> scoreRoadHelperMethod(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame, int currentTileScore, AbstractTile t) {
-        Pair<HashSet<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples, isEndOfGame);
+    private Pair<Set<Meeple>, Integer> scoreRoadHelperMethod(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame, int currentTileScore, AbstractTile t) {
+        Pair<Set<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples, isEndOfGame);
         if (isEndOfGame && temp.getValue() == -1) {
             return new Pair(meeples, currentTileScore + 1);
         } else if (temp.getValue() == -1) return new Pair(meeples, -1);

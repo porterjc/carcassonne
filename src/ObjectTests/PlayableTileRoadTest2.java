@@ -43,7 +43,7 @@ public class PlayableTileRoadTest2 {
         PlayableTile tile = new PlayableTile(tileFeatures, intA);
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<HashSet<Meeple>, Integer> score = tile.scoreRoad(alreadyvisited, meeples, false);
+        Pair<Set<Meeple>, Integer> score = tile.scoreRoad(alreadyvisited, meeples, false);
         assertEquals(0, score.getKey().size());
         assertEquals(-1, (int) score.getValue());
     }
@@ -80,7 +80,7 @@ public class PlayableTileRoadTest2 {
         bottom.setTop(top);
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<HashSet<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, true);
+        Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, true);
         assertEquals(1, score.getKey().size());
         assertEquals(2, (int) score.getValue());
 
@@ -116,7 +116,7 @@ public class PlayableTileRoadTest2 {
         bottom.setTop(top);
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<HashSet<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false);
+        Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false);
         assertEquals(1, score.getKey().size());
         assertEquals(2, (int) score.getValue());
     }
@@ -166,7 +166,7 @@ public class PlayableTileRoadTest2 {
         bottom.setTop(middle);
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<HashSet<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false);
+        Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false);
         assertEquals(2, score.getKey().size());
         assertEquals(3, (int) score.getValue());
     }

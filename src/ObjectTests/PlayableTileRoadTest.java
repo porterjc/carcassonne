@@ -108,7 +108,7 @@ public class PlayableTileRoadTest {
         assertEquals(m, p.getMeeple());
         p.setLeft(left);
         left.setRight(p);
-        Pair<HashSet<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
         assertEquals(1, result.getKey().size());
         assertEquals(m, result.getKey().toArray()[0]);
         assertEquals((Integer) 2, result.getValue());
@@ -138,7 +138,7 @@ public class PlayableTileRoadTest {
         assertEquals(m, p.getMeeple());
         p.setLeft(left);
         left.setRight(p);
-        Pair<HashSet<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
         assertEquals(1, result.getKey().size());
         assertEquals(m, result.getKey().toArray()[0]);
         assertEquals((Integer) 2, result.getValue());
@@ -183,7 +183,7 @@ public class PlayableTileRoadTest {
         m.place(right, GlobalVariables.Feature.ROAD, GlobalVariables.Location.LEFT);
         assertEquals(m, right.getMeeple());
 
-        Pair<HashSet<Meeple>, Integer> result2 = right.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result2 = right.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         assertEquals(1, result2.getKey().size());
         assertEquals(m, result2.getKey().toArray()[0]);
         assertEquals((Integer) 2, result2.getValue());
@@ -227,7 +227,7 @@ public class PlayableTileRoadTest {
         m.place(right, GlobalVariables.Feature.ROAD, GlobalVariables.Location.LEFT);
         assertEquals(m, right.getMeeple());
 
-        Pair<HashSet<Meeple>, Integer> result2 = left.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result2 = left.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         assertEquals(1, result2.getKey().size());
         assertEquals(m, result2.getKey().toArray()[0]);
         assertEquals((Integer) 2, result2.getValue());
@@ -269,7 +269,7 @@ public class PlayableTileRoadTest {
         bl.setTop(tl);
         tl.setBottom(bl);
         tl.setBottom(bl);
-        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
         assertEquals(-1, (int) temp.getValue());
         assertEquals(2, temp.getKey().size());
     }
@@ -321,7 +321,7 @@ public class PlayableTileRoadTest {
         tl.setRight(tr);
         tr.setLeft(tl);
         tl.setBottom(bl);
-        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
         assertEquals((Integer) 4, temp.getValue());
         assertEquals(2, temp.getKey().size());
 
@@ -376,7 +376,7 @@ public class PlayableTileRoadTest {
         tl.setBottom(bl);
         tl.setBottom(bl);
 
-        Pair<HashSet<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
         assertEquals(3, (int) temp.getValue());
         assertEquals(2, temp.getKey().size());
     }
@@ -410,7 +410,7 @@ public class PlayableTileRoadTest {
         assertEquals(tl1, bl1.getTop());
 
 
-        Pair<HashSet<Meeple>, Integer> temp = bl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        Pair<Set<Meeple>, Integer> temp = bl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
         assertEquals(2, (int) temp.getValue());
         assertEquals(0, temp.getKey().size());
 
