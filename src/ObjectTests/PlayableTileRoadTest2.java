@@ -79,9 +79,8 @@ public class PlayableTileRoadTest2 {
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
         Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false).pop();
-        assertEquals(1, score.getKey().size());
+        assertEquals(0, score.getKey().size()); //This should be 1 qhen end of game is on
         assertEquals(-1, (int) score.getValue());
-
 
     }
     @Test
@@ -112,7 +111,7 @@ public class PlayableTileRoadTest2 {
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
         Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, true).pop();
-        assertEquals(1, score.getKey().size());
+        assertEquals(1, score.getKey().size()); //TODOneed to add code for this
         assertEquals(2, (int) score.getValue());
 
     }
@@ -252,6 +251,8 @@ public class PlayableTileRoadTest2 {
         top.setMeeple(m2);
 
         //set the tiles
+        top.setRight(topRight);
+        topRight.setLeft(top);
         middle.setTop(top);
         middle.setBottom(bottom);
         top.setBottom(middle);
@@ -312,6 +313,8 @@ public class PlayableTileRoadTest2 {
         top.setMeeple(m2);
 
         //set the tiles
+        top.setRight(topRight);
+        topRight.setLeft(top);
         middle.setTop(top);
         middle.setBottom(bottom);
         top.setBottom(middle);
