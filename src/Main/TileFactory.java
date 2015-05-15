@@ -1220,6 +1220,165 @@ public class TileFactory {
     public static Stack<PlayableTile> getRiverTiles() {
         Stack<PlayableTile> riverTiles = new Stack<>();
 
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r1.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.GARDEN);
+
+            riverTiles.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r2.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.RIVER);
+
+            riverTiles.add(new PlayableTile(image, features));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r3.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+
+            riverTiles.add(new PlayableTile(image, features));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r4.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.RIVER);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+            riverTiles.add(new PlayableTile(image, features));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r5.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.RIVER);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.CITY);
+
+            riverTiles.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r6.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.ROADSTOP);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            riverTiles.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r7.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.RIVER);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.ROADSTOP);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            riverTiles.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r8.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.RIVER);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+
+            riverTiles.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r9.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            riverTiles.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("images/r10.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.RIVER);
+            features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.RIVER);
+
+            Set<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
+            internals.add(GlobalVariables.Internal.MONASTERY);
+
+            riverTiles.add(new PlayableTile(image, features, internals));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return riverTiles;
     }
 
