@@ -55,6 +55,16 @@ public class Player {
         return false;
     }
 
+    public boolean hasMeeplesLeft() {
+        return meeples.size() != 0;
+    }
+
+    public Meeple removeMeeple() {
+        if (!hasMeeplesLeft())
+            return null;
+        return meeples.remove(meeples.size() - 1);
+    }
+
     public int getScore() {
         return this.playerScore;
     }
