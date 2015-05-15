@@ -106,11 +106,11 @@ public class MainFrame extends JFrame {
     private void setupMainMenu() {
         optionsPanel.removeAll();
 
-        GraphicButton newGameButton = new GraphicButton(buttonWidth, buttonHeight, "New Objects.Game") {
+        GraphicButton newGameButton = new GraphicButton(buttonWidth, buttonHeight, "New Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //setupGameOptions();
-                setupGamePlay();
+                setupGameOptions();
+                //setupGamePlay();
             }
         };
 
@@ -181,7 +181,7 @@ public class MainFrame extends JFrame {
         optionsPanel.add(colorLabel);
         optionsPanel.add(getMarginArea(smallMargin));
 
-        SelectPanel meepleSelectPanel = new SelectPanel();
+        SelectPanel meepleSelectPanel = new MultipleSelectablePanels();
         MeepleButton redbutton = new MeepleButton(GlobalVariables.PlayerColor.RED, meepleSelectPanel);
         meepleSelectPanel.add(redbutton);
         meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.YELLOW, meepleSelectPanel));
@@ -194,24 +194,25 @@ public class MainFrame extends JFrame {
         optionsPanel.add(meepleSelectPanel);
         optionsPanel.add(getMarginArea(largeMargin));
 
+//The following commented out code is no longer the method of choosing how many players. That will be done by selected colors
         // This lets the user choose how many computer players they want to play against
-        GameLabel playersLabel = new GameLabel("Choose number of players:");
-        playersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        optionsPanel.add(playersLabel);
-        optionsPanel.add(getMarginArea(smallMargin));
-
-        SelectPanel playersSelectPanel = new SelectPanel();
-        SelectableButton button1 = new SelectableButton(50, 50, "2", playersSelectPanel);
-        playersSelectPanel.add(button1);
-        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
-        playersSelectPanel.add(new SelectableButton(50, 50, "3", playersSelectPanel));
-        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
-        playersSelectPanel.add(new SelectableButton(50, 50, "4", playersSelectPanel));
-        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
-        playersSelectPanel.add(new SelectableButton(50, 50, "5", playersSelectPanel));
-        playersSelectPanel.setSelected(button1);
-        optionsPanel.add(playersSelectPanel);
-        optionsPanel.add(getMarginArea(largeMargin));
+//        GameLabel playersLabel = new GameLabel("Choose number of players:");
+//        playersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        optionsPanel.add(playersLabel);
+//        optionsPanel.add(getMarginArea(smallMargin));
+//
+//        SelectPanel playersSelectPanel = new SelectPanel();
+//        SelectableButton button1 = new SelectableButton(50, 50, "2", playersSelectPanel);
+//        playersSelectPanel.add(button1);
+//        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
+//        playersSelectPanel.add(new SelectableButton(50, 50, "3", playersSelectPanel));
+//        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
+//        playersSelectPanel.add(new SelectableButton(50, 50, "4", playersSelectPanel));
+//        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
+//        playersSelectPanel.add(new SelectableButton(50, 50, "5", playersSelectPanel));
+//        playersSelectPanel.setSelected(button1);
+//        optionsPanel.add(playersSelectPanel);
+//        optionsPanel.add(getMarginArea(largeMargin));
 
         // This lets the user specify additional rules
         GameLabel rulesLabel = new GameLabel("Expansions:");
@@ -227,7 +228,7 @@ public class MainFrame extends JFrame {
         optionsPanel.add(getMarginArea(largeMargin));
 
 
-        GraphicButton startButton = new GraphicButton(buttonWidth, buttonHeight, "Start Objects.Game") {
+        GraphicButton startButton = new GraphicButton(buttonWidth, buttonHeight, "Start Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
                 setupGamePlay();
@@ -344,6 +345,7 @@ public class MainFrame extends JFrame {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
         players.add(new Player(GlobalVariables.PlayerColor.GREEN));
+
         scorePanel = new ScorePanel(players);
         bottompanel.add(scorePanel);
 
@@ -403,6 +405,47 @@ public class MainFrame extends JFrame {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setPaint(new TexturePaint(image, new Rectangle(400, 400)));
             g2d.fill(this.getBounds());
+        }
+    }
+
+    /**
+     * Extension of selectPanel that allows for multiple selections
+     */
+    private class MultipleSelectablePanels extends SelectPanel{
+
+        private ArrayList<SelectableButton> selected;
+
+        /**
+         * Constructor
+         */
+        public MultipleSelectablePanels() {
+            super();
+            this.selected = new ArrayList<>();
+            this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+            this.setOpaque(false);
+        }
+
+        /**
+         * Gets the currently selected button
+         * @return the currently selected button
+         */
+        public ArrayList<SelectableButton> getAllSelected() {
+            return selected;
+        }
+
+        /**
+         * Selects a new button
+         * @param selected the button to select
+         */
+        @Override
+        public void setSelected(SelectableButton selected){
+            if(this.selected.contains(selected)){
+                selected.deselect();
+                this.selected.remove(selected);
+            }else {
+                this.selected.add(selected);
+                selected.select();
+            }
         }
     }
 
