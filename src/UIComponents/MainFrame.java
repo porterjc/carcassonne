@@ -39,6 +39,8 @@ public class MainFrame extends JFrame {
     private BufferedImage pic;
     private ArrayList<PlayableTile> tiles;
 
+    private ArrayList<MeepleButton> playerColors;
+
     private int screenWidth;
     private int screenHeight;
 
@@ -53,6 +55,8 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         super();
+
+        playerColors = new ArrayList<>();
 
         //this.setUndecorated(true);
         GraphicsDevice graphD = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -183,7 +187,7 @@ public class MainFrame extends JFrame {
         optionsPanel.add(colorLabel);
         optionsPanel.add(getMarginArea(smallMargin));
 
-        MultipleSelectablePanels meepleSelectPanel = new MultipleSelectablePanels();
+        final MultipleSelectablePanels meepleSelectPanel = new MultipleSelectablePanels();
         MeepleButton redbutton = new MeepleButton(GlobalVariables.PlayerColor.RED, meepleSelectPanel);
         meepleSelectPanel.add(redbutton);
         meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.YELLOW, meepleSelectPanel));
@@ -230,9 +234,10 @@ public class MainFrame extends JFrame {
         optionsPanel.add(getMarginArea(largeMargin));
 
 
-        GraphicButton startButton = new GraphicButton(buttonWidth, buttonHeight, "Start Objects.Game") {
+        GraphicButton startButton = new GraphicButton(buttonWidth, buttonHeight, "Start Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
+                playerColors = meepleSelectPanel.getAllSelected();
                 setupGamePlay();
             }
         };
@@ -280,8 +285,11 @@ public class MainFrame extends JFrame {
         mainpanel.add(bottompanel, BorderLayout.SOUTH);
 
         ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(GlobalVariables.PlayerColor.RED));
-        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+//        players.add(new Player(GlobalVariables.PlayerColor.RED));
+//        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+        for(MeepleButton player : playerColors){
+            players.add(new Player(player.color));
+        }
 
         Stack<PlayableTile> tiles = TileFactory.loadDeck();
         Game game = new Game(bottompanel, tiles, players);
@@ -343,11 +351,11 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     * Extension of selectPanel that allows for multiple selections
+     * Extension of selectPanel that allows for multiple selections specifically for Meeple buttons
      */
     private class MultipleSelectablePanels extends SelectPanel{
 
-        private ArrayList<SelectableButton> selected;
+        private ArrayList<MeepleButton> selected;
 
         /**
          * Constructor
@@ -363,7 +371,7 @@ public class MainFrame extends JFrame {
          * Gets the currently selected button
          * @return the currently selected button
          */
-        public ArrayList<SelectableButton> getAllSelected() {
+        public ArrayList<MeepleButton> getAllSelected() {
             return selected;
         }
 
@@ -377,7 +385,7 @@ public class MainFrame extends JFrame {
                 selected.deselect();
                 this.selected.remove(selected);
             }else {
-                this.selected.add(selected);
+                this.selected.add((MeepleButton) selected);
                 selected.select();
             }
         }
