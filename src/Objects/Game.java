@@ -128,7 +128,7 @@ public class Game {
 
         //as we don't want too much coupling between the UI and the GAME class over sharing Objects.Player objects
         drawTile();
-
+        bottomDisplay.finishedScoringUpdate();
         return true;
     }
 
@@ -148,7 +148,6 @@ public class Game {
                 return true;
             case SCORING:
                 currentTurnState = TurnState.TILE_PLACEMENT;
-                bottomDisplay.finishedScoringUpdate();
                 System.out.println("CURRENT: TILE");
                 return moveToNextTurn();
         }
