@@ -26,6 +26,8 @@ public class Meeple {
         meepleOwner = p;
     }
 
+
+
     public GlobalVariables.PlayerColor getColor() {
         return mColor;
     }
