@@ -1,11 +1,11 @@
 package UIComponents;
 
 import Objects.Player;
-import UIComponents.GameLabel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -15,17 +15,17 @@ import java.util.ArrayList;
 public class ScorePanel extends JPanel {
 
     // The players in this game
-    private ArrayList<Player> players;
+    private List<Player> players;
 
     // The labels in the table
-    private ArrayList<PlayerInfoLabel> meepleLabels;
-    private ArrayList<PlayerInfoLabel> scoreLabels;
+    private List<PlayerInfoLabel> meepleLabels;
+    private List<PlayerInfoLabel> scoreLabels;
 
     /**
      * Constructor
      * @param players A list of players
      */
-    public ScorePanel(ArrayList<Player> players) {
+    public ScorePanel(List<Player> players) {
         super();
         this.setBorder(new EmptyBorder(20, 20, 20, 20));
         this.setLayout(new GridLayout(3, players.size() + 1));
@@ -45,7 +45,7 @@ public class ScorePanel extends JPanel {
 
         for(Player p : players) { // Add color labels
             JPanel colorPanel = new JPanel();
-            colorPanel.setBackground(p.getColor().getColor());
+            colorPanel.setBackground(p.getPlayerColor().getColor());
             this.add(colorPanel);
         }
 

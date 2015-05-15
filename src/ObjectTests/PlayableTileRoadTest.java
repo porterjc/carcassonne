@@ -95,7 +95,7 @@ public class PlayableTileRoadTest {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
 
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         PlayableTile left = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -108,7 +108,7 @@ public class PlayableTileRoadTest {
         assertEquals(m, p.getMeeple());
         p.setLeft(left);
         left.setRight(p);
-        Pair<Set<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false).pop();
         assertEquals(1, result.getKey().size());
         assertEquals(m, result.getKey().toArray()[0]);
         assertEquals((Integer) 2, result.getValue());
@@ -126,7 +126,7 @@ public class PlayableTileRoadTest {
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
 
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         PlayableTile left = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
@@ -138,7 +138,7 @@ public class PlayableTileRoadTest {
         assertEquals(m, p.getMeeple());
         p.setLeft(left);
         left.setRight(p);
-        Pair<Set<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result = p.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false).pop();
         assertEquals(1, result.getKey().size());
         assertEquals(m, result.getKey().toArray()[0]);
         assertEquals((Integer) 2, result.getValue());
@@ -148,7 +148,7 @@ public class PlayableTileRoadTest {
     @Test
     public void testShortRoadThreeTilesStartingRight() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
 
         //Left Tile
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> leftTileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -183,7 +183,7 @@ public class PlayableTileRoadTest {
         m.place(right, GlobalVariables.Feature.ROAD, GlobalVariables.Location.LEFT);
         assertEquals(m, right.getMeeple());
 
-        Pair<Set<Meeple>, Integer> result2 = right.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result2 = right.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false).pop();
         assertEquals(1, result2.getKey().size());
         assertEquals(m, result2.getKey().toArray()[0]);
         assertEquals((Integer) 2, result2.getValue());
@@ -193,7 +193,7 @@ public class PlayableTileRoadTest {
     @Test
     public void testShortRoadThreeTilesStartingLeft() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         //Left Tile
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> leftTileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         leftTileFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
@@ -227,7 +227,7 @@ public class PlayableTileRoadTest {
         m.place(right, GlobalVariables.Feature.ROAD, GlobalVariables.Location.LEFT);
         assertEquals(m, right.getMeeple());
 
-        Pair<Set<Meeple>, Integer> result2 = left.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> result2 = left.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false).pop();
         assertEquals(1, result2.getKey().size());
         assertEquals(m, result2.getKey().toArray()[0]);
         assertEquals((Integer) 2, result2.getValue());
@@ -237,7 +237,7 @@ public class PlayableTileRoadTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         //make meeples for testing
         Meeple p1m = new Meeple(new Player(GlobalVariables.PlayerColor.YELLOW), GlobalVariables.PlayerColor.YELLOW);
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
@@ -269,7 +269,7 @@ public class PlayableTileRoadTest {
         bl.setTop(tl);
         tl.setBottom(bl);
         tl.setBottom(bl);
-        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false).pop();
         assertEquals(-1, (int) temp.getValue());
         assertEquals(2, temp.getKey().size());
     }
@@ -278,7 +278,7 @@ public class PlayableTileRoadTest {
     public void testLongerRoad() {
         Player p = new Player(GlobalVariables.PlayerColor.YELLOW);
         Meeple p1m = new Meeple(p, GlobalVariables.PlayerColor.YELLOW);
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -321,7 +321,7 @@ public class PlayableTileRoadTest {
         tl.setRight(tr);
         tr.setLeft(tl);
         tl.setBottom(bl);
-        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), false).pop();
         assertEquals((Integer) 4, temp.getValue());
         assertEquals(2, temp.getKey().size());
 
@@ -343,7 +343,7 @@ public class PlayableTileRoadTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         //make meeples for testing
         Meeple p1m = new Meeple(new Player(GlobalVariables.PlayerColor.YELLOW), GlobalVariables.PlayerColor.YELLOW);
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
@@ -376,7 +376,7 @@ public class PlayableTileRoadTest {
         tl.setBottom(bl);
         tl.setBottom(bl);
 
-        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        Pair<Set<Meeple>, Integer> temp = br.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true).pop();
         assertEquals(3, (int) temp.getValue());
         assertEquals(2, temp.getKey().size());
     }
@@ -386,7 +386,7 @@ public class PlayableTileRoadTest {
     public void testEndOfGameScoringLongerRoadWithNoEndInOtherDirection() {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         //make meeples for testing
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> fls = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
@@ -410,13 +410,13 @@ public class PlayableTileRoadTest {
         assertEquals(tl1, bl1.getTop());
 
 
-        Pair<Set<Meeple>, Integer> temp = bl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true);
+        Pair<Set<Meeple>, Integer> temp = bl1.scoreRoad(alreadyVisited, new HashSet<Meeple>(), true).pop();
         assertEquals(2, (int) temp.getValue());
         assertEquals(0, temp.getKey().size());
 
         m.place(tl1, GlobalVariables.Feature.ROAD, GlobalVariables.Location.RIGHT);
 
-        temp = tl1.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
+        temp = tl1.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true).pop();
         assertEquals(2, (int) temp.getValue());
         assertEquals(1, temp.getKey().size());
     }

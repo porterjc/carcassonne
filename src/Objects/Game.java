@@ -1,7 +1,6 @@
 package Objects;
 
-import Main.GlobalVariables;
-import Objects.*;
+import UIComponents.BottomDisplay;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -11,7 +10,7 @@ import java.util.*;
  * Created by johnsoaa on 3/25/2015.
  */
 public class Game {
-    private TileGrid grid;
+    private BottomDisplay bottomDisplay;
     private List<Player> players;
     private boolean gameOver;
     private boolean riverMode;
@@ -26,31 +25,25 @@ public class Game {
     /**
      * Constructor for a game
      *
-     * @param grid The grid that stores all of the tiles in this game
      */
-    public Game(TileGrid grid) {
-        this.grid = grid;
+   /* public Game(BottomDisplay bottomDisplay) {
+        this.bottomDisplay = bottomDisplay;
         tiles = new Stack<>();
         gameOver = false;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>(); //TODO change this!this
 
         numberOfOpenTilesOnBoard = 0;
         drawTile();
-    }
+    }*/
 
     //TODO get rid of all constructors and just make one
-    public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
+   /* public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
         this(stack, players, false, false);
         numberOfOpenTilesOnBoard = 0;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-    }
+    }*/
 
-    /**
-     * Done add parameters for passing a list of players
-     *
-     * @param stack
-     */
-    public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+   /* public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
         if (players.size() > 1) {
             this.players = players;
         }
@@ -59,13 +52,18 @@ public class Game {
         numberOfOpenTilesOnBoard = 0;
         currentTurn = 0;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-        currentTurnState = TurnState.TILE_PlACEMENT;
+        currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
         gameOver = false;
+    } */
+
+    public Game(BottomDisplay display, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
+        this(display, playableTiles, players, false, false);
+//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
     }
 
-    public Game(TileGrid grid, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
-        this.grid = grid;
+    public Game(BottomDisplay bottomDisplay, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
+        this.bottomDisplay = bottomDisplay;
         if (players.size() > 1) {
             this.players = players;
         }
@@ -74,16 +72,12 @@ public class Game {
         numberOfOpenTilesOnBoard = 0;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
         currentTurn = 0;
-        currentTurnState = TurnState.TILE_PlACEMENT;
+        currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
         gameOver = false;
+        drawTile();
     }
 
-    public Game(TileGrid tileGrid, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
-        this(tileGrid, playableTiles, players, false, false);
-        numberOfOpenTilesOnBoard = 0;
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-    }
 
     //TODO determine where to handle score
 
@@ -119,10 +113,6 @@ public class Game {
         return currentTile;
     }
 
-    public void passTiles(Stack<PlayableTile> tiles) {
-        this.tiles = tiles;
-        drawTile();
-    }
 
     public boolean moveToNextTurn() {
         if (isGameOver()) return false;
@@ -134,7 +124,8 @@ public class Game {
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
 
         //as we don't want too much coupling between the UI and the GAME class over sharing Objects.Player objects
-
+        drawTile();
+        bottomDisplay.finishedScoringUpdate();
         return true;
     }
 
@@ -142,14 +133,19 @@ public class Game {
         if (isGameOver()) return false;
 
         switch (currentTurnState) {
-            case TILE_PlACEMENT:
+            case TILE_PLACEMENT:
                 currentTurnState = TurnState.MEEPLE_PLACEMENT;
+                bottomDisplay.placedTileUpdate();
+                System.out.println("CURRENT: MEEPLE");
                 return true;
             case MEEPLE_PLACEMENT:
                 currentTurnState = TurnState.SCORING;
+                bottomDisplay.placedMeepleUpdate();
+                System.out.println("CURRENT: SCORING");
                 return true;
             case SCORING:
-                currentTurnState = TurnState.TILE_PlACEMENT;
+                currentTurnState = TurnState.TILE_PLACEMENT;
+                System.out.println("CURRENT: TILE");
                 return moveToNextTurn();
         }
 
@@ -166,6 +162,10 @@ public class Game {
 
     public Player getCurrentTurnPlayer() {
         return players.get(currentTurn);
+    }
+
+    public boolean canManuallyPass() {
+        return currentTurnState == TurnState.MEEPLE_PLACEMENT;
     }
 
     public String getCurrentStateText() { return this.currentTurnState.getText(); }
@@ -196,9 +196,16 @@ public class Game {
         return false;
     }
 
+    public void passTurn() {
+        if(currentTurnState == TurnState.MEEPLE_PLACEMENT) {
+            moveToNextState();
+            moveToNextState();
+        }
+    }
+
 
     private enum TurnState {
-        TILE_PlACEMENT("Place a tile"),
+        TILE_PLACEMENT("Place a tile"),
         MEEPLE_PLACEMENT("Place a meeple"),
         SCORING("Scoring, please wait...");
 
