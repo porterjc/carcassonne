@@ -144,6 +144,7 @@ public class Game {
             case MEEPLE_PLACEMENT:
                 currentTurnState = TurnState.SCORING;
                 bottomDisplay.placedMeepleUpdate();
+                scoreCurrentTurn();
                 System.out.println("CURRENT: SCORING");
                 return true;
             case SCORING:
@@ -175,6 +176,10 @@ public class Game {
 
     public void updateScore(Player p, int i) {
         p.updateScore(i);
+    }
+
+    private void scoreCurrentTurn() {
+        
     }
 
     public boolean updateAllScores() {

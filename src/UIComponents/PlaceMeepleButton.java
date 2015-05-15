@@ -65,7 +65,6 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
             game.addMonk(toPlace);
 
         game.moveToNextState();
-        game.moveToNextState();
     }
 
     @Override
