@@ -18,42 +18,59 @@ import java.util.ArrayList;
  */
 public class BottomDisplay extends JPanel{
 
+    /** Displays the current tile */
+    private JLabel currentTileLabel;
+    /** Displays the tiles left in the game */
     private JLabel tilesLeftLabel;
-    
-    public BottomDisplay(int screenWidth, int screenHeight, final Game game) {
+    /** Displays the current game state: who is playing? */
+    private StatePanel statePanel;
+    /** Displays each player's current score and remaining meeples */
+    private ScorePanel scorePanel;
+    /** The game in progress */
+    private Game game;
+
+    /**
+     * Constructor
+     * @param screenWidth The width of the screen
+     * @param screenHeight The height of the screen
+     * @param game The game associated with this panel
+     */
+    public BottomDisplay(int screenWidth, int screenHeight, Game game) {
+        this.game = game;
+
+        //Set up how this will look
         this.setBackground(GlobalVariables.DARK_BLUE);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.setPreferredSize(new Dimension(screenWidth, 200));
         //this.setPreferredSize(new Dimension(SCREEN_WIDTH - COMPONENT_MARGIN, 200 - COMPONENT_MARGIN));
         this.setBorder(new CompoundBorder(new EmptyBorder(22, 20, 20, 20), BorderFactory.createLoweredBevelBorder()));
 
-
+        // Add button to rotate the current tile
         GraphicButton rotateLabel = new GraphicButton(100, 100) {
             @Override
             public void mouseClicked(MouseEvent e) {
-                PlayableTile current = game.getCurrentTile();
-                current.rotateTile();
-               // updateTile();
-
+                handleRotatePress();
             }
         };
 
         rotateLabel.setBackground(Color.RED);
         rotateLabel.setBorder(BorderFactory.createRaisedBevelBorder());
-        this.add(Box.createRigidArea(new Dimension(20, 20)));
+        addMargin();
         this.add(rotateLabel);
-        this.add(Box.createRigidArea(new Dimension(20, 20)));
+        addMargin();
 
-        JLabel tiledisplay = new JLabel(game.getCurrentTile().getIcon());
-        this.add(tiledisplay);
-        this.add(Box.createRigidArea(new Dimension(20, 20)));
+        // Add label to display the current tile
+        currentTileLabel = new JLabel(game.getCurrentTile().getIcon());
+        this.add(currentTileLabel);
+        addMargin();
 
+        // Add panel to display the tiles left in the game
         JPanel tilesLeftPanel = new JPanel();
         tilesLeftPanel.setLayout(new BoxLayout(tilesLeftPanel, BoxLayout.Y_AXIS));
         tilesLeftPanel.setBorder(new EmptyBorder(0, 20, 0, 20));
         JLabel tilesLabel = new GameLabel("Tiles Left:");
         tilesLabel.setAlignmentX(CENTER_ALIGNMENT);
-        GameLabel tilesLeftLabel = new GameLabel(game.getNumberOfTilesLeft() + "");
+        tilesLeftLabel = new GameLabel(game.getNumberOfTilesLeft() + "");
         tilesLeftLabel.setForeground(Color.RED);
         tilesLeftLabel.setFont(new Font(tilesLeftLabel.getFont().getName(), Font.BOLD, 64));
         tilesLeftLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -61,20 +78,58 @@ public class BottomDisplay extends JPanel{
         tilesLeftPanel.add(tilesLeftLabel);
         this.add(tilesLeftPanel);
 
-        StatePanel statePanel = new StatePanel(game);
-        this.add(Box.createRigidArea(new Dimension(20, 20)));
+        // Add panel to display game state
+        statePanel = new StatePanel(game);
+        addMargin();
         this.add(statePanel);
-        this.add(Box.createRigidArea(new Dimension(20, 20)));
+        addMargin();
 
-        //boardDisplay.setTileLabels(tiledisplay, tilesLeftLabel, statePanel);
-
-        // this.add(Box.createRigidArea(new Dimension(20, 20)));
-        // Just for GUI testing. TODO: delete
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(GlobalVariables.PlayerColor.RED));
-        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        players.add(new Player(GlobalVariables.PlayerColor.GREEN));
-        ScorePanel scorePanel = new ScorePanel(players);
+        // Add panel to display scores
+        scorePanel = new ScorePanel(game.getPlayers());
         this.add(scorePanel);
+    }
+
+    /**
+     * Adds a margin between the UI components
+     */
+    private void addMargin() {
+        this.add(Box.createRigidArea(new Dimension(20, 20)));
+    }
+
+    /**
+     * Called when the "rotate tile" button is pressed
+     */
+    private void handleRotatePress() {
+        game.getCurrentTile().rotateTile();
+        updateCurrentTileLabel();
+    }
+
+    /**
+     * Updates the current tile label to display the current tile
+     */
+    private void updateCurrentTileLabel() {
+        currentTileLabel.setIcon(game.getCurrentTile().getIcon());
+    }
+
+    /**
+     * Updates the label showing the number of tiles left
+     */
+    private void updateTilesLeftLabel() {
+        tilesLeftLabel.setText(game.getNumberOfTilesLeft() + "");
+    }
+
+    /**
+     * Updates necessary components in the state panel
+     */
+    private void updateStatePanel() {
+        statePanel.updateStateLabel();
+        statePanel.updatePassButton();
+    }
+
+    /**
+     * Updates the score panel to show the current results
+     */
+    private void updateScorePanel() {
+        scorePanel.updateTable();
     }
 }
