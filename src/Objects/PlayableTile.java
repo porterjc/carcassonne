@@ -214,14 +214,13 @@ public class PlayableTile extends AbstractTile {
     /**
      * startScoreCity runs scoreCity in all given directions and then returns the total score and list of meeples found
      *
-     * @param alreadyVisited
-     * @param meeples
-     * @param directions
      * @param completion
      * @return
      */
-    public Pair<HashSet<Meeple>, Integer> startScoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, Set<GlobalVariables.Direction> directions, boolean completion) {
+    public Pair<HashSet<Meeple>, Integer> startScoreCity( boolean completion) {
         int currentScore = 2;
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
         if (this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
@@ -230,16 +229,16 @@ public class PlayableTile extends AbstractTile {
         if (getMeeple() != null)
             meeples.add(this.getMeeple());
 
-        if (directions.contains(GlobalVariables.Direction.NORTH)) {
+        if (this.getTopFeature() == GlobalVariables.Feature.CITY) {
             currentScore += getTop().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if (directions.contains(GlobalVariables.Direction.WEST)) {
+        if (this.getLeftFeature() == GlobalVariables.Feature.CITY) {
             currentScore += getLeft().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if (directions.contains(GlobalVariables.Direction.EAST)) {
+        if (this.getRightFeature() == GlobalVariables.Feature.CITY) {
             currentScore += getRight().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if (directions.contains(GlobalVariables.Direction.SOUTH)) {
+        if (this.getBottomFeature() == GlobalVariables.Feature.CITY) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
         return new Pair(meeples, currentScore);
