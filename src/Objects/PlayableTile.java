@@ -23,10 +23,12 @@ public class PlayableTile extends AbstractTile {
     public PlayableTile() {
         super();
     }
-    public PlayableTile (HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
-        super(new OpenTile(), new OpenTile(), new OpenTile(),new OpenTile(), features, internals);
+
+    public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+        super(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
         super.isPlayable = true;
     }
+
     public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features) {
         super(o, o1, o2, o3, features);
         super.isPlayable = true;
@@ -151,13 +153,13 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     public Stack<Pair<Set<Meeple>, Integer>> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame) {
+        //get the variables needed for scoring a road
         Stack<Pair<Set<Meeple>, Integer>> ofscores = new Stack<Pair<Set<Meeple>, Integer>>();
         int currentTileScore = 1;
-        Pair<Set<Meeple>, Integer> leftscore, rightscore, topscore;
-        Pair<Set<Meeple>,Integer> bottomscore = new Pair(meeples , -1);
+        Pair<Set<Meeple>, Integer> leftscore = new Pair(meeples, -1), rightscore = new Pair(meeples, -1), topscore = new Pair(meeples, -1), bottomscore = new Pair(meeples, -1);
+        Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
 
         alreadyVisited.add(this);
-        Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
         {
             addMeeple(meeples); //TODO actually fix this
