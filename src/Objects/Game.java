@@ -2,6 +2,7 @@ package Objects;
 
 import UIComponents.BottomDisplay;
 import javafx.util.Pair;
+import sun.rmi.runtime.Log;
 
 import javax.swing.*;
 import java.util.*;
@@ -183,11 +184,11 @@ public class Game {
     }
 
     public boolean updateAllScores() {
-        Pair<HashSet<Meeple>, Integer> scoreCity, scoreRoad, scoreFarmer;
+        Pair<HashSet<Meeple>, Integer> scoreCity, scoreFarmer;
         scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-//        scoreRoad = this.currentTile.scoreRoad(alreadyVisited, meeples, false);
+        Pair<Set<Meeple>, Integer> scoreRoad = this.currentTile.scoreRoad(alreadyVisited, meeples, false).pop();
         if (scoreCity.getValue() > 0) {
             for (Meeple m : scoreCity.getKey()) {
                 m.getPlayer().updateScore(scoreCity.getValue());
@@ -195,12 +196,13 @@ public class Game {
             return true;
         }
 
-//        if (scoreRoad.getValue() > 0) {
-//            for (Meeple m : scoreRoad.getKey()) {
-//                m.getPlayer().updateScore(scoreRoad.getValue());
-//            }
-//            return true;
-//        }
+        if (scoreRoad.getValue() > 0) {
+            for (Meeple m : scoreRoad.getKey()) {
+            for (Meeple m : scoreRoad.getKey()) {
+                m.getPlayer().updateScore(scoreRoad.getValue());
+            }
+            return true;
+        }
         return false;
     }
 

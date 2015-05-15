@@ -1,20 +1,21 @@
 package ObjectTests;
 
-import Main.*;
-import Objects.*;
+import Main.GlobalVariables;
+import Objects.AbstractTile;
+import Objects.Meeple;
+import Objects.PlayableTile;
+import Objects.Player;
 import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-
-import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by johnsoaa on 5/14/2015.
@@ -116,7 +117,7 @@ public class PlayableTileRoadTest2 {
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
         Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, true).pop();
-        assertEquals(1, score.getKey().size()); //TODOneed to add code for this
+        assertEquals(1, score.getKey().size()); //TODO need to add code for this
         assertEquals(2, (int) score.getValue());
 
     }

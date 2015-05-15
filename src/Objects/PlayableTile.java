@@ -187,16 +187,14 @@ public class PlayableTile extends AbstractTile {
                 rightscore = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, this.getRight());
             }
         }
+
         ofscores.add(new Pair(bottomscore.getKey(), bottomscore.getValue()));
         return ofscores;
     }
 
     private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local, boolean isRoadBlocked) {
         Meeple tileM = this.getMeeple();
-        if (tileM != null) {//TODO add this inside of the below ifs
-            if(isRoadBlocked){
-
-            }
+        if (tileM != null) {//TODO what Was I using isRoadBlocked For
             if (tileM.getFeature() == GlobalVariables.Feature.ROAD)
                 if (tileM.getLocation() == local)
                     meeples.add(tileM);
