@@ -51,6 +51,35 @@ public class PlayableTileRoadTest2 {
     @Test
     public void testIncompleteRoadNotEndOfGame(){
 
+        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        tileFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        tileFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        tileFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        tileFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
+        intA.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile top = new PlayableTile(tileFeatures, intA);
+        //Make bottom Tile
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> bottomFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        bottomFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        bottomFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        bottomFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        bottomFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> intB = new HashSet<GlobalVariables.Internal>();
+        PlayableTile bottom = new PlayableTile(bottomFeatures, intB);
+        //place the meeple
+        m.place(bottom, GlobalVariables.Feature.ROAD, GlobalVariables.Location.TOP);
+        bottom.setMeeple(m);
+
+        top.setBottom(bottom);
+        bottom.setTop(top);
+        Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
+        Set<Meeple> meeples = new HashSet<Meeple>();
+        Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false);
+        assertEquals(0, score.getKey().size());
+        assertEquals(-1, (int) score.getValue());
+
 
     }
     @Test
@@ -85,7 +114,7 @@ public class PlayableTileRoadTest2 {
         assertEquals(2, (int) score.getValue());
 
     }
-    //TODO add test incomplete road end of game
+    //Done add test incomplete road end of game
 
     @Test
     public void testsRoadToScoreCompleteNotEndOfGame() {
