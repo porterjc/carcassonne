@@ -162,12 +162,11 @@ public class PlayableTile extends AbstractTile {
         alreadyVisited.add(this);
         if (getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) //hit the end of the road
         {
-            addMeeple(meeples); //TODO actually fix this
+            addMeeple(meeples, GlobalVariables.Location.BOTTOM, true); //THE LOCATION DOESN'T Matter because of roadstop
             //add meeple? here
             ofscores.add(new Pair(meeples, currentTileScore));
             return ofscores;
         } else {
-            addMeeple(meeples);
             boolean isPossibleToScoreTop = (!alreadyVisited.contains(this.getTop())) && this.getTop().isPlayable && features.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD;
             if (isPossibleToScoreTop) {
                 topscore = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, this.getTop());
@@ -189,11 +188,12 @@ public class PlayableTile extends AbstractTile {
         return ofscores;
     }
 
-    private void addMeeple(Set<Meeple> meeples) {
+    private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local, boolean isRoadBlocked) {
         Meeple tileM = this.getMeeple();
         if (tileM != null) {//TODO add this inside of the below ifs
             if (tileM.getFeature() == GlobalVariables.Feature.ROAD)
-                meeples.add(tileM);
+                if(tileM.getLocation() == local)
+                    meeples.add(tileM);
         }
     }
 
