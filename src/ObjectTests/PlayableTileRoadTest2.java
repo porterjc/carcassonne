@@ -51,7 +51,7 @@ public class PlayableTileRoadTest2 {
     }
     @Test
     public  void testsRoadToScoreNotCompleteNotEndOfGame(){
-        Meeple m = new Meeple(currentUser, currentUser.getColor());
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         tileFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         tileFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);

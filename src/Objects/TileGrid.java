@@ -1,8 +1,8 @@
 package Objects;
 
 import Main.GlobalVariables;
-import Objects.*;
 import UIComponents.GraphicButton;
+import UIComponents.StatePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +32,7 @@ public class TileGrid extends JPanel {
     private JLabel currentTileLabel;
     private JLabel tilesLeftLabel;
     private GraphicButton turnLabel;
+    private JPanel statePanel;
 
     // The game that this grid is keeping track of.
     private Game game;
@@ -275,10 +276,11 @@ public class TileGrid extends JPanel {
         repaint();
     }
 
-    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel, GraphicButton turnLabel) {
+    public void setTileLabels(JLabel tileLabel, JLabel tilesLeftLabel, GraphicButton turnLabel, StatePanel statePanel) {
         this.currentTileLabel = tileLabel;
         this.tilesLeftLabel = tilesLeftLabel;
         this.turnLabel = turnLabel;
+        this.statePanel = statePanel;
     }
 
     public void updateCurrentTileUI() {
@@ -288,7 +290,11 @@ public class TileGrid extends JPanel {
     }
 
     public void updateTurnLabel() {
-        this.turnLabel.setBackground(game.getCurrentTurnPlayer().getColor().getColor());
+        this.turnLabel.setBackground(game.getCurrentTurnPlayer().getPlayerColor().getColor());
+    }
+
+    public void updateStatePanel() {
+
     }
 
     public boolean areValidMoves(PlayableTile tile) {

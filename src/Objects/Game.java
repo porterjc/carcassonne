@@ -1,7 +1,5 @@
 package Objects;
 
-import Main.GlobalVariables;
-import Objects.*;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -62,7 +60,7 @@ public class Game {
         numberOfOpenTilesOnBoard = 0;
         currentTurn = 0;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-        currentTurnState = TurnState.TILE_PlACEMENT;
+        currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
         gameOver = false;
     }
@@ -77,7 +75,7 @@ public class Game {
         numberOfOpenTilesOnBoard = 0;
 //        GlobalVariables.openTiles = new ArrayList<OpenTile>();
         currentTurn = 0;
-        currentTurnState = TurnState.TILE_PlACEMENT;
+        currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
         gameOver = false;
     }
@@ -145,14 +143,14 @@ public class Game {
         if (isGameOver()) return false;
 
         switch (currentTurnState) {
-            case TILE_PlACEMENT:
+            case TILE_PLACEMENT:
                 currentTurnState = TurnState.MEEPLE_PLACEMENT;
                 return true;
             case MEEPLE_PLACEMENT:
                 currentTurnState = TurnState.SCORING;
                 return true;
             case SCORING:
-                currentTurnState = TurnState.TILE_PlACEMENT;
+                currentTurnState = TurnState.TILE_PLACEMENT;
                 return moveToNextTurn();
         }
 
@@ -197,9 +195,14 @@ public class Game {
         return false;
     }
 
+    public void passButtonPressed() {
+        if(currentTurnState == TurnState.MEEPLE_PLACEMENT)
+            moveToNextState();
+    }
+
 
     private enum TurnState {
-        TILE_PlACEMENT("Place a tile"),
+        TILE_PLACEMENT("Place a tile"),
         MEEPLE_PLACEMENT("Place a meeple"),
         SCORING("Scoring, please wait...");
 

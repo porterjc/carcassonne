@@ -1,7 +1,6 @@
 package UIComponents;
 
 import Objects.Player;
-import UIComponents.GameLabel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -45,7 +44,7 @@ public class ScorePanel extends JPanel {
 
         for(Player p : players) { // Add color labels
             JPanel colorPanel = new JPanel();
-            colorPanel.setBackground(p.getColor().getColor());
+            colorPanel.setBackground(p.getPlayerColor().getColor());
             this.add(colorPanel);
         }
 

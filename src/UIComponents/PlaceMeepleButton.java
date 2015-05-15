@@ -38,7 +38,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         this.player = player;
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
         this.addMouseListener(this);
-        this.setIcon(new ImageIcon(player.getColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
+        this.setIcon(new ImageIcon(player.getPlayerColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
     }
 
     /* Mouse Listener methods */

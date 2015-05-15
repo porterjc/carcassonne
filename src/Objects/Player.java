@@ -33,7 +33,7 @@ public class Player {
         return playerScore;
     }
 
-    public GlobalVariables.PlayerColor getColor() {
+    public GlobalVariables.PlayerColor getPlayerColor() {
         return pColor;
     }
 

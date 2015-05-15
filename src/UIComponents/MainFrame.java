@@ -106,7 +106,7 @@ public class MainFrame extends JFrame {
     private void setupMainMenu() {
         optionsPanel.removeAll();
 
-        GraphicButton newGameButton = new GraphicButton(buttonWidth, buttonHeight, "New Objects.Game") {
+        GraphicButton newGameButton = new GraphicButton(buttonWidth, buttonHeight, "New Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //setupGameOptions();
@@ -322,21 +322,25 @@ public class MainFrame extends JFrame {
         tilesLeftPanel.add(tilesLeftLabel);
         bottompanel.add(tilesLeftPanel);
 
-
         GameLabel statusLabel = new GameLabel("RED: Place a tile");
-        GraphicButton moveOnButton = new GraphicButton(100, 100) {
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
+        bottompanel.add(statusLabel);
+        bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
+
+        GraphicButton moveOnButton = new GraphicButton(120, 50) {
             @Override
             public void mouseClicked(MouseEvent e) {
                 boardDisplay.getGame().moveToNextState();
             }
         };
+
         moveOnButton.setBackground(Color.RED);
         moveOnButton.setBorder(BorderFactory.createRaisedBevelBorder());
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
         bottompanel.add(moveOnButton);
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
 
-        boardDisplay.setTileLabels(tiledisplay, tilesLeftLabel, moveOnButton);
+        boardDisplay.setTileLabels(tiledisplay, tilesLeftLabel, moveOnButton, new StatePanel());
 
         bottompanel.add(Box.createRigidArea(new Dimension(20, 20)));
         // Just for GUI testing. TODO: delete
