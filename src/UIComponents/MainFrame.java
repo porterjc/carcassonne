@@ -35,6 +35,9 @@ public class MainFrame extends JFrame {
 
     private final int largeMargin = 25;
 
+    /**
+     * Constructor
+     */
     public MainFrame() {
         super();
         //this.setUndecorated(true);
@@ -49,6 +52,9 @@ public class MainFrame extends JFrame {
 
     }
 
+    /**
+     * Sets up the back panel for displaying the main menu, rules, and options
+     */
     private void setupMainPanel() {
 
         try {
@@ -181,10 +187,12 @@ public class MainFrame extends JFrame {
         optionsPanel.add(rulesLabel);
         optionsPanel.add(getMarginArea(smallMargin));
 
+        final GraphicCheckBox riverCheckBox = new GraphicCheckBox("River");
+        final GraphicCheckBox abbotCheckBox = new GraphicCheckBox("Abbot");
         SelectPanel rulesPanel = new SelectPanel();
-        rulesPanel.add(new GraphicCheckBox("River"));
+        rulesPanel.add(riverCheckBox);
         rulesPanel.add(Box.createRigidArea(new Dimension(20, 10)));
-        rulesPanel.add(new GraphicCheckBox("Abbot"));
+        rulesPanel.add(abbotCheckBox);
         optionsPanel.add(rulesPanel);
         optionsPanel.add(getMarginArea(largeMargin));
 
@@ -192,7 +200,7 @@ public class MainFrame extends JFrame {
         GraphicButton startButton = new GraphicButton(buttonWidth, buttonHeight, "Start Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setupGamePlay(meepleSelectPanel.getAllSelected(), false, false);
+                setupGamePlay(meepleSelectPanel.getAllSelected(), riverCheckBox.isChecked(), abbotCheckBox.isChecked());
             }
         };
         optionsPanel.add(startButton);
@@ -226,7 +234,6 @@ public class MainFrame extends JFrame {
 
     /**
      * Starts a new game and sets up the screen to play the game
-     * TODO: none of the "options" do anything and this initializes the game with defaults. Make this happen eventually
      */
     private void setupGamePlay(ArrayList<SelectableButton> playerColors, boolean river, boolean abbot){
         backPanel.removeAll();
