@@ -50,6 +50,22 @@ public class PlayableTileScoreRoadTest {
         assertEquals(-1, (int) score.getValue());
     }
     @Test
+    public void testStarScoreRS(){
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> topFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        topFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
+        intA.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile top = new PlayableTile(topFeatures, intA);
+
+        Pair<HashSet<Meeple>, Integer> score = top.startScoreRoad(false);
+        assertEquals(0, score.getKey().size());
+        assertEquals(33, (int) score.getValue());//todo this will update
+    }
+    @Test
     public void testStartScoreRoadSouth(){
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> topFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
