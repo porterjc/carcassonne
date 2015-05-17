@@ -193,7 +193,7 @@ public class PlayableTile extends AbstractTile {
 
         }
         if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
-
+            currentScore += 10;
         }
         if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
             currentScore += 10;
