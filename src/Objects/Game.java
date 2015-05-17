@@ -30,6 +30,7 @@ public class Game {
 
     /**
      * Default constructor // not used
+     *
      * @param display
      * @param playableTiles
      * @param players
@@ -128,7 +129,7 @@ public class Game {
                 return moveToNextTurn();
         }
 
-        if(startScore)
+        if (startScore)
             scoreCurrentTurn();
 
         return startScore;
@@ -159,41 +160,38 @@ public class Game {
     }
 
     private void scoreCurrentTurn() {
-        for(Meeple meeple : monks) {
+        for (Meeple meeple : monks) {
             int monasteryScore = meeple.getTile().scoreSurrounding(true);
-            if(monasteryScore > 0) {
+            if (monasteryScore > 0) {
                 meeple.getPlayer().updateScore(monasteryScore);
                 meeple.remove();
             }
         }
 
-        Stack <Pair<Set<Meeple>, Integer>> roads = currentTile.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
-        Stack <Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
-        if(currentTile.getTopFeature() == GlobalVariables.Feature.CITY) {
+        Pair<Set<Meeple>, Integer> roads;
+        roads = currentTile.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
+        Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
+        if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY) {
             cities.push(helpScoreCity(GlobalVariables.Direction.NORTH, currentTile));
         }
-        if(currentTile.getLeftFeature() == GlobalVariables.Feature.CITY)
+        if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY)
             cities.push(helpScoreCity(GlobalVariables.Direction.WEST, currentTile));
-        if(currentTile.getRightFeature() == GlobalVariables.Feature.CITY)
+        if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY)
             cities.push(helpScoreCity(GlobalVariables.Direction.EAST, currentTile));
-        if(currentTile.getBottomFeature() == GlobalVariables.Feature.CITY)
+        if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY)
             cities.push(helpScoreCity(GlobalVariables.Direction.SOUTH, currentTile));
 
-        //TODO: Calculate who ACTUALLY deserves the score among shared features
-       while(!roads.isEmpty()) {
-           Pair<Set<Meeple>, Integer> road = roads.pop();
-           if(road.getValue() > 0) {
-               for(Meeple m : road.getKey()) {
-                   m.getPlayer().updateScore(road.getValue());
-                   m.remove();
-               }
-           }
-       }
+        if (roads.getValue() > 0) {
+            for (Meeple m : roads.getKey()) {
+                m.getPlayer().updateScore(roads.getValue());
+                m.remove();
+            }
+        }
 
-        while(!cities.isEmpty()) {
+        while (!cities.isEmpty()) {
             Pair<HashSet<Meeple>, Integer> city = cities.pop();
-            if(city.getValue() > 0) {
-                for(Meeple m : city.getKey()) {
+            if (city.getValue() > 0) {
+                for (Meeple m : city.getKey()) {
                     m.getPlayer().updateScore(city.getValue());
                     m.remove();
                 }
@@ -207,7 +205,7 @@ public class Game {
     private Pair<HashSet<Meeple>, Integer> helpScoreCity(GlobalVariables.Direction d, PlayableTile tile) {
         Set<GlobalVariables.Direction> directions = new HashSet<>();
         directions.add(d);
-        return tile.startScoreCity(true);
+        return tile.startScoreCity(directions, true);
     }
 
     public boolean updateAllScores() {
@@ -215,26 +213,24 @@ public class Game {
         scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Stack<Pair<Set<Meeple>, Integer>> pairs = this.currentTile.scoreRoad(alreadyVisited, meeples, false);
-        System.out.println("Number of pairs: " + pairs.size());
+        Pair<Set<Meeple>, Integer> roadscore = this.currentTile.scoreRoad(alreadyVisited, meeples, false);
 
         if (scoreCity.getValue() > 0) {
             for (Meeple m : scoreCity.getKey()) {
                 m.getPlayer().updateScore(scoreCity.getValue());
             }
         }
-        while (pairs.size() > 0) {
-            Pair<Set<Meeple>, Integer> p = pairs.pop();
-
-            System.out.println("Number of Meeples: " + p.getKey().size());
-            System.out.println("Score adding:" + p.getValue());
-            Meeple[] meeps = p.getKey().toArray(new Meeple[p.getKey().size()]);
-            if (p.getValue() > 0) {
-                for (int i = 0; i < meeps.length; i++) {
-                    meeps[i].getPlayer().updateScore(p.getValue());
-                }
+        System.out.println("Number of Meeples: " + roadscore.getKey().size());
+        System.out.println("Score adding:" + roadscore.getValue());
+        int score = roadscore.getValue();
+        int meeplelistsize = roadscore.getKey().size();
+        if (roadscore.getValue() > 0) {
+            Meeple[] meeps = roadscore.getKey().toArray(new Meeple[meeplelistsize]);
+            for (int i = 0; i < meeps.length; i++) {
+                meeps[i].getPlayer().updateScore(score);
             }
         }
+
         return true;
     }
 
