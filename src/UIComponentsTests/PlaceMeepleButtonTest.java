@@ -112,9 +112,11 @@ public class PlaceMeepleButtonTest extends JFrame {
             features4.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features4.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
             Set<GlobalVariables.Internal> internals4 = new HashSet<>();
-            internals.add(GlobalVariables.Internal.GARDEN);
+            internals4.add(GlobalVariables.Internal.GARDEN);
 
             PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image4, features4, internals4);
+            tile4.rotateTile();
+            tile4.rotateTile();
             tile4.rotateTile();
             tile4.moveTile(50, 250);
             tiles.add(tile4);

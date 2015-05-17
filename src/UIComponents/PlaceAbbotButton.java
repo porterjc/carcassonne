@@ -30,19 +30,19 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
      * @param tileRotation the tile's current position
      */
     private void drawAbbot(int tileRotation) {
-        int margin = 10;
+        int margin = 15;
         int half = AbstractTile.TILE_PIXEL_SIZE / 2 - BUTTON_SIZE / 2;
         if(tileRotation == 0) {
-            this.setBounds(10, half, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(margin * 2, half, BUTTON_SIZE, BUTTON_SIZE);
         }
         else if(tileRotation == 1) {
-            this.setBounds(half, 10, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(half - margin, margin * 2, BUTTON_SIZE, BUTTON_SIZE);
         }
         else if(tileRotation == 2) {
-            this.setBounds(AbstractTile.TILE_PIXEL_SIZE - margin - BUTTON_SIZE, half, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(AbstractTile.TILE_PIXEL_SIZE - margin * 2 - BUTTON_SIZE, half - margin, BUTTON_SIZE, BUTTON_SIZE);
         }
         else if(tileRotation == 3) {
-            this.setBounds(half, AbstractTile.TILE_PIXEL_SIZE - margin - BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(half + margin, AbstractTile.TILE_PIXEL_SIZE - margin * 2 - BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
         }
         else
             this.setBounds(half, half, BUTTON_SIZE, BUTTON_SIZE);
