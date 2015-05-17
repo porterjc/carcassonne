@@ -120,19 +120,23 @@ public class PlayableTile extends AbstractTile {
         GlobalVariables.Feature b = getBottomFeature();
 
         //Edges
-        this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN)); //Top
-        this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half)); //Left
-        this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));//Right
-        this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));//Bottom
+        if(shouldHaveButton(GlobalVariables.Direction.NORTH))
+            this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN)); //Top
+        if(shouldHaveButton(GlobalVariables.Direction.WEST))
+            this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half)); //Left
+        if(shouldHaveButton(GlobalVariables.Direction.EAST))
+            this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));//Right
+        if(shouldHaveButton(GlobalVariables.Direction.SOUTH))
+            this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));//Bottom
 
         //Corners
-        if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
+        if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER) && !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN)); //Top Left
-        if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
+        if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER) && !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPRIGHT))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN)); // Top Right
-        if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER))
+        if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER) && !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMLEFT))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far)); // Bottom Left
-        if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER))
+        if ((b == GlobalVariables.Feature.ROAD || b == GlobalVariables.Feature.RIVER) && (r == GlobalVariables.Feature.ROAD || r == GlobalVariables.Feature.RIVER) && !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMRIGHT))
             this.add(new PlaceMeepleButton(GlobalVariables.Feature.GRASS, null, currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far)); // Bottom Right
 
        /* this.add(new UIComponents.PlaceMeepleButton(Main.GlobalVariables.redMeeple, TILE_INNER_MARGIN, TILE_INNER_MARGIN));
@@ -146,8 +150,20 @@ public class PlayableTile extends AbstractTile {
         this.add(new UIComponents.PlaceMeepleButton(Main.GlobalVariables.redMeeple, far, far)); */
     }
 
-    private void addCenterButton(int pix) {
-        // this.add(new UIComponents.PlaceMeepleButton(null, Main.GlobalVariables.Internal.MONASTERY, Main.GlobalVariables.redMeeple, pix, pix));
+    private boolean shouldHaveButton(GlobalVariables.Direction dir) {
+        GlobalVariables.Feature feat = getTargetFeature(dir);
+        switch (feat) {
+            case GRASS:
+                return !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER);
+            case ROAD:
+                return false;
+            case CITY:
+                Pair<HashSet<Meeple>, Integer> cityData = startScoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), new HashSet<GlobalVariables.Direction>(), true);
+                if(cityData.getValue() > 0 || !cityData.getKey().isEmpty())
+                    return false;
+                return true;
+        }
+        return false;
     }
 
 

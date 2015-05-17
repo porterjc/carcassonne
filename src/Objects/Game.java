@@ -1,5 +1,6 @@
 package Objects;
 
+import Main.GlobalVariables;
 import UIComponents.BottomDisplay;
 import javafx.util.Pair;
 
@@ -191,7 +192,46 @@ public class Game {
             }
         }
 
+        Stack <Pair<Set<Meeple>, Integer>> roads = currentTile.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
+        Stack <Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
+        if(currentTile.getTopFeature() == GlobalVariables.Feature.CITY) {
+            cities.push(helpScoreCity(GlobalVariables.Direction.NORTH, currentTile));
+        }
+        if(currentTile.getLeftFeature() == GlobalVariables.Feature.CITY)
+            cities.push(helpScoreCity(GlobalVariables.Direction.WEST, currentTile));
+        if(currentTile.getRightFeature() == GlobalVariables.Feature.CITY)
+            cities.push(helpScoreCity(GlobalVariables.Direction.EAST, currentTile));
+        if(currentTile.getBottomFeature() == GlobalVariables.Feature.CITY)
+            cities.push(helpScoreCity(GlobalVariables.Direction.SOUTH, currentTile));
+
+        //TODO: Calculate who ACTUALLY deserves the score among shared features
+       while(!roads.isEmpty()) {
+           Pair<Set<Meeple>, Integer> road = roads.pop();
+           if(road.getValue() > 0) {
+               for(Meeple m : road.getKey()) {
+                   m.getPlayer().updateScore(road.getValue());
+                   m.remove();
+               }
+           }
+       }
+
+        while(!cities.isEmpty()) {
+            Pair<HashSet<Meeple>, Integer> city = cities.pop();
+            if(city.getValue() > 0) {
+                for(Meeple m : city.getKey()) {
+                    m.getPlayer().updateScore(city.getValue());
+                    m.remove();
+                }
+            }
+        }
+
         moveToNextState();
+    }
+
+    private Pair<HashSet<Meeple>, Integer> helpScoreCity(GlobalVariables.Direction d, PlayableTile tile) {
+        Set<GlobalVariables.Direction> directions = new HashSet<>();
+        directions.add(d);
+        return tile.startScoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), directions, true);
     }
 
     public boolean updateAllScores() {
