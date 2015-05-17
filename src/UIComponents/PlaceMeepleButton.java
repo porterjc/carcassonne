@@ -41,7 +41,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         this.internal = internal;
         this.player = player;
         this.location = location;
-        this.isActive = true;
+        this.activate();
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
         this.addMouseListener(this);
         this.setIcon(new ImageIcon(player.getPlayerColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
@@ -59,6 +59,30 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
      */
     protected void deactivate() {
         this.isActive = false;
+    }
+
+    /**
+     * Sets the "feature" field to the specified feature
+     * @param feature the feature to set for the meeple
+     */
+    protected void setFeature(GlobalVariables.Feature feature) {
+        this.feature = feature;
+    }
+
+    /**
+     * Sets the "internal" field to the specified internal feature
+     * @param internal the internal feature to set for the meeple
+     */
+    protected void setInternal(GlobalVariables.Internal internal) {
+        this.internal = internal;
+    }
+
+    /**
+     * Sets the player field to the player that will own the placed meeple
+     * @param player the player that will own the placed meeple
+     */
+    protected void setPlayer(Player player) {
+        this.player = player;
     }
 
     /* Mouse Listener methods */
@@ -85,7 +109,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         //If this is on a garden or monastery, the game needs to know about it
         if(internal == GlobalVariables.Internal.MONASTERY || internal == GlobalVariables.Internal.GARDEN)
             game.addMonk(toPlace);
-        isActive = false;
+        deactivate();
         game.moveToNextState();
     }
 
