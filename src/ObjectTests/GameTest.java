@@ -317,13 +317,7 @@ public class GameTest {
         feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile t2 = new PlayableTile(feature1, new HashSet<GlobalVariables.Internal>());
-        t1.setBottom(t2);
-        t2.setTop(t1);
 
-//        game.setCurrentTile(t1);
-//        assertEquals(true, game.updateAllScores());
-//        assertEquals(2, players.get(0).getPlayerScore());
-//        assertEquals(0, players.get(1).getPlayerScore());
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);//HAS ROADSTOP
@@ -343,12 +337,17 @@ public class GameTest {
         featuress.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         featuress.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         PlayableTile t4 = new PlayableTile(featuress, internals);
+
+
         t3.setBottom(t1);
         t1.setTop(t3);
         t1.setRight(t4);
         t4.setLeft(t1);
+        t1.setBottom(t2);
+        t2.setTop(t1);
 
         game.setCurrentTile(t3);
+        assertEquals(t3, game.getCurrentTile());
         assertEquals(true, game.updateAllScores());
         assertEquals(0, game.getPlayers().get(0).getPlayerScore());
         assertEquals(3, game.getPlayers().get(1).getPlayerScore());

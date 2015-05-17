@@ -187,7 +187,9 @@ public class PlayableTile extends AbstractTile {
                 rightscore = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentTileScore, this.getRight());
             }
         }
-
+//        if(topscore.getValue()< 0 && bottomscore.getValue()<0 &&leftscore.getValue()){
+//
+//        }
         ofscores.add(new Pair(bottomscore.getKey(), bottomscore.getValue()));
         return ofscores;
     }
@@ -206,7 +208,7 @@ public class PlayableTile extends AbstractTile {
         Pair<Set<Meeple>, Integer> pop = temp.pop();
         if (isEndOfGame && pop.getValue() == -1) {
             return new Pair(meeples, currentTileScore + 1);
-        } else if (pop.getValue() == -1) return new Pair(meeples, -1);
+        } else if (pop.getValue() == -1) {return new Pair(meeples, -1);}
         else {
             if (this.getMeeple() != null) {
                 meeples.add(this.getMeeple());
