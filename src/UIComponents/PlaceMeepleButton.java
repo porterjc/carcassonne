@@ -24,6 +24,9 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     private Player player;
     /** The location at which to place the meeple */
     private GlobalVariables.Location location;
+    /** Whether or not this button is active. If not, it is for display purposes only and clicking does nothing */
+    private boolean isActive;
+
     /** The size of this button */
     public static final int BUTTON_SIZE = 30;
 
@@ -38,6 +41,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         this.internal = internal;
         this.player = player;
         this.location = location;
+        this.isActive = true;
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
         this.addMouseListener(this);
         this.setIcon(new ImageIcon(player.getPlayerColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
@@ -47,6 +51,10 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // If this button is inactive, do nothing
+        if(!isActive)
+            return;
+
         //TODO: Do it a much better way than this if we can. this is gross
         // Keep only this one
         PlayableTile parentTile = (PlayableTile) getParent();
@@ -63,7 +71,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         //If this is on a garden or monastery, the game needs to know about it
         if(internal == GlobalVariables.Internal.MONASTERY || internal == GlobalVariables.Internal.GARDEN)
             game.addMonk(toPlace);
-
+        isActive = false;
         game.moveToNextState();
     }
 
