@@ -42,6 +42,7 @@ public class PlayableTileCityTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.SOUTH);
+        assertEquals((Integer) 4, tile1.startScoreCity(directions, true).getValue());
     }
 
     @Test
@@ -77,6 +78,7 @@ public class PlayableTileCityTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.WEST);
+        assertEquals((Integer) 6, tile3.startScoreCity(directions, true).getValue());
     }
 
     @Test
@@ -139,6 +141,7 @@ public class PlayableTileCityTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.SOUTH);
+        assertEquals((Integer) 12, tile1.startScoreCity(directions, true).getValue());
     }
 
     @Test
@@ -207,6 +210,7 @@ public class PlayableTileCityTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.NORTH);
+        assertEquals((Integer) 12, tile1.startScoreCity(directions, true).getValue());
     }
 
     @Test
@@ -240,6 +244,7 @@ public class PlayableTileCityTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.SOUTH);
+        assertEquals((Integer) 4, tile1.startScoreCity(directions, true).getValue());
     }
 
     @Test
@@ -266,6 +271,7 @@ public class PlayableTileCityTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.SOUTH);
+        assertEquals(1, (int) tile1.startScoreCity(directions, true).getValue());
     }
 
     @Test
@@ -333,6 +339,7 @@ public class PlayableTileCityTest {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<GlobalVariables.Direction> directions = new HashSet<GlobalVariables.Direction>();
         directions.add(GlobalVariables.Direction.NORTH);
+        assertEquals(1, (int) tile1.startScoreCity(directions, true).getValue());
     }
 
 
