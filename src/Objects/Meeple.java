@@ -72,6 +72,7 @@ public class Meeple {
     public void remove() {
         this.tile.removeAll();
         this.tile = null;
+        this.meepleOwner.getMeeples().add(this);
     }
 
 

@@ -485,10 +485,10 @@ public class TileFactory {
         try {
             BufferedImage image = ImageIO.read(new File("images/30.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
-            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
-            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+            features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
             deck.add(new PlayableTile(image, features));
         } catch (IOException e) {
