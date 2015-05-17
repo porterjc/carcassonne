@@ -127,7 +127,7 @@ public class PlayableTileScoreRoadTest {
 
         Pair<Set<Meeple>, Integer> score = bottom.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         assertEquals(1, score.getKey().size());
-        //assertEquals(2, (int) score.getValue());
+        assertEquals(2, (int) score.getValue());
 
     }
 
