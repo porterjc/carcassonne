@@ -31,19 +31,28 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     public static final int BUTTON_SIZE = 30;
 
     /**
+     * Default constructor. The subclass will only need to use the following fields:
+     * @param internal the internal feature that the meeple will placed on
+     * @param player the player that owns the placed meeple
+     */
+    protected PlaceMeepleButton(GlobalVariables.Internal internal, Player player) {
+        this.internal = internal;
+        this.player = player;
+        this.activate();
+        this.addMouseListener(this);
+    }
+
+    /**
      * Constructor
      * @param player the image of this button
      * @param x the x coordinate of this button
      * @param y the y coordinate of this button
      */
     public PlaceMeepleButton(GlobalVariables.Feature feature, GlobalVariables.Internal internal, Player player, GlobalVariables.Location location, int x, int y) {
+        this(internal, player);
         this.feature = feature;
-        this.internal = internal;
-        this.player = player;
         this.location = location;
-        this.activate();
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
-        this.addMouseListener(this);
         this.setIcon(new ImageIcon(player.getPlayerColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
     }
 
