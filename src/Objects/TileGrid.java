@@ -56,7 +56,7 @@ public class TileGrid extends JPanel {
         // Tiles will be manually placed on this grid
         this.setLayout(null);
         //Add starting tile
-        //addTile(new Objects.OpenTile(), 1, 1);
+       // addTile(new OpenTile(), 1, 1);
 
         this.slots = new ArrayList<>();
     }

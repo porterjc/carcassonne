@@ -29,41 +29,13 @@ public class Game {
 
 
     /**
-     * Constructor for a game
+     * Default constructor // not used
+     * @param display
+     * @param playableTiles
+     * @param players
      */
-   /* public Game(BottomDisplay bottomDisplay) {
-        this.bottomDisplay = bottomDisplay;
-        tiles = new Stack<>();
-        gameOver = false;
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>(); //TODO change this!this
-
-        numberOfOpenTilesOnBoard = 0;
-        drawTile();
-    }*/
-
-    //TODO get rid of all constructors and just make one
-   /* public Game(Stack<PlayableTile> stack, ArrayList<Player> players) {
-        this(stack, players, false, false);
-        numberOfOpenTilesOnBoard = 0;
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-    }*/
-
-   /* public Game(Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
-        if (players.size() > 1) {
-            this.players = players;
-        }
-        riverMode = river;
-        abbotMode = abbot;
-        numberOfOpenTilesOnBoard = 0;
-        currentTurn = 0;
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
-        currentTurnState = TurnState.TILE_PLACEMENT;
-        tiles = stack;
-        gameOver = false;
-    } */
     public Game(BottomDisplay display, Stack<PlayableTile> playableTiles, ArrayList<Player> players) {
         this(display, playableTiles, players, false, false);
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
     }
 
     public Game(BottomDisplay bottomDisplay, Stack<PlayableTile> stack, ArrayList<Player> players, boolean river, boolean abbot) {
@@ -246,17 +218,17 @@ public class Game {
         Stack<Pair<Set<Meeple>, Integer>> pairs = this.currentTile.scoreRoad(alreadyVisited, meeples, false);
         System.out.println("Number of pairs: " + pairs.size());
 
-            if (scoreCity.getValue() > 0) {
-                for (Meeple m: scoreCity.getKey()) {
-                    m.getPlayer().updateScore(scoreCity.getValue());
-                }
+        if (scoreCity.getValue() > 0) {
+            for (Meeple m : scoreCity.getKey()) {
+                m.getPlayer().updateScore(scoreCity.getValue());
             }
-            while (pairs.size() > 0) {
-                Pair<Set<Meeple>, Integer> p = pairs.pop();
+        }
+        while (pairs.size() > 0) {
+            Pair<Set<Meeple>, Integer> p = pairs.pop();
 
-                System.out.println("Number of Meeples: " + p.getKey().size());
-                System.out.println("Score adding:" + p.getValue());
-                Meeple[] meeps = p.getKey().toArray(new Meeple[p.getKey().size()]);
+            System.out.println("Number of Meeples: " + p.getKey().size());
+            System.out.println("Score adding:" + p.getValue());
+            Meeple[] meeps = p.getKey().toArray(new Meeple[p.getKey().size()]);
             if (p.getValue() > 0) {
                 for (int i = 0; i < meeps.length; i++) {
                     meeps[i].getPlayer().updateScore(p.getValue());
