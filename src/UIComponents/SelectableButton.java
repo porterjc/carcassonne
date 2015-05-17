@@ -1,5 +1,7 @@
 package UIComponents;
 
+import Main.GlobalVariables;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -11,24 +13,17 @@ import java.awt.event.MouseEvent;
 public class SelectableButton extends GraphicButton {
 
     private SelectPanel panel;
+    private GlobalVariables.PlayerColor color;
 
     /**
      * Constructor
      * @param width the width of the button
      * @param height the height of the button
      */
-    public SelectableButton(int width, int height, SelectPanel panel ) {
+    public SelectableButton(int width, int height, GlobalVariables.PlayerColor color, SelectPanel panel) {
         super(width, height);
-        this.panel = panel;
-    }
-
-    /**
-     * Constructor
-     * @param width the width of the button
-     * @param height the height of the button
-     */
-    public SelectableButton(int width, int height, String text, SelectPanel panel ) {
-        super(width, height, text);
+        this.color = color;
+        this.setBackground(color.getColor());
         this.panel = panel;
     }
 
@@ -53,6 +48,14 @@ public class SelectableButton extends GraphicButton {
      */
     public void deselect() {
         this.setBorder(BorderFactory.createRaisedBevelBorder());
+    }
+
+    /**
+     * Returns the playerColor this button stores
+     * @return the playerColor this button stores
+     */
+    public GlobalVariables.PlayerColor getColor() {
+        return this.color;
     }
 
 }

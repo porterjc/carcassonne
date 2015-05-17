@@ -9,9 +9,6 @@ import Objects.TileGrid;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -26,45 +23,26 @@ import java.util.Stack;
  */
 public class MainFrame extends JFrame {
 
-    private JPanel mainpanel;
-    private BottomDisplay bottompanel;
     private JPanel backPanel;
     private JPanel optionsPanel;
-    private ScorePanel scorePanel;
-    private JLabel tilesLeftLabel;
-    private JLabel tiledisplay;
-    private JLabel currentPlayer;
-    private TileGrid boardDisplay;
-    private JScrollPane scrollBoard;
-    private BufferedImage pic;
-    private ArrayList<PlayableTile> tiles;
-
-    private ArrayList<MeepleButton> playerColors;
 
     private int screenWidth;
     private int screenHeight;
 
     // Some graphic constants
-    private final int COMPONENT_MARGIN = 20;
-
     private final int buttonWidth = 400;
     private final int buttonHeight = 50;
 
-    private final int smallMargin = 10;
     private final int largeMargin = 25;
 
     public MainFrame() {
         super();
-
-        playerColors = new ArrayList<>();
-
         //this.setUndecorated(true);
         GraphicsDevice graphD = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         graphD.setFullScreenWindow(this);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setupMainPanel();
         setupMainMenu();
-       // setupGamePlay();
         setVisible(true);
         screenWidth = this.getWidth();
         screenHeight = this.getHeight();
@@ -73,7 +51,6 @@ public class MainFrame extends JFrame {
 
     private void setupMainPanel() {
 
-       // JPanel backPanel;
         try {
             BufferedImage background = ImageIO.read(new File("images/background.png"));
             backPanel = new TiledImagePanel(background);
@@ -88,7 +65,6 @@ public class MainFrame extends JFrame {
 
         try {
             Image logo = ImageIO.read(new File("images/logo.png"));
-            //Image resizedLogo = logo.getScaledInstance(700, 162, Image.SCALE_DEFAULT);
             JLabel logoLabel = new JLabel(new ImageIcon(logo));
             logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             backPanel.add(logoLabel);
@@ -116,7 +92,6 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 setupGameOptions();
-                //setupGamePlay();
             }
         };
 
@@ -153,7 +128,7 @@ public class MainFrame extends JFrame {
     private void setupRuleReader() {
         optionsPanel.removeAll();
 
-        RulesPanel rulesPanel = new RulesPanel(optionsPanel.getWidth() - COMPONENT_MARGIN);
+        RulesPanel rulesPanel = new RulesPanel(optionsPanel.getWidth() - 50);
         JScrollPane scrollPane = new JScrollPane(rulesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setMaximumSize(new Dimension(optionsPanel.getWidth() - 50, 100));
         optionsPanel.add(getMarginArea(largeMargin));
@@ -177,6 +152,7 @@ public class MainFrame extends JFrame {
      * This sets up the UI to allow a user to set up the options for a game they're going to start
      */
     private void setupGameOptions() {
+        int smallMargin = 10;
         optionsPanel.removeAll();
 
         optionsPanel.add(getMarginArea(largeMargin));
@@ -187,40 +163,19 @@ public class MainFrame extends JFrame {
         optionsPanel.add(colorLabel);
         optionsPanel.add(getMarginArea(smallMargin));
 
-        final MultipleSelectablePanels meepleSelectPanel = new MultipleSelectablePanels();
-        MeepleButton redbutton = new MeepleButton(GlobalVariables.PlayerColor.RED, meepleSelectPanel);
+        final SelectPanel meepleSelectPanel = new SelectPanel();
+        SelectableButton redbutton = createMeepleButton(GlobalVariables.PlayerColor.RED, meepleSelectPanel);
         meepleSelectPanel.add(redbutton);
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.YELLOW, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.GREEN, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.BLUE, meepleSelectPanel));
-        meepleSelectPanel.add(new MeepleButton(GlobalVariables.PlayerColor.BLACK, meepleSelectPanel));
+        meepleSelectPanel.add(createMeepleButton(GlobalVariables.PlayerColor.YELLOW, meepleSelectPanel));
+        meepleSelectPanel.add(createMeepleButton(GlobalVariables.PlayerColor.GREEN, meepleSelectPanel));
+        meepleSelectPanel.add(createMeepleButton(GlobalVariables.PlayerColor.BLUE, meepleSelectPanel));
+        meepleSelectPanel.add(createMeepleButton(GlobalVariables.PlayerColor.BLACK, meepleSelectPanel));
 
         meepleSelectPanel.setSelected(redbutton);
 
         optionsPanel.add(meepleSelectPanel);
         optionsPanel.add(getMarginArea(largeMargin));
 
-        //TODO: Delete once player selection via selected colors is implemented
-//        // This lets the user choose how many computer players they want to play against
-//        GameLabel playersLabel = new GameLabel("Choose number of players:");
-//        playersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        optionsPanel.add(playersLabel);
-//        optionsPanel.add(getMarginArea(smallMargin));
-
-//        SelectPanel playersSelectPanel = new SelectPanel();
-//        SelectableButton button1 = new SelectableButton(50, 50, "2", playersSelectPanel);
-//        playersSelectPanel.add(button1);
-//        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
-//        playersSelectPanel.add(new SelectableButton(50, 50, "3", playersSelectPanel));
-//        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
-//        playersSelectPanel.add(new SelectableButton(50, 50, "4", playersSelectPanel));
-//        playersSelectPanel.add(Box.createRigidArea(new Dimension(20, 80)));
-//        playersSelectPanel.add(new SelectableButton(50, 50, "5", playersSelectPanel));
-//        playersSelectPanel.setSelected(button1);
-//        optionsPanel.add(playersSelectPanel);
-//        optionsPanel.add(getMarginArea(largeMargin));
-
-        // This lets the user specify additional rules
         GameLabel rulesLabel = new GameLabel("Expansions:");
         rulesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         optionsPanel.add(rulesLabel);
@@ -237,8 +192,7 @@ public class MainFrame extends JFrame {
         GraphicButton startButton = new GraphicButton(buttonWidth, buttonHeight, "Start Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
-                playerColors = meepleSelectPanel.getAllSelected();
-                setupGamePlay();
+                setupGamePlay(meepleSelectPanel.getAllSelected(), false, false);
             }
         };
         optionsPanel.add(startButton);
@@ -265,40 +219,42 @@ public class MainFrame extends JFrame {
         return Box.createRigidArea(new Dimension(400, height));
     }
 
+    private SelectableButton createMeepleButton(GlobalVariables.PlayerColor color, SelectPanel panel) {
+        return new SelectableButton(100, 100, color, panel);
+    }
+
 
     /**
      * Starts a new game and sets up the screen to play the game
      * TODO: none of the "options" do anything and this initializes the game with defaults. Make this happen eventually
      */
-    private void setupGamePlay(){
+    private void setupGamePlay(ArrayList<SelectableButton> playerColors, boolean river, boolean abbot){
         backPanel.removeAll();
         this.remove(backPanel);
         revalidate();
         repaint();
 
         BorderLayout bl = new BorderLayout();
-        mainpanel = new JPanel(bl);
+        JPanel mainpanel = new JPanel(bl);
 
         this.add(mainpanel);
 
-        bottompanel = new BottomDisplay(screenWidth, screenHeight);
+        BottomDisplay bottompanel = new BottomDisplay(screenWidth, screenHeight);
         mainpanel.add(bottompanel, BorderLayout.SOUTH);
 
         ArrayList<Player> players = new ArrayList<>();
-//        players.add(new Player(GlobalVariables.PlayerColor.RED));
-//        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        for(MeepleButton player : playerColors){
-            players.add(new Player(player.color));
+        for(SelectableButton player : playerColors){
+            players.add(new Player(player.getColor()));
         }
 
         Stack<PlayableTile> tiles = TileFactory.loadDeck();
-        Game game = new Game(bottompanel, tiles, players);
+        Game game = new Game(bottompanel, tiles, players, river, abbot);
 
-        boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
+        TileGrid boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
         boardDisplay.initialize(TileFactory.getStartTile());
         boardDisplay.setGame(game);
 
-        scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         bottompanel.initializeLabels(game);
         mainpanel.add(bottompanel, BorderLayout.SOUTH);
@@ -315,21 +271,6 @@ public class MainFrame extends JFrame {
 
     // Private classes needed just for the Main.Main Frame
 
-    /**
-     * This class provides a selectable button that holds a color
-     */
-    private class MeepleButton extends SelectableButton {
-
-        GlobalVariables.PlayerColor color;
-
-        public MeepleButton(GlobalVariables.PlayerColor color, SelectPanel panel) {
-            super(100, 100, panel);
-            this.color = color;
-            this.setBackground(color.getColor());
-        }
-        //TODO add button listener?
-
-    }
 
     /**
      * This class provides a panel that tiles an image as a background
@@ -350,44 +291,4 @@ public class MainFrame extends JFrame {
         }
     }
 
-    /**
-     * Extension of selectPanel that allows for multiple selections specifically for Meeple buttons
-     */
-    private class MultipleSelectablePanels extends SelectPanel{
-
-        private ArrayList<MeepleButton> selected;
-
-        /**
-         * Constructor
-         */
-        public MultipleSelectablePanels() {
-            super();
-            this.selected = new ArrayList<>();
-            this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-            this.setOpaque(false);
-        }
-
-        /**
-         * Gets the currently selected button
-         * @return the currently selected button
-         */
-        public ArrayList<MeepleButton> getAllSelected() {
-            return selected;
-        }
-
-        /**
-         * Selects a new button
-         * @param selected the button to select
-         */
-        @Override
-        public void setSelected(SelectableButton selected){
-            if(this.selected.contains(selected)){
-                selected.deselect();
-                this.selected.remove(selected);
-            }else {
-                this.selected.add((MeepleButton) selected);
-                selected.select();
-            }
-        }
-    }
 }
