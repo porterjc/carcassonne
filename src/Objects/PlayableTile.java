@@ -120,13 +120,13 @@ public class PlayableTile extends AbstractTile {
         GlobalVariables.Feature b = getBottomFeature();
 
         //Edges
-        if(shouldHaveButton(GlobalVariables.Direction.NORTH))
+        if (shouldHaveButton(GlobalVariables.Direction.NORTH))
             this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN)); //Top
-        if(shouldHaveButton(GlobalVariables.Direction.WEST))
+        if (shouldHaveButton(GlobalVariables.Direction.WEST))
             this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half)); //Left
-        if(shouldHaveButton(GlobalVariables.Direction.EAST))
+        if (shouldHaveButton(GlobalVariables.Direction.EAST))
             this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));//Right
-        if(shouldHaveButton(GlobalVariables.Direction.SOUTH))
+        if (shouldHaveButton(GlobalVariables.Direction.SOUTH))
             this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));//Bottom
 
         //Corners
@@ -153,7 +153,7 @@ public class PlayableTile extends AbstractTile {
     private boolean shouldHaveButton(GlobalVariables.Direction dir) {
         GlobalVariables.Feature feat = getTargetFeature(dir);
         HashSet<GlobalVariables.Direction> directions = new HashSet<>();
-                directions.add(dir);
+        directions.add(dir);
         switch (feat) {
             case GRASS:
                 return !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER);
@@ -162,7 +162,7 @@ public class PlayableTile extends AbstractTile {
             case CITY:
                 //TODO: Fix this
                 Pair<HashSet<Meeple>, Integer> cityData = startScoreCity(directions, true);
-                if(cityData.getValue() > 0 || !cityData.getKey().isEmpty())
+                if (cityData.getValue() > 0 || !cityData.getKey().isEmpty())
                     return false;
                 return true;
         }
@@ -185,6 +185,16 @@ public class PlayableTile extends AbstractTile {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
+        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+
+        } else if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+            currentScore= 33;
+        }else if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+
+        }else if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+
+        }
+
         //todo add scoring here
         return new Pair(meeples, currentScore);
     }
