@@ -49,24 +49,25 @@ public class PlayableTileScoreRoadTest {
         assertEquals(0, score.getKey().size());
         assertEquals(-1, (int) score.getValue());
     }
+
     @Test
-    public void testStarScoreRS(){
+    public void testStarScoreRS() {
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> topFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         topFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-        topFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
-        topFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
-        topFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        topFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
         intA.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile top = new PlayableTile(topFeatures, intA);
-
         Pair<HashSet<Meeple>, Integer> score = top.startScoreRoad(false);
         assertEquals(0, score.getKey().size());
-        assertEquals(53, (int) score.getValue());//todo this will change
+        assertEquals(1, (int) score.getValue());//todo this will change
     }
+
     @Test
-    public void testStartScoreRoadNorth(){
+    public void testStartScoreRoadNorth() {
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> topFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         topFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
@@ -95,9 +96,39 @@ public class PlayableTileScoreRoadTest {
         Pair<HashSet<Meeple>, Integer> score = bottom.startScoreRoad(false);
         assertEquals(1, score.getKey().size());
         assertEquals(2, (int) score.getValue());
-
     }
 
+    @Test
+    public void testScoreRoad() {
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> topFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        topFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
+        intA.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile top = new PlayableTile(topFeatures, intA);
+        //Make bottom Tile
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> bottomFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        bottomFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        bottomFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        bottomFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        bottomFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        Set<GlobalVariables.Internal> intB = new HashSet<GlobalVariables.Internal>();
+        intB.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile bottom = new PlayableTile(bottomFeatures, intB);
+        //Add the meeple
+        m.place(bottom, GlobalVariables.Feature.ROAD, GlobalVariables.Location.TOP);
+        bottom.setMeeple(m);
+        //set the tiles
+        top.setBottom(bottom);
+        bottom.setTop(top);
 
+        Pair<Set<Meeple>, Integer> score = bottom.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        assertEquals(1, score.getKey().size());
+        //assertEquals(2, (int) score.getValue());
+
+    }
 
 }
