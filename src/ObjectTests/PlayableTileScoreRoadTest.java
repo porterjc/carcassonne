@@ -64,6 +64,10 @@ public class PlayableTileScoreRoadTest {
         Pair<HashSet<Meeple>, Integer> score = top.startScoreRoad(false);
         assertEquals(0, score.getKey().size());
         assertEquals(33, (int) score.getValue());//todo this will update
+        assertEquals(33, currentUser.getScore());
+
+
+
     }
     @Test
     public void testStartScoreRoadSouth(){
