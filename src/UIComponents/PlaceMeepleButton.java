@@ -47,6 +47,20 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         this.setIcon(new ImageIcon(player.getPlayerColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
     }
 
+    /**
+     * Sets the isActive field to true, enabling the button to be clicked
+     */
+    protected void activate() {
+        this.isActive = true;
+    }
+
+    /**
+     * Sets the isActive field to false, disabling the button from being clicked
+     */
+    protected void deactivate() {
+        this.isActive = false;
+    }
+
     /* Mouse Listener methods */
 
     @Override
