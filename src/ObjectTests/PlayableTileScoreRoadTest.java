@@ -61,7 +61,7 @@ public class PlayableTileScoreRoadTest {
         Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
         intA.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile top = new PlayableTile(topFeatures, intA);
-        Pair<HashSet<Meeple>, Integer> score = top.startScoreRoad(false);
+        Pair<Set<Meeple>, Integer> score = top.startScoreRoad(false);
         assertEquals(0, score.getKey().size());
         assertEquals(1, (int) score.getValue());//todo this will change
     }
@@ -93,7 +93,7 @@ public class PlayableTileScoreRoadTest {
         top.setBottom(bottom);
         bottom.setTop(top);
 
-        Pair<HashSet<Meeple>, Integer> score = bottom.startScoreRoad(false);
+        Pair<Set<Meeple>, Integer> score = bottom.startScoreRoad(false);
         assertEquals(1, score.getKey().size());
         assertEquals(2, (int) score.getValue());
     }
@@ -125,7 +125,7 @@ public class PlayableTileScoreRoadTest {
         top.setBottom(bottom);
         bottom.setTop(top);
 
-        Pair<Set<Meeple>, Integer> score = bottom.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
+        Pair<Set<Meeple>, Integer> score = bottom.startScoreRoad(false);
         assertEquals(1, score.getKey().size());
         assertEquals(2, (int) score.getValue());
 
