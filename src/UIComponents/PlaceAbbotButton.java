@@ -21,7 +21,7 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
      */
     public PlaceAbbotButton(GlobalVariables.Internal internal, Player player, int tileRotation) {
         super(internal, player);
-        this.setIcon(new ImageIcon(player.getPlayerColor().getAbbotImage()));
+        this.setIcon(new ImageIcon(player.getPlayerColor().getAbbotImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
         this.drawAbbot(tileRotation);
     }
 
@@ -44,5 +44,7 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
         else if(tileRotation == 3) {
             this.setBounds(half, AbstractTile.TILE_PIXEL_SIZE - margin - BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
         }
+        else
+            this.setBounds(half, half, BUTTON_SIZE, BUTTON_SIZE);
     }
 }

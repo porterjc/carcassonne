@@ -1,6 +1,7 @@
 package Objects;
 
 import Main.GlobalVariables;
+import UIComponents.PlaceAbbotButton;
 import UIComponents.PlaceMeepleButton;
 import javafx.util.Pair;
 
@@ -37,6 +38,12 @@ public class PlayableTile extends AbstractTile {
     public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         super(o, o1, o2, o3, features, internals);
         super.isPlayable = true;
+    }
+
+    public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, BufferedImage image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+        super(o, o1, o2, o3, features, internals);
+        super.isPlayable = true;
+        this.image = image;
     }
 
 
@@ -113,6 +120,8 @@ public class PlayableTile extends AbstractTile {
         // Center (Pretty much only for monasteries)
         if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
             this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
+        if (this.getInternals().contains(GlobalVariables.Internal.GARDEN))
+            this.add(new PlaceAbbotButton(GlobalVariables.Internal.GARDEN, currentPlayer, this.rotation));
 
         GlobalVariables.Feature t = getTopFeature();
         GlobalVariables.Feature l = getLeftFeature();
