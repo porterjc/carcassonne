@@ -205,6 +205,13 @@ public class PlayableTile extends AbstractTile {
         return new Pair(meeples, currentScore);
     }
 
+    @Override
+    public Pair<Set<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+        HashSet<Meeple> meeps = new HashSet<>();
+        meeps.add(this.meeple);
+        return new Pair<Set<Meeple>, Integer>(meeps, 0);
+    }
+
     /**
      * startScoreCity runs scoreCity in all given directions and then returns the total score and list of meeples found
      *
