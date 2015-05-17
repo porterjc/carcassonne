@@ -180,7 +180,7 @@ public class PlayableTile extends AbstractTile {
     }
 
 
-    public Pair<HashSet<Meeple>, Integer> startScoreRoad(Set<GlobalVariables.Direction> directions, boolean completion) {
+    public Pair<HashSet<Meeple>, Integer> startScoreRoad(boolean isEndOfGame) {
         int currentScore = 1;
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();

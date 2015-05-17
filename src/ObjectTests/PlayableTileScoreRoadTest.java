@@ -35,26 +35,53 @@ public class PlayableTileScoreRoadTest {
 
     @Test
     public void testStartScoreRoad() {
-
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
-        internals.add(GlobalVariables.Internal.ROADSTOP);
-
-        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         PlayableTile left = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), features, internals);
 
         HashSet<Meeple> meeples = new HashSet<>();
         Pair<Set<Meeple>, Integer> score = left.scoreRoad(alreadyVisited, meeples, false);
         assertEquals(0, score.getKey().size());
         assertEquals(-1, (int) score.getValue());
+    }
+    @Test
+    public void testStartScoreRoadSouth(){
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> topFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        topFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        topFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        topFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
+        intA.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile top = new PlayableTile(topFeatures, intA);
+        //Make bottom Tile
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> bottomFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        bottomFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        bottomFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        bottomFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        bottomFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> intB = new HashSet<GlobalVariables.Internal>();
+        intB.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile bottom = new PlayableTile(bottomFeatures, intB);
+        //Add the meeple
+        m.place(bottom, GlobalVariables.Feature.ROAD, GlobalVariables.Location.TOP);
+        bottom.setMeeple(m);
+        //set the tiles
+        top.setBottom(bottom);
+        bottom.setTop(top);
 
+        Pair<HashSet<Meeple>, Integer> score = top.startScoreRoad(false);
+        assertEquals(1, score.getKey().size());
+        assertEquals(2, (int) score.getValue());
 
     }
+
 
 
 }
