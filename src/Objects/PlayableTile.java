@@ -186,7 +186,8 @@ public class PlayableTile extends AbstractTile {
         Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
         if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
-
+            meeples.add(new Meeple(new Player(GlobalVariables.PlayerColor.BLACK), GlobalVariables.PlayerColor.BLACK));
+            currentScore = 2;
         }
         if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
             currentScore = 33;

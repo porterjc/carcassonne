@@ -69,8 +69,8 @@ public class PlayableTileScoreRoadTest {
     public void testStartScoreRoadNorth(){
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> topFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        topFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
-        topFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        topFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        topFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         topFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         topFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
@@ -81,7 +81,7 @@ public class PlayableTileScoreRoadTest {
         bottomFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         bottomFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         bottomFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-        bottomFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        bottomFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         Set<GlobalVariables.Internal> intB = new HashSet<GlobalVariables.Internal>();
         intB.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile bottom = new PlayableTile(bottomFeatures, intB);
