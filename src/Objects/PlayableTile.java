@@ -161,15 +161,21 @@ public class PlayableTile extends AbstractTile {
 
     private boolean shouldHaveButton(GlobalVariables.Direction dir) {
         GlobalVariables.Feature feat = getTargetFeature(dir);
-        HashSet<GlobalVariables.Direction> directions = new HashSet<>();
-        directions.add(dir);
         switch (feat) {
             case GRASS:
                 return !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER);
             case ROAD:
                 return false;
             case CITY:
-                //TODO: Fix this
+                HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+                if(this.getInternals().contains(GlobalVariables.Internal.CITY)) {
+                    directions.add(GlobalVariables.Direction.NORTH);
+                    directions.add(GlobalVariables.Direction.WEST);
+                    directions.add(GlobalVariables.Direction.EAST);
+                    directions.add(GlobalVariables.Direction.SOUTH);
+                }
+                else
+                    directions.add(dir);
                 Pair<HashSet<Meeple>, Integer> cityData = startScoreCity(directions, true);
                 if (cityData.getValue() > 0 || !cityData.getKey().isEmpty())
                     return false;
