@@ -115,11 +115,48 @@ public class PlaceMeepleButtonTest extends JFrame {
             internals4.add(GlobalVariables.Internal.GARDEN);
 
             PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image4, features4, internals4);
-            tile4.rotateTile();
-            tile4.rotateTile();
-            tile4.rotateTile();
             tile4.moveTile(50, 250);
             tiles.add(tile4);
+
+            BufferedImage image5 = ImageIO.read(new File("images/14.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features5 = new HashMap<>();
+            features5.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features5.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+            features5.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features5.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+            Set<GlobalVariables.Internal> internals5 = new HashSet<>();
+            internals5.add(GlobalVariables.Internal.GARDEN);
+            internals5.add(GlobalVariables.Internal.CITY);
+
+            PlayableTile tile5 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image5, features5, internals5);
+            tile5.moveTile(250, 250);
+            tiles.add(tile5);
+
+            BufferedImage image6 = ImageIO.read(new File("images/58.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features6 = new HashMap<>();
+            features6.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+            features6.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features6.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features6.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+            Set<GlobalVariables.Internal> internals6 = new HashSet<>();
+            internals6.add(GlobalVariables.Internal.GARDEN);
+
+            PlayableTile tile6 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image6, features6, internals6);
+            tile6.moveTile(450, 250);
+            tiles.add(tile6);
+
+            BufferedImage image7 = ImageIO.read(new File("images/70.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features7 = new HashMap<>();
+            features7.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features7.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+            features7.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+            features7.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+            Set<GlobalVariables.Internal> internals7 = new HashSet<>();
+            internals7.add(GlobalVariables.Internal.GARDEN);
+
+            PlayableTile tile7 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image6, features6, internals6);
+            tile7.moveTile(650, 250);
+            tiles.add(tile7);
 
         } catch (IOException e) {
             e.printStackTrace();
