@@ -269,6 +269,7 @@ public class PlayableTile extends AbstractTile {
         }
         if(currentScore == 1){
             currentScore = -1;
+            return new Pair(meeples, currentScore);
         }
         if (this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
             currentScore += 2;
