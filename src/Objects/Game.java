@@ -263,6 +263,15 @@ public class Game {
     }
 
     /**
+     * Determines whether the tiles within a game can be adjusted
+     * @return true if the game is in the tile placement state
+     */
+    public boolean canAdjustTile() {
+        return this.currentTurnState == TurnState.TILE_PLACEMENT;
+    }
+
+
+    /**
      * Adds a meeple to the list of monks
      *
      * @param monk The meeple to add
