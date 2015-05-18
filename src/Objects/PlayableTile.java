@@ -169,7 +169,6 @@ public class PlayableTile extends AbstractTile {
         return false;
     }
 
-
     private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local) {
         Meeple tileM = this.getMeeple();
         if (tileM != null) {//TODO what Was I using isRoadBlocked For
@@ -177,6 +176,21 @@ public class PlayableTile extends AbstractTile {
                 if (tileM.getLocation() == local)
                     meeples.add(tileM);
         }
+    }
+    /**
+     * If a tile has a blockage and the number of tiles scored is >1 then
+     * this method is called to find  TODo this logic is not correct for a meeple can be on the other side of a blockage and not be scored
+     * @param meeples
+     */
+    private void addMeepleInBlockage(Set<Meeple> meeples) {
+        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.TOP);
+        else if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.BOTTOM);
+        else if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.LEFT);
+        else if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.RIGHT);
     }
 
     /**
@@ -287,16 +301,6 @@ public class PlayableTile extends AbstractTile {
         return new Pair<Set<Meeple>, Integer>(meeples, currentscore);
     }
 
-    private void addMeepleInBlockage(Set<Meeple> meeples) {
-        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.TOP);
-        else if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.BOTTOM);
-        else if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.LEFT);
-        else if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.RIGHT);
-    }
 
 
     /**
