@@ -1,10 +1,7 @@
 package ObjectTests;
-import Objects.PlayableTile;
-import Objects.Player;
-import Objects.TileGrid;
-import Objects.OpenTile;
-import Objects.Game;
+
 import Main.GlobalVariables;
+import Objects.*;
 import UIComponents.BottomDisplay;
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +9,6 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -282,7 +278,7 @@ public class GameTest {
         feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         Set<GlobalVariables.Internal> internals = new HashSet<>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
-        PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2,internals);
+        PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2, internals);
         players.get(1).getMeeples().get(0).place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
         internals = new HashSet<>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
@@ -303,58 +299,57 @@ public class GameTest {
     }
 
     @Test
-    public void testUpdateAllScoresWithRoad(){
+    public void testUpdateAllScoresWithRoad() {
 
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-
         Game game = new Game(bdstub, getTiles(), this.players);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> t1features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         t1features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         t1features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
         t1features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         t1features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
-        PlayableTile t1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), t1features);
+        PlayableTile t1 = new PlayableTile(t1features, new HashSet<GlobalVariables.Internal>());
         players.get(0).getMeeples().get(0).place(t1, GlobalVariables.Feature.CITY, GlobalVariables.Location.BOTTOM);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
-        PlayableTile t2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1);
-        t1.setBottom(t2);
-        t2.setTop(t1);
+        PlayableTile t2 = new PlayableTile(feature1, new HashSet<GlobalVariables.Internal>());
 
-        game.setCurrentTile(t1);
-        assertEquals(true, game.updateAllScores());
-        assertEquals(2, players.get(0).getPlayerScore());
-        assertEquals(0, players.get(1).getPlayerScore());
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);//HAS ROADSTOP
         feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        Set<GlobalVariables.Internal> internals1 = new HashSet<>();
+        internals1.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2, internals1);
+        players.get(1).getMeeples().get(0).place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
+        t3.setMeeple(players.get(1).getMeeples().get(0));
         Set<GlobalVariables.Internal> internals = new HashSet<>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
-        PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2,internals);
-        players.get(1).getMeeples().get(0).place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
-        internals = new HashSet<>();
-        internals.add(GlobalVariables.Internal.ROADSTOP);
-        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> featuress = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> featuress = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>(); //HAS ROADSTOP
         featuress.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
         featuress.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
-        featuress.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        featuress.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         featuress.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
-        PlayableTile t4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), featuress, internals);
+        PlayableTile t4 = new PlayableTile(featuress, internals);
+
+
         t3.setBottom(t1);
         t1.setTop(t3);
         t1.setRight(t4);
         t4.setLeft(t1);
+        t1.setBottom(t2);
+        t2.setTop(t1);
 
         game.setCurrentTile(t3);
+        assertEquals(t3, game.getCurrentTile());
         assertEquals(true, game.updateAllScores());
-        assertEquals(2, game.getPlayers().get(0).getPlayerScore());
+        assertEquals(0, game.getPlayers().get(0).getPlayerScore());
         assertEquals(3, game.getPlayers().get(1).getPlayerScore());
     }
 }

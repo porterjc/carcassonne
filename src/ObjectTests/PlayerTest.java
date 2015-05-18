@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.bind.annotation.XmlElementDecl;
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +26,7 @@ public class PlayerTest {
     public void testSetup() {
         assertEquals(false, p == null);
         assertEquals(0, p.getPlayerScore());
-        assertEquals(Color.CYAN, p.getPlayerColor());
+        assertEquals(GlobalVariables.PlayerColor.BLUE, p.getPlayerColor());
         assertEquals(7, p.getMeeples().size());
     }
     @Test
