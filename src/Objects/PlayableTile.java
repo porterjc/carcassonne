@@ -189,22 +189,20 @@ public class PlayableTile extends AbstractTile {
         Pair<HashSet<Meeple>, Integer> score = null;
         //only score if a roadstop is placed
         if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP)) {
-            if (this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.ROAD) {
-                meeples.add(this.meeple);
-            }
-            if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+            if ((!alreadyVisited.contains(this.getTop())) && this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
                 if (this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.ROAD && this.meeple.getLocation() == GlobalVariables.Location.TOP) {
                     meeples.add(this.meeple);
                 }
                 score = this.getTop().scoreCity(alreadyVisited, meeples, false);
+                //update meeples & score players
             }
-            if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
-                currentScore = 33;
+            if ((!alreadyVisited.contains(this.getBottom())) && this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+
             }
-            if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+            if ((!alreadyVisited.contains(this.getRight())) && this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
                 currentScore += 10;
             }
-            if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+            if ((!alreadyVisited.contains(this.getLeft())) && this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
                 currentScore += 10;
             }
         }
