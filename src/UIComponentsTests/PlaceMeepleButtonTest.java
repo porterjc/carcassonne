@@ -154,9 +154,36 @@ public class PlaceMeepleButtonTest extends JFrame {
             Set<GlobalVariables.Internal> internals7 = new HashSet<>();
             internals7.add(GlobalVariables.Internal.GARDEN);
 
-            PlayableTile tile7 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image6, features6, internals6);
+            PlayableTile tile7 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image7, features7, internals7);
             tile7.moveTile(650, 250);
             tiles.add(tile7);
+
+            BufferedImage image8 = ImageIO.read(new File("images/r1.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features8 = new HashMap<>();
+            features8.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.RIVER);
+            features8.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.RIVER);
+            features8.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features8.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+            Set<GlobalVariables.Internal> internals8 = new HashSet<>();
+            internals8.add(GlobalVariables.Internal.GARDEN);
+
+            PlayableTile tile8 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image8, features8, internals8);
+            tile8.moveTile(50, 450);
+            tiles.add(tile8);
+
+            BufferedImage image9 = ImageIO.read(new File("images/45.png"));
+            HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features9 = new HashMap<>();
+            features9.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+            features9.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+            features9.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+            features9.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+            Set<GlobalVariables.Internal> internals9 = new HashSet<>();
+            internals9.add(GlobalVariables.Internal.GARDEN);
+            internals9.add(GlobalVariables.Internal.CITY);
+
+            PlayableTile tile9 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image9, features9, internals9);
+            tile9.moveTile(250, 450);
+            tiles.add(tile9);
 
         } catch (IOException e) {
             e.printStackTrace();
