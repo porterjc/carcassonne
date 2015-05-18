@@ -183,6 +183,7 @@ public class PlayableTile extends AbstractTile {
      * Begins scoring process for roads and updates player's scores after calculation
      * Also, this method removes Meeples
      * TODO may change the return value to only be a set of Meeples
+     *
      * @param isEndOfGame
      * @return the complete list of meeples to remove from the UI
      */
@@ -236,18 +237,27 @@ public class PlayableTile extends AbstractTile {
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         alreadyVisited.add(this);
 
-        if ((!alreadyVisited.contains(this.getTop())) && this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+        boolean alreadyVisitedTop = alreadyVisited.contains(this.getTop());
+        boolean isNorthRoad = this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD;
+        System.out.println("alreadyVisitedTOp:" + alreadyVisitedTop);
+        System.out.println("isNorthRoad:" + isNorthRoad);
+        if (isNorthRoad) {
             addMeeple(meeples, GlobalVariables.Location.TOP, false);
-            if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) {
+            if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1 && alreadyVisitedTop) {
                 return new Pair<>(meeples, currentscore);
             } else {
                 score = this.getTop().scoreCity(alreadyVisited, meeples, false);
                 currentscore += score.getValue();
             }
         }
-        if ((!alreadyVisited.contains(this.getBottom())) && this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+        boolean alreadyVisitedBottom = alreadyVisited.contains(this.getBottom());
+        boolean isSouthARoad = this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD;
+        System.out.println("alreadyV:" + alreadyVisitedBottom);
+        System.out.println("isSouthARoad:" + isSouthARoad);
+
+        if (isSouthARoad) {
             addMeeple(meeples, GlobalVariables.Location.BOTTOM, false);
-            if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) {
+            if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1 &&alreadyVisitedBottom) {
                 return new Pair<>(meeples, currentscore);
             } else {
                 score = this.getBottom().scoreCity(alreadyVisited, meeples, false);
