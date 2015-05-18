@@ -169,10 +169,14 @@ public class PlayableTile extends AbstractTile {
             case CITY:
                 HashSet<GlobalVariables.Direction> directions = new HashSet<>();
                 if(this.getInternals().contains(GlobalVariables.Internal.CITY)) {
-                    directions.add(GlobalVariables.Direction.NORTH);
-                    directions.add(GlobalVariables.Direction.WEST);
-                    directions.add(GlobalVariables.Direction.EAST);
-                    directions.add(GlobalVariables.Direction.SOUTH);
+                    if(getTopFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.NORTH);
+                    if(getLeftFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.WEST);
+                    if(getRightFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.EAST);
+                    if(getBottomFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.SOUTH);
                 }
                 else
                     directions.add(dir);
@@ -248,9 +252,6 @@ public class PlayableTile extends AbstractTile {
         Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
-        if (this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
-            currentScore += 2;
-
         if (getMeeple() != null)
             meeples.add(this.getMeeple());
 
@@ -269,6 +270,8 @@ public class PlayableTile extends AbstractTile {
         if(currentScore == 1){
             currentScore = -1;
         }
+        if (this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
+            currentScore += 2;
         return new Pair(meeples, currentScore);
     }
 
