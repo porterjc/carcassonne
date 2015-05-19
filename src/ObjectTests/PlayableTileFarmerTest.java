@@ -514,7 +514,9 @@ public class PlayableTileFarmerTest {
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1, internal1);
 
         assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.BOTTOMLEFT));
+        assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPLEFT));
         assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPRIGHT));
+        assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.BOTTOMRIGHT));
     }
 
     @Test
@@ -529,7 +531,9 @@ public class PlayableTileFarmerTest {
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1, internal1);
 
         assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.BOTTOMLEFT));
+        assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.BOTTOMRIGHT));
         assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPRIGHT));
+        assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPLEFT));
     }
 
 }
