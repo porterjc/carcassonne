@@ -667,6 +667,8 @@ public class PlayableTile extends AbstractTile {
                     return GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
                  else if(GlobalVariables.Location.isRight(loc1) && getRightFeature() == GlobalVariables.Feature.ROAD || getRightFeature() == GlobalVariables.Feature.RIVER)
                     return false;
+                else if(GlobalVariables.Location.isLeft(loc1) && getLeftFeature() == GlobalVariables.Feature.ROAD || getLeftFeature() == GlobalVariables.Feature.RIVER)
+                    return false;
             }
         }
 
