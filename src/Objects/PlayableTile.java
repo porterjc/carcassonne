@@ -132,27 +132,27 @@ public class PlayableTile extends AbstractTile {
 
         //Edges
         if (shouldHaveButton(GlobalVariables.Direction.NORTH)) { //Top
-            if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 1)
+            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 1)
                 this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN));
-            else if(l != GlobalVariables.Feature.GRASS)
+            else if (l != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
         }
         if (shouldHaveButton(GlobalVariables.Direction.WEST)) { //Left
-            if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 0)
+            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 0)
                 this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half));
-            else if(t != GlobalVariables.Feature.GRASS)
+            else if (t != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
         }
         if (shouldHaveButton(GlobalVariables.Direction.EAST)) { //Right
-            if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 2)
+            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 2)
                 this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));
-            else if(b != GlobalVariables.Feature.GRASS)
+            else if (b != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
         }
         if (shouldHaveButton(GlobalVariables.Direction.SOUTH)) { //Bottom
-            if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 3)
+            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 3)
                 this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));
-            else if(r != GlobalVariables.Feature.GRASS)
+            else if (r != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
         }
 
@@ -160,31 +160,31 @@ public class PlayableTile extends AbstractTile {
         if (shouldHaveCornerButton(t, l, GlobalVariables.Location.TOPLEFT)) {
             if (t == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN + CITY_OFFSET);
-            else if(l == GlobalVariables.Feature.CITY)
+            else if (l == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN + CITY_OFFSET, TILE_INNER_MARGIN);
             else
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN);
         }
         if (shouldHaveCornerButton(t, r, GlobalVariables.Location.TOPRIGHT)) {
-            if(t == GlobalVariables.Feature.CITY)
+            if (t == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN + CITY_OFFSET);
-            else if(r == GlobalVariables.Feature.CITY)
+            else if (r == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far - CITY_OFFSET, TILE_INNER_MARGIN);
             else
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN);
         }
         if (shouldHaveCornerButton(b, l, GlobalVariables.Location.BOTTOMLEFT)) {
-            if(b == GlobalVariables.Feature.CITY)
+            if (b == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far - CITY_OFFSET);
-            else if(l == GlobalVariables.Feature.CITY)
+            else if (l == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN + CITY_OFFSET, far);
             else
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far);
         }
         if (shouldHaveCornerButton(b, r, GlobalVariables.Location.BOTTOMRIGHT)) {
-            if(b == GlobalVariables.Feature.CITY)
+            if (b == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far - CITY_OFFSET);
-            else if(r == GlobalVariables.Feature.CITY)
+            else if (r == GlobalVariables.Feature.CITY)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far - CITY_OFFSET, far);
             else
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far);
@@ -193,6 +193,7 @@ public class PlayableTile extends AbstractTile {
 
     /**
      * Determines whether a button should be placed on the edge
+     *
      * @param dir the direction of the edge being examined
      * @return true if a button can be placed on the given edge
      */
@@ -207,17 +208,16 @@ public class PlayableTile extends AbstractTile {
                 return false;
             case CITY:
                 directions = new HashSet<>();// TODO Alia Check this-- it through an error for double duplication so I deleted the first part
-                if(this.getInternals().contains(GlobalVariables.Internal.CITY)) {
-                    if(getTopFeature() == GlobalVariables.Feature.CITY)
+                if (this.getInternals().contains(GlobalVariables.Internal.CITY)) {
+                    if (getTopFeature() == GlobalVariables.Feature.CITY)
                         directions.add(GlobalVariables.Direction.NORTH);
-                    if(getLeftFeature() == GlobalVariables.Feature.CITY)
+                    if (getLeftFeature() == GlobalVariables.Feature.CITY)
                         directions.add(GlobalVariables.Direction.WEST);
-                    if(getRightFeature() == GlobalVariables.Feature.CITY)
+                    if (getRightFeature() == GlobalVariables.Feature.CITY)
                         directions.add(GlobalVariables.Direction.EAST);
-                    if(getBottomFeature() == GlobalVariables.Feature.CITY)
+                    if (getBottomFeature() == GlobalVariables.Feature.CITY)
                         directions.add(GlobalVariables.Direction.SOUTH);
-                }
-                else
+                } else
                     directions.add(dir);
                 Pair<HashSet<Meeple>, Integer> cityData = startScoreCity(directions, true);
                 return !(cityData.getValue() > 0 || !cityData.getKey().isEmpty());
@@ -228,8 +228,9 @@ public class PlayableTile extends AbstractTile {
 
     /**
      * Determines whether a button should be placed in the given corner
-     * @param f1 The feature on one edge of the corner
-     * @param f2 The feature on the other edge of the corner
+     *
+     * @param f1  The feature on one edge of the corner
+     * @param f2  The feature on the other edge of the corner
      * @param loc The location of the corner
      * @return true if a button should be placed on the corner
      */
@@ -243,7 +244,7 @@ public class PlayableTile extends AbstractTile {
     }
 
 
-   // private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local, boolean isRoadBlocked) {
+    // private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local, boolean isRoadBlocked) {
     private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local) {
 
         Meeple tileM = this.getMeeple();
@@ -253,9 +254,11 @@ public class PlayableTile extends AbstractTile {
                     meeples.add(tileM);
         }
     }
+
     /**
      * If a tile has a blockage and the number of tiles scored is >1 then
      * this method is called to find  TODo this logic is not correct for a meeple can be on the other side of a blockage and not be scored
+     *
      * @param meeples
      */
     private void addMeepleInBlockage(Set<Meeple> meeples) {
@@ -295,8 +298,10 @@ public class PlayableTile extends AbstractTile {
             if ((!alreadyVisited.contains(this.getBottom())) && this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
                 addMeeple(meeples, GlobalVariables.Location.BOTTOM);
                 score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, getBottom());
-                // score = this.getBottom().scoreRoad(alreadyVisited, meeples, isEndOfGame);
-                scoreUpdate(currentScore, score);
+                if (score.getValue() > 1)
+                    scoreUpdate(currentScore, score);
+                else
+                    score = new Pair<>(score.getKey(), 0);
             }
             if ((!alreadyVisited.contains(this.getRight())) && this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
                 addMeeple(meeples, GlobalVariables.Location.RIGHT);
@@ -319,13 +324,13 @@ public class PlayableTile extends AbstractTile {
         Pair<Set<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples, isEndOfGame);
         if (isEndOfGame && temp.getValue() == -1) {
             return new Pair(meeples, currentTileScore + 1);
-        } else if (temp.getValue() == -1) {
+        } else if (temp.getValue() ==-1) {
             return new Pair(meeples, -1);
         } else {
             if (this.getMeeple() != null) {
                 meeples.add(this.getMeeple());
             }
-            return new Pair(meeples, 1 + temp.getValue());
+            return new Pair(meeples, temp.getValue());
         }
     }
 
@@ -352,32 +357,29 @@ public class PlayableTile extends AbstractTile {
 
         if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getTop())) {
             addMeeple(meeples, GlobalVariables.Location.TOP);
-            score = this.getTop().scoreRoad(alreadyVisited, meeples, false);
+            score = this.getTop().scoreRoad(alreadyVisited, meeples, isEndofGame);
             currentscore += score.getValue();
         }
         if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
             addMeeple(meeples, GlobalVariables.Location.BOTTOM);
-            score = this.getBottom().scoreRoad(alreadyVisited, meeples, false);
+            score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getBottom());
             currentscore += score.getValue();
 
         }
         if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
             addMeeple(meeples, GlobalVariables.Location.RIGHT);
-// scoreRoadHelperMethod(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame, int currentTileScore, AbstractTile t) {
-
-            score = scoreRoadHelperMethod(alreadyVisited, meeples, false, currentscore, this.getRight());
+            score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getRight());
             currentscore += score.getValue();
 
         }
         if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
             addMeeple(meeples, GlobalVariables.Location.LEFT);
-
-            score = this.getLeft().scoreRoad(alreadyVisited, meeples, false);
+            score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getLeft());
+//            score = this.getLeft().scoreRoad(alreadyVisited, meeples, isEndofGame);
             currentscore += score.getValue();
         }
         return new Pair<Set<Meeple>, Integer>(meeples, currentscore);
     }
-
 
 
     /**
@@ -394,10 +396,11 @@ public class PlayableTile extends AbstractTile {
         alreadyVisited.add(this);
 
         if (meep != null && meep.getFeature() == GlobalVariables.Feature.CITY)
-            if((directions.contains(GlobalVariables.Direction.NORTH) && meep.getLocation() == GlobalVariables.Location.TOP) || (directions.contains(GlobalVariables.Direction.WEST) && meep.getLocation() == GlobalVariables.Location.LEFT)
+            if ((directions.contains(GlobalVariables.Direction.NORTH) && meep.getLocation() == GlobalVariables.Location.TOP) || (directions.contains(GlobalVariables.Direction.WEST) && meep.getLocation() == GlobalVariables.Location.LEFT)
                     || ((directions.contains(GlobalVariables.Direction.EAST) && meep.getLocation() == GlobalVariables.Location.RIGHT)) ||
                     (directions.contains(GlobalVariables.Direction.SOUTH) && meep.getLocation() == GlobalVariables.Location.BOTTOM) || (directions.contains(GlobalVariables.Internal.CITY) && meep.getLocation() == GlobalVariables.Location.CENTER)) {
-                meeples.add(meep);}
+                meeples.add(meep);
+            }
 
         if (directions.contains(GlobalVariables.Direction.NORTH)) {
             currentScore += getTop().scoreCity(alreadyVisited, meeples, completion).getValue();
@@ -411,7 +414,7 @@ public class PlayableTile extends AbstractTile {
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if(currentScore <= 3){
+        if (currentScore <= 3) {
             currentScore = -1;
             return new Pair(meeples, currentScore);
         }
@@ -657,37 +660,38 @@ public class PlayableTile extends AbstractTile {
 
     /**
      * Determines whether two locations are on the same side of a road
+     *
      * @param loc1 the first location
      * @param loc2 the second location
      * @return true if the two locations are on the same side of a road, or false if there is a road between them
      */
     public boolean isOnSameSideOfRoad(GlobalVariables.Location loc1, GlobalVariables.Location loc2) {
-        if(hasNSbisector() && GlobalVariables.Location.isLeft(loc1) != GlobalVariables.Location.isLeft(loc2))
+        if (hasNSbisector() && GlobalVariables.Location.isLeft(loc1) != GlobalVariables.Location.isLeft(loc2))
             return false;
-        if(hasEWbisector() && GlobalVariables.Location.isTop(loc1) != GlobalVariables.Location.isTop(loc2))
+        if (hasEWbisector() && GlobalVariables.Location.isTop(loc1) != GlobalVariables.Location.isTop(loc2))
             return false;
 
         boolean rightSplit = getRightFeature() == GlobalVariables.Feature.ROAD || getRightFeature() == GlobalVariables.Feature.RIVER;
         boolean leftSplit = getLeftFeature() == GlobalVariables.Feature.ROAD || getLeftFeature() == GlobalVariables.Feature.RIVER;
 
-        if(GlobalVariables.Location.isTop(loc1)) {
-            if(getTopFeature() == GlobalVariables.Feature.ROAD || getTopFeature() == GlobalVariables.Feature.RIVER) {
-                if(GlobalVariables.Location.isTop(loc2))
-                    return (!leftSplit && !rightSplit) ||  GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
-                if(GlobalVariables.Location.isRight(loc1) && rightSplit)
+        if (GlobalVariables.Location.isTop(loc1)) {
+            if (getTopFeature() == GlobalVariables.Feature.ROAD || getTopFeature() == GlobalVariables.Feature.RIVER) {
+                if (GlobalVariables.Location.isTop(loc2))
+                    return (!leftSplit && !rightSplit) || GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
+                if (GlobalVariables.Location.isRight(loc1) && rightSplit)
                     return false;
-                else if(GlobalVariables.Location.isLeft(loc1) && leftSplit)
+                else if (GlobalVariables.Location.isLeft(loc1) && leftSplit)
                     return false;
             }
         }
 
-        if(GlobalVariables.Location.isBottom(loc1)) {
-            if(getBottomFeature() == GlobalVariables.Feature.ROAD || getBottomFeature() == GlobalVariables.Feature.RIVER) {
+        if (GlobalVariables.Location.isBottom(loc1)) {
+            if (getBottomFeature() == GlobalVariables.Feature.ROAD || getBottomFeature() == GlobalVariables.Feature.RIVER) {
                 if (GlobalVariables.Location.isBottom(loc2))
                     return (!leftSplit && !rightSplit) || GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
-                else if(GlobalVariables.Location.isRight(loc1) && rightSplit)
+                else if (GlobalVariables.Location.isRight(loc1) && rightSplit)
                     return false;
-                else if(GlobalVariables.Location.isLeft(loc1) && leftSplit)
+                else if (GlobalVariables.Location.isLeft(loc1) && leftSplit)
                     return false;
             }
         }
