@@ -1,7 +1,6 @@
 package Objects;
 
 import Main.GlobalVariables;
-import Objects.Meeple;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -133,7 +132,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
     }
 
     @Override
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+    public boolean traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Integer> cities, boolean gameOver) {
         return false;
     }
 

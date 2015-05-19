@@ -100,7 +100,7 @@ public class PlayableTileFarmerTest {
         feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
 
@@ -123,7 +123,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -167,7 +167,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -189,7 +189,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         tile2.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -229,7 +229,7 @@ public class PlayableTileFarmerTest {
         feature5.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         PlayableTile tile5 = new PlayableTile(tile1, tile2, tile3, tile4, feature5);
 
-        assertFalse(tile5.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertFalse(tile5.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -255,7 +255,7 @@ public class PlayableTileFarmerTest {
          * This is failing not because of refactoring, but because of adding the set of Meeples to the return
          * TODO fix
          */
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -279,7 +279,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOM);
         tile2.setMeeple(m);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -308,7 +308,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOM);
         tile3.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -337,7 +337,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOM);
         tile3.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -366,7 +366,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOM);
         tile3.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -401,7 +401,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.RIGHT);
         tile3.setMeeple(m);
-        assertTrue(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT));
+        assertTrue(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
 
@@ -437,7 +437,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.LEFT);
         tile3.setMeeple(m);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT));
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -470,7 +470,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(new Player(GlobalVariables.PlayerColor.RED), GlobalVariables.PlayerColor.RED);
         m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.TOPLEFT);
         tile3.setMeeple(m);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT));
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false));
     }
 
     @Test
@@ -497,8 +497,8 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOMLEFT);
         tile2.setMeeple(m);
-       // assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT));
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPRIGHT));
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false));
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false));
 
     }
 

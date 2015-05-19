@@ -162,7 +162,7 @@ public abstract class AbstractTile extends JLabel {
     public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
         return new Pair(meeples, -1);
     }
-    public boolean findFarmer(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
+    public boolean traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Integer> cities, boolean gameOver) {
         return false;
     }
 
