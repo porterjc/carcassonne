@@ -169,7 +169,7 @@ public class PlayableTile extends AbstractTile {
             case ROAD:
                 return false;
             case CITY:
-                HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+                directions = new HashSet<>();// TODO Alia Check this-- it through an error for double duplication so I deleted the first part
                 if(this.getInternals().contains(GlobalVariables.Internal.CITY)) {
                     if(getTopFeature() == GlobalVariables.Feature.CITY)
                         directions.add(GlobalVariables.Direction.NORTH);
