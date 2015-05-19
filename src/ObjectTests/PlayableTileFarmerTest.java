@@ -503,6 +503,43 @@ public class PlayableTileFarmerTest {
     }
 
     @Test
+    public void testFindFarmerAcross4WayIntersection() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        HashSet<GlobalVariables.Internal> internal1 = new HashSet<>();
+        internal1.add(GlobalVariables.Internal.EWBISECTOR);
+        internal1.add(GlobalVariables.Internal.NSBISECTOR);
+        internal1.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1, internal1);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), tile1, new OpenTile(), new OpenTile(), feature2, internal2);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<>();
+        feature3.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature3.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature3.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature3.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        HashSet<GlobalVariables.Internal> internal3 = new HashSet<>();
+        internal3.add(GlobalVariables.Internal.ROADSTOP);
+        internal3.add(GlobalVariables.Internal.EWBISECTOR);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), tile2, new OpenTile(), new OpenTile(), feature3, internal3);
+
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
+        m.place(tile3, GlobalVariables.Feature.GRASS, GlobalVariables.Location.TOPRIGHT);
+        tile3.setMeeple(m);
+        assertFalse(tile1.traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false));
+    }
+
+    @Test
     public void testOnSameSideOfVerticalRoad() {
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);

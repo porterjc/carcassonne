@@ -202,7 +202,7 @@ public class PlayableTile extends AbstractTile {
         directions.add(dir);
         switch (feat) {
             case GRASS:
-                return !traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+                return !traceField(new HashSet<AbstractTile>(), dir.getLocation(), new HashSet<Meeple>(), new HashSet<Integer>(), false);
             case ROAD:
                 return false;
             case CITY:
