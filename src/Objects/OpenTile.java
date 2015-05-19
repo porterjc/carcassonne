@@ -148,6 +148,8 @@ public class OpenTile extends AbstractTile implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         TileGrid grid = (TileGrid) this.getParent();
+        if(!grid.getGame().canAdjustTile())
+            return;
         PlayableTile current = grid.getGame().getCurrentTile();
 
         if (this.canPlace(current)) {

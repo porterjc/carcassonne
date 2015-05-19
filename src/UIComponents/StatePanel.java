@@ -3,6 +3,7 @@ package UIComponents;
 import Objects.Game;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -27,10 +28,9 @@ public class StatePanel extends JPanel {
      */
     public StatePanel(final Game game) {
         this.game = game;
-
-        this.setSize(new Dimension(200, 100));
-        this.setBackground(Color.WHITE);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(new EmptyBorder(5, 20, 20, 20));
+        this.setBackground(Color.WHITE);
 
         stateLabel = new GameLabel("Place a tile");
         stateLabel.setAlignmentX(CENTER_ALIGNMENT);

@@ -102,8 +102,14 @@ public class Game {
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
 
         //as we don't want too much coupling between the UI and the GAME class over sharing Objects.Player objects
-        drawTile();
-        bottomDisplay.finishedScoringUpdate();
+        boolean goOn = drawTile();
+        System.out.println("Game over? ");
+        if(goOn)
+            bottomDisplay.finishedScoringUpdate();
+        else {
+            gameOver = true;
+            //TODO: trigger end of game scoring
+        }
         return true;
     }
 
@@ -167,7 +173,7 @@ public class Game {
                 meeple.remove();
             }
         }
-
+/*
         Pair<Set<Meeple>, Integer> roads;
         roads = currentTile.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
         Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
@@ -179,8 +185,21 @@ public class Game {
         if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY)
             cities.push(helpScoreCity(GlobalVariables.Direction.EAST, currentTile));
         if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY)
-            cities.push(helpScoreCity(GlobalVariables.Direction.SOUTH, currentTile));
+            cities.push(helpScoreCity(GlobalVariables.Direction.SOUTH, currentTile)); */
 
+        //TODO: Calculate who ACTUALLY deserves the score among shared features
+ /*      while(!roads.isEmpty()) {
+           Pair<Set<Meeple>, Integer> road = roads.pop();
+           if(road.getValue() > 0) {
+               for(Meeple m : road.getKey()) {
+                   m.getPlayer().updateScore(road.getValue());
+                   m.remove();
+               }
+           }
+       }
+
+        while(!cities.isEmpty()) {
+=======
         if (roads.getValue() > 0) {
             for (Meeple m : roads.getKey()) {
                 m.getPlayer().updateScore(roads.getValue());
@@ -189,6 +208,7 @@ public class Game {
         }
 
         while (!cities.isEmpty()) {
+>>>>>>> origin/master
             Pair<HashSet<Meeple>, Integer> city = cities.pop();
             if (city.getValue() > 0) {
                 for (Meeple m : city.getKey()) {
@@ -196,17 +216,16 @@ public class Game {
                     m.remove();
                 }
             }
-        }
+        } */
 
         moveToNextState();
     }
 
-    //TODO: Fix this
-    private Pair<HashSet<Meeple>, Integer> helpScoreCity(GlobalVariables.Direction d, PlayableTile tile) {
+/*    private Pair<HashSet<Meeple>, Integer> helpScoreCity(GlobalVariables.Direction d, PlayableTile tile) {
         Set<GlobalVariables.Direction> directions = new HashSet<>();
         directions.add(d);
         return tile.startScoreCity(directions, true);
-    }
+    } */
 
     public boolean updateAllScores() {
         Pair<HashSet<Meeple>, Integer> scoreCity, scoreFarmer;
@@ -237,9 +256,19 @@ public class Game {
     public void passTurn() {
         if (currentTurnState == TurnState.MEEPLE_PLACEMENT) {
             currentTile.removeAll();
+            currentTile.repaint();
             moveToNextState();
         }
     }
+
+    /**
+     * Determines whether the tiles within a game can be adjusted
+     * @return true if the game is in the tile placement state
+     */
+    public boolean canAdjustTile() {
+        return this.currentTurnState == TurnState.TILE_PLACEMENT;
+    }
+
 
     /**
      * Adds a meeple to the list of monks
@@ -267,39 +296,7 @@ public class Game {
         }
     }
 
-    class ListResponseModel<E> extends AbstractListModel {
 
-        private static final long serialVersionUID = 1L;
-
-        private ArrayList<OpenTile> delegate = new ArrayList<OpenTile>();
-
-        @Override
-        public int getSize() {
-            return delegate.size();
-        }
-
-        @Override
-        public Object getElementAt(int index) {
-            return delegate.get(index);
-        }
-
-        public void add(OpenTile e) {
-            int index = delegate.size();
-            delegate.add(e);
-            fireIntervalAdded(this, index, index);
-        }
-
-        @Override
-        protected void fireIntervalAdded(Object source, int index0, int index1) {
-            super.fireIntervalAdded(source, index0, index1);//no idea what this does
-
-        }
-
-        @Override
-        protected void fireIntervalRemoved(Object source, int index0, int index1) {
-            super.fireIntervalRemoved(source, index0, index1);
-        }
-    }
 
     /**
      * For testing purposes only. should never be called elsewhere

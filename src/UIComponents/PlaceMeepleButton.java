@@ -24,8 +24,23 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     private Player player;
     /** The location at which to place the meeple */
     private GlobalVariables.Location location;
+    /** Whether or not this button is active. If not, it is for display purposes only and clicking does nothing */
+    private boolean isActive;
+
     /** The size of this button */
     public static final int BUTTON_SIZE = 30;
+
+    /**
+     * Default constructor. The subclass will only need to use the following fields:
+     * @param internal the internal feature that the meeple will placed on
+     * @param player the player that owns the placed meeple
+     */
+    protected PlaceMeepleButton(GlobalVariables.Internal internal, Player player) {
+        this.internal = internal;
+        this.player = player;
+        this.activate();
+        this.addMouseListener(this);
+    }
 
     /**
      * Constructor
@@ -34,19 +49,59 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
      * @param y the y coordinate of this button
      */
     public PlaceMeepleButton(GlobalVariables.Feature feature, GlobalVariables.Internal internal, Player player, GlobalVariables.Location location, int x, int y) {
+        this(internal, player);
         this.feature = feature;
-        this.internal = internal;
-        this.player = player;
         this.location = location;
         this.setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE);
-        this.addMouseListener(this);
         this.setIcon(new ImageIcon(player.getPlayerColor().getMeepleImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
+    }
+
+    /**
+     * Sets the isActive field to true, enabling the button to be clicked
+     */
+    protected void activate() {
+        this.isActive = true;
+    }
+
+    /**
+     * Sets the isActive field to false, disabling the button from being clicked
+     */
+    protected void deactivate() {
+        this.isActive = false;
+    }
+
+    /**
+     * Sets the "feature" field to the specified feature
+     * @param feature the feature to set for the meeple
+     */
+    protected void setFeature(GlobalVariables.Feature feature) {
+        this.feature = feature;
+    }
+
+    /**
+     * Sets the "internal" field to the specified internal feature
+     * @param internal the internal feature to set for the meeple
+     */
+    protected void setInternal(GlobalVariables.Internal internal) {
+        this.internal = internal;
+    }
+
+    /**
+     * Sets the player field to the player that will own the placed meeple
+     * @param player the player that will own the placed meeple
+     */
+    protected void setPlayer(Player player) {
+        this.player = player;
     }
 
     /* Mouse Listener methods */
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // If this button is inactive, do nothing
+        if(!isActive)
+            return;
+
         //TODO: Do it a much better way than this if we can. this is gross
         // Keep only this one
         PlayableTile parentTile = (PlayableTile) getParent();
@@ -63,7 +118,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         //If this is on a garden or monastery, the game needs to know about it
         if(internal == GlobalVariables.Internal.MONASTERY || internal == GlobalVariables.Internal.GARDEN)
             game.addMonk(toPlace);
-
+        deactivate();
         game.moveToNextState();
     }
 

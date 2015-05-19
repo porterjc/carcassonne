@@ -26,9 +26,6 @@ public class BottomDisplay extends JPanel{
     /** The game in progress */
     private Game game;
 
-    /** Keeping track of whether the rotate button should respond */
-    private boolean rotateResponds;
-
     /**
      * Constructor
      * @param screenWidth The width of the screen
@@ -95,8 +92,6 @@ public class BottomDisplay extends JPanel{
         // Add panel to display scores
         scorePanel = new ScorePanel(game.getPlayers());
         this.add(scorePanel);
-
-        rotateResponds = true;
     }
 
     /**
@@ -110,7 +105,7 @@ public class BottomDisplay extends JPanel{
      * Called when the "rotate tile" button is pressed
      */
     private void handleRotatePress() {
-        if(rotateResponds) {
+        if(game.canAdjustTile()) {
             game.getCurrentTile().rotateTile();
             updateCurrentTileLabel();
         }
@@ -120,7 +115,6 @@ public class BottomDisplay extends JPanel{
      * Called each time a tile is placed to update the UI
      */
     public void placedTileUpdate() {
-        rotateResponds = false;
         disableLabel(currentTileLabel);
         updateTilesLeftLabel();
         updateStatePanel();
@@ -137,7 +131,6 @@ public class BottomDisplay extends JPanel{
      * Called each time the scoring algorithms have finished running
      */
     public void finishedScoringUpdate() {
-        rotateResponds = true;
         updateCurrentTileLabel();
         updateStatePanel();
         updateScorePanel();

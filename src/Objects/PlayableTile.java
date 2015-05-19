@@ -1,6 +1,7 @@
 package Objects;
 
 import Main.GlobalVariables;
+import UIComponents.PlaceAbbotButton;
 import UIComponents.PlaceMeepleButton;
 import javafx.util.Pair;
 
@@ -37,6 +38,12 @@ public class PlayableTile extends AbstractTile {
     public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
         super(o, o1, o2, o3, features, internals);
         super.isPlayable = true;
+    }
+
+    public PlayableTile(AbstractTile o, AbstractTile o1, AbstractTile o2, AbstractTile o3, BufferedImage image, HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals) {
+        super(o, o1, o2, o3, features, internals);
+        super.isPlayable = true;
+        this.image = image;
     }
 
 
@@ -113,6 +120,8 @@ public class PlayableTile extends AbstractTile {
         // Center (Pretty much only for monasteries)
         if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
             this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
+        if (this.getInternals().contains(GlobalVariables.Internal.GARDEN))
+            this.add(new PlaceAbbotButton(GlobalVariables.Internal.GARDEN, currentPlayer, this.rotation));
 
         GlobalVariables.Feature t = getTopFeature();
         GlobalVariables.Feature l = getLeftFeature();
@@ -160,7 +169,19 @@ public class PlayableTile extends AbstractTile {
             case ROAD:
                 return false;
             case CITY:
-                //TODO: Fix this
+                HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+                if(this.getInternals().contains(GlobalVariables.Internal.CITY)) {
+                    if(getTopFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.NORTH);
+                    if(getLeftFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.WEST);
+                    if(getRightFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.EAST);
+                    if(getBottomFeature() == GlobalVariables.Feature.CITY)
+                        directions.add(GlobalVariables.Direction.SOUTH);
+                }
+                else
+                    directions.add(dir);
                 Pair<HashSet<Meeple>, Integer> cityData = startScoreCity(directions, true);
                 if (cityData.getValue() > 0 || !cityData.getKey().isEmpty())
                     return false;
@@ -315,10 +336,7 @@ public class PlayableTile extends AbstractTile {
         Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
-        if (this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
-            currentScore += 2;
-
-        if (this.getMeeple() != null)
+        if (getMeeple() != null)
             meeples.add(this.getMeeple());
 
         if (directions.contains(GlobalVariables.Direction.NORTH)) {
@@ -333,6 +351,12 @@ public class PlayableTile extends AbstractTile {
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
+        if(currentScore == 1){
+            currentScore = -1;
+            return new Pair(meeples, currentScore);
+        }
+        if (this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
+            currentScore += 2;
         return new Pair(meeples, currentScore);
     }
 

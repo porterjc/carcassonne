@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by johnsoaa on 3/29/2015.
@@ -357,12 +356,12 @@ public class GlobalVariables {
     /**
      * Convieniently stores the necessary colors and images
      */
-    public enum PlayerColor {
-        RED(new Color(227, 6, 16), redMeeple, redMeeple),
-        YELLOW(new Color(245, 234, 0), yellowMeeple, yellowMeeple),
-        GREEN(new Color(4, 148, 7), greenMeeple, greenMeeple),
-        BLUE(new Color(47, 47, 255), blueMeeple, blueMeeple),
-        BLACK(new Color(45, 45, 45), blackMeeple, blackMeeple);
+    public enum PlayerColor {RED (new Color(227, 6, 16), redMeeple, redAbbot),
+                                    YELLOW (new Color(245, 234, 0), yellowMeeple, yellowAbbot),
+                                    GREEN (new Color(4, 148, 7), greenMeeple, greenAbbot),
+                                    BLUE (new Color(47, 47, 255), blueMeeple, blueAbbot),
+                                    BLACK (new Color(45, 45, 45), blackMeeple, blackAbbot);
+
 
         /**
          * The color to display
