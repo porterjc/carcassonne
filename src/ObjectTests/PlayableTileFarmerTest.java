@@ -700,6 +700,7 @@ public class PlayableTileFarmerTest {
         feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
         HashSet<GlobalVariables.Internal> internal1 = new HashSet<>();
         internal1.add(GlobalVariables.Internal.ROADSTOP);
+        internal1.add(GlobalVariables.Internal.NSBISECTOR);
         PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1, internal1);
         tile1.rotateTile();
 
