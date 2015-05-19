@@ -536,4 +536,21 @@ public class PlayableTileFarmerTest {
         assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPLEFT));
     }
 
+    @Test
+    public void testQuadrant1BentRoad() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        HashSet<GlobalVariables.Internal> internal1 = new HashSet<>();
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1, internal1);
+
+        assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.TOPRIGHT));
+        assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.TOPLEFT));
+        assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.BOTTOMLEFT));
+        assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.BOTTOMRIGHT));
+        assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.BOTTOMRIGHT));
+    }
+
 }
