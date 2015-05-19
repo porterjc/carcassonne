@@ -116,6 +116,7 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image4, features4, internals4);
             tile4.moveTile(50, 250);
+            tile4.rotateTile();
             tiles.add(tile4);
 
             BufferedImage image5 = ImageIO.read(new File("images/14.png"));
@@ -130,6 +131,8 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile5 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image5, features5, internals5);
             tile5.moveTile(250, 250);
+            tile5.rotateTile();
+            tile5.rotateTile();
             tiles.add(tile5);
 
             BufferedImage image6 = ImageIO.read(new File("images/58.png"));
@@ -143,13 +146,16 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile6 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image6, features6, internals6);
             tile6.moveTile(450, 250);
+            tile6.rotateTile();
+            tile6.rotateTile();
+            tile6.rotateTile();
             tiles.add(tile6);
 
             BufferedImage image7 = ImageIO.read(new File("images/70.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features7 = new HashMap<>();
             features7.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
-            features7.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
-            features7.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+            features7.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+            features7.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features7.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
             Set<GlobalVariables.Internal> internals7 = new HashSet<>();
             internals7.add(GlobalVariables.Internal.GARDEN);
@@ -169,6 +175,8 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile8 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image8, features8, internals8);
             tile8.moveTile(50, 450);
+            tile8.rotateTile();
+            tile8.rotateTile();
             tiles.add(tile8);
 
             BufferedImage image9 = ImageIO.read(new File("images/45.png"));
@@ -183,6 +191,7 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile9 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image9, features9, internals9);
             tile9.moveTile(250, 450);
+            tile9.rotateTile();
             tiles.add(tile9);
 
         } catch (IOException e) {

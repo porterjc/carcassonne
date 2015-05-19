@@ -36,13 +36,13 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
             this.setBounds(margin, half, BUTTON_SIZE, BUTTON_SIZE);
         }
         else if(tileRotation == 1) {
-            this.setBounds(half - margin, margin * 2, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(half - 10, 8, BUTTON_SIZE, BUTTON_SIZE);
         }
         else if(tileRotation == 2) {
-            this.setBounds(AbstractTile.TILE_PIXEL_SIZE - margin * 2 - BUTTON_SIZE, half - margin, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(AbstractTile.TILE_PIXEL_SIZE - margin - BUTTON_SIZE, half - margin, BUTTON_SIZE, BUTTON_SIZE);
         }
         else if(tileRotation == 3) {
-            this.setBounds(half + margin, AbstractTile.TILE_PIXEL_SIZE - margin * 2 - BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(half + 10, AbstractTile.TILE_PIXEL_SIZE - 20 - BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
         }
         else
             this.setBounds(half, half, BUTTON_SIZE, BUTTON_SIZE);
