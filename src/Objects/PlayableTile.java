@@ -518,7 +518,7 @@ public class PlayableTile extends AbstractTile {
         alreadyVisited.add(this);
 
         if (this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
-            if (isAdjacentToFarmer(from))
+            if (isOnSameSideOfRoad(from, this.meeple.getLocation()))
                 return true;
         }
 
@@ -564,6 +564,7 @@ public class PlayableTile extends AbstractTile {
         return found;
     }
 
+    /*
     private boolean isAdjacentToFarmer(GlobalVariables.Location from) {
         GlobalVariables.Feature top = getTopFeature();
         GlobalVariables.Feature bottom = getBottomFeature();
@@ -647,7 +648,7 @@ public class PlayableTile extends AbstractTile {
         }
 
         return true;
-    }
+    } */
 
     /**
      * Determines whether two locations are on the same side of a road
