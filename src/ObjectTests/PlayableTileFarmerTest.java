@@ -473,4 +473,33 @@ public class PlayableTileFarmerTest {
         assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.RIGHT));
     }
 
+    @Test
+    public void testFindNoFarmerAcrossTRoad() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        HashSet<GlobalVariables.Internal> internal1 = new HashSet<>();
+        internal1.add(GlobalVariables.Internal.EWBISECTOR);
+        internal1.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1, internal1);
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature2 = new HashMap<>();
+        feature2.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.CITY);
+        feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
+        internal1.add(GlobalVariables.Internal.CITY);
+        PlayableTile tile2 = new PlayableTile(tile1, new OpenTile(), new OpenTile(), new OpenTile(), feature2, internal2);
+
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
+        m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOMLEFT);
+        tile2.setMeeple(m);
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT));
+        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPRIGHT));
+
+    }
+
 }
