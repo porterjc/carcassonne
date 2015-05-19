@@ -20,6 +20,7 @@ public class PlayableTile extends AbstractTile {
     private Meeple meeple = null;
 
     public static final int TILE_INNER_MARGIN = 5;
+    public static final int GARDEN_OFFSET = 35;
 
     public PlayableTile() {
         super();
@@ -129,14 +130,30 @@ public class PlayableTile extends AbstractTile {
         GlobalVariables.Feature b = getBottomFeature();
 
         //Edges
-        if (shouldHaveButton(GlobalVariables.Direction.NORTH))
-            this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN)); //Top
-        if (shouldHaveButton(GlobalVariables.Direction.WEST))
-            this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half)); //Left
-        if (shouldHaveButton(GlobalVariables.Direction.EAST))
-            this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));//Right
-        if (shouldHaveButton(GlobalVariables.Direction.SOUTH))
-            this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));//Bottom
+        if (shouldHaveButton(GlobalVariables.Direction.NORTH)) { //Top
+            if(this.getInternals().contains(GlobalVariables.Internal.GARDEN) && rotation == 1)
+                this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN));
+            else
+                this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN));
+        }
+        if (shouldHaveButton(GlobalVariables.Direction.WEST)) { //Left
+            if(this.getInternals().contains(GlobalVariables.Internal.GARDEN) && rotation == 0)
+                this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half - GARDEN_OFFSET));
+            else
+                this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half));
+        }
+        if (shouldHaveButton(GlobalVariables.Direction.EAST)) { //Right
+            if(this.getInternals().contains(GlobalVariables.Internal.GARDEN) && rotation == 2)
+                this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));
+            else
+                this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));
+        }
+        if (shouldHaveButton(GlobalVariables.Direction.SOUTH)) { //Bottom
+            if(this.getInternals().contains(GlobalVariables.Internal.GARDEN) && rotation == 3)
+                this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));
+            else
+                this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));
+        }
 
         //Corners
         if ((t == GlobalVariables.Feature.ROAD || t == GlobalVariables.Feature.RIVER) && (l == GlobalVariables.Feature.ROAD || l == GlobalVariables.Feature.RIVER) && !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT))

@@ -33,7 +33,7 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
         int margin = 15;
         int half = AbstractTile.TILE_PIXEL_SIZE / 2 - BUTTON_SIZE / 2;
         if(tileRotation == 0) {
-            this.setBounds(margin * 2, half, BUTTON_SIZE, BUTTON_SIZE);
+            this.setBounds(margin, half, BUTTON_SIZE, BUTTON_SIZE);
         }
         else if(tileRotation == 1) {
             this.setBounds(half - margin, margin * 2, BUTTON_SIZE, BUTTON_SIZE);
