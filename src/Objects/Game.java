@@ -161,6 +161,22 @@ public class Game {
         return this.currentTurnState.getText();
     }
 
+    /**
+     * Determines whether this game has river rules enabled
+     * @return whether this game has river rules enabled
+     */
+    public boolean isRiverMode() {
+        return riverMode;
+    }
+
+    /**
+     * Determines whether this game has abbot rules enabled
+     * @return whether this game has abbot rules enabled
+     */
+    public boolean isAbbotMode() {
+        return abbotMode;
+    }
+
     public void updateScore(Player p, int i) {
         p.updateScore(i);
     }
@@ -253,6 +269,9 @@ public class Game {
         return true;
     }
 
+    /**
+     * If the user chooses not to place a meeple, they may "pass" onto the next turn via this method
+     */
     public void passTurn() {
         if (currentTurnState == TurnState.MEEPLE_PLACEMENT) {
             currentTile.removeAll();
