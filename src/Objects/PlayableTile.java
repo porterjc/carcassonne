@@ -198,13 +198,15 @@ public class PlayableTile extends AbstractTile {
      */
     private boolean shouldHaveButton(GlobalVariables.Direction dir) {
         GlobalVariables.Feature feat = getTargetFeature(dir);
+        HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+        directions.add(dir);
         switch (feat) {
             case GRASS:
                 return !findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.CENTER);
             case ROAD:
                 return false;
             case CITY:
-                HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+                directions = new HashSet<>();// TODO Alia Check this-- it through an error for double duplication so I deleted the first part
                 if(this.getInternals().contains(GlobalVariables.Internal.CITY)) {
                     if(getTopFeature() == GlobalVariables.Feature.CITY)
                         directions.add(GlobalVariables.Direction.NORTH);
@@ -223,6 +225,7 @@ public class PlayableTile extends AbstractTile {
         return false;
     }
 
+
     /**
      * Determines whether a button should be placed in the given corner
      * @param f1 The feature on one edge of the corner
@@ -240,7 +243,9 @@ public class PlayableTile extends AbstractTile {
     }
 
 
-    private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local, boolean isRoadBlocked) {
+   // private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local, boolean isRoadBlocked) {
+    private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local) {
+
         Meeple tileM = this.getMeeple();
         if (tileM != null) {//TODO what Was I using isRoadBlocked For
             if (tileM.getFeature() == GlobalVariables.Feature.ROAD)
@@ -248,48 +253,131 @@ public class PlayableTile extends AbstractTile {
                     meeples.add(tileM);
         }
     }
+    /**
+     * If a tile has a blockage and the number of tiles scored is >1 then
+     * this method is called to find  TODo this logic is not correct for a meeple can be on the other side of a blockage and not be scored
+     * @param meeples
+     */
+    private void addMeepleInBlockage(Set<Meeple> meeples) {
+        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.TOP);
+        else if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.BOTTOM);
+        else if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.LEFT);
+        else if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD)
+            addMeeple(meeples, GlobalVariables.Location.RIGHT);
+    }
 
-
+    /**
+     * Begins scoring process for roads and updates player's scores after calculation
+     * Also, this method removes Meeples
+     * TODO may change the return value to only be a set of Meeples
+     *
+     * @param isEndOfGame
+     * @return the complete list of meeples to remove from the UI
+     */
     public Pair<Set<Meeple>, Integer> startScoreRoad(boolean isEndOfGame) {
         int currentScore = 0;
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
 
         alreadyVisited.add(this);
-        Pair<HashSet<Meeple>, Integer> score = null;
+        Pair<Set<Meeple>, Integer> score = null;
         //only score if a roadstop is placed
-        if(this.getInternals().contains(GlobalVariables.Internal.ROADSTOP)) {
-            if(this.meeple!=null){
-                meeples.add(this.meeple);
+        if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP)) {
+            if ((!alreadyVisited.contains(this.getTop())) && this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+                addMeeple(meeples, GlobalVariables.Location.TOP);
+                score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, this.getTop());
+//                score = this.getTop().scoreRoad(alreadyVisited, meeples, isEndOfGame);
+                scoreUpdate(currentScore, score);
             }
-            if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
-                score = this.getTop().scoreCity(alreadyVisited, meeples, false);
+            if ((!alreadyVisited.contains(this.getBottom())) && this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+                addMeeple(meeples, GlobalVariables.Location.BOTTOM);
+                score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, getBottom());
+                // score = this.getBottom().scoreRoad(alreadyVisited, meeples, isEndOfGame);
+                scoreUpdate(currentScore, score);
             }
-            if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
-                currentScore = 33;
+            if ((!alreadyVisited.contains(this.getRight())) && this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+                addMeeple(meeples, GlobalVariables.Location.RIGHT);
+                score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, getRight());
+//                score = this.getRight().scoreRoad(alreadyVisited, meeples, isEndOfGame);
+                scoreUpdate(currentScore, score);
             }
-            if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
-                currentScore += 10;
-            }
-            if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
-                currentScore += 10;
+            if ((!alreadyVisited.contains(this.getLeft())) && this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+                addMeeple(meeples, GlobalVariables.Location.LEFT);
+                score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, getLeft());
+                // this.getLeft().scoreRoad(alreadyVisited, meeples, isEndOfGame);
+                scoreUpdate(currentScore, score);
             }
         }
         //todo add scoring here
-        return new Pair(score.getKey(), currentScore + score.getValue());
+        return new Pair(meeples, currentScore + score.getValue());
+    }
+
+    private Pair<Set<Meeple>, Integer> scoreRoadHelperMethod(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame, int currentTileScore, AbstractTile t) {
+        Pair<Set<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples, isEndOfGame);
+        if (isEndOfGame && temp.getValue() == -1) {
+            return new Pair(meeples, currentTileScore + 1);
+        } else if (temp.getValue() == -1) {
+            return new Pair(meeples, -1);
+        } else {
+            if (this.getMeeple() != null) {
+                meeples.add(this.getMeeple());
+            }
+            return new Pair(meeples, 1 + temp.getValue());
+        }
+    }
+
+    private void scoreUpdate(int currentScore, Pair<Set<Meeple>, Integer> score) {
+        int points = score.getValue() + currentScore;
+        for (Meeple m : score.getKey()) {
+            m.getPlayer().updateScore(points);
+            m.getTile().meeple = null;
+            m.remove();
+        }
     }
 
     @Override
-    public Pair<Set<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+    public Pair<Set<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndofGame) {
         int currentscore = 1;
+        Pair<Set<Meeple>, Integer> score;
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         alreadyVisited.add(this);
+
         if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) {
-            addMeeple(meeples, GlobalVariables.Location.BOTTOM, true);
+            addMeepleInBlockage(meeples);
             return new Pair<>(meeples, currentscore);
+        }
+
+        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getTop())) {
+            addMeeple(meeples, GlobalVariables.Location.TOP);
+            score = this.getTop().scoreRoad(alreadyVisited, meeples, false);
+            currentscore += score.getValue();
+        }
+        if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+            addMeeple(meeples, GlobalVariables.Location.BOTTOM);
+            score = this.getBottom().scoreRoad(alreadyVisited, meeples, false);
+            currentscore += score.getValue();
+
+        }
+        if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+            addMeeple(meeples, GlobalVariables.Location.RIGHT);
+
+            score = this.getRight().scoreRoad(alreadyVisited, meeples, false);
+            currentscore += score.getValue();
+
+        }
+        if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+            addMeeple(meeples, GlobalVariables.Location.LEFT);
+
+            score = this.getLeft().scoreRoad(alreadyVisited, meeples, false);
+            currentscore += score.getValue();
         }
         return new Pair<Set<Meeple>, Integer>(meeples, currentscore);
     }
+
+
 
     /**
      * startScoreCity runs scoreCity in all given directions and then returns the total score and list of meeples found
@@ -303,7 +391,7 @@ public class PlayableTile extends AbstractTile {
         Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
-        if (getMeeple() != null)
+        if (getMeeple() != null && getMeeple().getFeature() == GlobalVariables.Feature.CITY)
             meeples.add(this.getMeeple());
 
         if (directions.contains(GlobalVariables.Direction.NORTH)) {
@@ -318,8 +406,9 @@ public class PlayableTile extends AbstractTile {
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if(currentScore == 1){
+        if(currentScore <= 3){
             currentScore = -1;
+            return new Pair(meeples, currentScore);
         }
         if (this.getInternals().contains(GlobalVariables.Internal.COATOFARMS))
             currentScore += 2;
@@ -686,6 +775,15 @@ public class PlayableTile extends AbstractTile {
 
     public void setMeeple(Meeple meeple) {
         this.meeple = meeple;
+    }
+
+    /**
+     * Removes the meeple from this tile
+     */
+    public void removeMeeple() {
+        this.meeple = null;
+        this.removeAll();
+        this.repaint();
     }
 
     /* Some locations for placing graphics */

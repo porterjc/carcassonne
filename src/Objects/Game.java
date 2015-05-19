@@ -186,22 +186,52 @@ public class Game {
             int monasteryScore = meeple.getTile().scoreSurrounding(true);
             if (monasteryScore > 0) {
                 meeple.getPlayer().updateScore(monasteryScore);
-                meeple.remove();
+                meeple.getTile().removeMeeple();
             }
         }
-/*
-        Pair<Set<Meeple>, Integer> roads;
-        roads = currentTile.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
+
+//        Pair<Set<Meeple>, Integer> roads;
+//        roads = currentTile.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
         Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
-        if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY) {
-            cities.push(helpScoreCity(GlobalVariables.Direction.NORTH, currentTile));
+        HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+        if(currentTile.getInternals().contains(GlobalVariables.Internal.CITY)) {
+            if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY)
+                directions.add(GlobalVariables.Direction.NORTH);
+            if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY)
+                directions.add(GlobalVariables.Direction.WEST);
+            if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY)
+                directions.add(GlobalVariables.Direction.EAST);
+            if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY)
+                directions.add(GlobalVariables.Direction.SOUTH);
+            cities.push(currentTile.startScoreCity(directions, true));
+        } else {
+        if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY){
+            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+            direc.add(GlobalVariables.Direction.NORTH);
+            cities.push(currentTile.startScoreCity(direc, true));}
+        if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY){
+            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+            direc.add(GlobalVariables.Direction.WEST);
+            cities.push(currentTile.startScoreCity(direc, true));}
+        if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY){
+            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+            direc.add(GlobalVariables.Direction.EAST);
+            cities.push(currentTile.startScoreCity(direc, true));}
+        if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY){
+            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+            direc.add(GlobalVariables.Direction.SOUTH);
+            cities.push(currentTile.startScoreCity(direc, true));}
         }
-        if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY)
-            cities.push(helpScoreCity(GlobalVariables.Direction.WEST, currentTile));
-        if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY)
-            cities.push(helpScoreCity(GlobalVariables.Direction.EAST, currentTile));
-        if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY)
-            cities.push(helpScoreCity(GlobalVariables.Direction.SOUTH, currentTile)); */
+
+        while (!cities.isEmpty()) {
+            Pair<HashSet<Meeple>, Integer> city = cities.pop();
+            if (city.getValue() > 0 && !city.getKey().isEmpty()) {
+                for (Meeple m : city.getKey()) {
+                    m.getPlayer().updateScore(city.getValue());
+                    m.getTile().removeMeeple();
+                }
+            }
+        }
 
         //TODO: Calculate who ACTUALLY deserves the score among shared features
  /*      while(!roads.isEmpty()) {
