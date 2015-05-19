@@ -122,7 +122,10 @@ public class Game {
                 currentTurnState = TurnState.MEEPLE_PLACEMENT;
                 bottomDisplay.placedTileUpdate();
                 System.out.println("CURRENT: MEEPLE");
-                return true;
+                if(getCurrentTurnPlayer().getMeeples().isEmpty())
+                    return moveToNextState();
+                else
+                    return true;
             case MEEPLE_PLACEMENT:
                 currentTurnState = TurnState.SCORING;
                 bottomDisplay.placedMeepleUpdate();
