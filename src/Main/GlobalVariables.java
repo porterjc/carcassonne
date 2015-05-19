@@ -17,7 +17,18 @@ public class GlobalVariables {
 
     public enum Internal {GRASS, ROADSTOP, MONASTERY, CITY, GARDEN, COATOFARMS, NSBISECTOR, EWBISECTOR}
 
-    public enum Direction {NORTH, SOUTH, EAST, WEST}
+    public enum Direction {NORTH(Location.TOP), SOUTH(Location.BOTTOM), EAST(Location.RIGHT), WEST(Location.LEFT);
+
+        Location location;
+
+        Direction(Location l) {
+            location = l;
+        }
+
+        public Location getLocation() {
+            return location;
+        }
+    }
 
     public enum Location {
         TOP, BOTTOM, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, CENTER;
