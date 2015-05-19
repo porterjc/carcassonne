@@ -656,7 +656,11 @@ public class PlayableTile extends AbstractTile {
      * @return true if the two locations are on the same side of a road, or false if there is a road between them
      */
     public boolean isOnSameSideOfRoad(GlobalVariables.Location loc1, GlobalVariables.Location loc2) {
-        return GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
+        if(getTopFeature() == GlobalVariables.Feature.ROAD || getTopFeature() == GlobalVariables.Feature.RIVER)
+            return GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
+        if(getLeftFeature() == GlobalVariables.Feature.ROAD || getLeftFeature() == GlobalVariables.Feature.RIVER)
+            return GlobalVariables.Location.isTop(loc1) == GlobalVariables.Location.isTop(loc2);
+        return true;
     }
 
     /**
