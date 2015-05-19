@@ -1,13 +1,10 @@
 package Objects;
 
 import Main.GlobalVariables;
-import UIComponents.GraphicButton;
-import UIComponents.StatePanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  * Created by robinsat on 3/31/2015.
@@ -286,16 +283,16 @@ public class TileGrid extends JPanel {
      */
     public boolean areValidMoves(PlayableTile tile) {
         for (OpenTile temp : slots) {
-            if (temp.canPlace(tile))
+            if (temp.canPlace(tile, false))
                 return true;
             tile.rotateTile();
-            if (temp.canPlace(tile))
+            if (temp.canPlace(tile, false))
                 return true;
             tile.rotateTile();
-            if (temp.canPlace(tile))
+            if (temp.canPlace(tile, false))
                 return true;
             tile.rotateTile();
-            if (temp.canPlace(tile))
+            if (temp.canPlace(tile, false))
                 return true;
             tile.rotateTile();
         }

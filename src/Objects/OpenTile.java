@@ -48,7 +48,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
 
-    public boolean canPlace(PlayableTile tileToPlace) {
+    public boolean canPlace(PlayableTile tileToPlace, boolean riverMode) {
         //boolean can = checkEast(tileToPlace) && checkWest(tileToPlace) && checkNorth(tileToPlace) && checkSouth(tileToPlace);
         boolean e = checkEast(tileToPlace);
         boolean w = checkWest(tileToPlace);
@@ -151,7 +151,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
             return;
         PlayableTile current = grid.getGame().getCurrentTile();
 
-        if (this.canPlace(current)) {
+        if (this.canPlace(current, false)) {
             GlobalVariables.Direction direction = this.addTile(current);
             if (direction != null) {
                 grid.addNullRow(direction);

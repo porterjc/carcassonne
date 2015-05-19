@@ -53,7 +53,7 @@ public class OpenTileTest {
 
         PlayableTile tileToPlace = new PlayableTile(features);
         Assert.assertEquals(features, tileToPlace.getFeatures());
-        assertEquals(true, tile.canPlace(tileToPlace));
+        assertEquals(true, tile.canPlace(tileToPlace, false));
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features2 = new HashMap<>();
         features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
@@ -63,7 +63,7 @@ public class OpenTileTest {
 
         Assert.assertEquals(features, tileToPlace.getFeatures());
         PlayableTile second = new PlayableTile(features2);
-        assertEquals(false, tile.canPlace(second));
+        assertEquals(false, tile.canPlace(second, false));
 
 
     }
