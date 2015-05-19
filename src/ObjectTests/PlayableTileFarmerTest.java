@@ -502,4 +502,18 @@ public class PlayableTileFarmerTest {
 
     }
 
+    @Test
+    public void testBasicOnSameSideOfRoad() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<>();
+        feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        HashSet<GlobalVariables.Internal> internal1 = new HashSet<>();
+        internal1.add(GlobalVariables.Internal.NSBISECTOR);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature1, internal1);
+
+        assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.BOTTOMLEFT));
+    }
+
 }
