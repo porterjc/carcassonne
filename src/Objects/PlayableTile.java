@@ -387,12 +387,16 @@ public class PlayableTile extends AbstractTile {
      */
     public Pair<HashSet<Meeple>, Integer> startScoreCity(Set<GlobalVariables.Direction> directions, boolean completion) {
         int currentScore = 2;
+        Meeple meep = this.getMeeple();
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
-        if (getMeeple() != null && getMeeple().getFeature() == GlobalVariables.Feature.CITY)
-            meeples.add(this.getMeeple());
+        if (meep != null && meep.getFeature() == GlobalVariables.Feature.CITY)
+            if((directions.contains(GlobalVariables.Direction.NORTH) && meep.getLocation() == GlobalVariables.Location.TOP) || (directions.contains(GlobalVariables.Direction.WEST) && meep.getLocation() == GlobalVariables.Location.LEFT)
+                    || ((directions.contains(GlobalVariables.Direction.EAST) && meep.getLocation() == GlobalVariables.Location.RIGHT)) ||
+                    (directions.contains(GlobalVariables.Direction.SOUTH) && meep.getLocation() == GlobalVariables.Location.BOTTOM) || (directions.contains(GlobalVariables.Internal.CITY) && meep.getLocation() == GlobalVariables.Location.CENTER)) {
+                meeples.add(meep);}
 
         if (directions.contains(GlobalVariables.Direction.NORTH)) {
             currentScore += getTop().scoreCity(alreadyVisited, meeples, completion).getValue();

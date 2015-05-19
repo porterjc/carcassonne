@@ -163,6 +163,7 @@ public class BottomDisplay extends JPanel{
      */
     private void updateScorePanel() {
         scorePanel.updateTable();
+        scorePanel.repaint();
     }
 
     /**
