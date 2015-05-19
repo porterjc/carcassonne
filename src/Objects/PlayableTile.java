@@ -661,13 +661,16 @@ public class PlayableTile extends AbstractTile {
         if(hasEWbisector() && GlobalVariables.Location.isTop(loc1) != GlobalVariables.Location.isTop(loc2))
             return false;
 
+        boolean rightSplit = getRightFeature() == GlobalVariables.Feature.ROAD || getRightFeature() == GlobalVariables.Feature.RIVER;
+        boolean leftSplit = getLeftFeature() == GlobalVariables.Feature.ROAD || getLeftFeature() == GlobalVariables.Feature.RIVER;
+
         if(GlobalVariables.Location.isTop(loc1)) {
             if(getTopFeature() == GlobalVariables.Feature.ROAD || getTopFeature() == GlobalVariables.Feature.RIVER) {
-                if (GlobalVariables.Location.isTop(loc2))
-                    return GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
-                 else if(GlobalVariables.Location.isRight(loc1) && getRightFeature() == GlobalVariables.Feature.ROAD || getRightFeature() == GlobalVariables.Feature.RIVER)
+                if(GlobalVariables.Location.isTop(loc2))
+                    return (!leftSplit && !rightSplit) ||  GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
+                if(GlobalVariables.Location.isRight(loc1) && rightSplit)
                     return false;
-                else if(GlobalVariables.Location.isLeft(loc1) && getLeftFeature() == GlobalVariables.Feature.ROAD || getLeftFeature() == GlobalVariables.Feature.RIVER)
+                else if(GlobalVariables.Location.isLeft(loc1) && leftSplit)
                     return false;
             }
         }
@@ -676,9 +679,9 @@ public class PlayableTile extends AbstractTile {
             if(getBottomFeature() == GlobalVariables.Feature.ROAD || getBottomFeature() == GlobalVariables.Feature.RIVER) {
                 if (GlobalVariables.Location.isBottom(loc2))
                     return GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
-                else if(GlobalVariables.Location.isRight(loc1) && getRightFeature() == GlobalVariables.Feature.ROAD || getRightFeature() == GlobalVariables.Feature.RIVER)
+                else if(GlobalVariables.Location.isRight(loc1) && rightSplit)
                     return false;
-                else if(GlobalVariables.Location.isLeft(loc1) && getLeftFeature() == GlobalVariables.Feature.ROAD || getLeftFeature() == GlobalVariables.Feature.RIVER)
+                else if(GlobalVariables.Location.isLeft(loc1) && leftSplit)
                     return false;
             }
         }
