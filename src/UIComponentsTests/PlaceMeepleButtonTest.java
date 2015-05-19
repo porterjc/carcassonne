@@ -117,6 +117,8 @@ public class PlaceMeepleButtonTest extends JFrame {
             PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image4, features4, internals4);
             tile4.moveTile(50, 250);
             tile4.rotateTile();
+            tile4.rotateTile();
+            tile4.rotateTile();
             tiles.add(tile4);
 
             BufferedImage image5 = ImageIO.read(new File("images/14.png"));
@@ -131,6 +133,7 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile5 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image5, features5, internals5);
             tile5.moveTile(250, 250);
+            tile5.rotateTile();
             tile5.rotateTile();
             tile5.rotateTile();
             tiles.add(tile5);
@@ -162,6 +165,9 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile7 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image7, features7, internals7);
             tile7.moveTile(650, 250);
+            tile7.rotateTile();
+            tile7.rotateTile();
+            tile7.rotateTile();
             tiles.add(tile7);
 
             BufferedImage image8 = ImageIO.read(new File("images/r1.png"));
@@ -175,6 +181,7 @@ public class PlaceMeepleButtonTest extends JFrame {
 
             PlayableTile tile8 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image8, features8, internals8);
             tile8.moveTile(50, 450);
+            tile8.rotateTile();
             tile8.rotateTile();
             tile8.rotateTile();
             tiles.add(tile8);
@@ -192,6 +199,8 @@ public class PlaceMeepleButtonTest extends JFrame {
             PlayableTile tile9 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), image9, features9, internals9);
             tile9.moveTile(250, 450);
             tile9.rotateTile();
+            tile9.rotateTile();
+            tile9.rotateTile();
             tiles.add(tile9);
 
         } catch (IOException e) {
@@ -202,7 +211,7 @@ public class PlaceMeepleButtonTest extends JFrame {
     public void testAddMeepleButtons() {
         for(PlayableTile tile : tiles) {
             this.add(tile);
-            tile.addMeepleButtons(player);
+            tile.addMeepleButtons(player, true);
         }
 
     }

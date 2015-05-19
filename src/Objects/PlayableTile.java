@@ -115,14 +115,14 @@ public class PlayableTile extends AbstractTile {
     /**
      * Adds buttons to place a meeple over a tile
      */
-    public void addMeepleButtons(Player currentPlayer) {
+    public void addMeepleButtons(Player currentPlayer, boolean abbot) {
         int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
 
         // Center (Pretty much only for monasteries)
         if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
             this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
-        if (this.getInternals().contains(GlobalVariables.Internal.GARDEN))
+        if (abbot && this.getInternals().contains(GlobalVariables.Internal.GARDEN))
             this.add(new PlaceAbbotButton(GlobalVariables.Internal.GARDEN, currentPlayer, this.rotation));
 
         GlobalVariables.Feature t = getTopFeature();
@@ -134,25 +134,25 @@ public class PlayableTile extends AbstractTile {
         if (shouldHaveButton(GlobalVariables.Direction.NORTH)) { //Top
             if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 1)
                 this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN));
-            else if(!shouldHaveCornerButton(t, l, GlobalVariables.Location.TOPLEFT))
+            else if(l != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
         }
         if (shouldHaveButton(GlobalVariables.Direction.WEST)) { //Left
             if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 0)
                 this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half));
-            else if(!shouldHaveCornerButton(t, l, GlobalVariables.Location.TOPLEFT))
+            else if(t != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
         }
         if (shouldHaveButton(GlobalVariables.Direction.EAST)) { //Right
             if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 2)
                 this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));
-            else if(!shouldHaveCornerButton(b, r, GlobalVariables.Location.BOTTOMRIGHT))
+            else if(b != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
         }
         if (shouldHaveButton(GlobalVariables.Direction.SOUTH)) { //Bottom
             if(!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 3)
                 this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));
-            else if(!shouldHaveCornerButton(b, r, GlobalVariables.Location.BOTTOMRIGHT))
+            else if(r != GlobalVariables.Feature.GRASS)
                 placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
         }
 
