@@ -656,10 +656,20 @@ public class PlayableTile extends AbstractTile {
      * @return true if the two locations are on the same side of a road, or false if there is a road between them
      */
     public boolean isOnSameSideOfRoad(GlobalVariables.Location loc1, GlobalVariables.Location loc2) {
-        if(getTopFeature() == GlobalVariables.Feature.ROAD || getTopFeature() == GlobalVariables.Feature.RIVER)
-            return GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
-        if(getLeftFeature() == GlobalVariables.Feature.ROAD || getLeftFeature() == GlobalVariables.Feature.RIVER)
-            return GlobalVariables.Location.isTop(loc1) == GlobalVariables.Location.isTop(loc2);
+        if(hasNSbisector() && GlobalVariables.Location.isLeft(loc1) != GlobalVariables.Location.isLeft(loc2))
+            return false;
+        if(hasEWbisector() && GlobalVariables.Location.isTop(loc1) != GlobalVariables.Location.isTop(loc2))
+            return false;
+
+        if(GlobalVariables.Location.isTop(loc1)) {
+            if(getTopFeature() == GlobalVariables.Feature.ROAD || getTopFeature() == GlobalVariables.Feature.RIVER) {
+                if (GlobalVariables.Location.isTop(loc2))
+                    return GlobalVariables.Location.isLeft(loc1) == GlobalVariables.Location.isLeft(loc2);
+                 else if(GlobalVariables.Location.isRight(loc1) && getRightFeature() == GlobalVariables.Feature.ROAD || getRightFeature() == GlobalVariables.Feature.RIVER)
+                    return false;
+            }
+        }
+
         return true;
     }
 
