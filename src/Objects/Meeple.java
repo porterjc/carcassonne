@@ -70,7 +70,7 @@ public class Meeple {
     }
 
     public void remove() {
-        this.tile.removeAll();
+        this.tile.removeMeeple();
         this.tile = null;
         this.meepleOwner.getMeeples().add(this);
     }

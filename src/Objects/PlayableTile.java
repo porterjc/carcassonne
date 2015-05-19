@@ -336,7 +336,7 @@ public class PlayableTile extends AbstractTile {
         Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
-        if (getMeeple() != null)
+        if (getMeeple() != null && getMeeple().getFeature() == GlobalVariables.Feature.CITY)
             meeples.add(this.getMeeple());
 
         if (directions.contains(GlobalVariables.Direction.NORTH)) {
@@ -351,7 +351,7 @@ public class PlayableTile extends AbstractTile {
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if(currentScore == 1){
+        if(currentScore <= 3){
             currentScore = -1;
             return new Pair(meeples, currentScore);
         }
@@ -720,6 +720,15 @@ public class PlayableTile extends AbstractTile {
 
     public void setMeeple(Meeple meeple) {
         this.meeple = meeple;
+    }
+
+    /**
+     * Removes the meeple from this tile
+     */
+    public void removeMeeple() {
+        this.meeple = null;
+        this.removeAll();
+        this.repaint();
     }
 
     /* Some locations for placing graphics */
