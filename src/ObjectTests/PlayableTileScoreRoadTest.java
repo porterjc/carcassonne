@@ -176,8 +176,7 @@ public class PlayableTileScoreRoadTest {
         Set<Meeple> meeples = new HashSet<Meeple>();
         Pair<Set<Meeple>, Integer> score = top.scoreRoad(alreadyvisited, meeples, false);
         assertEquals(0, score.getKey().size()); //This should be 1 qhen end of game is on
-        assertEquals(-1, (int) score.getValue());
-
+        assertEquals(0, (int) score.getValue());
     }
 
     @Test

@@ -363,8 +363,9 @@ public class PlayableTile extends AbstractTile {
         }
         if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
             addMeeple(meeples, GlobalVariables.Location.RIGHT);
+// scoreRoadHelperMethod(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame, int currentTileScore, AbstractTile t) {
 
-            score = this.getRight().scoreRoad(alreadyVisited, meeples, false);
+            score = scoreRoadHelperMethod(alreadyVisited, meeples, false, currentscore, this.getRight());
             currentscore += score.getValue();
 
         }
