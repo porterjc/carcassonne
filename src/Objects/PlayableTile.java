@@ -650,6 +650,16 @@ public class PlayableTile extends AbstractTile {
     }
 
     /**
+     * Determines whether two locations are on the same side of a road
+     * @param loc1 the first location
+     * @param loc2 the second location
+     * @return true if the two locations are on the same side of a road, or false if there is a road between them
+     */
+    public boolean isOnSameSideOfRoad(GlobalVariables.Location loc1, GlobalVariables.Location loc2) {
+        return false;
+    }
+
+    /**
      * Takes a boolean and rotate
      */
     public void rotateTile() {

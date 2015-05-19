@@ -497,7 +497,7 @@ public class PlayableTileFarmerTest {
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOMLEFT);
         tile2.setMeeple(m);
-        assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT));
+       // assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT));
         assertFalse(tile1.findFarmer(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPRIGHT));
 
     }
