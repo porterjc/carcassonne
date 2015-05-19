@@ -605,6 +605,7 @@ public class PlayableTileFarmerTest {
         assertFalse(tile1.isOnSameSideOfRoad(GlobalVariables.Location.BOTTOMRIGHT, GlobalVariables.Location.TOPLEFT));
         assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.BOTTOMLEFT, GlobalVariables.Location.TOPLEFT));
         assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.BOTTOMLEFT));
+        assertTrue(tile1.isOnSameSideOfRoad(GlobalVariables.Location.TOP, GlobalVariables.Location.LEFT));
     }
 
     @Test
