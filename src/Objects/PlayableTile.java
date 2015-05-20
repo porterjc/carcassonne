@@ -246,28 +246,11 @@ public class PlayableTile extends AbstractTile {
 
     private void addMeeple(Set<Meeple> meeples, GlobalVariables.Location local) {
         Meeple tileM = this.getMeeple();
-        if (tileM != null) {//TODO what Was I using isRoadBlocked For
+        if (tileM != null) {
             if (tileM.getFeature() == GlobalVariables.Feature.ROAD)
                 if (tileM.getLocation() == local)
                     meeples.add(tileM);
         }
-    }
-
-    /**
-     * If a tile has a blockage and the number of tiles scored is >1 then
-     * this method is called to find  TODo this logic is not correct for a meeple can be on the other side of a blockage and not be scored
-     *
-     * @param meeples
-     */
-    private void addMeepleInBlockage(Set<Meeple> meeples) {
-        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.TOP);
-        else if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.BOTTOM);
-        else if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.LEFT);
-        else if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD)
-            addMeeple(meeples, GlobalVariables.Location.RIGHT);
     }
 
     /**
@@ -315,7 +298,7 @@ public class PlayableTile extends AbstractTile {
                 meeples.addAll(score.getKey());
             }
         }
-        return new Pair(meeples, currentScore + score.getValue());
+        return new Pair(meeples, currentScore );
     }
 
     private Pair<Set<Meeple>, Integer> getCorrectScore(int currentScore, Pair<Set<Meeple>, Integer> score) {
@@ -334,7 +317,7 @@ public class PlayableTile extends AbstractTile {
         } else if (temp.getValue() == -1) {
             return new Pair(meeples, -1);
         } else {
-            return new Pair(meeples, temp.getValue() + currentTileScore);
+            return new Pair(meeples, temp.getValue() );
         }
     }
 
@@ -352,10 +335,10 @@ public class PlayableTile extends AbstractTile {
         Pair<Set<Meeple>, Integer> score;
         Map<GlobalVariables.Direction, GlobalVariables.Feature> features = this.getFeatures();
         alreadyVisited.add(this);
-        addMeepleIfOnConnectingFeature(meeples, prevDirection);
+        if (prevDirection != null)
+            addMeepleIfOnConnectingFeature(meeples, prevDirection);
 
         if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) {
-            addMeepleInBlockage(meeples);
             return new Pair<>(meeples, currentscore);
         }
         if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getTop())) {
@@ -379,7 +362,7 @@ public class PlayableTile extends AbstractTile {
             score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getLeft(), GlobalVariables.Direction.WEST);
             currentscore += score.getValue();
         }
-        return new Pair<Set<Meeple>, Integer>(meeples, currentscore);
+        return new Pair<>(meeples, currentscore);
     }
 
     private void addMeepleIfOnConnectingFeature(Set<Meeple> meeples, GlobalVariables.Direction prevDirection) {

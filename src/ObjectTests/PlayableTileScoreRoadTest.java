@@ -77,10 +77,10 @@ public class PlayableTileScoreRoadTest {
         //set the tiles
         top.setBottom(bottom);
         bottom.setTop(top);
-
+        assertEquals(0, this.currentUser.getScore());
         Pair<Set<Meeple>, Integer> score = bottom.startScoreRoad(false);
         assertEquals(1, score.getKey().size());
-        assertEquals(2, (int) score.getValue());
+        assertEquals(2, this.currentUser.getScore());
     }
 
     @Test
@@ -209,8 +209,9 @@ public class PlayableTileScoreRoadTest {
         Set<Meeple> meeples = new HashSet<Meeple>();
 
         Pair<Set<Meeple>, Integer> score = top.startScoreRoad(true);
-                //= top.scoreRoad(alreadyvisited, meeples, true);
-        assertEquals(1, score.getKey().size()); //TODO need to add code for this
+        //= top.scoreRoad(alreadyvisited, meeples, true);
+        assertEquals(1, score.getKey().size());
+        score = top.scoreRoad(alreadyvisited, meeples, true, null);
         assertEquals(2, (int) score.getValue());
     }
 
@@ -263,8 +264,9 @@ public class PlayableTileScoreRoadTest {
         assertEquals(2, score.getKey().size());
         assertEquals(3, (int) score.getValue());
     }
+
     @Test
-    public void testsRoadToScoreComepletedAndNotCompleteEndOfGame(){
+    public void testsRoadToScoreComepletedAndNotCompleteEndOfGame() {
 
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         Meeple m2 = new Meeple(new Player(GlobalVariables.PlayerColor.GREEN), GlobalVariables.PlayerColor.GREEN);
@@ -327,7 +329,7 @@ public class PlayableTileScoreRoadTest {
 
     }
 
-   // TODO add test for multiple roads being scored after one placement
+    // TODO add test for multiple roads being scored after one placement
 
     //TODO add better meeple tests ie.- has to be at the right location
 
