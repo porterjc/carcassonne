@@ -281,7 +281,7 @@ public class Game {
         scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<Set<Meeple>, Integer> roadscore = this.currentTile.scoreRoad(alreadyVisited, meeples, false);
+        Pair<Set<Meeple>, Integer> roadscore = this.currentTile.startScoreRoad(false);
 
         if (scoreCity.getValue() > 0) {
             for (Meeple m : scoreCity.getKey()) {

@@ -155,8 +155,8 @@ public abstract class AbstractTile extends JLabel {
     public abstract void drawSelf();
 
     // Scoring algorithms
-    public Pair<Set<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
-        return new Pair(meeples, -1);
+    public Pair<Set<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndofGame, GlobalVariables.Direction prevDirection) {
+          return new Pair(meeples, -1);
     }
 
     public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {

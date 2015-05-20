@@ -28,7 +28,6 @@ public class Meeple {
     }
 
 
-
     public GlobalVariables.PlayerColor getColor() {
         return mColor;
     }
@@ -55,22 +54,25 @@ public class Meeple {
 
     }
 
-    public Pair<AbstractTile, GlobalVariables.Feature> getPlacedOn(){
-        return  new Pair(tile, placedOn);
+    public Pair<AbstractTile, GlobalVariables.Feature> getPlacedOn() {
+        return new Pair(tile, placedOn);
     }
 
     public GlobalVariables.Feature getFeature() {
         return placedOn;
     }
 
-    public GlobalVariables.Location getLocation() { return location; }
+    public GlobalVariables.Location getLocation() {
+        return location;
+    }
 
     public PlayableTile getTile() {
         return this.tile;
     }
 
     public void remove() {
-        this.tile.removeMeeple();
+        if (this.tile != null)
+            this.tile.removeMeeple();
         this.tile = null;
         this.meepleOwner.getMeeples().add(this);
     }
