@@ -72,7 +72,7 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        if (tiles.size() == 0 && !riverMode) {
+        if (tiles.size() == 0 && !isRiverMode()) {
             gameOver = true;
         }
         return gameOver;
@@ -85,14 +85,16 @@ public class Game {
      */
     public boolean drawTile() {
         if (tiles.size() == 0) {
-            if(riverMode){
+            if(isRiverMode()){
                 riverMode = false;
+                finishRiver(currentTile);
                 TileFactory factory = new TileFactory();
                 tiles = factory.loadDeck(true);
             } else
                 return false;
         }
         currentTile = tiles.pop();
+        bottomDisplay.placedTileUpdate();
         return true;
     }
 
@@ -396,5 +398,25 @@ public class Game {
             tile.rotateTile();
         }
         return false;
+    }
+
+    public void finishRiver(PlayableTile tile){
+        TileFactory factory = new TileFactory();
+        PlayableTile end = factory.getRiverEnd();
+        if(tile.getTopFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getTop())){
+            end.rotateTile();
+            tile.getTop().addTile(end);
+        } else if(tile.getLeftFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getLeft())){
+            end.rotateTile();
+            end.rotateTile();
+            tile.getLeft().addTile(end);
+        } else if(tile.getRightFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getRight())){
+            tile.getRight().addTile(end);
+        } else if(tile.getBottomFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getBottom())){
+            end.rotateTile();
+            end.rotateTile();
+            end.rotateTile();
+            tile.getBottom().addTile(end);
+        }
     }
 }
