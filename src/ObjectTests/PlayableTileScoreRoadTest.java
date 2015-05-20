@@ -10,9 +10,6 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
-
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -20,8 +17,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class PlayableTileScoreRoadTest {
 
-    private Stack<PlayableTile> tiles;
-    PlayableTile tile, lastPlaced;
     Player currentUser;
 
     @Before
@@ -175,9 +170,10 @@ public class PlayableTileScoreRoadTest {
         bottom.setTop(top);
         Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
+        assertEquals(0, this.currentUser.getPlayerScore());
         Pair<Set<Meeple>, Integer> score = top.startScoreRoad(false);
         assertEquals(0, score.getKey().size()); //This should be 1 qhen end of game is on
-        assertEquals(0, (int) score.getValue());
+        assertEquals(0, this.currentUser.getPlayerScore());
     }
 
     @Test
@@ -255,8 +251,7 @@ public class PlayableTileScoreRoadTest {
         middle.setBottom(bottom);
         top.setBottom(middle);
         bottom.setTop(middle);
-        Set<AbstractTile> alreadyvisited = new HashSet<AbstractTile>();
-        Set<Meeple> meeples = new HashSet<Meeple>();
+
         Pair<Set<Meeple>, Integer> score = top.startScoreRoad(false);
         assertEquals(2, score.getKey().size());
         assertEquals(3, (int) score.getValue());
