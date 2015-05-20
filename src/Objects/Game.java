@@ -1,6 +1,7 @@
 package Objects;
 
 import Main.GlobalVariables;
+import Main.TileFactory;
 import UIComponents.BottomDisplay;
 import javafx.util.Pair;
 import sun.rmi.runtime.Log;
@@ -71,7 +72,7 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        if (tiles.size() == 0) {
+        if (tiles.size() == 0 && !riverMode) {
             gameOver = true;
         }
         return gameOver;
@@ -84,7 +85,12 @@ public class Game {
      */
     public boolean drawTile() {
         if (tiles.size() == 0) {
-            return false;
+            if(riverMode){
+                riverMode = false;
+                TileFactory factory = new TileFactory();
+                tiles = factory.loadDeck(true);
+            } else
+                return false;
         }
         currentTile = tiles.pop();
         return true;
