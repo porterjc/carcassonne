@@ -273,8 +273,10 @@ public class PlayableTile extends AbstractTile {
                 addMeeple(meeples, GlobalVariables.Location.TOP);
                 score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, this.getTop(), GlobalVariables.Direction.NORTH);
                 score = getCorrectScore(currentScore, score);
-                if (!isEndOfGame)
-                    meeples.addAll(score.getKey());
+                meeples.addAll(score.getKey());
+
+                if (!isEndOfGame && (score.getValue() + currentScore) < 1)
+                    meeples.clear();
                 currentScore += score.getValue();
             }
             currentScore = 1;
@@ -283,16 +285,19 @@ public class PlayableTile extends AbstractTile {
                 score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, getBottom(), GlobalVariables.Direction.SOUTH);
                 score = getCorrectScore(currentScore, score);
                 currentScore += score.getValue();
-                if (!isEndOfGame)
-                    meeples.addAll(score.getKey());
+                meeples.addAll(score.getKey());
+                if (!isEndOfGame && score.getValue() < 1)
+                    meeples.clear();
+
             }
             currentScore = 1;
             if ((!alreadyVisited.contains(this.getRight())) && this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
                 addMeeple(meeples, GlobalVariables.Location.RIGHT);
                 score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, getRight(), GlobalVariables.Direction.EAST);
                 score = getCorrectScore(currentScore, score);
-                if (!isEndOfGame)
-                    meeples.addAll(score.getKey());
+                meeples.addAll(score.getKey());
+                if (!isEndOfGame && (score.getValue() + currentScore) < 1)
+                    meeples.clear();
                 currentScore += score.getValue();
             }
             currentScore = 1;
@@ -301,12 +306,11 @@ public class PlayableTile extends AbstractTile {
                 score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, getLeft(), GlobalVariables.Direction.WEST);
                 score = getCorrectScore(currentScore, score);
                 currentScore += score.getValue();
-                if (!isEndOfGame)
-                    meeples.addAll(score.getKey());
+                meeples.addAll(score.getKey());
+                if (!isEndOfGame && (score.getValue()+currentScore) < 1)
+                    meeples.clear();
             }
         }
-        if (!isEndOfGame && score.getValue() < 1)
-            meeples.clear();
 
         return new Pair(meeples, currentScore + score.getValue());
     }

@@ -251,10 +251,10 @@ public class PlayableTileScoreRoadTest {
         middle.setBottom(bottom);
         top.setBottom(middle);
         bottom.setTop(middle);
-
+        assertEquals(0, this.currentUser.getScore());
         Pair<Set<Meeple>, Integer> score = top.startScoreRoad(false);
         assertEquals(2, score.getKey().size());
-        assertEquals(3, (int) score.getValue());
+        assertEquals(3, this.currentUser.getScore());
     }
 
     @Test
