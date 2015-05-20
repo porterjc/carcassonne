@@ -50,7 +50,7 @@ public class Game {
         riverMode = river;
         abbotMode = abbot;
         numberOfOpenTilesOnBoard = 0;
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
+        slots = new ArrayList<OpenTile>();
         currentTurn = 0;
         currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
@@ -351,6 +351,12 @@ public class Game {
         }
     }
 
+    /**
+     *
+     */
+    public ArrayList<OpenTile> getSlots(){
+        return slots;
+    }
 
 
     /**
@@ -360,5 +366,29 @@ public class Game {
      */
     public void setCurrentTile(PlayableTile t) {
         this.currentTile = t;
+    }
+
+    /**
+     * Takes a playable tile and checks that it can be placed where one of the OpeTile's currently exist.
+     *
+     * @param tile
+     * @return
+     */
+    public boolean areValidMoves(PlayableTile tile) {
+        for (OpenTile temp : slots) {
+            if (temp.canPlace(tile, false))
+                return true;
+            tile.rotateTile();
+            if (temp.canPlace(tile, false))
+                return true;
+            tile.rotateTile();
+            if (temp.canPlace(tile, false))
+                return true;
+            tile.rotateTile();
+            if (temp.canPlace(tile, false))
+                return true;
+            tile.rotateTile();
+        }
+        return false;
     }
 }

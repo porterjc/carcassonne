@@ -274,28 +274,4 @@ public class TileGrid extends JPanel {
         revalidate();
         repaint();
     }
-
-    /**
-     * Takes a playable tile and checks that it can be placed where one of the OpeTile's currently exist.
-     *
-     * @param tile
-     * @return
-     */
-    public boolean areValidMoves(PlayableTile tile) {
-        for (OpenTile temp : slots) {
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-        }
-        return false;
-    }
 }

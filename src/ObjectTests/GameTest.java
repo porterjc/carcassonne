@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by johnsoaa on 3/25/2015.
@@ -351,5 +352,46 @@ public class GameTest {
         assertEquals(true, game.updateAllScores());
         assertEquals(0, game.getPlayers().get(0).getPlayerScore());
         assertEquals(3, game.getPlayers().get(1).getPlayerScore());
+    }
+
+    @Test
+    public void testAreValidMoves() {
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+
+        Game game = new Game(bdstub, getTiles(), this.players);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(feature);
+
+        game.getSlots().add(new OpenTile(tile1, tile1, tile1, tile1));
+        assertTrue(game.areValidMoves(tile1));
+    }
+
+    @Test
+    public void testAreValidMovesMoreTiles() {
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+
+        Game game = new Game(bdstub, getTiles(), this.players);
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile1 = new PlayableTile(feature);
+
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile2 = new PlayableTile(feature);
+
+        game.getSlots().add(new OpenTile(tile1, tile1, tile1, tile1));
+
+        assertTrue(game.areValidMoves(tile2));
     }
 }
