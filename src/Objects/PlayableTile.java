@@ -316,7 +316,7 @@ public class PlayableTile extends AbstractTile {
     private Pair<Set<Meeple>, Integer> scoreRoadHelperMethod(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndOfGame, int currentTileScore, AbstractTile t, GlobalVariables.Direction dir) {
         Pair<Set<Meeple>, Integer> temp = t.scoreRoad(alreadyVisited, meeples, isEndOfGame, dir);
         if (isEndOfGame && temp.getValue() == -1) {
-            return new Pair(meeples, currentTileScore);
+            return new Pair(meeples, 0);
         } else if (temp.getValue() == -1) {
             return new Pair(meeples, -1);
         } else {
