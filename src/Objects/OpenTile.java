@@ -26,6 +26,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
         this.addMouseListener(this);
     }
 
+
     @Override
     public GlobalVariables.Direction updateAdjacent() {
         if (getTop() == null)
