@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.*;
 
 /**
+ * The superclass representing all tiles in the game
  * Created by johnsoaa on 3/27/2015.
  */
 
@@ -18,10 +19,9 @@ public abstract class AbstractTile extends JLabel {
     private AbstractTile left, right, top, bottom;
     protected Map<GlobalVariables.Direction, GlobalVariables.Feature> featuresMap;
     private Set<GlobalVariables.Internal> internals;
-    private TileGrid grid;
 
     public AbstractTile() {
-        featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        featuresMap = new HashMap<>();
         internals = new HashSet<>();
     }
 
@@ -32,7 +32,7 @@ public abstract class AbstractTile extends JLabel {
         setTop(t);
         setBottom(b);
         featuresMap = features;
-        internals = new HashSet<GlobalVariables.Internal>();
+        internals = new HashSet<>();
     }
 
     public AbstractTile(AbstractTile l, AbstractTile r, AbstractTile t, AbstractTile b) {
@@ -40,8 +40,8 @@ public abstract class AbstractTile extends JLabel {
         setRight(r);
         setTop(t);
         setBottom(b);
-        featuresMap = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-        internals = new HashSet<GlobalVariables.Internal>();
+        featuresMap = new HashMap<>();
+        internals = new HashSet<>();
     }
 
 
@@ -64,6 +64,11 @@ public abstract class AbstractTile extends JLabel {
         this.internals = internals;
     }
 
+    /**
+     * Gets the feature in the given direction
+     * @param direction the direction of the feature to find
+     * @return the feature on the given edge of the tile, or null if the tile is not playable
+     */
     public GlobalVariables.Feature getTargetFeature(GlobalVariables.Direction direction) {
         return null;
     }
@@ -117,7 +122,6 @@ public abstract class AbstractTile extends JLabel {
     }
 
     /**
-     * TODO  Move this to Objects.OpenTile
      * Replaces this tile in the grid with the new tile
      *
      * @param newTile the tile to replace this one
@@ -138,6 +142,10 @@ public abstract class AbstractTile extends JLabel {
         return newTile.updateAdjacent();
     }
 
+    /**
+     * Returns the value of this tile for scoring monasteries and gardens
+     * @return 0 by default
+     */
     public int getValue() {
         return 0;
     }
@@ -150,37 +158,53 @@ public abstract class AbstractTile extends JLabel {
         return null;
     }
 
+    /**
+     * Sets the bounds of the tile without having to specify the size
+     * @param x the x location of the tile
+     * @param y the y location of the tile
+     */
     public void moveTile(int x, int y) {
         this.setBounds(x, y, TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
     }
 
+    /**
+     * Specifies the appearance of the tile
+     */
     public abstract void drawSelf();
 
-    // Scoring algorithms
+    /**
+     * Calculates the score for a road
+     * @param alreadyVisited tiles that have already been visited
+     * @param meeples meeples that are on this road
+     * @param isEndofGame whether or not the game is complete
+     * @param prevDirection the direction this tracing algorithm just came from
+     * @return the meeples in a city and that city's value
+     */
     public Pair<Set<Meeple>, Integer> scoreRoad(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean isEndofGame, GlobalVariables.Direction prevDirection) {
-          return new Pair(meeples, -1);
+          return new Pair<>(meeples, -1);
     }
 
-    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
-        return new Pair(meeples, -1);
+    /**
+     * Calculates the score for a city
+     * @param alreadyVisited the tiles that have already been visited
+     * @param meeples meeples in this city
+     * @param completion whether or not the game is complete
+     * @return the meeples on a road and that road's value
+     */
+    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, HashSet<Meeple> meeples, boolean completion) {
+        return new Pair<>(meeples, -1);
     }
+
+    /**
+     * Traces a field to find farmers and cities
+     * @param alreadyVisited tiles that have already been visited
+     * @param from the direction that this algorithm came from
+     * @param farmers the farmers found on this field
+     * @param cities the value of cities connected to this field
+     * @param gameOver whether or not the game is over
+     * @return the meeples on the field and the cities
+     */
     public boolean traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Integer> cities, boolean gameOver) {
-        return false;
-    }
-
-    protected boolean checkFromBottom(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return false;
-    }
-
-    protected boolean checkFromTop(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return false;
-    }
-
-    protected boolean checkFromLeft(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
-        return false;
-    }
-
-    protected boolean checkFromRight(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from) {
         return false;
     }
 

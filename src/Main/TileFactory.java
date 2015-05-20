@@ -1168,7 +1168,7 @@ public class TileFactory {
             e.printStackTrace();
         }
 
-        return new PlayableTile();
+        return null;
     }
 
     /**
@@ -1189,7 +1189,7 @@ public class TileFactory {
             e.printStackTrace();
         }
 
-        return new PlayableTile();
+        return null;
     }
 
     /**
@@ -1210,7 +1210,7 @@ public class TileFactory {
             e.printStackTrace();
         }
 
-        return new PlayableTile();
+        return null;
     }
 
     /**
@@ -1273,7 +1273,7 @@ public class TileFactory {
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.NSBISECTOR);
 
-            riverTiles.add(new PlayableTile(image, features));
+            riverTiles.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
             e.printStackTrace();
         }

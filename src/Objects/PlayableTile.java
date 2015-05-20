@@ -68,12 +68,6 @@ public class PlayableTile extends AbstractTile {
         super.isPlayable = true;
     }
 
-    public PlayableTile(HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features, Set<GlobalVariables.Internal> internals, Meeple m) {
-        super(features, internals);
-        super.isPlayable = true;
-        this.meeple = m;
-    }
-
     public Map<GlobalVariables.Direction, GlobalVariables.Feature> getFeatures() {
         return featuresMap;
     }
