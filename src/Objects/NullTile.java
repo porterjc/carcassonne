@@ -33,10 +33,4 @@ public class NullTile extends AbstractTile {
         GlobalVariables.Direction dir = super.addTile(newTile);
         return dir;
     }
-    // TODO either delete or refactor
-    @Override
-    public GlobalVariables.Direction updateAdjacent() {
-        // This should never be called
-        return null;
-    }
 }

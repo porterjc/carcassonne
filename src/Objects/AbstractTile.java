@@ -142,9 +142,11 @@ public abstract class AbstractTile extends JLabel {
         return 0;
     }
 
-    public abstract GlobalVariables.Direction updateAdjacent();
-
-    public Image getImage() {
+    /**
+     * The direction in which the grid needs to be expanded
+     * @return null by default
+     */
+    public GlobalVariables.Direction updateAdjacent() {
         return null;
     }
 
