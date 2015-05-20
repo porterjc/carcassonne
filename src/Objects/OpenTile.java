@@ -11,21 +11,36 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * A tile representing an open space on the grid where a tile may be placed
  * Created by johnsoaa on 3/31/2015.
  */
 public class OpenTile extends AbstractTile implements MouseListener {
 
+    /**
+     * Constructor
+     */
     public OpenTile() {
         super();
         this.addMouseListener(this);
     }
 
+    /**
+     * Constructor
+     * @param left the tile to the left of this
+     * @param right the tile to the right of this
+     * @param top the tile above this
+     * @param bottom the tile below this
+     */
     public OpenTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom) {
         super(left, right, top, bottom);
         this.drawSelf();
         this.addMouseListener(this);
     }
 
+    /**
+     * Called after addTile is called. If this is linked to nothing in any direction, expand the grid
+     * @return the direction to expand the grid
+     */
     @Override
     public GlobalVariables.Direction updateAdjacent() {
         if (getTop() == null)
@@ -43,13 +58,21 @@ public class OpenTile extends AbstractTile implements MouseListener {
         return null;
     }
 
+    /**
+     * Draws an empty square with a white border to represent this tile
+     */
     @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
 
+    /**
+     * Determines whether a tile may be placed over this one
+     * @param tileToPlace the tile to be placed over this one
+     * @param riverMode whether or not the river rules must be taken into consideration
+     * @return whether or not the playable tile may be added over this one
+     */
     public boolean canPlace(PlayableTile tileToPlace, boolean riverMode) {
-        //boolean can = checkEast(tileToPlace) && checkWest(tileToPlace) && checkNorth(tileToPlace) && checkSouth(tileToPlace);
         boolean e = checkEast(tileToPlace);
         boolean w = checkWest(tileToPlace);
         boolean n = checkNorth(tileToPlace);
@@ -59,7 +82,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
     }
 
     public boolean checkNorth(PlayableTile tile) {
-        //Map<Main.GlobalVariables.Direction, Main.GlobalVariables.Feature> tileFeatures = tile.getFeatures();
         GlobalVariables.Feature tileFeature = tile.getTargetFeature(GlobalVariables.Direction.NORTH);
         if (getTop().getFeatures() == null) {
             System.out.println("Top was null");
@@ -67,9 +89,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
         }
         else {
             boolean val = tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.SOUTH);
-           // if (!val)
-                System.out.println("This top: " + tileFeature + " Bottom on tile above: " + getTop().getTargetFeature(GlobalVariables.Direction.SOUTH));
-            //return tileFeatures.get(Main.GlobalVariables.Direction.NORTH) == getTop().getFeatures().get(Main.GlobalVariables.Direction.SOUTH);
+            System.out.println("This top: " + tileFeature + " Bottom on tile above: " + getTop().getTargetFeature(GlobalVariables.Direction.SOUTH));
             return val;
         }
 
@@ -127,7 +147,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
     }
 
     @Override
-    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, HashSet<Meeple> meeples, boolean completion) {
         return new Pair(meeples, -1);
     }
 
@@ -164,6 +184,8 @@ public class OpenTile extends AbstractTile implements MouseListener {
 
         }
     }
+
+    // Unnecessary MouseListener Methods
 
     @Override
     public void mousePressed(MouseEvent e) {

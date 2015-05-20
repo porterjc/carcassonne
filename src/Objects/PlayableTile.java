@@ -388,7 +388,7 @@ public class PlayableTile extends AbstractTile {
         int currentScore = 2;
         Meeple meep = this.getMeeple();
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        Set<Meeple> meeples = new HashSet<Meeple>();
+        HashSet<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
         if (meep != null && meep.getFeature() == GlobalVariables.Feature.CITY)
@@ -428,7 +428,7 @@ public class PlayableTile extends AbstractTile {
      * @return
      */
     @Override
-    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, Set<Meeple> meeples, boolean completion) {
+    public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, HashSet<Meeple> meeples, boolean completion) {
         int cityScore = 2;
         alreadyVisited.add(this);
         Meeple meep = getMeeple();

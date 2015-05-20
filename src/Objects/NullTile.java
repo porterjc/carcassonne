@@ -11,26 +11,28 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * A tile representing an empty space in the grid.
  * Created by robinsat on 4/14/2015.
  */
 public class NullTile extends AbstractTile {
 
+    /**
+     * Constructor
+     */
     public NullTile() {
         super();
         this.setSize(AbstractTile.TILE_PIXEL_SIZE, AbstractTile.TILE_PIXEL_SIZE);
         this.drawSelf();
-        //this.setOpaque(true);
         this.setVisible(true);
     }
 
+
+    /**
+     * Draws an empty square outlined in light blue to represent this tile
+     */
     @Override
     public void drawSelf() {
         this.setBorder(BorderFactory.createLineBorder(new Color(80, 90, 115)));
     }
 
-    @Override
-    public GlobalVariables.Direction addTile(AbstractTile newTile) {
-        GlobalVariables.Direction dir = super.addTile(newTile);
-        return dir;
-    }
 }
