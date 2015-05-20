@@ -22,6 +22,9 @@ public class Game {
     private int currentTurn;
     private TurnState currentTurnState;
     private int numberOfOpenTilesOnBoard;
+
+    private ArrayList<OpenTile> slots;
+
     /**
      * The meeples placed in monasteries that must be continuously checked for completion each time a tile is placed
      */
