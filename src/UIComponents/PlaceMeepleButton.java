@@ -87,6 +87,14 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
     }
 
     /**
+     * Getter method for the internal feature
+     * @return the internal feature
+     */
+    protected GlobalVariables.Internal getInternal() {
+        return this.internal;
+    }
+
+    /**
      * Sets the player field to the player that will own the placed meeple
      * @param player the player that will own the placed meeple
      */

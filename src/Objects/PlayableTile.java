@@ -133,9 +133,15 @@ public class PlayableTile extends AbstractTile {
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
 
         // Center (Pretty much only for monasteries)
-        if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY))
-            this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
-        if (abbot && this.getInternals().contains(GlobalVariables.Internal.GARDEN))
+        if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY)) {
+            if(abbot && currentPlayer.getAbbot().getInternal() == null) {
+                this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half - 15, half));
+                this.add(new PlaceAbbotButton(GlobalVariables.Internal.MONASTERY, currentPlayer, rotation));
+            }
+            else
+                this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
+        }
+        if (abbot && this.getInternals().contains(GlobalVariables.Internal.GARDEN) && currentPlayer.getAbbot().getInternal() == null)
             this.add(new PlaceAbbotButton(GlobalVariables.Internal.GARDEN, currentPlayer, this.rotation));
 
         GlobalVariables.Feature t = getTopFeature();
@@ -643,7 +649,9 @@ public class PlayableTile extends AbstractTile {
             }
         }
 
-        return found;
+        if (found != null && !found.getKey().isEmpty() && !gameOver)
+            return found;
+        return new Pair<>(farmers, cities);
     }
 
     /**
@@ -821,6 +829,7 @@ public class PlayableTile extends AbstractTile {
     public void removeMeeple() {
         this.meeple = null;
         this.removeAll();
+        this.revalidate();
         this.repaint();
     }
 
