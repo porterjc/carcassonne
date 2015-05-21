@@ -211,7 +211,7 @@ public class Game {
 //        }
 
         Pair<Set<Meeple>, Integer> roads;
-        roads = currentTile.startScoreRoad(isGameOver());
+        roads = startScoreRoad(currentTile,isGameOver());
         //TODO add code for removing meeples on scored roads from UI
 
 //        Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
@@ -263,6 +263,92 @@ public class Game {
 
         moveToNextState();
     }
+    //updates the scores for the given meeple set
+    private void scoreUpdate(int currentScore, Pair<Set<Meeple>, Integer> score) {
+        int points = score.getValue() + currentScore;
+        List<Player> playersScored = new ArrayList<>();
+        for (Meeple m : score.getKey()) {
+            if (!playersScored.contains(m.getPlayer())) {
+                playersScored.add(m.getPlayer());
+                m.getPlayer().updateScore(points);
+            }
+            m.remove();
+        }
+    }
+
+    private Pair<Set<Meeple>, Integer> getCorrectScore(int currentScore, Pair<Set<Meeple>, Integer> score) {
+        if (score.getValue() + currentScore > 1) {
+            scoreUpdate(currentScore, score);
+        } else {
+            score = new Pair<>(score.getKey(), 0);
+        }
+        return score;
+    }
+
+    /**
+     * Begins scoring process for roads and updates player's scores after calculation
+     * Also, this method removes Meeples
+     * TODO may change the return value to only be a set of Meeples
+     *
+     * @param isEndOfGame
+     * @return the complete list of meeples to remove from the UI
+     */
+    public Pair<Set<Meeple>, Integer> startScoreRoad(PlayableTile currentTile, boolean isEndOfGame) {
+        int currentScore = 1;
+        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
+        final Set<Meeple> meeples = new HashSet<Meeple>();
+        alreadyVisited.add(currentTile);
+        Pair<Set<Meeple>, Integer> score = new Pair<>(meeples, 0);
+        //only score if a roadstop is placed
+        if (currentTile.getInternals().contains(GlobalVariables.Internal.ROADSTOP)) {
+            if ((!alreadyVisited.contains(currentTile.getTop())) && currentTile.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
+                currentTile.addMeeple(meeples, GlobalVariables.Location.TOP);
+                score = currentTile.scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, currentTile.getTop(), GlobalVariables.Direction.NORTH);
+                score = getCorrectScore(currentScore, score);
+                meeples.addAll(score.getKey());
+
+                if (!isEndOfGame && (score.getValue() + currentScore) < 1)
+                    meeples.clear();
+                currentScore += score.getValue();
+            }
+            currentScore = 1;
+            if (!alreadyVisited.contains(currentTile.getBottom()) && currentTile.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+                currentTile.addMeeple(meeples, GlobalVariables.Location.BOTTOM);
+                score = currentTile.scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, currentTile.getBottom(), GlobalVariables.Direction.SOUTH);
+                score = getCorrectScore(currentScore, score);
+                currentScore += score.getValue();
+                meeples.addAll(score.getKey());
+                if (!isEndOfGame && score.getValue() < 1)
+                    meeples.clear();
+
+            }
+            currentScore = 1;
+            if ((!alreadyVisited.contains(currentTile.getRight())) && currentTile.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+                currentTile.addMeeple(meeples, GlobalVariables.Location.RIGHT);
+                score = currentTile.scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, currentTile.getRight(), GlobalVariables.Direction.EAST);
+                score = getCorrectScore(currentScore, score);
+                meeples.addAll(score.getKey());
+                if (!isEndOfGame && (score.getValue() + currentScore) < 1)
+                    meeples.clear();
+                currentScore += score.getValue();
+            }
+            currentScore = 1;
+            if ((!alreadyVisited.contains(currentTile.getLeft())) && currentTile.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+                currentTile.addMeeple(meeples, GlobalVariables.Location.LEFT);
+                score = currentTile.scoreRoadHelperMethod(alreadyVisited, meeples, isEndOfGame, currentScore, currentTile.getLeft(), GlobalVariables.Direction.WEST);
+                score = getCorrectScore(currentScore, score);
+                currentScore += score.getValue();
+                meeples.addAll(score.getKey());
+                if (!isEndOfGame && (score.getValue() + currentScore) < 1)
+                    meeples.clear();
+            }
+        }
+        return new Pair(meeples, currentScore + (score == null ? 0 : score.getValue()));
+    }
+
+
+
+
 
     /**
      * Called at the end of the game
@@ -288,7 +374,7 @@ public class Game {
         scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<Set<Meeple>, Integer> roadscore = this.currentTile.startScoreRoad(false);
+        Pair<Set<Meeple>, Integer> roadscore = startScoreRoad(currentTile,false);
 
         if (scoreCity.getValue() > 0) {
             for (Meeple m : scoreCity.getKey()) {
