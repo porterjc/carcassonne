@@ -13,6 +13,7 @@ public class Player {
     private int playerScore;
     private GlobalVariables.PlayerColor pColor;
     private ArrayList<Meeple> meeples;
+    private Meeple abbot;
     public int lastUsedMeeple;
 
     public Player(GlobalVariables.PlayerColor color) {
@@ -27,6 +28,7 @@ public class Player {
         meeples.add(new Meeple(this, color));
         meeples.add(new Meeple(this, color));
         meeples.add(new Meeple(this, color));
+        abbot = new Meeple(this, color);
     }
 
     public int getPlayerScore() {
@@ -63,6 +65,10 @@ public class Player {
         if (!hasMeeplesLeft())
             return null;
         return meeples.remove(meeples.size() - 1);
+    }
+
+    public Meeple getAbbot() {
+        return abbot;
     }
 
 }

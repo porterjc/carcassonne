@@ -1,11 +1,11 @@
 package UIComponents;
 
 import Main.GlobalVariables;
-import Objects.AbstractTile;
-import Objects.Player;
+import Objects.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * This class represents a graphical button used to place an abbot, which is a special type of meeple
@@ -26,25 +26,56 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
     }
 
     /**
+     * Sets the isActive field to false, disabling the button from being clicked
+     */
+    protected void deactivate() {
+        // Do nothing, this should be active at all times
+    }
+
+    /**
      * Draws the abbot in the appropriate location based on the tile rotation
      * @param tileRotation the tile's current position
      */
     private void drawAbbot(int tileRotation) {
         int margin = 15;
         int half = AbstractTile.TILE_PIXEL_SIZE / 2 - BUTTON_SIZE / 2;
-        if(tileRotation == 0) {
-            this.setBounds(margin, half, BUTTON_SIZE, BUTTON_SIZE);
+        if(getInternal() == GlobalVariables.Internal.MONASTERY)
+            this.setBounds(half + margin , half, BUTTON_SIZE, BUTTON_SIZE);
+        else {
+
+            if (tileRotation == 0) {
+                this.setBounds(margin, half, BUTTON_SIZE, BUTTON_SIZE);
+            } else if (tileRotation == 1) {
+                this.setBounds(half - 10, 8, BUTTON_SIZE, BUTTON_SIZE);
+            } else if (tileRotation == 2) {
+                this.setBounds(AbstractTile.TILE_PIXEL_SIZE - margin - BUTTON_SIZE, half - margin, BUTTON_SIZE, BUTTON_SIZE);
+            } else if (tileRotation == 3) {
+                this.setBounds(half + 10, AbstractTile.TILE_PIXEL_SIZE - 20 - BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
+            } else
+                this.setBounds(half, half, BUTTON_SIZE, BUTTON_SIZE);
         }
-        else if(tileRotation == 1) {
-            this.setBounds(half - 10, 8, BUTTON_SIZE, BUTTON_SIZE);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        PlayableTile parentTile = (PlayableTile) getParent();
+        Game game = ((TileGrid) parentTile.getParent()).getGame();
+        if(!game.canPlaceMeeple())
+            return;
+
+        if(game.getCurrentTile() == parentTile) {
+            System.out.println("Placing abbot");
+            super.mouseClicked(e);
         }
-        else if(tileRotation == 2) {
-            this.setBounds(AbstractTile.TILE_PIXEL_SIZE - margin - BUTTON_SIZE, half - margin, BUTTON_SIZE, BUTTON_SIZE);
+        else if(game.getCurrentTurnPlayer() == getPlayer()){
+            System.out.println("Removing abbot");
+            getPlayer().updateScore(parentTile.scoreSurrounding(false));
+            getPlayer().getAbbot().remove();
+            parentTile.removeAll();
+            parentTile.repaint();
+            game.getCurrentTile().removeAll();
+            game.getCurrentTile().repaint();
+            game.moveToNextState();
         }
-        else if(tileRotation == 3) {
-            this.setBounds(half + 10, AbstractTile.TILE_PIXEL_SIZE - 20 - BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
-        }
-        else
-            this.setBounds(half, half, BUTTON_SIZE, BUTTON_SIZE);
     }
 }
