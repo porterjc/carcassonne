@@ -1,11 +1,11 @@
 package UIComponents;
 
 import Main.GlobalVariables;
-import Objects.AbstractTile;
-import Objects.Player;
+import Objects.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * This class represents a graphical button used to place an abbot, which is a special type of meeple
@@ -23,6 +23,13 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
         super(internal, player);
         this.setIcon(new ImageIcon(player.getPlayerColor().getAbbotImage().getScaledInstance(BUTTON_SIZE, BUTTON_SIZE, Image.SCALE_FAST)));
         this.drawAbbot(tileRotation);
+    }
+
+    /**
+     * Sets the isActive field to false, disabling the button from being clicked
+     */
+    protected void deactivate() {
+        // Do nothing, this should be active at all times
     }
 
     /**
@@ -46,5 +53,21 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
         }
         else
             this.setBounds(half, half, BUTTON_SIZE, BUTTON_SIZE);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        PlayableTile parentTile = (PlayableTile) getParent();
+        Game game = ((TileGrid) parentTile.getParent()).getGame();
+        if(!game.canPlaceMeeple())
+            return;
+
+        if(getPlayer().getAbbot().getInternal() == null) {
+            super.mouseClicked(e);
+        }
+        else {
+            getPlayer().updateScore(parentTile.scoreSurrounding(false));
+            getPlayer().getAbbot().remove();
+        }
     }
 }

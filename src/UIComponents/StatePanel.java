@@ -52,7 +52,7 @@ public class StatePanel extends JPanel {
      */
     public void updatePassButton() {
         passButton.clear();
-        if(game.canManuallyPass())
+        if(game.canPlaceMeeple())
             passButton.setText("Pass");
         passButton.setBackground(game.getCurrentTurnPlayer().getPlayerColor().getColor());
     }

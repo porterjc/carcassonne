@@ -171,7 +171,7 @@ public class Game {
         return players.get(currentTurn);
     }
 
-    public boolean canManuallyPass() {
+    public boolean canPlaceMeeple() {
         return currentTurnState == TurnState.MEEPLE_PLACEMENT;
     }
 

@@ -94,6 +94,14 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         this.player = player;
     }
 
+    /**
+     * Getter method for the owner of the placed meeple
+     * @return the owner of the placed meeple
+     */
+    protected Player getPlayer() {
+        return this.player;
+    }
+
     /* Mouse Listener methods */
 
     @Override

@@ -62,6 +62,10 @@ public class Meeple {
         return placedOn;
     }
 
+    public GlobalVariables.Internal getInternal() {
+        return placedOnInternal;
+    }
+
     public GlobalVariables.Location getLocation() {
         return location;
     }
@@ -74,6 +78,9 @@ public class Meeple {
         if (this.tile != null)
             this.tile.removeMeeple();
         this.tile = null;
+        this.placedOn = null;
+        this.placedOnInternal = null;
+        this.location = null;
         this.meepleOwner.getMeeples().add(this);
     }
 
