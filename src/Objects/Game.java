@@ -83,7 +83,7 @@ public class Game {
     public boolean drawTile() {
 //        TileGrid grid = (TileGrid) currentTile.getParent();
         if (tiles.size() == 0) {
-            if(isRiverMode()){
+            if (isRiverMode()) {
                 riverMode = false;
                 finishRiver(currentTile);
                 TileFactory factory = new TileFactory();
@@ -115,7 +115,7 @@ public class Game {
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
 
         //as we don't want too much coupling between the UI and the GAME class over sharing Objects.Player objects
-        if(drawTile())
+        if (drawTile())
             bottomDisplay.finishedScoringUpdate();
         else {
             gameOver = true;
@@ -135,7 +135,7 @@ public class Game {
                 currentTurnState = TurnState.MEEPLE_PLACEMENT;
                 bottomDisplay.placedTileUpdate();
                 System.out.println("CURRENT: MEEPLE");
-                if(getCurrentTurnPlayer().getMeeples().isEmpty())
+                if (getCurrentTurnPlayer().getMeeples().isEmpty())
                     return moveToNextState();
                 else
                     return true;
@@ -181,6 +181,7 @@ public class Game {
 
     /**
      * Determines whether this game has river rules enabled
+     *
      * @return whether this game has river rules enabled
      */
     public boolean isRiverMode() {
@@ -189,6 +190,7 @@ public class Game {
 
     /**
      * Determines whether this game has abbot rules enabled
+     *
      * @return whether this game has abbot rules enabled
      */
     public boolean isAbbotMode() {
@@ -208,11 +210,13 @@ public class Game {
             }
         }
 
-//        Pair<Set<Meeple>, Integer> roads;
-//        roads = currentTile.scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), true);
+        Pair<Set<Meeple>, Integer> roads;
+        roads = currentTile.startScoreRoad(isGameOver());
+        //TODO add code for removing meeples from scored roads
+
         Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
         HashSet<GlobalVariables.Direction> directions = new HashSet<>();
-        if(currentTile.getInternals().contains(GlobalVariables.Internal.CITY)) {
+        if (currentTile.getInternals().contains(GlobalVariables.Internal.CITY)) {
             if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY)
                 directions.add(GlobalVariables.Direction.NORTH);
             if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY)
@@ -223,22 +227,26 @@ public class Game {
                 directions.add(GlobalVariables.Direction.SOUTH);
             cities.push(currentTile.startScoreCity(directions, true));
         } else {
-        if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY){
-            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-            direc.add(GlobalVariables.Direction.NORTH);
-            cities.push(currentTile.startScoreCity(direc, true));}
-        if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY){
-            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-            direc.add(GlobalVariables.Direction.WEST);
-            cities.push(currentTile.startScoreCity(direc, true));}
-        if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY){
-            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-            direc.add(GlobalVariables.Direction.EAST);
-            cities.push(currentTile.startScoreCity(direc, true));}
-        if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY){
-            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-            direc.add(GlobalVariables.Direction.SOUTH);
-            cities.push(currentTile.startScoreCity(direc, true));}
+            if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY) {
+                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                direc.add(GlobalVariables.Direction.NORTH);
+                cities.push(currentTile.startScoreCity(direc, true));
+            }
+            if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY) {
+                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                direc.add(GlobalVariables.Direction.WEST);
+                cities.push(currentTile.startScoreCity(direc, true));
+            }
+            if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY) {
+                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                direc.add(GlobalVariables.Direction.EAST);
+                cities.push(currentTile.startScoreCity(direc, true));
+            }
+            if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY) {
+                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                direc.add(GlobalVariables.Direction.SOUTH);
+                cities.push(currentTile.startScoreCity(direc, true));
+            }
         }
 
         while (!cities.isEmpty()) {
@@ -252,35 +260,6 @@ public class Game {
         }
 
         //TODO: Calculate who ACTUALLY deserves the score among shared features
- /*      while(!roads.isEmpty()) {
-           Pair<Set<Meeple>, Integer> road = roads.pop();
-           if(road.getValue() > 0) {
-               for(Meeple m : road.getKey()) {
-                   m.getPlayer().updateScore(road.getValue());
-                   m.remove();
-               }
-           }
-       }
-
-        while(!cities.isEmpty()) {
-=======
-        if (roads.getValue() > 0) {
-            for (Meeple m : roads.getKey()) {
-                m.getPlayer().updateScore(roads.getValue());
-                m.remove();
-            }
-        }
-
-        while (!cities.isEmpty()) {
->>>>>>> origin/master
-            Pair<HashSet<Meeple>, Integer> city = cities.pop();
-            if (city.getValue() > 0) {
-                for (Meeple m : city.getKey()) {
-                    m.getPlayer().updateScore(city.getValue());
-                    m.remove();
-                }
-            }
-        } */
 
         moveToNextState();
     }
@@ -299,6 +278,11 @@ public class Game {
         return tile.startScoreCity(directions, true);
     } */
 
+    /**
+     * TODO find out if this is used outside of a test case... ?....
+     *
+     * @return
+     */
     public boolean updateAllScores() {
         Pair<HashSet<Meeple>, Integer> scoreCity, scoreFarmer;
         scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
@@ -338,6 +322,7 @@ public class Game {
 
     /**
      * Determines whether the tiles within a game can be adjusted
+     *
      * @return true if the game is in the tile placement state
      */
     public boolean canAdjustTile() {
@@ -381,20 +366,20 @@ public class Game {
         this.currentTile = t;
     }
 
-    public void finishRiver(PlayableTile tile){
+    public void finishRiver(PlayableTile tile) {
         TileGrid grid = (TileGrid) tile.getParent();
         TileFactory factory = new TileFactory();
         PlayableTile end = factory.getRiverEnd();
-        if(tile.getTopFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getTop())){
+        if (tile.getTopFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getTop())) {
             end.rotateTile();
             tile.getTop().addTile(end);
-        } else if(tile.getLeftFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getLeft())){
+        } else if (tile.getLeftFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getLeft())) {
             end.rotateTile();
             end.rotateTile();
             tile.getLeft().addTile(end);
-        } else if(tile.getRightFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getRight())){
+        } else if (tile.getRightFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getRight())) {
             tile.getRight().addTile(end);
-        } else if(tile.getBottomFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getBottom())){
+        } else if (tile.getBottomFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getBottom())) {
             end.rotateTile();
             end.rotateTile();
             end.rotateTile();

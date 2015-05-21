@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by robinsat on 4/1/2015.
@@ -87,7 +88,7 @@ public class PlayableTile extends AbstractTile {
         if (topdir != null) {
             grid.addSlot(openTop);
         }
-        if (leftdir != null){
+        if (leftdir != null) {
             grid.addSlot(openLeft);
         }
         if (rightdir != null) {
@@ -212,12 +213,14 @@ public class PlayableTile extends AbstractTile {
     private boolean shouldHaveButton(GlobalVariables.Direction dir) {
         GlobalVariables.Feature feat = getTargetFeature(dir);
         HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+        List<GlobalVariables.Direction> directionz = new ArrayList<>();
         directions.add(dir);
         switch (feat) {
             case GRASS:
                 return !traceField(new HashSet<AbstractTile>(), dir.getLocation(), new HashSet<Meeple>(), new HashSet<Integer>(), false);
             case ROAD:
-                return false;
+                if (this.getFeatures().get(dir) == GlobalVariables.Feature.ROAD)
+                    return true;
             case CITY:
                 directions = new HashSet<>();// TODO Alia Check this-- it through an error for double duplication so I deleted the first part
                 if (this.getInternals().contains(GlobalVariables.Internal.CITY)) {
@@ -319,7 +322,7 @@ public class PlayableTile extends AbstractTile {
                 score = getCorrectScore(currentScore, score);
                 currentScore += score.getValue();
                 meeples.addAll(score.getKey());
-                if (!isEndOfGame && (score.getValue()+currentScore) < 1)
+                if (!isEndOfGame && (score.getValue() + currentScore) < 1)
                     meeples.clear();
             }
         }
