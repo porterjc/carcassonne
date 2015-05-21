@@ -80,10 +80,28 @@ public class PlayableTile extends AbstractTile {
 
     @Override
     public GlobalVariables.Direction updateAdjacent() {
-        GlobalVariables.Direction topdir = this.getTop().getClass() != OpenTile.class ? this.getTop().addTile(new OpenTile()) : null;
-        GlobalVariables.Direction leftdir = this.getLeft().getClass() != OpenTile.class ? this.getLeft().addTile(new OpenTile()) : null;
-        GlobalVariables.Direction rightdir = this.getRight().getClass() != OpenTile.class ? this.getRight().addTile(new OpenTile()) : null;
-        GlobalVariables.Direction bottomdir = this.getBottom().getClass() != OpenTile.class ? this.getBottom().addTile(new OpenTile()) : null;
+        TileGrid grid = (TileGrid) this.getParent();
+        OpenTile openTop = new OpenTile();
+        OpenTile openLeft = new OpenTile();
+        OpenTile openRight = new OpenTile();
+        OpenTile openBottom = new OpenTile();
+        GlobalVariables.Direction topdir = this.getTop().getClass() != OpenTile.class ? this.getTop().addTile(openTop) : null;
+        GlobalVariables.Direction leftdir = this.getLeft().getClass() != OpenTile.class ? this.getLeft().addTile(openLeft) : null;
+        GlobalVariables.Direction rightdir = this.getRight().getClass() != OpenTile.class ? this.getRight().addTile(openRight) : null;
+        GlobalVariables.Direction bottomdir = this.getBottom().getClass() != OpenTile.class ? this.getBottom().addTile(openBottom) : null;
+
+        if (topdir != null) {
+            grid.addSlot(openTop);
+        }
+        if (leftdir != null){
+            grid.addSlot(openLeft);
+        }
+        if (rightdir != null) {
+            grid.addSlot(openRight);
+        }
+        if (bottomdir != null) {
+            grid.addSlot(openBottom);
+        }
 
         if (topdir != null)
             return topdir;

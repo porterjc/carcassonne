@@ -56,6 +56,9 @@ public class OpenTile extends AbstractTile implements MouseListener {
         boolean n = checkNorth(tileToPlace);
         boolean s = checkSouth(tileToPlace);
 
+        if(riverMode) {
+            return e && w && n && s && tileToPlace.getFeatures().containsValue(GlobalVariables.Feature.RIVER);
+        }
         return e && w && n && s;
     }
 
@@ -152,7 +155,10 @@ public class OpenTile extends AbstractTile implements MouseListener {
             return;
         PlayableTile current = grid.getGame().getCurrentTile();
 
-        if (this.canPlace(current, false)) {
+        if (this.canPlace(current, true)) {
+
+        } else if (this.canPlace(current, false)) {
+            //grid.removeSlot(this);
             GlobalVariables.Direction direction = this.addTile(current);
             if (direction != null) {
                 grid.addNullRow(direction);

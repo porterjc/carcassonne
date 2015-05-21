@@ -24,8 +24,6 @@ public class Game {
     private TurnState currentTurnState;
     private int numberOfOpenTilesOnBoard;
 
-    private ArrayList<OpenTile> slots;
-
     /**
      * The meeples placed in monasteries that must be continuously checked for completion each time a tile is placed
      */
@@ -51,7 +49,6 @@ public class Game {
         riverMode = river;
         abbotMode = abbot;
         numberOfOpenTilesOnBoard = 0;
-        slots = new ArrayList<OpenTile>();
         currentTurn = 0;
         currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
@@ -84,6 +81,7 @@ public class Game {
      * @return
      */
     public boolean drawTile() {
+//        TileGrid grid = (TileGrid) currentTile.getParent();
         if (tiles.size() == 0) {
             if(isRiverMode()){
                 riverMode = false;
@@ -93,8 +91,12 @@ public class Game {
             } else
                 return false;
         }
+
         currentTile = tiles.pop();
-        bottomDisplay.placedTileUpdate();
+//        while(!grid.areValidMoves(currentTile)) {
+//            currentTile = tiles.pop();
+//        }
+        //bottomDisplay.placedTileUpdate();
         return true;
     }
 
@@ -360,14 +362,6 @@ public class Game {
     }
 
     /**
-     *
-     */
-    public ArrayList<OpenTile> getSlots(){
-        return slots;
-    }
-
-
-    /**
      * For testing purposes only. should never be called elsewhere
      *
      * @param t
@@ -376,43 +370,20 @@ public class Game {
         this.currentTile = t;
     }
 
-    /**
-     * Takes a playable tile and checks that it can be placed where one of the OpeTile's currently exist.
-     *
-     * @param tile
-     * @return
-     */
-    public boolean areValidMoves(PlayableTile tile) {
-        for (OpenTile temp : slots) {
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-            if (temp.canPlace(tile, false))
-                return true;
-            tile.rotateTile();
-        }
-        return false;
-    }
-
     public void finishRiver(PlayableTile tile){
+        TileGrid grid = (TileGrid) tile.getParent();
         TileFactory factory = new TileFactory();
         PlayableTile end = factory.getRiverEnd();
-        if(tile.getTopFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getTop())){
+        if(tile.getTopFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getTop())){
             end.rotateTile();
             tile.getTop().addTile(end);
-        } else if(tile.getLeftFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getLeft())){
+        } else if(tile.getLeftFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getLeft())){
             end.rotateTile();
             end.rotateTile();
             tile.getLeft().addTile(end);
-        } else if(tile.getRightFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getRight())){
+        } else if(tile.getRightFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getRight())){
             tile.getRight().addTile(end);
-        } else if(tile.getBottomFeature() == GlobalVariables.Feature.RIVER && slots.contains(tile.getBottom())){
+        } else if(tile.getBottomFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getBottom())){
             end.rotateTile();
             end.rotateTile();
             end.rotateTile();
