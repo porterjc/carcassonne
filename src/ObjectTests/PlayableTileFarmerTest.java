@@ -521,6 +521,7 @@ public class PlayableTileFarmerTest {
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
         feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
+        internal2.add(GlobalVariables.Internal.EWBISECTOR);
         PlayableTile tile2 = new PlayableTile(new OpenTile(), tile1, new OpenTile(), new OpenTile(), feature2, internal2);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<>();
