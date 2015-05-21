@@ -1163,7 +1163,10 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
 
-            return new PlayableTile(image, features);
+            HashSet<GlobalVariables.Internal> internals = new HashSet<>();
+            internals.add(GlobalVariables.Internal.EWBISECTOR);
+
+            return new PlayableTile(image, features, internals);
         } catch (IOException e) {
             e.printStackTrace();
         }
