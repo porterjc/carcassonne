@@ -379,6 +379,65 @@ public class PlayableTileScoreRoadTest {
         assertEquals(2, score.getKey().size());
         assertEquals(4, this.currentUser.getPlayerScore());
     }
+
+    @Test
+    public void testsRoadToScoreCompleteNotEndOfGameFourTilesaligned() {
+
+        Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
+        Meeple m2 = new Meeple(currentUser, currentUser.getPlayerColor());
+
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        tileFeatures1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        tileFeatures1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);// |   |
+        tileFeatures1.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);//  |_B |
+        tileFeatures1.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);// | | |
+        Set<GlobalVariables.Internal> intAa = new HashSet<GlobalVariables.Internal>();
+        intAa.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile topright = new PlayableTile(tileFeatures1, intAa);
+        //Make Top Tile
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> tileFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        tileFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        tileFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.ROAD); // |   |
+        tileFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);// | B_|
+        tileFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);// | | |
+        Set<GlobalVariables.Internal> intA = new HashSet<GlobalVariables.Internal>();
+        PlayableTile top = new PlayableTile(tileFeatures, intA);
+        //Make Middle Tile
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> middleFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        middleFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        middleFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS); // | | |
+        middleFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS); // | | |
+        middleFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD); // | | |
+        Set<GlobalVariables.Internal> intC = new HashSet<GlobalVariables.Internal>();
+        PlayableTile middle = new PlayableTile(middleFeatures, intC);
+
+        //Make bottom Tile
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> bottomFeatures = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
+        bottomFeatures.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        bottomFeatures.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);//  | | |
+        bottomFeatures.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);//  | B |
+        bottomFeatures.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);//  |   |
+        Set<GlobalVariables.Internal> intB = new HashSet<GlobalVariables.Internal>();
+        intB.add(GlobalVariables.Internal.ROADSTOP);
+        PlayableTile bottom = new PlayableTile(bottomFeatures, intB);
+        //Add the meeples
+        m.place(bottom, GlobalVariables.Feature.ROAD, GlobalVariables.Location.TOP);
+        bottom.setMeeple(m);
+        m2.place(top, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
+        top.setMeeple(m2);
+
+        //set the tiles
+        top.setRight(topright);
+        topright.setLeft(top);
+        middle.setTop(top);
+        middle.setBottom(bottom);
+        top.setBottom(middle);
+        bottom.setTop(middle);
+        assertEquals(0, this.currentUser.getPlayerScore());
+        Pair<Set<Meeple>, Integer> score = topright.startScoreRoad(false);
+        assertEquals(2, score.getKey().size());
+        assertEquals(4, this.currentUser.getPlayerScore());
+    }
     // TODO add test for multiple roads being scored after one placement
 
     //TODO add better meeple tests ie.- has to be at the right location
