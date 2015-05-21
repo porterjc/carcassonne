@@ -178,7 +178,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
         PlayableTile current = grid.getGame().getCurrentTile();
 
         if (this.canPlace(current, grid.getGame().isRiverMode())) {
-            //grid.removeSlot(this);
+            grid.removeSlot(this);
             GlobalVariables.Direction direction = this.addTile(current);
             if (direction != null) {
                 grid.addNullRow(direction);

@@ -260,9 +260,9 @@ public class MainFrame extends JFrame {
         } else {
             tiles = TileFactory.loadDeck();
         }
-        Game game = new Game(bottompanel, tiles, players, river, abbot);
-
         TileGrid boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
+
+        Game game = new Game(bottompanel, tiles, players, river, abbot);
         if(river)
             boardDisplay.initialize(TileFactory.getRiverStart());
         else
