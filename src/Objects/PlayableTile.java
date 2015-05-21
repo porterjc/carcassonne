@@ -134,11 +134,10 @@ public class PlayableTile extends AbstractTile {
 
         // Center (Pretty much only for monasteries)
         if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY)) {
-            if(abbot && currentPlayer.getAbbot().getInternal() == null) {
+            if (abbot && currentPlayer.getAbbot().getInternal() == null) {
                 this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half - 15, half));
                 this.add(new PlaceAbbotButton(GlobalVariables.Internal.MONASTERY, currentPlayer, rotation));
-            }
-            else
+            } else
                 this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
         }
         if (abbot && this.getInternals().contains(GlobalVariables.Internal.GARDEN) && currentPlayer.getAbbot().getInternal() == null)
@@ -287,7 +286,7 @@ public class PlayableTile extends AbstractTile {
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         final Set<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
-        Pair<Set<Meeple>, Integer> score = null;
+        Pair<Set<Meeple>, Integer> score = new Pair<>(meeples, 0);
         //only score if a roadstop is placed
         if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP)) {
             if ((!alreadyVisited.contains(this.getTop())) && this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD) {
@@ -333,7 +332,7 @@ public class PlayableTile extends AbstractTile {
             }
         }
 
-        return new Pair(meeples, currentScore + (score == null? 0 :score.getValue()));
+        return new Pair(meeples, currentScore + (score == null ? 0 : score.getValue()));
     }
 
     private Pair<Set<Meeple>, Integer> getCorrectScore(int currentScore, Pair<Set<Meeple>, Integer> score) {
@@ -358,8 +357,12 @@ public class PlayableTile extends AbstractTile {
 
     private void scoreUpdate(int currentScore, Pair<Set<Meeple>, Integer> score) {
         int points = score.getValue() + currentScore;
+        List<Player> playersScored = new ArrayList<>();
         for (Meeple m : score.getKey()) {
-            m.getPlayer().updateScore(points);
+            if (!playersScored.contains(m.getPlayer())) {
+                playersScored.add(m.getPlayer());
+                m.getPlayer().updateScore(points);
+            }
             m.remove();
         }
     }
@@ -381,18 +384,18 @@ public class PlayableTile extends AbstractTile {
             score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getTop(), GlobalVariables.Direction.NORTH);
             currentscore += score.getValue();
         }
-        if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD) {
+        if (this.featuresMap.get(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getBottom())) {
             addMeeple(meeples, GlobalVariables.Location.BOTTOM);
             score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getBottom(), GlobalVariables.Direction.SOUTH);
             currentscore += score.getValue();
         }
-        if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD) {
+        if (this.featuresMap.get(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getRight())) {
             addMeeple(meeples, GlobalVariables.Location.RIGHT);
             score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getRight(), GlobalVariables.Direction.EAST);
             currentscore += score.getValue();
 
         }
-        if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD) {
+        if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getLeft())) {
             addMeeple(meeples, GlobalVariables.Location.LEFT);
             score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getLeft(), GlobalVariables.Direction.WEST);
             currentscore += score.getValue();
@@ -554,6 +557,7 @@ public class PlayableTile extends AbstractTile {
 
     /**
      * Runs trace field to determine whether a farmer exists in the field
+     *
      * @param loc the location to start
      * @return whether a farmer exists in the field
      */
@@ -568,6 +572,7 @@ public class PlayableTile extends AbstractTile {
         if (this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
             if (isOnSameSideOfRoad(from, this.meeple.getLocation())) {
                 farmers.add(this.meeple);
+
                 if(!gameOver)
                     return new Pair<>(farmers, value);
             }
@@ -576,7 +581,7 @@ public class PlayableTile extends AbstractTile {
         //No meeple on this tile, so check others
         Pair<Set<Meeple>, Integer> found = null;
 
-        if(!alreadyVisited.contains(this.getTop())) {
+        if (!alreadyVisited.contains(this.getTop())) {
             GlobalVariables.Feature topFeature = this.getTopFeature();
             if (topFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.TOP))
                 found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOM, farmers, cities, false, value);
@@ -601,7 +606,7 @@ public class PlayableTile extends AbstractTile {
         if (found != null && !found.getKey().isEmpty() && !gameOver)
             return found;
 
-        if(!alreadyVisited.contains(this.getBottom())) {
+        if (!alreadyVisited.contains(this.getBottom())) {
             GlobalVariables.Feature bottomFeature = this.getBottomFeature();
             if (bottomFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOM))
                 found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOP, farmers, cities, false, value);
@@ -626,7 +631,7 @@ public class PlayableTile extends AbstractTile {
         if (found != null && !found.getKey().isEmpty() && !gameOver)
             return found;
 
-        if(!alreadyVisited.contains(this.getLeft())) {
+        if (!alreadyVisited.contains(this.getLeft())) {
             GlobalVariables.Feature leftFeature = this.getLeftFeature();
             if (leftFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.LEFT))
                 found = this.getLeft().traceField(alreadyVisited, GlobalVariables.Location.RIGHT, farmers, cities, false, value);
