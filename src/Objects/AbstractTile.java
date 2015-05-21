@@ -204,8 +204,8 @@ public abstract class AbstractTile extends JLabel {
      * @param gameOver whether or not the game is over
      * @return the meeples on the field and the cities
      */
-    public boolean traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Integer> cities, boolean gameOver) {
-        return false;
+    public Pair<Set<Meeple>, Set<Pair<HashSet<Meeple>, Integer>>> traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Pair<HashSet<Meeple>, Integer>> cities, boolean gameOver) {
+        return new Pair<>(farmers, cities);
     }
 
 }

@@ -217,7 +217,7 @@ public class PlayableTile extends AbstractTile {
         directions.add(dir);
         switch (feat) {
             case GRASS:
-                return !traceField(new HashSet<AbstractTile>(), dir.getLocation(), new HashSet<Meeple>(), new HashSet<Integer>(), false);
+                return !hasFarmer(dir.getLocation());
             case ROAD:
                 if (this.getFeatures().get(dir) == GlobalVariables.Feature.ROAD)
                     return true;
@@ -250,7 +250,7 @@ public class PlayableTile extends AbstractTile {
      * @return true if a button should be placed on the corner
      */
     private boolean shouldHaveCornerButton(GlobalVariables.Feature f1, GlobalVariables.Feature f2, GlobalVariables.Location loc) {
-        return !(f1 == GlobalVariables.Feature.GRASS || f2 == GlobalVariables.Feature.GRASS) && (f1 != GlobalVariables.Feature.CITY || f2 != GlobalVariables.Feature.CITY) && !traceField(new HashSet<AbstractTile>(), loc, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+        return !(f1 == GlobalVariables.Feature.GRASS || f2 == GlobalVariables.Feature.GRASS) && (f1 != GlobalVariables.Feature.CITY || f2 != GlobalVariables.Feature.CITY) && !hasFarmer(loc);
     }
 
 
@@ -546,17 +546,29 @@ public class PlayableTile extends AbstractTile {
         return 1;
     }
 
+    /**
+     * Runs trace field to determine whether a farmer exists in the field
+     * @param loc the location to start
+     * @return whether a farmer exists in the field
+     */
+    public boolean hasFarmer(GlobalVariables.Location loc) {
+        return !traceField(new HashSet<AbstractTile>(), loc, new HashSet<Meeple>(), new HashSet<Pair<HashSet<Meeple>, Integer>>(), false).getKey().isEmpty();
+    }
+
     @Override
-    public boolean traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Integer> cities, boolean gameOver) {
+    public Pair<Set<Meeple>, Set<Pair<HashSet<Meeple>, Integer>>> traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Pair<HashSet<Meeple>, Integer>> cities, boolean gameOver) {
         alreadyVisited.add(this);
 
         if (this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
-            if (isOnSameSideOfRoad(from, this.meeple.getLocation()))
-                return true;
+            if (isOnSameSideOfRoad(from, this.meeple.getLocation())) {
+                farmers.add(this.meeple);
+                if(!gameOver)
+                    return new Pair<>(farmers, cities);
+            }
         }
 
         //No meeple on this tile, so check others
-        boolean found = false;
+        Pair<Set<Meeple>, Set<Pair<HashSet<Meeple>, Integer>>> found = null;
 
         GlobalVariables.Feature topFeature = this.getTopFeature();
         if (!alreadyVisited.contains(this.getTop()) && topFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.TOP))
@@ -577,7 +589,8 @@ public class PlayableTile extends AbstractTile {
                 }
             }
         }
-        if (found) return true;
+        if (found != null && !found.getKey().isEmpty() && !gameOver)
+            return found;
 
      GlobalVariables.Feature bottomFeature = this.getBottomFeature();
         if (!alreadyVisited.contains(this.getBottom()) && bottomFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOM))
@@ -598,7 +611,8 @@ public class PlayableTile extends AbstractTile {
                 }
             }
         }
-        if (found) return true;
+        if (found != null && !found.getKey().isEmpty() && !gameOver)
+            return found;
 
         GlobalVariables.Feature leftFeature = this.getLeftFeature();
         if (!alreadyVisited.contains(this.getLeft()) && leftFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.LEFT))
@@ -619,16 +633,17 @@ public class PlayableTile extends AbstractTile {
                 }
             }
         }
-        if (found) return true;
+        if (found != null && !found.getKey().isEmpty() && !gameOver)
+            return found;
 
         GlobalVariables.Feature rightFeature = this.getRightFeature();
         if (!alreadyVisited.contains(this.getRight()) && rightFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.RIGHT))
-            found = this.getRight().traceField(alreadyVisited, GlobalVariables.Location.LEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            found = this.getRight().traceField(alreadyVisited, GlobalVariables.Location.LEFT, farmers, cities, false);
         else if (rightFeature == GlobalVariables.Feature.ROAD || rightFeature == GlobalVariables.Feature.RIVER) {
             if(from == GlobalVariables.Location.TOPRIGHT && isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.BOTTOMRIGHT))
-                found = this.getRight().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+                found = this.getRight().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMLEFT, farmers, cities, false);
             else if(from == GlobalVariables.Location.BOTTOMRIGHT && isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.BOTTOMRIGHT))
-                found = this.getRight().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+                found = this.getRight().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT, new HashSet<Meeple>(),cities, false);
             else if(!alreadyVisited.contains(this.getRight())) {
                 HashSet<AbstractTile> temp = new HashSet<>();
                 temp.addAll(alreadyVisited);

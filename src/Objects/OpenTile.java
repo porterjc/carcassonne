@@ -157,10 +157,10 @@ public class OpenTile extends AbstractTile implements MouseListener {
         return new Pair(meeples, -1);
     }
 
-    @Override
-    public boolean traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Integer> cities, boolean gameOver) {
-        return false;
-    }
+    /*@Override
+    public Pair<Set<Meeple>, Set<Pair<HashSet<Meeple>, Integer>>> traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Pair<HashSet<Meeple>, Integer>> cities, boolean gameOver) {
+        return new Pair<>(farmers, cities);
+    } */
 
 
     @Override
