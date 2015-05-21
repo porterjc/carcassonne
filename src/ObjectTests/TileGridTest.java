@@ -23,7 +23,7 @@ public class TileGridTest extends JFrame{
         this.setSize(1500, 1500);
         grid = new TileGrid(1500, 1500);
         grid.initialize(TileFactory.getStartTile());
-        grid.setGame(new Game(new BottomDisplay(500, 500), TileFactory.loadDeck(), new ArrayList<Player>()));
+        grid.setGame(new Game(new BottomDisplay(500), TileFactory.loadDeck(), new ArrayList<Player>()));
         JScrollPane pane = new JScrollPane(grid, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         pane.setSize(900, 900);
         this.add(pane, BorderLayout.CENTER);

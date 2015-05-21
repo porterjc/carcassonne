@@ -72,10 +72,10 @@ public class PlayableTileScoreRoadTest {
         //set the tiles
         top.setBottom(bottom);
         bottom.setTop(top);
-        assertEquals(0, this.currentUser.getScore());
+        assertEquals(0, this.currentUser.getPlayerScore());
         Pair<Set<Meeple>, Integer> score = bottom.startScoreRoad(false);
         assertEquals(1, score.getKey().size());
-        assertEquals(2, this.currentUser.getScore());
+        assertEquals(2, this.currentUser.getPlayerScore());
     }
 
     @Test
@@ -202,10 +202,10 @@ public class PlayableTileScoreRoadTest {
         top.setBottom(bottom);
         bottom.setTop(top);
 
-        assertEquals(0, this.currentUser.getScore());
+        assertEquals(0, this.currentUser.getPlayerScore());
         Pair<Set<Meeple>, Integer> score = top.startScoreRoad(true);
         assertEquals(1, score.getKey().size());
-        assertEquals(2, this.currentUser.getScore());
+        assertEquals(2, this.currentUser.getPlayerScore());
     }
 
     @Test
@@ -251,10 +251,10 @@ public class PlayableTileScoreRoadTest {
         middle.setBottom(bottom);
         top.setBottom(middle);
         bottom.setTop(middle);
-        assertEquals(0, this.currentUser.getScore());
+        assertEquals(0, this.currentUser.getPlayerScore());
         Pair<Set<Meeple>, Integer> score = top.startScoreRoad(false);
         assertEquals(2, score.getKey().size());
-        assertEquals(3, this.currentUser.getScore());
+        assertEquals(3, this.currentUser.getPlayerScore());
     }
 
     @Test

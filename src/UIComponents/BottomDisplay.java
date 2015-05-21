@@ -29,9 +29,8 @@ public class BottomDisplay extends JPanel{
     /**
      * Constructor
      * @param screenWidth The width of the screen
-     * @param screenHeight The height of the screen
      */
-    public BottomDisplay(int screenWidth, int screenHeight) {
+    public BottomDisplay(int screenWidth) {
         //Set up how this will look
         this.setBackground(GlobalVariables.DARK_BLUE);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -137,6 +136,17 @@ public class BottomDisplay extends JPanel{
     }
 
     /**
+     * Displays the final score
+     */
+    public void displayFinalScore() {
+        Container parent = getParent();
+        parent.removeAll();
+        parent.add(new FinalScorePanel(game));
+        parent.revalidate();
+        parent.repaint();
+    }
+
+    /**
      * Updates the current tile label to display the current tile
      */
     private void updateCurrentTileLabel() {
@@ -173,4 +183,5 @@ public class BottomDisplay extends JPanel{
     private void disableLabel(JLabel label) {
         //TODO make this appear gray
     }
+
 }

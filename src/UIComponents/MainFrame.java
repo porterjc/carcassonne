@@ -246,7 +246,7 @@ public class MainFrame extends JFrame {
 
         this.add(mainpanel);
 
-        BottomDisplay bottompanel = new BottomDisplay(screenWidth, screenHeight);
+        BottomDisplay bottompanel = new BottomDisplay(screenWidth);
         mainpanel.add(bottompanel, BorderLayout.SOUTH);
 
         ArrayList<Player> players = new ArrayList<>();
@@ -285,7 +285,6 @@ public class MainFrame extends JFrame {
 
 
     // Private classes needed just for the Main.Main Frame
-
 
     /**
      * This class provides a panel that tiles an image as a background

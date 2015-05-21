@@ -120,7 +120,8 @@ public class Game {
         else {
             gameOver = true;
             currentTurnState = TurnState.GAME_OVER;
-            //TODO: trigger end of game scoring
+            endGame();
+            return true;
         }
         return true;
     }
@@ -282,6 +283,14 @@ public class Game {
         } */
 
         moveToNextState();
+    }
+
+    /**
+     * Called at the end of the game
+     * TODO: Score everything
+     */
+    public void endGame() {
+        bottomDisplay.displayFinalScore();
     }
 
 /*    private Pair<HashSet<Meeple>, Integer> helpScoreCity(GlobalVariables.Direction d, PlayableTile tile) {

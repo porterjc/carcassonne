@@ -65,7 +65,4 @@ public class Player {
         return meeples.remove(meeples.size() - 1);
     }
 
-    public int getScore() {
-        return this.playerScore;
-    }
 }

@@ -23,7 +23,7 @@ public class GameTest {
     @Before
     public void setUp() {
         this.players = new ArrayList<Player>();
-        this.bdstub = new BottomDisplay(500, 500);
+        this.bdstub = new BottomDisplay(500);
     }
 
     @After
