@@ -296,7 +296,7 @@ public class PlayableTile extends AbstractTile {
         if (this.getInternals().contains(GlobalVariables.Internal.ROADSTOP) && alreadyVisited.size() > 1) {
             return new Pair<>(meeples, currentscore);
         }
-        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getTop())) {
+        if (this.featuresMap.get(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getTop())) { //TODO ADD CASE
             addMeeple(meeples, GlobalVariables.Location.TOP);
             score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getTop(), GlobalVariables.Direction.NORTH);
             currentscore += score.getValue();
@@ -314,7 +314,7 @@ public class PlayableTile extends AbstractTile {
         }
         if (this.featuresMap.get(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.ROAD && !alreadyVisited.contains(this.getLeft())) {
             addMeeple(meeples, GlobalVariables.Location.LEFT);
-            score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getLeft(), GlobalVariables.Direction.WEST);
+            score = scoreRoadHelperMethod(alreadyVisited, meeples, isEndofGame, currentscore, this.getLeft(), GlobalVariables.Direction.WEST); //TODO ADD CASE
             currentscore += score.getValue();
         }
         return new Pair<>(meeples, currentscore);
@@ -346,7 +346,7 @@ public class PlayableTile extends AbstractTile {
         HashSet<Meeple> meeples = new HashSet<Meeple>();
         alreadyVisited.add(this);
 
-        if (meep != null && meep.getFeature() == GlobalVariables.Feature.CITY)
+        if (meep != null && meep.getFeature() == GlobalVariables.Feature.CITY) //TODO ADD TEST CASE FOR MAX Code coverage
             if ((directions.contains(GlobalVariables.Direction.NORTH) && meep.getLocation() == GlobalVariables.Location.TOP) || (directions.contains(GlobalVariables.Direction.WEST) && meep.getLocation() == GlobalVariables.Location.LEFT)
                     || ((directions.contains(GlobalVariables.Direction.EAST) && meep.getLocation() == GlobalVariables.Location.RIGHT)) ||
                     (directions.contains(GlobalVariables.Direction.SOUTH) && meep.getLocation() == GlobalVariables.Location.BOTTOM) || (directions.contains(GlobalVariables.Internal.CITY) && meep.getLocation() == GlobalVariables.Location.CENTER)) {
