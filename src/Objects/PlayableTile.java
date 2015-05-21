@@ -327,7 +327,7 @@ public class PlayableTile extends AbstractTile {
             }
         }
 
-        return new Pair(meeples, currentScore + score.getValue());
+        return new Pair(meeples, currentScore + (score == null? 0 :score.getValue()));
     }
 
     private Pair<Set<Meeple>, Integer> getCorrectScore(int currentScore, Pair<Set<Meeple>, Integer> score) {
@@ -588,6 +588,9 @@ public class PlayableTile extends AbstractTile {
                     found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, farmers, cities, false);
                 }
             }
+        }
+        else if (!alreadyVisited.contains(this.getTop()) && topFeature == GlobalVariables.Feature.CITY) {
+            //TODO: Figure out how to score a city
         }
         if (found != null && !found.getKey().isEmpty() && !gameOver)
             return found;
