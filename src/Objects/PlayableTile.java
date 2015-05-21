@@ -561,28 +561,34 @@ public class PlayableTile extends AbstractTile {
         GlobalVariables.Feature topFeature = this.getTopFeature();
         if (!alreadyVisited.contains(this.getTop()) && topFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.TOP))
             found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOM, new HashSet<Meeple>(), new HashSet<Integer>(), false);
-        else if ((topFeature == GlobalVariables.Feature.ROAD || topFeature == GlobalVariables.Feature.RIVER) && isOnSameSideOfRoad(from, GlobalVariables.Location.goUp(from))) {
-            if (!alreadyVisited.contains(this.getTop()))
-                found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.goDown(from), new HashSet<Meeple>(), new HashSet<Integer>(), false);
-
-            if (from == GlobalVariables.Location.TOPLEFT && isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPRIGHT))
-                found = this.getTop().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
-            else if (from == GlobalVariables.Location.TOPRIGHT && isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPRIGHT))
-                found = this.getTop().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+        else if (topFeature == GlobalVariables.Feature.ROAD || topFeature == GlobalVariables.Feature.RIVER){
+            //if (!alreadyVisited.contains(this.getTop()))
+             //   found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.goDown(from), new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            if (isOnSameSideOfRoad(GlobalVariables.Location.goUp(from), GlobalVariables.Location.TOPRIGHT)) {
+                HashSet<AbstractTile> temp = new HashSet<>();
+                temp.addAll(alreadyVisited);
+                if(!alreadyVisited.contains(this.getTop()))
+                    found = this.getTop().traceField(temp, GlobalVariables.Location.BOTTOMRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            }
+            if (isOnSameSideOfRoad(GlobalVariables.Location.goUp(from), GlobalVariables.Location.TOPLEFT)) {
+                if(!alreadyVisited.contains(this.getTop()))
+                    found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            }
         }
         if (found) return true;
 
      GlobalVariables.Feature bottomFeature = this.getBottomFeature();
         if (!alreadyVisited.contains(this.getBottom()) && bottomFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOM))
             found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOP, new HashSet<Meeple>(), new HashSet<Integer>(), false);
-        else if ((bottomFeature == GlobalVariables.Feature.ROAD || bottomFeature == GlobalVariables.Feature.RIVER) && isOnSameSideOfRoad(from, GlobalVariables.Location.goDown(from))) {
-            if (!alreadyVisited.contains(this.getBottom()))
-                found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.goUp(from), new HashSet<Meeple>(), new HashSet<Integer>(), false);
-
-            if(from == GlobalVariables.Location.BOTTOMLEFT && isOnSameSideOfRoad(GlobalVariables.Location.BOTTOMLEFT, GlobalVariables.Location.BOTTOMRIGHT))
-                found = this.getBottom().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
-            else if(from == GlobalVariables.Location.BOTTOMRIGHT && isOnSameSideOfRoad(GlobalVariables.Location.BOTTOMLEFT, GlobalVariables.Location.BOTTOMRIGHT))
-                found = this.getBottom().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.TOPLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+        else if (bottomFeature == GlobalVariables.Feature.ROAD || bottomFeature == GlobalVariables.Feature.RIVER) {
+            if (isOnSameSideOfRoad(GlobalVariables.Location.goDown(from), GlobalVariables.Location.BOTTOMRIGHT)) {
+                if(!alreadyVisited.contains(this.getBottom()))
+                    found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOPRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            }
+            if (isOnSameSideOfRoad(GlobalVariables.Location.goDown(from), GlobalVariables.Location.BOTTOMLEFT)) {
+                if(!alreadyVisited.contains(this.getBottom()))
+                    found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOPLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            }
         }
         if (found) return true;
 
