@@ -2,6 +2,7 @@ package Main;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -237,7 +238,7 @@ public class GlobalVariables {
     /**
      * The image for a red meeple
      */
-    public static Image redMeeple;
+    public static BufferedImage redMeeple;
 
     static {
         try {
@@ -250,7 +251,7 @@ public class GlobalVariables {
     /**
      * The image for a yellow meeple
      */
-    public static Image yellowMeeple;
+    public static BufferedImage yellowMeeple;
 
     static {
         try {
@@ -263,7 +264,7 @@ public class GlobalVariables {
     /**
      * The image for a green meeple
      */
-    public static Image greenMeeple;
+    public static BufferedImage greenMeeple;
 
     static {
         try {
@@ -276,7 +277,7 @@ public class GlobalVariables {
     /**
      * The image for a blue meeple
      */
-    public static Image blueMeeple;
+    public static BufferedImage blueMeeple;
 
     static {
         try {
@@ -289,7 +290,7 @@ public class GlobalVariables {
     /**
      * The image for a black meeple
      */
-    public static Image blackMeeple;
+    public static BufferedImage blackMeeple;
 
     static {
         try {
@@ -302,7 +303,7 @@ public class GlobalVariables {
     /**
      * The image for a red abbot
      */
-    public static Image redAbbot;
+    public static BufferedImage redAbbot;
 
     static {
         try {
@@ -315,7 +316,7 @@ public class GlobalVariables {
     /**
      * The image for a yellow abbot
      */
-    public static Image yellowAbbot;
+    public static BufferedImage yellowAbbot;
 
     static {
         try {
@@ -328,7 +329,7 @@ public class GlobalVariables {
     /**
      * The image for a green abbot
      */
-    public static Image greenAbbot;
+    public static BufferedImage greenAbbot;
 
     static {
         try {
@@ -341,7 +342,7 @@ public class GlobalVariables {
     /**
      * The image for a blue abbot
      */
-    public static Image blueAbbot;
+    public static BufferedImage blueAbbot;
 
     static {
         try {
@@ -354,7 +355,7 @@ public class GlobalVariables {
     /**
      * The image for a black abbot
      */
-    public static Image blackAbbot;
+    public static BufferedImage blackAbbot;
 
     static {
         try {
