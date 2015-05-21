@@ -81,7 +81,6 @@ public class Game {
      * @return
      */
     public boolean drawTile() {
-//        TileGrid grid = (TileGrid) currentTile.getParent();
         if (tiles.size() == 0) {
             if (isRiverMode()) {
                 riverMode = false;
@@ -94,9 +93,12 @@ public class Game {
         }
 
         currentTile = tiles.pop();
-//        while(!grid.areValidMoves(currentTile)) {
-//            currentTile = tiles.pop();
-//        }
+        TileGrid grid = (TileGrid) currentTile.getParent();
+        if(grid != null){
+            while(!grid.areValidMoves(currentTile)) {
+                currentTile = tiles.pop();
+            }
+        }
         return true;
     }
 

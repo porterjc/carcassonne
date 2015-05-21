@@ -85,16 +85,16 @@ public class PlayableTile extends AbstractTile {
         GlobalVariables.Direction rightdir = this.getRight().getClass() != OpenTile.class ? this.getRight().addTile(openRight) : null;
         GlobalVariables.Direction bottomdir = this.getBottom().getClass() != OpenTile.class ? this.getBottom().addTile(openBottom) : null;
 
-        if (topdir != null) {
+        if (!grid.getSlots().contains(openTop) || topdir == null) {
             grid.addSlot(openTop);
         }
-        if (leftdir != null) {
+        if (!grid.getSlots().contains(openTop) || leftdir == null) {
             grid.addSlot(openLeft);
         }
-        if (rightdir != null) {
+        if (!grid.getSlots().contains(openTop) || rightdir == null) {
             grid.addSlot(openRight);
         }
-        if (bottomdir != null) {
+        if (!grid.getSlots().contains(openTop) || bottomdir == null) {
             grid.addSlot(openBottom);
         }
 
