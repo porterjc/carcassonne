@@ -540,7 +540,7 @@ public class TileFactory {
         try {
             BufferedImage image = ImageIO.read(new File("images/34.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
@@ -548,6 +548,7 @@ public class TileFactory {
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.MONASTERY);
             internals.add(GlobalVariables.Internal.ROADSTOP);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
 
             deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
@@ -823,11 +824,12 @@ public class TileFactory {
             features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
 
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.MONASTERY);
             internals.add(GlobalVariables.Internal.ROADSTOP);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
 
             deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
@@ -963,7 +965,7 @@ public class TileFactory {
         try {
             BufferedImage image = ImageIO.read(new File("images/61.png"));
             HashMap<GlobalVariables.Direction, GlobalVariables.Feature> features = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
-            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+            features.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
             features.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
             features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
@@ -971,6 +973,7 @@ public class TileFactory {
             Set<GlobalVariables.Internal> internals = new HashSet<>();
             internals.add(GlobalVariables.Internal.MONASTERY);
             internals.add(GlobalVariables.Internal.ROADSTOP);
+            internals.add(GlobalVariables.Internal.NSBISECTOR);
 
             deck.add(new PlayableTile(image, features, internals));
         } catch (IOException e) {
