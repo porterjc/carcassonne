@@ -115,12 +115,11 @@ public class Game {
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
 
         //as we don't want too much coupling between the UI and the GAME class over sharing Objects.Player objects
-        boolean goOn = drawTile();
-        System.out.println("Game over? ");
-        if(goOn)
+        if(drawTile())
             bottomDisplay.finishedScoringUpdate();
         else {
             gameOver = true;
+            currentTurnState = TurnState.GAME_OVER;
             //TODO: trigger end of game scoring
         }
         return true;
@@ -149,6 +148,8 @@ public class Game {
                 currentTurnState = TurnState.TILE_PLACEMENT;
                 System.out.println("CURRENT: TILE");
                 return moveToNextTurn();
+            case GAME_OVER:
+                return false;
         }
 
         if (startScore)
@@ -348,7 +349,8 @@ public class Game {
     private enum TurnState {
         TILE_PLACEMENT("Place a tile"),
         MEEPLE_PLACEMENT("Place a meeple"),
-        SCORING("Scoring, please wait...");
+        SCORING("Scoring, please wait..."),
+        GAME_OVER("Game Over");
 
         String text;
 
