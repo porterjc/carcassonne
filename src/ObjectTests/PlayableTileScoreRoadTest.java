@@ -381,7 +381,7 @@ public class PlayableTileScoreRoadTest {
     }
 
     @Test
-    public void testsRoadToScoreCompleteNotEndOfGameFourTilesTwoMeeplesSamePlayer() {
+    public void testsRoadToScoreUpdateTwoMeeplesSamePlayer() {
 
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         Meeple m2 = new Meeple(currentUser, currentUser.getPlayerColor());
