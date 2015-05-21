@@ -1,6 +1,7 @@
 package Objects;
 
 import Main.GlobalVariables;
+import Main.TileFactory;
 import UIComponents.BottomDisplay;
 import javafx.util.Pair;
 import sun.rmi.runtime.Log;
@@ -22,6 +23,7 @@ public class Game {
     private int currentTurn;
     private TurnState currentTurnState;
     private int numberOfOpenTilesOnBoard;
+
     /**
      * The meeples placed in monasteries that must be continuously checked for completion each time a tile is placed
      */
@@ -47,7 +49,6 @@ public class Game {
         riverMode = river;
         abbotMode = abbot;
         numberOfOpenTilesOnBoard = 0;
-//        GlobalVariables.openTiles = new ArrayList<OpenTile>();
         currentTurn = 0;
         currentTurnState = TurnState.TILE_PLACEMENT;
         tiles = stack;
@@ -68,7 +69,7 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        if (tiles.size() == 0) {
+        if (tiles.size() == 0 && !isRiverMode()) {
             gameOver = true;
         }
         return gameOver;
@@ -80,10 +81,22 @@ public class Game {
      * @return
      */
     public boolean drawTile() {
+//        TileGrid grid = (TileGrid) currentTile.getParent();
         if (tiles.size() == 0) {
-            return false;
+            if(isRiverMode()){
+                riverMode = false;
+                finishRiver(currentTile);
+                TileFactory factory = new TileFactory();
+                tiles = factory.loadDeck(true);
+            } else
+                return false;
         }
+
         currentTile = tiles.pop();
+//        while(!grid.areValidMoves(currentTile)) {
+//            currentTile = tiles.pop();
+//        }
+        //bottomDisplay.placedTileUpdate();
         return true;
     }
 
@@ -348,8 +361,6 @@ public class Game {
         }
     }
 
-
-
     /**
      * For testing purposes only. should never be called elsewhere
      *
@@ -357,5 +368,26 @@ public class Game {
      */
     public void setCurrentTile(PlayableTile t) {
         this.currentTile = t;
+    }
+
+    public void finishRiver(PlayableTile tile){
+        TileGrid grid = (TileGrid) tile.getParent();
+        TileFactory factory = new TileFactory();
+        PlayableTile end = factory.getRiverEnd();
+        if(tile.getTopFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getTop())){
+            end.rotateTile();
+            tile.getTop().addTile(end);
+        } else if(tile.getLeftFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getLeft())){
+            end.rotateTile();
+            end.rotateTile();
+            tile.getLeft().addTile(end);
+        } else if(tile.getRightFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getRight())){
+            tile.getRight().addTile(end);
+        } else if(tile.getBottomFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getBottom())){
+            end.rotateTile();
+            end.rotateTile();
+            end.rotateTile();
+            tile.getBottom().addTile(end);
+        }
     }
 }

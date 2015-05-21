@@ -254,11 +254,19 @@ public class MainFrame extends JFrame {
             players.add(new Player(player.getColor()));
         }
 
-        Stack<PlayableTile> tiles = TileFactory.loadDeck();
+        Stack<PlayableTile> tiles;
+        if(river) {
+            tiles = TileFactory.getRiverTiles();
+        } else {
+            tiles = TileFactory.loadDeck();
+        }
         Game game = new Game(bottompanel, tiles, players, river, abbot);
 
         TileGrid boardDisplay = new TileGrid(screenWidth, screenHeight - 200);
-        boardDisplay.initialize(TileFactory.getStartTile());
+        if(river)
+            boardDisplay.initialize(TileFactory.getRiverStart());
+        else
+            boardDisplay.initialize(TileFactory.getStartTile());
         boardDisplay.setGame(game);
 
         JScrollPane scrollBoard = new JScrollPane(boardDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);

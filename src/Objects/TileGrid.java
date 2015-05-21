@@ -22,6 +22,7 @@ public class TileGrid extends JPanel {
     // bottomRight is the only one we don't need
 
     private ArrayList<OpenTile> slots;
+    // List of open "slots" that playable tiles can be placed
 
     //Provides easy storage for the panel's preferred width
     private int panelWidth;
@@ -34,6 +35,7 @@ public class TileGrid extends JPanel {
     //Default, for testing purposes only
     public TileGrid() {
         this(900, 900);
+        this.slots = new ArrayList<OpenTile>();
     }
 
     /**
@@ -55,7 +57,7 @@ public class TileGrid extends JPanel {
         //Add starting tile
        // addTile(new OpenTile(), 1, 1);
 
-        this.slots = new ArrayList<>();
+        this.slots = new ArrayList<OpenTile>();
     }
 
     /**
@@ -273,6 +275,29 @@ public class TileGrid extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    /**
+     * Returns the arraylist of opentiles on the board
+     */
+    public ArrayList<OpenTile> getSlots(){
+        return slots;
+    }
+
+    /**
+     * adds a opentile to the arraylists of opentiles currently in the game
+     * @param tile
+     */
+    public  void addSlot(OpenTile tile){
+        slots.add(tile);
+    }
+
+    /**
+     * adds a opentile to the arraylists of opentiles currently in the game
+     * @param tile
+     */
+    public  void removeSlot(OpenTile tile){
+        slots.remove(slots.indexOf(tile));
     }
 
     /**
