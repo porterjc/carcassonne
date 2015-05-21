@@ -597,17 +597,17 @@ public class PlayableTileFarmerTest {
         HashSet<GlobalVariables.Internal> internal2 = new HashSet<>();
         internal2.add(GlobalVariables.Internal.NSBISECTOR);
 
-        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), tile1, feature2, internal2);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), tile1, new OpenTile(),  feature2, internal2);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<>();
-        feature3.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature3.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
         feature3.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
         feature3.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
-        feature3.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.ROAD);
+        feature3.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
         HashSet<GlobalVariables.Internal> internal3 = new HashSet<>();
         internal3.add(GlobalVariables.Internal.ROADSTOP);
         internal3.add(GlobalVariables.Internal.MONASTERY);
-        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), tile1, feature3, internal3);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), tile2, new OpenTile(), feature3, internal3);
 
         Meeple m = new Meeple(currentUser, currentUser.getPlayerColor());
         m.place(tile2, GlobalVariables.Feature.GRASS, GlobalVariables.Location.RIGHT);

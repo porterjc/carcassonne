@@ -560,26 +560,30 @@ public class PlayableTile extends AbstractTile {
 
         GlobalVariables.Feature topFeature = this.getTopFeature();
         if (!alreadyVisited.contains(this.getTop()) && topFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.TOP))
-            found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOM, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOM, farmers, cities, false);
         else if (topFeature == GlobalVariables.Feature.ROAD || topFeature == GlobalVariables.Feature.RIVER){
-            //if (!alreadyVisited.contains(this.getTop()))
-             //   found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.goDown(from), new HashSet<Meeple>(), new HashSet<Integer>(), false);
-            if (isOnSameSideOfRoad(GlobalVariables.Location.goUp(from), GlobalVariables.Location.TOPRIGHT)) {
-                HashSet<AbstractTile> temp = new HashSet<>();
-                temp.addAll(alreadyVisited);
-                if(!alreadyVisited.contains(this.getTop()))
-                    found = this.getTop().traceField(temp, GlobalVariables.Location.BOTTOMRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
-            }
-            if (isOnSameSideOfRoad(GlobalVariables.Location.goUp(from), GlobalVariables.Location.TOPLEFT)) {
-                if(!alreadyVisited.contains(this.getTop()))
-                    found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            if(from == GlobalVariables.Location.TOPLEFT && isOnSameSideOfRoad(GlobalVariables.Location.TOPLEFT, GlobalVariables.Location.TOPRIGHT))
+                found = this.getTop().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMRIGHT, farmers, cities, gameOver);
+            else if(from == GlobalVariables.Location.TOPRIGHT && isOnSameSideOfRoad(GlobalVariables.Location.TOPRIGHT, GlobalVariables.Location.TOPLEFT))
+                found = this.getTop().traceField(new HashSet<AbstractTile>(), GlobalVariables.Location.BOTTOMLEFT, farmers, cities, gameOver);
+            else {
+                if (isOnSameSideOfRoad(GlobalVariables.Location.goUp(from), GlobalVariables.Location.TOPRIGHT)) {
+                    HashSet<AbstractTile> temp = new HashSet<>();
+                    temp.addAll(alreadyVisited);
+                    if (!alreadyVisited.contains(this.getTop()))
+                        found = this.getTop().traceField(temp, GlobalVariables.Location.BOTTOMRIGHT, farmers, cities, false);
+                }
+                if (isOnSameSideOfRoad(GlobalVariables.Location.goUp(from), GlobalVariables.Location.TOPLEFT)) {
+                    if (!alreadyVisited.contains(this.getTop()))
+                        found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, farmers, cities, false);
+                }
             }
         }
         if (found) return true;
 
      GlobalVariables.Feature bottomFeature = this.getBottomFeature();
         if (!alreadyVisited.contains(this.getBottom()) && bottomFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOM))
-            found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOP, new HashSet<Meeple>(), new HashSet<Integer>(), false);
+            found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOP, farmers, cities, false);
         else if (bottomFeature == GlobalVariables.Feature.ROAD || bottomFeature == GlobalVariables.Feature.RIVER) {
             HashSet<AbstractTile> temp = new HashSet<>();
             temp.addAll(alreadyVisited);
