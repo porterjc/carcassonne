@@ -88,6 +88,7 @@ public class Game {
                 finishRiver(currentTile);
                 TileFactory factory = new TileFactory();
                 tiles = factory.loadDeck(true);
+                bottomDisplay.placedTileUpdate();
             } else
                 return false;
         }
@@ -96,7 +97,6 @@ public class Game {
 //        while(!grid.areValidMoves(currentTile)) {
 //            currentTile = tiles.pop();
 //        }
-        //bottomDisplay.placedTileUpdate();
         return true;
     }
 

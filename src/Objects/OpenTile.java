@@ -79,7 +79,10 @@ public class OpenTile extends AbstractTile implements MouseListener {
         boolean s = checkSouth(tileToPlace);
 
         if(riverMode) {
-            return e && w && n && s && tileToPlace.getFeatures().containsValue(GlobalVariables.Feature.RIVER);
+            return ((tileToPlace.getTopFeature() == GlobalVariables.Feature.RIVER && this.getTop().getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.RIVER) ||
+                    (tileToPlace.getLeftFeature() == GlobalVariables.Feature.RIVER && this.getLeft().getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.RIVER) ||
+                    (tileToPlace.getRightFeature() == GlobalVariables.Feature.RIVER && this.getRight().getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.RIVER) ||
+                    (tileToPlace.getBottomFeature() == GlobalVariables.Feature.RIVER && this.getBottom().getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.RIVER));
         }
         return e && w && n && s;
     }
@@ -174,17 +177,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
             return;
         PlayableTile current = grid.getGame().getCurrentTile();
 
-        if (this.canPlace(current, true)) {
-            GlobalVariables.Direction direction = this.addTile(current);
-            if (direction != null) {
-                grid.addNullRow(direction);
-            }
-            current.addMeepleButtons(grid.getGame().getCurrentTurnPlayer(), grid.getGame().isAbbotMode());
-            grid.revalidate();
-            grid.repaint();
-
-            grid.getGame().moveToNextState();
-        } else if (this.canPlace(current, false)) {
+        if (this.canPlace(current, grid.getGame().isRiverMode())) {
             //grid.removeSlot(this);
             GlobalVariables.Direction direction = this.addTile(current);
             if (direction != null) {

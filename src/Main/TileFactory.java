@@ -1379,6 +1379,7 @@ public class TileFactory {
             e.printStackTrace();
         }
 
+        Collections.shuffle(riverTiles);
         return riverTiles;
     }
 
