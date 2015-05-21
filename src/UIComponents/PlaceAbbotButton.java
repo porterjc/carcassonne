@@ -63,9 +63,18 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
         if(!game.canPlaceMeeple())
             return;
 
-        if(game.getCurrentTile() == parentTile) {
+        if(game.getCurrentTile() == parentTile && getPlayer().getAbbot().getInternal() == null) {
             System.out.println("Placing abbot");
-            super.mouseClicked(e);
+
+            // Keep only this one
+            parentTile.removeAll();
+            parentTile.add(this);
+            parentTile.repaint();
+
+            getPlayer().getAbbot().place(parentTile, getInternal(), getMeepleLocation());
+            //If this is on a garden or monastery, the game needs to know about it
+            game.addMonk(getPlayer().getAbbot());
+            game.moveToNextState();
         }
         else if(game.getCurrentTurnPlayer() == getPlayer()){
             System.out.println("Removing abbot");
@@ -73,6 +82,7 @@ public class PlaceAbbotButton extends PlaceMeepleButton {
             getPlayer().getAbbot().remove();
             parentTile.removeAll();
             parentTile.repaint();
+            game.removeMonk(getPlayer().getAbbot());
             game.getCurrentTile().removeAll();
             game.getCurrentTile().repaint();
             game.moveToNextState();

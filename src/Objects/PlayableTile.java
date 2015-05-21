@@ -558,23 +558,24 @@ public class PlayableTile extends AbstractTile {
      * @return whether a farmer exists in the field
      */
     public boolean hasFarmer(GlobalVariables.Location loc) {
-        return !traceField(new HashSet<AbstractTile>(), loc, new HashSet<Meeple>(), new HashSet<Pair<HashSet<Meeple>, Integer>>(), false).getKey().isEmpty();
+        return !traceField(new HashSet<AbstractTile>(), loc, new HashSet<Meeple>(), new HashSet<PlayableTile>() , false).getKey().isEmpty();
     }
 
     @Override
-    public Pair<Set<Meeple>, Set<Pair<HashSet<Meeple>, Integer>>> traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Pair<HashSet<Meeple>, Integer>> cities, boolean gameOver) {
+    public Pair<Set<Meeple>, Set<Integer>> traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<PlayableTile> cities, boolean gameOver) {
         alreadyVisited.add(this);
+        Set<Integer> emptySet = new HashSet<Integer>();
 
         if (this.meeple != null && this.meeple.getFeature() == GlobalVariables.Feature.GRASS) {
             if (isOnSameSideOfRoad(from, this.meeple.getLocation())) {
                 farmers.add(this.meeple);
                 if(!gameOver)
-                    return new Pair<>(farmers, cities);
+                    return new Pair<>(farmers, emptySet);
             }
         }
 
         //No meeple on this tile, so check others
-        Pair<Set<Meeple>, Set<Pair<HashSet<Meeple>, Integer>>> found = null;
+        Pair<Set<Meeple>, Set<Integer>> found = null;
 
         if(!alreadyVisited.contains(this.getTop())) {
             GlobalVariables.Feature topFeature = this.getTopFeature();
@@ -651,7 +652,7 @@ public class PlayableTile extends AbstractTile {
 
         if (found != null && !found.getKey().isEmpty() && !gameOver)
             return found;
-        return new Pair<>(farmers, cities);
+        return new Pair<>(farmers, emptySet);
     }
 
     /**

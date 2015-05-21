@@ -339,6 +339,15 @@ public class Game {
         this.monks.add(monk);
     }
 
+    /**
+     * Removes a meeple from the list of monks
+     *
+     * @param monk The meeple to remove
+     */
+    public void removeMonk(Meeple monk) {
+        this.monks.remove(monk);
+    }
+
 
     private enum TurnState {
         TILE_PLACEMENT("Place a tile"),

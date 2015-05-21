@@ -110,6 +110,14 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         return this.player;
     }
 
+    /**
+     * Getter method for the location of the meeple
+     * @return the locatino of the meeple .
+     */
+    protected GlobalVariables.Location getMeepleLocation() {
+        return this.location;
+    }
+
     /* Mouse Listener methods */
 
     @Override
