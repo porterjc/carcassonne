@@ -581,6 +581,8 @@ public class PlayableTile extends AbstractTile {
         if (!alreadyVisited.contains(this.getBottom()) && bottomFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOM))
             found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOP, new HashSet<Meeple>(), new HashSet<Integer>(), false);
         else if (bottomFeature == GlobalVariables.Feature.ROAD || bottomFeature == GlobalVariables.Feature.RIVER) {
+            HashSet<AbstractTile> temp = new HashSet<>();
+            temp.addAll(alreadyVisited);
             if (isOnSameSideOfRoad(GlobalVariables.Location.goDown(from), GlobalVariables.Location.BOTTOMRIGHT)) {
                 if(!alreadyVisited.contains(this.getBottom()))
                     found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOPRIGHT, new HashSet<Meeple>(), new HashSet<Integer>(), false);
