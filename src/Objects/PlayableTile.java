@@ -333,6 +333,9 @@ public class PlayableTile extends AbstractTile {
         }
     }
 
+    public Pair<HashSet<Meeple>, Integer> startScoreCity(Set<GlobalVariables.Direction> directions, boolean completion) {
+        return startScoreCityWithTiles(new HashSet<AbstractTile>(), directions, completion);
+    }
 
     /**
      * startScoreCity runs scoreCity in all given directions and then returns the total score and list of meeples found
@@ -340,11 +343,10 @@ public class PlayableTile extends AbstractTile {
      * @param completion
      * @return
      */
-    public Pair<HashSet<Meeple>, Integer> startScoreCity(Set<GlobalVariables.Direction> directions, boolean completion) {
+    public Pair<HashSet<Meeple>, Integer> startScoreCityWithTiles(HashSet<AbstractTile> alreadyVisited, Set<GlobalVariables.Direction> directions, boolean completion) {
         int currentScore = 2;
         Meeple meep = this.getMeeple();
-        Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
-        HashSet<Meeple> meeples = new HashSet<Meeple>();
+        HashSet<Meeple> meeples = new HashSet<>();
         alreadyVisited.add(this);
 
         if (meep != null && meep.getFeature() == GlobalVariables.Feature.CITY) //TODO ADD TEST CASE FOR MAX Code coverage
@@ -532,7 +534,7 @@ public class PlayableTile extends AbstractTile {
             } else if (topFeature == GlobalVariables.Feature.CITY && gameOver) {
                 Set<GlobalVariables.Direction> dirs = new HashSet<>();
                 dirs.add(GlobalVariables.Direction.NORTH);
-                Pair<HashSet<Meeple>, Integer> cityScore = startScoreCity(dirs, true);
+                Pair<HashSet<Meeple>, Integer> cityScore = startScoreCityWithTiles((HashSet) cities, dirs, true);
                 if(cityScore.getValue() > 0)
                     value += 3;
             }
@@ -563,7 +565,7 @@ public class PlayableTile extends AbstractTile {
             else if (bottomFeature == GlobalVariables.Feature.CITY && gameOver) {
                 Set<GlobalVariables.Direction> dirs = new HashSet<>();
                 dirs.add(GlobalVariables.Direction.SOUTH);
-                Pair<HashSet<Meeple>, Integer> cityScore = startScoreCity(dirs, true);
+                Pair<HashSet<Meeple>, Integer> cityScore = startScoreCityWithTiles((HashSet) cities, dirs, true);
                 if(cityScore.getValue() > 0)
                     value += 3;
             }
@@ -592,7 +594,7 @@ public class PlayableTile extends AbstractTile {
             else if (leftFeature == GlobalVariables.Feature.CITY && gameOver) {
                 Set<GlobalVariables.Direction> dirs = new HashSet<>();
                 dirs.add(GlobalVariables.Direction.WEST);
-                Pair<HashSet<Meeple>, Integer> cityScore = startScoreCity(dirs, true);
+                Pair<HashSet<Meeple>, Integer> cityScore = startScoreCityWithTiles((HashSet) cities, dirs, true);
                 if(cityScore.getValue() > 0)
                     value += 3;
             }
@@ -621,7 +623,7 @@ public class PlayableTile extends AbstractTile {
         else if (rightFeature == GlobalVariables.Feature.CITY && gameOver) {
             Set<GlobalVariables.Direction> dirs = new HashSet<>();
             dirs.add(GlobalVariables.Direction.EAST);
-            Pair<HashSet<Meeple>, Integer> cityScore = startScoreCity(dirs, true);
+            Pair<HashSet<Meeple>, Integer> cityScore = startScoreCityWithTiles((HashSet) cities, dirs, true);
             if(cityScore.getValue() > 0)
                 value += 3;
         }
