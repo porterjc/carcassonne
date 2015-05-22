@@ -195,4 +195,48 @@ public class GameMockTests {
 
         assertEquals(6, user1.getPlayerScore());
     }
+
+    @Test
+    public void testScoreFieldWithIncompleteCity() {
+        HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature = new HashMap<>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
+        PlayableTile tile1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile2 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.ROAD);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        feature = new HashMap<>();
+        feature.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
+        feature.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
+        feature.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.GRASS);
+        PlayableTile tile4 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature);
+
+        tile1.setBottom(tile2);
+        tile1.setLeft(tile3);
+        tile3.setBottom(tile4);
+        tile2.setLeft(tile4);
+
+        Meeple m = user1.removeMeeple();
+        m.place(tile1, GlobalVariables.Feature.GRASS, GlobalVariables.Location.BOTTOM);
+
+        testGame.setCurrentTile(tile4);
+        testGame.endGame();
+
+        assertEquals(3, user1.getPlayerScore());
+    }
 }
