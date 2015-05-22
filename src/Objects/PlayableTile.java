@@ -226,8 +226,8 @@ public class PlayableTile extends AbstractTile {
             case GRASS:
                 return !hasFarmer(dir.getLocation());
             case ROAD:
-                if (this.getFeatures().get(dir) == GlobalVariables.Feature.ROAD)
-                    return true;
+                Pair<Set<Meeple>, Integer> road = scoreRoad(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false, dir);
+                return road.getKey().isEmpty();
             case CITY:
                 directions = new HashSet<>();// TODO Alia Check this-- it through an error for double duplication so I deleted the first part
                 if (this.getInternals().contains(GlobalVariables.Internal.CITY)) {
