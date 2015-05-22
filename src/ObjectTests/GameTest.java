@@ -191,13 +191,20 @@ public class GameTest {
         Game game = new Game(bdstub, getTiles(), this.players);
 
         Set<Meeple> meeples = new HashSet<>();
+        game.scoreUpdate(meeples, 5);
+        assertEquals(0, players.get(1).getPlayerScore());
+        assertEquals(0, players.get(0).getPlayerScore());
+
         meeples.add(new Meeple(players.get(0)));
         meeples.add(new Meeple(players.get(1)));
         meeples.add(new Meeple(players.get(1)));
         game.scoreUpdate(meeples, 5);
         assertEquals(5, players.get(1).getPlayerScore());
         assertEquals(0, players.get(0).getPlayerScore());
-
+        meeples.add(new Meeple(players.get(0)));
+        game.scoreUpdate(meeples, 2);
+        assertEquals(7, players.get(1).getPlayerScore());
+        assertEquals(2, players.get(0).getPlayerScore());
 
 
     }
