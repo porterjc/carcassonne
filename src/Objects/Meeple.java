@@ -22,6 +22,11 @@ public class Meeple {
     private PlayableTile tile;
 
 
+    public Meeple(Player p) {
+        meepleOwner = p;
+        mColor = p.getPlayerColor();
+    }
+
     public Meeple(Player p, GlobalVariables.PlayerColor color) {
         mColor = color;
         meepleOwner = p;
@@ -42,7 +47,7 @@ public class Meeple {
         this.tile = pt;
         pt.setMeeple(this);
         this.location = loc;
-        getPlayer().placeMeeple(pt);
+        getPlayer().addPlacedMeeple(this);
     }
 
     public void place(PlayableTile pt, GlobalVariables.Internal place, GlobalVariables.Location loc) {
@@ -50,7 +55,7 @@ public class Meeple {
         this.tile = pt;
         pt.setMeeple(this);
         this.location = loc;
-
+        getPlayer().addPlacedMeeple(this);
 
     }
 
@@ -81,7 +86,8 @@ public class Meeple {
         this.placedOn = null;
         this.placedOnInternal = null;
         this.location = null;
-        this.meepleOwner.getMeeples().add(this);
+        this.meepleOwner.addMeeple();
+        this.meepleOwner.getPlacedMeeples().remove(this);
     }
 
 

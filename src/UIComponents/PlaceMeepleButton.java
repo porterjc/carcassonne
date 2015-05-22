@@ -125,7 +125,7 @@ public class PlaceMeepleButton extends JLabel implements MouseListener{
         // If this button is inactive, do nothing
         if(!isActive)
             return;
-        if(player.getMeeples().isEmpty())
+        if(!player.hasMeeplesLeft())
             return;
 
         //TODO: Do it a much better way than this if we can. this is gross

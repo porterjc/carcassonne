@@ -12,22 +12,15 @@ import java.util.ArrayList;
 public class Player {
     private int playerScore;
     private GlobalVariables.PlayerColor pColor;
-    private ArrayList<Meeple> meeples;
+    private ArrayList<Meeple> placedMeeples;
     private Meeple abbot;
-    public int lastUsedMeeple;
+    private int numMeeples;
 
     public Player(GlobalVariables.PlayerColor color) {
+        placedMeeples = new ArrayList<>();
         pColor = color;
         playerScore = 0;
-        lastUsedMeeple = 0;
-        meeples = new ArrayList<Meeple>();
-        meeples.add(new Meeple(this, color));
-        meeples.add(new Meeple(this, color));
-        meeples.add(new Meeple(this, color));
-        meeples.add(new Meeple(this, color));
-        meeples.add(new Meeple(this, color));
-        meeples.add(new Meeple(this, color));
-        meeples.add(new Meeple(this, color));
+        numMeeples = 7;
         abbot = new Meeple(this, color);
     }
 
@@ -35,12 +28,16 @@ public class Player {
         return playerScore;
     }
 
-    public GlobalVariables.PlayerColor getPlayerColor() {
-        return pColor;
+    public ArrayList<Meeple> getPlacedMeeples() {
+        return placedMeeples;
     }
 
-    public ArrayList<Meeple> getMeeples() {
-        return meeples;
+    public int getNumMeeples() {
+        return numMeeples;
+    }
+
+    public GlobalVariables.PlayerColor getPlayerColor() {
+        return pColor;
     }
 
     public void updateScore(int points)
@@ -49,22 +46,34 @@ public class Player {
     }
 
     //Testing for this method is included in ObjectTests.PlayableTileTest
-    public boolean placeMeeple(PlayableTile t) {
-        if (lastUsedMeeple < meeples.size() - 1) {
+   /* public boolean placeMeeple(PlayableTile t) {
+       /* if (lastUsedMeeple < meeples.size() - 1) {
             lastUsedMeeple++;
             return true;
+        }*/
+        //return false;
+       /* Meeple m = removeMeeple();
+        if(m != null) {
+            m.place(p);
         }
-        return false;
-    }
+    } */
 
     public boolean hasMeeplesLeft() {
-        return meeples.size() != 0;
+        return numMeeples > 0;
     }
 
+    public void addMeeple() {
+        numMeeples++;
+    }
     public Meeple removeMeeple() {
-        if (!hasMeeplesLeft())
+        if(!hasMeeplesLeft())
             return null;
-        return meeples.remove(meeples.size() - 1);
+        numMeeples--;
+        return new Meeple(this);
+    }
+
+    public void addPlacedMeeple(Meeple m) {
+        placedMeeples.add(m);
     }
 
     public Meeple getAbbot() {

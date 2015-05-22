@@ -48,7 +48,7 @@ public class GameMockTests {
 
     @Test
     public void testScoreEndOfGameCity(){
-        Meeple m = new Meeple(user1, user1.getPlayerColor());
+        Meeple m = user1.removeMeeple();
         Set<GlobalVariables.Internal> internals = new HashSet<GlobalVariables.Internal>();
         internals.add(GlobalVariables.Internal.CITY);
         internals.add(GlobalVariables.Internal.COATOFARMS);
@@ -111,7 +111,6 @@ public class GameMockTests {
         tile6.setTop(tile4);
 
         m.place(tile1, GlobalVariables.Feature.CITY, GlobalVariables.Location.TOP);
-        user1.getMeeples().add(m);
         tile1.setMeeple(m);
 
         testGame.setCurrentTile(tile5);

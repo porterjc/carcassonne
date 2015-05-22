@@ -109,7 +109,7 @@ public class ScorePanel extends JPanel {
          * Sets the text of this label to the player's current number of meeples
          */
         public void displayMeeples() {
-            this.setText(player.getMeeples().size() + "");
+            this.setText(player.getNumMeeples() + "");
         }
     }
 

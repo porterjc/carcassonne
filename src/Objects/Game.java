@@ -137,7 +137,7 @@ public class Game {
                 currentTurnState = TurnState.MEEPLE_PLACEMENT;
                 bottomDisplay.placedTileUpdate();
                 System.out.println("CURRENT: MEEPLE");
-                if (getCurrentTurnPlayer().getMeeples().isEmpty())
+                if (!getCurrentTurnPlayer().hasMeeplesLeft())
                     return moveToNextState();
                 else
                     return true;
@@ -359,7 +359,7 @@ public class Game {
     public void endGame() {
         Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
         for (Player player: players) {
-            for(Meeple m : player.getMeeples()){
+            for(Meeple m : player.getPlacedMeeples()){
                 if(m.getFeature() == GlobalVariables.Feature.CITY) {
                     HashSet<GlobalVariables.Direction> directions = new HashSet<>();
                     if (m.getTile().getInternals().contains(GlobalVariables.Internal.CITY)) {
