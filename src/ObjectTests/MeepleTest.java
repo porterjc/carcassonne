@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
+ * Test methods for the meeple class
  * Created by johnsoaa on 3/29/2015.
  */
 public class MeepleTest extends TestCase {
@@ -95,24 +96,7 @@ public class MeepleTest extends TestCase {
         m.remove();
         assertEquals(null, m.getTile());
     }
-   /* @Test
-    public void testPlaceMeebleOnNull(){
-        TestCase.assertEquals(0, p.lastUsedMeeple);
-        this.p.placeMeeple(tiles.pop());
-        TestCase.assertEquals(1, p.lastUsedMeeple);
-        this.p.placeMeeple(tiles.pop());
-        TestCase.assertEquals(2, p.lastUsedMeeple);
-        this.p.placeMeeple(tiles.pop());
-        TestCase.assertEquals(3, p.lastUsedMeeple);
-        this.p.placeMeeple(tiles.pop());
-        TestCase.assertEquals(4, p.lastUsedMeeple);
-        this.p.placeMeeple(null);
-        TestCase.assertEquals(5, p.lastUsedMeeple);
-        this.p.placeMeeple(null);
-        TestCase.assertEquals(6, p.lastUsedMeeple);
-        TestCase.assertEquals(false, this.p.placeMeeple(null));
-        TestCase.assertEquals(6, p.lastUsedMeeple);
-    }*/
+
     @After
     public void cleanUp() {
         p = null;
@@ -132,11 +116,19 @@ public class MeepleTest extends TestCase {
     }
 
     @Test
-    public void testPlaceMeeble() {
+    public void testPlaceMeeple2() {
         PlayableTile pt = new PlayableTile();
         m.place(pt, GlobalVariables.Feature.GRASS, GlobalVariables.Location.CENTER);
         assertEquals(GlobalVariables.Feature.GRASS, m.getFeature());
         assertEquals(pt, m.getTile());
-//        assertEquals(p.getMeeples().get(0),m.getTile().getMeeple());
+    }
+
+    @Test
+    public void testPlaceMeepleOnInternal() {
+        PlayableTile pt = new PlayableTile();
+        m.place(pt, GlobalVariables.Internal.MONASTERY, GlobalVariables.Location.CENTER);
+        assertEquals(GlobalVariables.Internal.MONASTERY, m.getInternal());
+        assertEquals(pt, m.getTile());
+        assertEquals(m, pt.getMeeple());
     }
 }
