@@ -45,18 +45,6 @@ public class Player {
             this.playerScore += points;
     }
 
-    //Testing for this method is included in ObjectTests.PlayableTileTest
-   /* public boolean placeMeeple(PlayableTile t) {
-       /* if (lastUsedMeeple < meeples.size() - 1) {
-            lastUsedMeeple++;
-            return true;
-        }*/
-        //return false;
-       /* Meeple m = removeMeeple();
-        if(m != null) {
-            m.place(p);
-        }
-    } */
 
     public boolean hasMeeplesLeft() {
         return numMeeples > 0;
