@@ -228,6 +228,7 @@ public class Game {
             if (city.getValue() > 0 && !city.getKey().isEmpty()) {
                 for (Meeple m : city.getKey()) {
                     m.getPlayer().updateScore(city.getValue());
+                    m.getPlayer().addMeeple();
                     m.getTile().removeMeeple();
                 }
             }
