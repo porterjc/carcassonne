@@ -358,37 +358,43 @@ public class Game {
      */
     public void endGame() {
         Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
-        HashSet<GlobalVariables.Direction> directions = new HashSet<>();
-        if (currentTile.getInternals().contains(GlobalVariables.Internal.CITY)) {
-            if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY)
-                directions.add(GlobalVariables.Direction.NORTH);
-            if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY)
-                directions.add(GlobalVariables.Direction.WEST);
-            if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY)
-                directions.add(GlobalVariables.Direction.EAST);
-            if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY)
-                directions.add(GlobalVariables.Direction.SOUTH);
-            cities.push(currentTile.startScoreCity(directions, false));
-        } else {
-            if (currentTile.getTopFeature() == GlobalVariables.Feature.CITY) {
-                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-                direc.add(GlobalVariables.Direction.NORTH);
-                cities.push(currentTile.startScoreCity(direc, false));
-            }
-            if (currentTile.getLeftFeature() == GlobalVariables.Feature.CITY) {
-                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-                direc.add(GlobalVariables.Direction.WEST);
-                cities.push(currentTile.startScoreCity(direc, false));
-            }
-            if (currentTile.getRightFeature() == GlobalVariables.Feature.CITY) {
-                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-                direc.add(GlobalVariables.Direction.EAST);
-                cities.push(currentTile.startScoreCity(direc, false));
-            }
-            if (currentTile.getBottomFeature() == GlobalVariables.Feature.CITY) {
-                HashSet<GlobalVariables.Direction> direc = new HashSet<>();
-                direc.add(GlobalVariables.Direction.SOUTH);
-                cities.push(currentTile.startScoreCity(direc, false));
+        for (Player player: players) {
+            for(Meeple m : player.getMeeples()){
+                if(m.getFeature() == GlobalVariables.Feature.CITY) {
+                    HashSet<GlobalVariables.Direction> directions = new HashSet<>();
+                    if (m.getTile().getInternals().contains(GlobalVariables.Internal.CITY)) {
+                        if (m.getTile().getTopFeature() == GlobalVariables.Feature.CITY)
+                            directions.add(GlobalVariables.Direction.NORTH);
+                        if (m.getTile().getLeftFeature() == GlobalVariables.Feature.CITY)
+                            directions.add(GlobalVariables.Direction.WEST);
+                        if (m.getTile().getRightFeature() == GlobalVariables.Feature.CITY)
+                            directions.add(GlobalVariables.Direction.EAST);
+                        if (m.getTile().getBottomFeature() == GlobalVariables.Feature.CITY)
+                            directions.add(GlobalVariables.Direction.SOUTH);
+                        cities.push(m.getTile().startScoreCity(directions, false));
+                    } else {
+                        if (m.getTile().getTopFeature() == GlobalVariables.Feature.CITY) {
+                            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                            direc.add(GlobalVariables.Direction.NORTH);
+                            cities.push(m.getTile().startScoreCity(direc, false));
+                        }
+                        if (m.getTile().getLeftFeature() == GlobalVariables.Feature.CITY) {
+                            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                            direc.add(GlobalVariables.Direction.WEST);
+                            cities.push(m.getTile().startScoreCity(direc, false));
+                        }
+                        if (m.getTile().getRightFeature() == GlobalVariables.Feature.CITY) {
+                            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                            direc.add(GlobalVariables.Direction.EAST);
+                            cities.push(m.getTile().startScoreCity(direc, false));
+                        }
+                        if (m.getTile().getBottomFeature() == GlobalVariables.Feature.CITY) {
+                            HashSet<GlobalVariables.Direction> direc = new HashSet<>();
+                            direc.add(GlobalVariables.Direction.SOUTH);
+                            cities.push(m.getTile().startScoreCity(direc, false));
+                        }
+                    }
+                }
             }
         }
 

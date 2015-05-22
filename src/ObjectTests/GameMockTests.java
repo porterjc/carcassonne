@@ -111,12 +111,13 @@ public class GameMockTests {
         tile6.setTop(tile4);
 
         m.place(tile1, GlobalVariables.Feature.CITY, GlobalVariables.Location.TOP);
+        user1.getMeeples().add(m);
         tile1.setMeeple(m);
 
         testGame.setCurrentTile(tile5);
         testGame.endGame();
 
-        assertEquals(30, user1.getPlayerScore());
+        assertEquals(24, user1.getPlayerScore());
 
     }
 }
