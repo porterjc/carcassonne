@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -18,11 +19,16 @@ import static org.junit.Assert.assertTrue;
 public class GameTest {
     public final int numberOfTiles = 72;
     public ArrayList<Player> players;
+    public ArrayList<Player> twoPlayers;
     public BottomDisplay bdstub;
 
     @Before
     public void setUp() {
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<>();
+
+        this.twoPlayers = new ArrayList<>();
+        twoPlayers.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+        twoPlayers.add(new Player(GlobalVariables.PlayerColor.RED));
         this.bdstub = new BottomDisplay(500);
     }
 
@@ -40,14 +46,6 @@ public class GameTest {
         return testStack;
     }
 
-
-   /*
-   A game with no players is not allowed, so this test is obsolete
-   @Test
-    public void testCreateGameWithNoPlayers() {
-        Game board = new Game(bdstub);
-        assertEquals(true, board.getPlayers() == null);
-    }*/
 
     @Test
     public void testCreateGameWithOnePlayers() {
@@ -112,12 +110,12 @@ public class GameTest {
     @Test
     public void testDrawTile() {
         Game game = new Game(bdstub, getTiles(), this.players);
-        assertEquals(numberOfTiles, game.getNumberOfTilesLeft());
-        game.drawTile();
         assertEquals(numberOfTiles - 1, game.getNumberOfTilesLeft());
         game.drawTile();
+        assertEquals(numberOfTiles - 2, game.getNumberOfTilesLeft());
         game.drawTile();
-        assertEquals(numberOfTiles - 3, game.getNumberOfTilesLeft());
+        game.drawTile();
+        assertEquals(numberOfTiles - 4, game.getNumberOfTilesLeft());
     }
 
     @Test
@@ -131,16 +129,6 @@ public class GameTest {
     }
 
     @Test
-    public void testIsGameOver() {
-        Game game = new Game(bdstub, getTiles(), this.players);
-        assertEquals(false, game.isGameOver());
-        for (int i = 0; i < numberOfTiles; i++) {
-            game.drawTile();
-        }
-        assertEquals(true, game.isGameOver());
-    }
-
-    @Test
 
     public void testBeginGame() {
         Player p1 = new Player(GlobalVariables.PlayerColor.RED);
@@ -148,41 +136,44 @@ public class GameTest {
         players.add(p1);
         players.add(p2);
         Game game = new Game(bdstub, getTiles(), this.players);
-        game.begin();
         assertEquals(0, game.getCurrentTurn());
         assertEquals(false, game.isGameOver());
     }
 
     @Test
     public void testPlayerTurn() {
-        players.add(new Player(GlobalVariables.PlayerColor.RED));
-        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        Stack<PlayableTile> testStack = new Stack<PlayableTile>();
-        Game game = new Game(bdstub, testStack, this.players);
-        game.begin();
+        Stack<PlayableTile> testStack = new Stack<>();
+        Game game = new Game(null, testStack, this.twoPlayers);
         assertEquals(false, game.moveToNextTurn());
 
-        game = new Game(bdstub, getTiles(), this.players);
-        game.begin();
-        assertEquals(true, game.moveToNextTurn());
+        game = new Game(null, getTiles(), this.twoPlayers);
+        assertTrue(game.moveToNextTurn());
         assertEquals(1, game.getCurrentTurn());
 
-        assertEquals(true, game.moveToNextTurn());
+        assertTrue(game.moveToNextTurn());
         assertEquals(0, game.getCurrentTurn());
 
         this.players.add(new Player(GlobalVariables.PlayerColor.BLACK));
         this.players.add(new Player(GlobalVariables.PlayerColor.BLUE));
-        game = new Game(bdstub, getTiles(), this.players);
-        game.begin();
+        game = new Game(null, getTiles(), this.players);
         assertEquals(true, game.moveToNextTurn());
         assertEquals(1, game.getCurrentTurn());
         assertEquals(true, game.moveToNextTurn());
-        assertEquals(2, game.getCurrentTurn());
-        assertEquals(true, game.moveToNextTurn());
-        assertEquals(3, game.getCurrentTurn());
-        assertEquals(true, game.moveToNextTurn());
         assertEquals(0, game.getCurrentTurn());
     }
+
+    @Test
+    public void testMoveNextTurn() {
+        Stack<PlayableTile> testStack = new Stack<>();
+        Game game = new Game(null, testStack, this.twoPlayers);
+        assertFalse(game.moveToNextTurn());
+
+        game = new Game(null, getTiles(), this.twoPlayers);
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.moveToNextTurn());
+        assertEquals(1, game.getCurrentTurn());
+    }
+
 
     @Test
     public void testscoreUpdate(){
@@ -213,7 +204,7 @@ public class GameTest {
     public void testGetCurrentTurnPlayer() {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
-        Game game = new Game(bdstub, getTiles(), this.players);
+        Game game = new Game(null, getTiles(), this.players);
         assertEquals(players.get(0), game.getCurrentTurnPlayer());
         game.moveToNextTurn();
         assertEquals(players.get(1), game.getCurrentTurnPlayer());

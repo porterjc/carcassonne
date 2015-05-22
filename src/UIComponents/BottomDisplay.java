@@ -114,7 +114,6 @@ public class BottomDisplay extends JPanel{
      * Called each time a tile is placed to update the UI
      */
     public void placedTileUpdate() {
-        disableLabel(currentTileLabel);
         updateTilesLeftLabel();
         updateStatePanel();
     }
@@ -140,10 +139,12 @@ public class BottomDisplay extends JPanel{
      */
     public void displayFinalScore() {
         Container parent = getParent();
-        parent.removeAll();
-        parent.add(new FinalScorePanel(game));
-        parent.revalidate();
-        parent.repaint();
+        if(parent != null) {
+            parent.removeAll();
+            parent.add(new FinalScorePanel(game));
+            parent.revalidate();
+            parent.repaint();
+        }
     }
 
     /**
@@ -176,12 +177,5 @@ public class BottomDisplay extends JPanel{
         scorePanel.repaint();
     }
 
-    /**
-     * Sets the label to appear as "disabled"
-     * @param label the label to disable
-     */
-    private void disableLabel(JLabel label) {
-        //TODO make this appear gray
-    }
 
 }

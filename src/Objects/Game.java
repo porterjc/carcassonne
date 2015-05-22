@@ -72,21 +72,12 @@ public class Game {
     }
 
     /**
-     * TODO 1. add functionality to pass an image url back to the UI
-     *
-     * @return
+     * Draws a new tile
+     * @return true if a tile was drawn
      */
     public boolean drawTile() {
-        if (tiles.size() == 0) {
-            if (isRiverMode()) {
-                riverMode = false;
-                finishRiver(currentTile);
-                TileFactory factory = new TileFactory();
-                tiles = factory.loadDeck(true);
-                bottomDisplay.placedTileUpdate();
-            } else
-                return false;
-        }
+        if (tiles.isEmpty())
+            return false;
 
         currentTile = tiles.pop();
         TileGrid grid = (TileGrid) currentTile.getParent();
@@ -113,13 +104,15 @@ public class Game {
         //Done add logic for switching to the next player in the GUI (getCurrentTurnPlayer & colors)
 
         //as we don't want too much coupling between the UI and the GAME class over sharing Objects.Player objects
-        if (drawTile())
-            bottomDisplay.finishedScoringUpdate();
+        if (drawTile()) {
+            if(bottomDisplay != null)
+                bottomDisplay.finishedScoringUpdate();
+        }
         else {
             gameOver = true;
             currentTurnState = TurnState.GAME_OVER;
             endGame();
-            return true;
+            return false;
         }
         return true;
     }
@@ -157,10 +150,6 @@ public class Game {
         return startScore;
     }
 
-    public void begin() {
-        this.gameOver = false;
-    }
-
     public int getCurrentTurn() {
         return this.currentTurn;
     }
@@ -169,21 +158,8 @@ public class Game {
         return players.get(currentTurn);
     }
 
-    public boolean canPlaceMeeple() {
-        return currentTurnState == TurnState.MEEPLE_PLACEMENT;
-    }
-
     public String getCurrentStateText() {
         return this.currentTurnState.getText();
-    }
-
-    /**
-     * Determines whether this game has river rules enabled
-     *
-     * @return whether this game has river rules enabled
-     */
-    public boolean isRiverMode() {
-        return riverMode;
     }
 
     /**
@@ -430,7 +406,8 @@ public class Game {
                 }
             }
         }
-        bottomDisplay.displayFinalScore();
+        if(bottomDisplay != null)
+            bottomDisplay.displayFinalScore();
     }
 
 /*    private Pair<HashSet<Meeple>, Integer> helpScoreCity(GlobalVariables.Direction d, PlayableTile tile) {
@@ -490,6 +467,14 @@ public class Game {
         return this.currentTurnState == TurnState.TILE_PLACEMENT;
     }
 
+    /**
+     * Determines whether a meeple can be placed
+     *
+     * @return true if the game is in the meeple placement state
+     */
+    public boolean canPlaceMeeple() {
+        return currentTurnState == TurnState.MEEPLE_PLACEMENT;
+    }
 
     /**
      * Adds a meeple to the list of monks
@@ -536,24 +521,4 @@ public class Game {
         this.currentTile = t;
     }
 
-    public void finishRiver(PlayableTile tile) {
-        TileGrid grid = (TileGrid) tile.getParent();
-        TileFactory factory = new TileFactory();
-        PlayableTile end = factory.getRiverEnd();
-        if (tile.getTopFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getTop())) {
-            end.rotateTile();
-            tile.getTop().addTile(end);
-        } else if (tile.getLeftFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getLeft())) {
-            end.rotateTile();
-            end.rotateTile();
-            tile.getLeft().addTile(end);
-        } else if (tile.getRightFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getRight())) {
-            tile.getRight().addTile(end);
-        } else if (tile.getBottomFeature() == GlobalVariables.Feature.RIVER && grid.getSlots().contains(tile.getBottom())) {
-            end.rotateTile();
-            end.rotateTile();
-            end.rotateTile();
-            tile.getBottom().addTile(end);
-        }
-    }
 }
