@@ -132,81 +132,82 @@ public class PlayableTile extends AbstractTile {
     public void addMeepleButtons(Player currentPlayer, boolean abbot) {
         int half = getHalfwayLocation(PlaceMeepleButton.BUTTON_SIZE);
         int far = getBottomLocation(PlaceMeepleButton.BUTTON_SIZE);
+        if (currentPlayer.hasMeeplesLeft()) {
+            // Center (Pretty much only for monasteries)
+            if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY)) {
+                if (abbot && currentPlayer.getAbbot().getInternal() == null) {
+                    this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half - 15, half));
+                    this.add(new PlaceAbbotButton(GlobalVariables.Internal.MONASTERY, currentPlayer, rotation));
+                } else
+                    this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
+            }
+            if (abbot && this.getInternals().contains(GlobalVariables.Internal.GARDEN) && currentPlayer.getAbbot().getInternal() == null)
+                this.add(new PlaceAbbotButton(GlobalVariables.Internal.GARDEN, currentPlayer, this.rotation));
 
-        // Center (Pretty much only for monasteries)
-        if (this.getInternals().contains(GlobalVariables.Internal.MONASTERY)) {
-            if (abbot && currentPlayer.getAbbot().getInternal() == null) {
-                this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half - 15, half));
-                this.add(new PlaceAbbotButton(GlobalVariables.Internal.MONASTERY, currentPlayer, rotation));
-            } else
-                this.add(new PlaceMeepleButton(null, GlobalVariables.Internal.MONASTERY, currentPlayer, GlobalVariables.Location.CENTER, half, half));
-        }
-        if (abbot && this.getInternals().contains(GlobalVariables.Internal.GARDEN) && currentPlayer.getAbbot().getInternal() == null)
-            this.add(new PlaceAbbotButton(GlobalVariables.Internal.GARDEN, currentPlayer, this.rotation));
+            GlobalVariables.Feature t = getTopFeature();
+            GlobalVariables.Feature l = getLeftFeature();
+            GlobalVariables.Feature r = getRightFeature();
+            GlobalVariables.Feature b = getBottomFeature();
 
-        GlobalVariables.Feature t = getTopFeature();
-        GlobalVariables.Feature l = getLeftFeature();
-        GlobalVariables.Feature r = getRightFeature();
-        GlobalVariables.Feature b = getBottomFeature();
+            //Edges
+            if (shouldHaveButton(GlobalVariables.Direction.NORTH)) { //Top
+                if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 1)
+                    this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN));
+                else if (l != GlobalVariables.Feature.GRASS)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
+            }
+            if (shouldHaveButton(GlobalVariables.Direction.WEST)) { //Left
+                if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 0)
+                    this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half));
+                else if (t != GlobalVariables.Feature.GRASS)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
+            }
+            if (shouldHaveButton(GlobalVariables.Direction.EAST)) { //Right
+                if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 2)
+                    this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));
+                else if (b != GlobalVariables.Feature.GRASS)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
+            }
+            if (shouldHaveButton(GlobalVariables.Direction.SOUTH)) { //Bottom
+                if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 3)
+                    this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));
+                else if (r != GlobalVariables.Feature.GRASS)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
+            }
 
-        //Edges
-        if (shouldHaveButton(GlobalVariables.Direction.NORTH)) { //Top
-            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 1)
-                this.add(new PlaceMeepleButton(t, null, currentPlayer, GlobalVariables.Location.TOP, half, TILE_INNER_MARGIN));
-            else if (l != GlobalVariables.Feature.GRASS)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
-        }
-        if (shouldHaveButton(GlobalVariables.Direction.WEST)) { //Left
-            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 0)
-                this.add(new PlaceMeepleButton(l, null, currentPlayer, GlobalVariables.Location.LEFT, TILE_INNER_MARGIN, half));
-            else if (t != GlobalVariables.Feature.GRASS)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, t == GlobalVariables.Feature.CITY ? TILE_INNER_MARGIN + CITY_OFFSET : TILE_INNER_MARGIN);
-        }
-        if (shouldHaveButton(GlobalVariables.Direction.EAST)) { //Right
-            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 2)
-                this.add(new PlaceMeepleButton(r, null, currentPlayer, GlobalVariables.Location.RIGHT, far, half));
-            else if (b != GlobalVariables.Feature.GRASS)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
-        }
-        if (shouldHaveButton(GlobalVariables.Direction.SOUTH)) { //Bottom
-            if (!this.getInternals().contains(GlobalVariables.Internal.GARDEN) || rotation != 3)
-                this.add(new PlaceMeepleButton(b, null, currentPlayer, GlobalVariables.Location.BOTTOM, half, far));
-            else if (r != GlobalVariables.Feature.GRASS)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, far, b == GlobalVariables.Feature.CITY ? far - CITY_OFFSET : far);
-        }
-
-        //Corners
-        if (shouldHaveCornerButton(t, l, GlobalVariables.Location.TOPLEFT)) {
-            if (t == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN + CITY_OFFSET);
-            else if (l == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN + CITY_OFFSET, TILE_INNER_MARGIN);
-            else
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN);
-        }
-        if (shouldHaveCornerButton(t, r, GlobalVariables.Location.TOPRIGHT)) {
-            if (t == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN + CITY_OFFSET);
-            else if (r == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far - CITY_OFFSET, TILE_INNER_MARGIN);
-            else
-                placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN);
-        }
-        if (shouldHaveCornerButton(b, l, GlobalVariables.Location.BOTTOMLEFT)) {
-            if (b == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far - CITY_OFFSET);
-            else if (l == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN + CITY_OFFSET, far);
-            else
-                placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far);
-        }
-        if (shouldHaveCornerButton(b, r, GlobalVariables.Location.BOTTOMRIGHT)) {
-            if (b == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far - CITY_OFFSET);
-            else if (r == GlobalVariables.Feature.CITY)
-                placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far - CITY_OFFSET, far);
-            else
-                placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far);
+            //Corners
+            if (shouldHaveCornerButton(t, l, GlobalVariables.Location.TOPLEFT)) {
+                if (t == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN + CITY_OFFSET);
+                else if (l == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN + CITY_OFFSET, TILE_INNER_MARGIN);
+                else
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPLEFT, TILE_INNER_MARGIN, TILE_INNER_MARGIN);
+            }
+            if (shouldHaveCornerButton(t, r, GlobalVariables.Location.TOPRIGHT)) {
+                if (t == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN + CITY_OFFSET);
+                else if (r == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far - CITY_OFFSET, TILE_INNER_MARGIN);
+                else
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.TOPRIGHT, far, TILE_INNER_MARGIN);
+            }
+            if (shouldHaveCornerButton(b, l, GlobalVariables.Location.BOTTOMLEFT)) {
+                if (b == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far - CITY_OFFSET);
+                else if (l == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN + CITY_OFFSET, far);
+                else
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMLEFT, TILE_INNER_MARGIN, far);
+            }
+            if (shouldHaveCornerButton(b, r, GlobalVariables.Location.BOTTOMRIGHT)) {
+                if (b == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far - CITY_OFFSET);
+                else if (r == GlobalVariables.Feature.CITY)
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far - CITY_OFFSET, far);
+                else
+                    placeCornerButton(currentPlayer, GlobalVariables.Location.BOTTOMRIGHT, far, far);
+            }
         }
     }
 
