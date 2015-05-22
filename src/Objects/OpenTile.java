@@ -1,6 +1,7 @@
 package Objects;
 
 import Main.GlobalVariables;
+import UIComponents.OpenTileMouseListener;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -14,31 +15,33 @@ import java.util.Set;
  * A tile representing an open space on the grid where a tile may be placed
  * Created by johnsoaa on 3/31/2015.
  */
-public class OpenTile extends AbstractTile implements MouseListener {
+public class OpenTile extends AbstractTile {
 
     /**
      * Constructor
      */
     public OpenTile() {
         super();
-        this.addMouseListener(this);
+        this.addMouseListener(new OpenTileMouseListener(this));
     }
 
     /**
      * Constructor
-     * @param left the tile to the left of this
-     * @param right the tile to the right of this
-     * @param top the tile above this
+     *
+     * @param left   the tile to the left of this
+     * @param right  the tile to the right of this
+     * @param top    the tile above this
      * @param bottom the tile below this
      */
     public OpenTile(AbstractTile left, AbstractTile right, AbstractTile top, AbstractTile bottom) {
         super(left, right, top, bottom);
         this.drawSelf();
-        this.addMouseListener(this);
+        this.addMouseListener(new OpenTileMouseListener(this));
     }
 
     /**
      * Called after addTile is called. If this is linked to nothing in any direction, expand the grid
+     *
      * @return the direction to expand the grid
      */
     @Override
@@ -68,6 +71,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
 
     /**
      * Determines whether a tile may be placed over this one
+     *
      * @param tileToPlace the tile to be placed over this one
      * @return whether or not the playable tile may be added over this one
      */
@@ -85,8 +89,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
         if (getTop().getFeatures() == null) {
             System.out.println("Top was null");
             return true;
-        }
-        else {
+        } else {
             boolean val = tileFeature == getTop().getTargetFeature(GlobalVariables.Direction.SOUTH);
             System.out.println("This top: " + tileFeature + " Bottom on tile above: " + getTop().getTargetFeature(GlobalVariables.Direction.SOUTH));
             return val;
@@ -100,11 +103,10 @@ public class OpenTile extends AbstractTile implements MouseListener {
         if (getBottom().getFeatures() == null) {
             System.out.println("Bottom was null");
             return true;
-        }
-        else {
+        } else {
             boolean val = tileFeature == getBottom().getTargetFeature(GlobalVariables.Direction.NORTH);
-          //  if (!val)
-                System.out.println("This bottom: " + tileFeature + " Top on tile below: " + getBottom().getTargetFeature(GlobalVariables.Direction.NORTH));
+            //  if (!val)
+            System.out.println("This bottom: " + tileFeature + " Top on tile below: " + getBottom().getTargetFeature(GlobalVariables.Direction.NORTH));
             //return tileFeatures.get(Main.GlobalVariables.Direction.SOUTH) == getBottom().getFeatures().get(Main.GlobalVariables.Direction.NORTH);
             return val;
         }
@@ -116,12 +118,11 @@ public class OpenTile extends AbstractTile implements MouseListener {
         if (getLeft().getFeatures() == null) {
             System.out.println("Left was null");
             return true;
-        }
-        else {
+        } else {
             boolean val = tileFeature == getLeft().getTargetFeature(GlobalVariables.Direction.EAST);
             //return tileFeatures.get(Main.GlobalVariables.Direction.WEST) == getLeft().getFeatures().get(Main.GlobalVariables.Direction.EAST);
-          //  if (!val)
-                System.out.println("This left: " + tileFeature + " Right on tile to left: " + getLeft().getTargetFeature(GlobalVariables.Direction.EAST));
+            //  if (!val)
+            System.out.println("This left: " + tileFeature + " Right on tile to left: " + getLeft().getTargetFeature(GlobalVariables.Direction.EAST));
             return val;
         }
 
@@ -133,12 +134,11 @@ public class OpenTile extends AbstractTile implements MouseListener {
         if (getRight().getFeatures() == null) {
             System.out.println("Right was null");
             return true;
-        }
-        else {
+        } else {
             boolean val = tileFeature == getRight().getTargetFeature(GlobalVariables.Direction.WEST);
             //return tileeFeatures.get(Main.GlobalVariables.Direction.EAST) == getRight().getFeatures().get(Main.GlobalVariables.Direction.WEST);
             //if (!val)
-                System.out.println("This right: " + tileFeature + " Left on tile to right: " + getRight().getTargetFeature(GlobalVariables.Direction.WEST));
+            System.out.println("This right: " + tileFeature + " Left on tile to right: " + getRight().getTargetFeature(GlobalVariables.Direction.WEST));
             return val;
         }
 
@@ -157,47 +157,4 @@ public class OpenTile extends AbstractTile implements MouseListener {
         return direction;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        TileGrid grid = (TileGrid) this.getParent();
-        if(!grid.getGame().canAdjustTile())
-            return;
-        PlayableTile current = grid.getGame().getCurrentTile();
-
-        if (this.canPlace(current)) {
-            grid.removeSlot(this);
-            GlobalVariables.Direction direction = this.addTile(current);
-            if (direction != null) {
-                grid.addNullRow(direction);
-            }
-            current.addMeepleButtons(grid.getGame().getCurrentTurnPlayer(), grid.getGame().isAbbotMode());
-            grid.revalidate();
-            grid.repaint();
-
-            grid.getGame().moveToNextState();
-
-        }
-    }
-
-    // Unnecessary MouseListener Methods
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }
