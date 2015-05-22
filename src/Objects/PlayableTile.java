@@ -369,7 +369,7 @@ public class PlayableTile extends AbstractTile {
         if (directions.contains(GlobalVariables.Direction.SOUTH)) {
             currentScore += getBottom().scoreCity(alreadyVisited, meeples, completion).getValue();
         }
-        if (currentScore <= 3) {
+        if (currentScore <= 3 && completion) {
             currentScore = -1;
             return new Pair(meeples, currentScore);
         }

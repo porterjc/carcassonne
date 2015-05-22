@@ -389,6 +389,9 @@ public class Game {
                             cities.push(m.getTile().startScoreCity(direc, false));
                         }
                     }
+                    if(cities.isEmpty()){
+                        cities.push(m.getTile().startScoreCity(directions, false));
+                    }
                 }
                 else if(m.getFeature() == GlobalVariables.Feature.GRASS) {
                     Pair<Set<Meeple>, Integer> fieldScore = m.getTile().traceField(new HashSet<AbstractTile>(), m.getLocation(), new HashSet<Meeple>(), new HashSet<PlayableTile>(), true, 0);
