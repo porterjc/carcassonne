@@ -2,11 +2,11 @@ package ObjectTests;
 
 import Main.GlobalVariables;
 import Objects.*;
+import UIComponents.TileGrid;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;

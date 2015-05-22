@@ -3,6 +3,7 @@ package Objects;
 import Main.GlobalVariables;
 import UIComponents.PlaceAbbotButton;
 import UIComponents.PlaceMeepleButton;
+import UIComponents.TileGrid;
 import javafx.util.Pair;
 
 import javax.swing.*;

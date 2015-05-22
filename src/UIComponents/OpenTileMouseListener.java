@@ -3,7 +3,6 @@ package UIComponents;
 import Main.GlobalVariables;
 import Objects.OpenTile;
 import Objects.PlayableTile;
-import Objects.TileGrid;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

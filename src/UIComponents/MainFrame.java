@@ -5,7 +5,6 @@ import Main.TileFactory;
 import Objects.Game;
 import Objects.PlayableTile;
 import Objects.Player;
-import Objects.TileGrid;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

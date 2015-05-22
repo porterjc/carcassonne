@@ -1,7 +1,7 @@
 package UIComponentsTests;
-import Objects. *;
 import Main. *;
 import Objects.PlayableTile;
+import UIComponents.TileGrid;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

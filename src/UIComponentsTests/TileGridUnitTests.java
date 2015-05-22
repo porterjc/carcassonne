@@ -1,7 +1,8 @@
-package ObjectTests;
+package UIComponentsTests;
 
 import Main.GlobalVariables;
 import Objects.*;
+import UIComponents.TileGrid;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

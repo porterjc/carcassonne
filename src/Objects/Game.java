@@ -3,10 +3,9 @@ package Objects;
 import Main.GlobalVariables;
 import Main.TileFactory;
 import UIComponents.BottomDisplay;
+import UIComponents.TileGrid;
 import javafx.util.Pair;
-import sun.rmi.runtime.Log;
 
-import javax.swing.*;
 import java.util.*;
 
 /**

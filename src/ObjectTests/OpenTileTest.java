@@ -4,13 +4,11 @@ import Main.GlobalVariables;
 import Objects.NullTile;
 import Objects.OpenTile;
 import Objects.PlayableTile;
-import Objects.TileGrid;
+import UIComponents.TileGrid;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.HashSet;
 
