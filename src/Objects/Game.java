@@ -69,9 +69,6 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        if (tiles.size() == 0 && !isRiverMode()) {
-            gameOver = true;
-        }
         return gameOver;
     }
 
