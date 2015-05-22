@@ -257,7 +257,7 @@ public class GameTest {
         t1features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         t1features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
         PlayableTile t1 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), t1features);
-        players.get(0).getMeeples().get(0).place(t1, GlobalVariables.Feature.CITY, GlobalVariables.Location.BOTTOM);
+        players.get(0).removeMeeple().place(t1, GlobalVariables.Feature.CITY, GlobalVariables.Location.BOTTOM);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -280,7 +280,7 @@ public class GameTest {
         Set<GlobalVariables.Internal> internals = new HashSet<>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2, internals);
-        players.get(1).getMeeples().get(0).place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
+        players.get(1).removeMeeple().place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
         internals = new HashSet<>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> featuress = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -311,7 +311,7 @@ public class GameTest {
         t1features.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         t1features.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
         PlayableTile t1 = new PlayableTile(t1features, new HashSet<GlobalVariables.Internal>());
-        players.get(0).getMeeples().get(0).place(t1, GlobalVariables.Feature.CITY, GlobalVariables.Location.BOTTOM);
+        players.get(0).removeMeeple().place(t1, GlobalVariables.Feature.CITY, GlobalVariables.Location.BOTTOM);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature1 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
         feature1.put(GlobalVariables.Direction.NORTH, GlobalVariables.Feature.CITY);
         feature1.put(GlobalVariables.Direction.EAST, GlobalVariables.Feature.GRASS);
@@ -328,8 +328,8 @@ public class GameTest {
         Set<GlobalVariables.Internal> internals1 = new HashSet<>();
         internals1.add(GlobalVariables.Internal.ROADSTOP);
         PlayableTile t3 = new PlayableTile(new OpenTile(), new OpenTile(), new OpenTile(), new OpenTile(), feature2, internals1);
-        players.get(1).getMeeples().get(0).place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
-        t3.setMeeple(players.get(1).getMeeples().get(0));
+        players.get(1).removeMeeple().place(t3, GlobalVariables.Feature.ROAD, GlobalVariables.Location.BOTTOM);
+        t3.setMeeple(players.get(1).removeMeeple());
         Set<GlobalVariables.Internal> internals = new HashSet<>();
         internals.add(GlobalVariables.Internal.ROADSTOP);
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> featuress = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>(); //HAS ROADSTOP

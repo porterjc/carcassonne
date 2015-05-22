@@ -136,8 +136,10 @@ public abstract class AbstractTile extends JLabel {
         newTile.drawSelf();
         newTile.setBounds(this.getBounds());
         Container parent = this.getParent();
-        parent.remove(this);
-        parent.add(newTile);
+        if(parent != null) {
+            parent.remove(this);
+            parent.add(newTile);
+        }
 
         return newTile.updateAdjacent();
     }

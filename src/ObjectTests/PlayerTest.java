@@ -27,7 +27,7 @@ public class PlayerTest {
         assertEquals(false, p == null);
         assertEquals(0, p.getPlayerScore());
         assertEquals(GlobalVariables.PlayerColor.BLUE, p.getPlayerColor());
-        assertEquals(7, p.getMeeples().size());
+        assertEquals(7, p.getNumMeeples());
     }
     @Test
     public void testScoreUpdate(){

@@ -55,7 +55,7 @@ public class PlayableTileFarmerTest {
         feature2.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.GRASS);
         feature2.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
         PlayableTile p = new PlayableTile(feature2);
-        Object m = currentUser.getMeeples().get(0);
+        Object m = currentUser.removeMeeple();
         tiles.add(p);
 
         HashMap<GlobalVariables.Direction, GlobalVariables.Feature> feature3 = new HashMap<GlobalVariables.Direction, GlobalVariables.Feature>();
@@ -71,7 +71,7 @@ public class PlayableTileFarmerTest {
         feature4.put(GlobalVariables.Direction.WEST, GlobalVariables.Feature.CITY);
         feature4.put(GlobalVariables.Direction.SOUTH, GlobalVariables.Feature.CITY);
         p = new PlayableTile(feature4);
-        currentUser.getMeeples().get(currentUser.lastUsedMeeple);
+        currentUser.removeMeeple();
         tiles.add(new PlayableTile(feature4));
     }
 

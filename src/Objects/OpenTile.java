@@ -69,21 +69,14 @@ public class OpenTile extends AbstractTile implements MouseListener {
     /**
      * Determines whether a tile may be placed over this one
      * @param tileToPlace the tile to be placed over this one
-     * @param riverMode whether or not the river rules must be taken into consideration
      * @return whether or not the playable tile may be added over this one
      */
-    public boolean canPlace(PlayableTile tileToPlace, boolean riverMode) {
+    public boolean canPlace(PlayableTile tileToPlace) {
         boolean e = checkEast(tileToPlace);
         boolean w = checkWest(tileToPlace);
         boolean n = checkNorth(tileToPlace);
         boolean s = checkSouth(tileToPlace);
 
-        if(riverMode) {
-            return ((tileToPlace.getTopFeature() == GlobalVariables.Feature.RIVER && this.getTop().getTargetFeature(GlobalVariables.Direction.SOUTH) == GlobalVariables.Feature.RIVER) ||
-                    (tileToPlace.getLeftFeature() == GlobalVariables.Feature.RIVER && this.getLeft().getTargetFeature(GlobalVariables.Direction.EAST) == GlobalVariables.Feature.RIVER) ||
-                    (tileToPlace.getRightFeature() == GlobalVariables.Feature.RIVER && this.getRight().getTargetFeature(GlobalVariables.Direction.WEST) == GlobalVariables.Feature.RIVER) ||
-                    (tileToPlace.getBottomFeature() == GlobalVariables.Feature.RIVER && this.getBottom().getTargetFeature(GlobalVariables.Direction.NORTH) == GlobalVariables.Feature.RIVER));
-        }
         return e && w && n && s;
     }
 
@@ -146,7 +139,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
             //return tileeFeatures.get(Main.GlobalVariables.Direction.EAST) == getRight().getFeatures().get(Main.GlobalVariables.Direction.WEST);
             //if (!val)
                 System.out.println("This right: " + tileFeature + " Left on tile to right: " + getRight().getTargetFeature(GlobalVariables.Direction.WEST));
-            System.out.println(getRight());
             return val;
         }
 
@@ -156,11 +148,6 @@ public class OpenTile extends AbstractTile implements MouseListener {
     public Pair<HashSet<Meeple>, Integer> scoreCity(Set<AbstractTile> alreadyVisited, HashSet<Meeple> meeples, boolean completion) {
         return new Pair(meeples, -1);
     }
-
-    /*@Override
-    public Pair<Set<Meeple>, Set<Pair<HashSet<Meeple>, Integer>>> traceField(Set<AbstractTile> alreadyVisited, GlobalVariables.Location from, Set<Meeple> farmers, Set<Pair<HashSet<Meeple>, Integer>> cities, boolean gameOver) {
-        return new Pair<>(farmers, cities);
-    } */
 
 
     @Override
@@ -177,7 +164,7 @@ public class OpenTile extends AbstractTile implements MouseListener {
             return;
         PlayableTile current = grid.getGame().getCurrentTile();
 
-        if (this.canPlace(current, grid.getGame().isRiverMode())) {
+        if (this.canPlace(current)) {
             grid.removeSlot(this);
             GlobalVariables.Direction direction = this.addTile(current);
             if (direction != null) {

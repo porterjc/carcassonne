@@ -187,20 +187,20 @@ public class MainFrame extends JFrame {
         optionsPanel.add(rulesLabel);
         optionsPanel.add(getMarginArea(smallMargin));
 
-        final GraphicCheckBox riverCheckBox = new GraphicCheckBox("River");
+       // final GraphicCheckBox riverCheckBox = new GraphicCheckBox("River");
         final GraphicCheckBox abbotCheckBox = new GraphicCheckBox("Abbot");
-        SelectPanel rulesPanel = new SelectPanel();
+        /*SelectPanel rulesPanel = new SelectPanel();
         rulesPanel.add(riverCheckBox);
         rulesPanel.add(Box.createRigidArea(new Dimension(20, 10)));
-        rulesPanel.add(abbotCheckBox);
-        optionsPanel.add(rulesPanel);
+        rulesPanel.add(abbotCheckBox);*/
+        optionsPanel.add(abbotCheckBox);
         optionsPanel.add(getMarginArea(largeMargin));
 
 
         GraphicButton startButton = new GraphicButton(buttonWidth, buttonHeight, "Start Game") {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setupGamePlay(meepleSelectPanel.getAllSelected(), riverCheckBox.isChecked(), abbotCheckBox.isChecked());
+                setupGamePlay(meepleSelectPanel.getAllSelected(), false, abbotCheckBox.isChecked());
             }
         };
         optionsPanel.add(startButton);
