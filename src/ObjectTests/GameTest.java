@@ -196,6 +196,10 @@ public class GameTest {
         meeples.add(new Meeple(players.get(1)));
         game.scoreUpdate(meeples, 5);
         assertEquals(5, players.get(1).getPlayerScore());
+        assertEquals(0, players.get(0).getPlayerScore());
+
+
+
     }
 
     @Test
