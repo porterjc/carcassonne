@@ -89,13 +89,13 @@ public class PlayableTile extends AbstractTile {
         if (!grid.getSlots().contains(openTop) || topdir == null) {
             grid.addSlot(openTop);
         }
-        if (!grid.getSlots().contains(openTop) || leftdir == null) {
+        if (!grid.getSlots().contains(openLeft) || leftdir == null) {
             grid.addSlot(openLeft);
         }
-        if (!grid.getSlots().contains(openTop) || rightdir == null) {
+        if (!grid.getSlots().contains(openRight) || rightdir == null) {
             grid.addSlot(openRight);
         }
-        if (!grid.getSlots().contains(openTop) || bottomdir == null) {
+        if (!grid.getSlots().contains(openBottom) || bottomdir == null) {
             grid.addSlot(openBottom);
         }
 
