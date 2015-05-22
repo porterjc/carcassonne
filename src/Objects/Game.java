@@ -124,7 +124,8 @@ public class Game {
         switch (currentTurnState) {
             case TILE_PLACEMENT:
                 currentTurnState = TurnState.MEEPLE_PLACEMENT;
-                bottomDisplay.placedTileUpdate();
+                if(bottomDisplay != null)
+                    bottomDisplay.placedTileUpdate();
                 System.out.println("CURRENT: MEEPLE");
                 if (!getCurrentTurnPlayer().hasMeeplesLeft())
                     return moveToNextState();
@@ -132,7 +133,8 @@ public class Game {
                     return true;
             case MEEPLE_PLACEMENT:
                 currentTurnState = TurnState.SCORING;
-                bottomDisplay.placedMeepleUpdate();
+                if(bottomDisplay != null)
+                    bottomDisplay.placedMeepleUpdate();
                 System.out.println("CURRENT: SCORING");
                 startScore = true;
                 break;
@@ -493,9 +495,10 @@ public class Game {
      * Removes a meeple from the list of monks
      *
      * @param monk The meeple to remove
+     * @return whether the removal was successful
      */
-    public void removeMonk(Meeple monk) {
-        this.monks.remove(monk);
+    public boolean removeMonk(Meeple monk) {
+        return this.monks.remove(monk);
     }
 
 

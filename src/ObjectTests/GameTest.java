@@ -174,6 +174,13 @@ public class GameTest {
         assertEquals(1, game.getCurrentTurn());
     }
 
+    @Test
+    public void testMonks() {
+        Game game = new Game(null, new Stack<PlayableTile>(), this.twoPlayers);
+        Meeple m = game.getCurrentTurnPlayer().removeMeeple();
+        game.addMonk(m);
+        assertTrue(game.removeMonk(m));
+    }
 
     @Test
     public void testscoreUpdate(){

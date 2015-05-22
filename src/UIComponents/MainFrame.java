@@ -235,6 +235,9 @@ public class MainFrame extends JFrame {
      * Starts a new game and sets up the screen to play the game
      */
     private void setupGamePlay(ArrayList<SelectableButton> playerColors, boolean river, boolean abbot){
+        if(playerColors.size() <= 1)
+            return;
+
         backPanel.removeAll();
         this.remove(backPanel);
         revalidate();
