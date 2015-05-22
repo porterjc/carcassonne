@@ -509,21 +509,24 @@ public class PlayableTile extends AbstractTile {
             }
         }
 
-        //No meeple on this tile, so check others
-        Pair<Set<Meeple>, Integer> found = null;
+        Pair<Set<Meeple>, Integer> found = new Pair(farmers, value);
 
         if (!alreadyVisited.contains(this.getTop())) {
             GlobalVariables.Feature topFeature = this.getTopFeature();
-            if (topFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.TOP))
-                found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOM, farmers, cities, false, value);
+            if (topFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.TOP)) {
+                found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOM, farmers, cities, gameOver, value);
+                value = found.getValue();
+            }
             else if (topFeature == GlobalVariables.Feature.ROAD || topFeature == GlobalVariables.Feature.RIVER) {
                 if (isOnSameSideOfRoad(from, GlobalVariables.Location.TOPRIGHT)) {
                     HashSet<AbstractTile> temp = new HashSet<>();
                     temp.addAll(alreadyVisited);
-                    found = this.getTop().traceField(temp, GlobalVariables.Location.BOTTOMRIGHT, farmers, cities, false, value);
+                    found = this.getTop().traceField(temp, GlobalVariables.Location.BOTTOMRIGHT, farmers, cities, gameOver, value);
+                    value = found.getValue();
                 }
                 if (isOnSameSideOfRoad(from, GlobalVariables.Location.TOPLEFT)) {
-                    found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, farmers, cities, false, value);
+                    found = this.getTop().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, farmers, cities, gameOver, value);
+                    value = found.getValue();
                 }
             } else if (topFeature == GlobalVariables.Feature.CITY && gameOver) {
                 Set<GlobalVariables.Direction> dirs = new HashSet<>();
@@ -534,21 +537,26 @@ public class PlayableTile extends AbstractTile {
             }
         }
 
-        if (found != null && !found.getKey().isEmpty() && !gameOver)
+        if (!found.getKey().isEmpty() && !gameOver)
             return found;
+
 
         if (!alreadyVisited.contains(this.getBottom())) {
             GlobalVariables.Feature bottomFeature = this.getBottomFeature();
-            if (bottomFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOM))
-                found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOP, farmers, cities, false, value);
+            if (bottomFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOM)) {
+                found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOP, farmers, cities, gameOver, value);
+                value = found.getValue();
+            }
             else if (bottomFeature == GlobalVariables.Feature.ROAD || bottomFeature == GlobalVariables.Feature.RIVER) {
                 HashSet<AbstractTile> temp = new HashSet<>();
                 temp.addAll(alreadyVisited);
                 if (isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOMRIGHT)) {
-                    found = this.getBottom().traceField(temp, GlobalVariables.Location.TOPRIGHT, farmers, cities, false, value);
+                    found = this.getBottom().traceField(temp, GlobalVariables.Location.TOPRIGHT, farmers, cities, gameOver, value);
+                    value = found.getValue();
                 }
                 if (isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOMLEFT)) {
-                    found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOPLEFT, farmers, cities, false, value);
+                    found = this.getBottom().traceField(alreadyVisited, GlobalVariables.Location.TOPLEFT, farmers, cities, gameOver, value);
+                    value = found.getValue();
                 }
             }
             else if (bottomFeature == GlobalVariables.Feature.CITY && gameOver) {
@@ -559,21 +567,25 @@ public class PlayableTile extends AbstractTile {
                     value += 3;
             }
         }
-        if (found != null && !found.getKey().isEmpty() && !gameOver)
+        if (!found.getKey().isEmpty() && !gameOver)
             return found;
 
         if (!alreadyVisited.contains(this.getLeft())) {
             GlobalVariables.Feature leftFeature = this.getLeftFeature();
-            if (leftFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.LEFT))
-                found = this.getLeft().traceField(alreadyVisited, GlobalVariables.Location.RIGHT, farmers, cities, false, value);
+            if (leftFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.LEFT)) {
+                found = this.getLeft().traceField(alreadyVisited, GlobalVariables.Location.RIGHT, farmers, cities, gameOver, value);
+                value = found.getValue();
+            }
             else if (leftFeature == GlobalVariables.Feature.ROAD || leftFeature == GlobalVariables.Feature.RIVER) {
                 HashSet<AbstractTile> temp = new HashSet<>();
                 temp.addAll(alreadyVisited);
                 if (isOnSameSideOfRoad(from, GlobalVariables.Location.TOPLEFT)) {
-                    found = this.getLeft().traceField(temp, GlobalVariables.Location.TOPRIGHT, farmers, cities, false, value);
+                    found = this.getLeft().traceField(temp, GlobalVariables.Location.TOPRIGHT, farmers, cities, gameOver, value);
+                    value = found.getValue();
                 }
                 if (isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOMLEFT)) {
-                    found = this.getLeft().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMRIGHT, farmers, cities, false, value);
+                    found = this.getLeft().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMRIGHT, farmers, cities, gameOver, value);
+                    value = found.getValue();
                 }
             }
             else if (leftFeature == GlobalVariables.Feature.CITY && gameOver) {
@@ -584,21 +596,25 @@ public class PlayableTile extends AbstractTile {
                     value += 3;
             }
         }
-        if (found != null && !found.getKey().isEmpty() && !gameOver)
+        if (!found.getKey().isEmpty() && !gameOver)
             return found;
 
         if (!alreadyVisited.contains(this.getRight())) {
         GlobalVariables.Feature rightFeature = this.getRightFeature();
-        if (rightFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.RIGHT))
-            found = this.getRight().traceField(alreadyVisited, GlobalVariables.Location.LEFT, farmers, cities, false, value);
+        if (rightFeature == GlobalVariables.Feature.GRASS && isOnSameSideOfRoad(from, GlobalVariables.Location.RIGHT)) {
+            found = this.getRight().traceField(alreadyVisited, GlobalVariables.Location.LEFT, farmers, cities, gameOver, value);
+            value = found.getValue();
+        }
         else if (rightFeature == GlobalVariables.Feature.ROAD || rightFeature == GlobalVariables.Feature.RIVER) {
             HashSet<AbstractTile> temp = new HashSet<>();
             temp.addAll(alreadyVisited);
             if (isOnSameSideOfRoad(from, GlobalVariables.Location.TOPRIGHT)) {
-                found = this.getRight().traceField(temp, GlobalVariables.Location.TOPLEFT, farmers, cities, false, value);
+                found = this.getRight().traceField(temp, GlobalVariables.Location.TOPLEFT, farmers, cities, gameOver, value);
+                value = found.getValue();
             }
             if (isOnSameSideOfRoad(from, GlobalVariables.Location.BOTTOMRIGHT)) {
-                found = this.getRight().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, farmers, cities, false, value);
+                found = this.getRight().traceField(alreadyVisited, GlobalVariables.Location.BOTTOMLEFT, farmers, cities, gameOver, value);
+                value = found.getValue();
             }
         }
         else if (rightFeature == GlobalVariables.Feature.CITY && gameOver) {
@@ -611,7 +627,7 @@ public class PlayableTile extends AbstractTile {
 
         }
 
-        if (found != null && !found.getKey().isEmpty() && !gameOver)
+        if (!found.getKey().isEmpty() && !gameOver)
             return found;
 
         return new Pair<>(farmers, value);
