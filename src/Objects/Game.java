@@ -414,6 +414,11 @@ public class Game {
                         }
                     }
                 }
+                else if(m.getFeature() == GlobalVariables.Feature.GRASS) {
+                    Pair<Set<Meeple>, Integer> fieldScore = m.getTile().traceField(new HashSet<AbstractTile>(), m.getLocation(), new HashSet<Meeple>(), new HashSet<PlayableTile>(), true, 0);
+                    if(fieldScore.getValue() > 0)
+                        m.getPlayer().updateScore(fieldScore.getValue());
+                }
             }
         }
 
