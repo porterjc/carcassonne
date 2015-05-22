@@ -185,6 +185,20 @@ public class GameTest {
     }
 
     @Test
+    public void testscoreUpdate(){
+        players.add(new Player(GlobalVariables.PlayerColor.RED));
+        players.add(new Player(GlobalVariables.PlayerColor.YELLOW));
+        Game game = new Game(bdstub, getTiles(), this.players);
+
+        Set<Meeple> meeples = new HashSet<>();
+        meeples.add(new Meeple(players.get(0)));
+        meeples.add(new Meeple(players.get(1)));
+        meeples.add(new Meeple(players.get(1)));
+        game.scoreUpdate(meeples, 5);
+        assertEquals(5, players.get(1).getPlayerScore());
+    }
+
+    @Test
     public void testGetCurrentTurnPlayer() {
         players.add(new Player(GlobalVariables.PlayerColor.RED));
         players.add(new Player(GlobalVariables.PlayerColor.YELLOW));

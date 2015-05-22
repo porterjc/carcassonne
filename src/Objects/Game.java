@@ -91,8 +91,8 @@ public class Game {
 
         currentTile = tiles.pop();
         TileGrid grid = (TileGrid) currentTile.getParent();
-        if(grid != null){
-            while(!grid.areValidMoves(currentTile)) {
+        if (grid != null) {
+            while (!grid.areValidMoves(currentTile)) {
                 currentTile = tiles.pop();
             }
         }
@@ -210,7 +210,7 @@ public class Game {
 //        }
 
         Pair<Set<Meeple>, Integer> roads;
-        roads = startScoreRoad(currentTile,isGameOver());
+        roads = startScoreRoad(currentTile, isGameOver());
         //TODO add code for removing meeples on scored roads from UI
 
         Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
@@ -262,27 +262,52 @@ public class Game {
 
         moveToNextState();
     }
-    //updates the scores for the given meeple set
-    private void scoreUpdate(int currentScore, Pair<Set<Meeple>, Integer> score) {
-        int points = score.getValue() + currentScore;
-        List<Player> playersScored = new ArrayList<>();
-        for (Meeple m : score.getKey()) {
-            if (!playersScored.contains(m.getPlayer())) {
-                playersScored.add(m.getPlayer());
-                m.getPlayer().updateScore(points);
+
+    //public only for test-cases
+    public void scoreUpdate(Set<Meeple> key, int points) {
+        Map<Player, Integer> playersScored = new HashMap<>();
+        //add up all the meeples
+        for (Meeple m : key) {
+            Player player = m.getPlayer();
+            if (playersScored.get(player) == null) {
+                playersScored.put(player, 1);
+            } else {
+                playersScored.put(player, playersScored.get(player) + 1);
             }
             m.remove();
         }
+        //score the top player
+        System.out.print(playersScored.entrySet().toString());
+        List<Player> playersToScore = new ArrayList<>();
+        int max = 0;
+        for (Map.Entry<Player,Integer> e : playersScored.entrySet()) {
+            if (max < e.getValue()){
+                max = e.getValue();
+                playersToScore= new ArrayList<>();
+                playersToScore.add(e.getKey());
+            }else if (max == e.getValue()){
+                playersToScore.add(e.getKey());
+            }else{
+                //de nada
+            }
+        }
+        for(Player p:playersToScore){
+            p.updateScore(points);
+        }
+
+
     }
+
 
     private Pair<Set<Meeple>, Integer> getCorrectScore(int currentScore, Pair<Set<Meeple>, Integer> score) {
         if (score.getValue() + currentScore > 1) {
-            scoreUpdate(currentScore, score);
+            scoreUpdate(score.getKey(), currentScore + score.getValue());
         } else {
             score = new Pair<>(score.getKey(), 0);
         }
         return score;
     }
+
 
     /**
      * Begins scoring process for roads and updates player's scores after calculation
@@ -346,18 +371,15 @@ public class Game {
     }
 
 
-
-
-
     /**
      * Called at the end of the game
      * TODO: Score everything
      */
     public void endGame() {
         Stack<Pair<HashSet<Meeple>, Integer>> cities = new Stack<>();
-        for (Player player: players) {
-            for(Meeple m : player.getPlacedMeeples()){
-                if(m.getFeature() == GlobalVariables.Feature.CITY) {
+        for (Player player : players) {
+            for (Meeple m : player.getPlacedMeeples()) {
+                if (m.getFeature() == GlobalVariables.Feature.CITY) {
                     HashSet<GlobalVariables.Direction> directions = new HashSet<>();
                     if (m.getTile().getInternals().contains(GlobalVariables.Internal.CITY)) {
                         if (m.getTile().getTopFeature() == GlobalVariables.Feature.CITY)
@@ -423,7 +445,7 @@ public class Game {
         scoreCity = this.currentTile.scoreCity(new HashSet<AbstractTile>(), new HashSet<Meeple>(), false);
         Set<AbstractTile> alreadyVisited = new HashSet<AbstractTile>();
         Set<Meeple> meeples = new HashSet<Meeple>();
-        Pair<Set<Meeple>, Integer> roadscore = startScoreRoad(currentTile,false);
+        Pair<Set<Meeple>, Integer> roadscore = startScoreRoad(currentTile, false);
 
         if (scoreCity.getValue() > 0) {
             for (Meeple m : scoreCity.getKey()) {
